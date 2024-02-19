@@ -1,0 +1,206 @@
+[
+    {
+        "id": "01",
+        "title": "Akuntan"
+    },
+    {
+        "id": "02",
+        "title": "Apoteker"
+    },
+    {
+        "id": "03",
+        "title": "Arsitek"
+    },
+    {
+        "id": "04",
+        "title": "Bidan"
+    },
+    {
+        "id": "05",
+        "title": "Buruh Harian"
+    },
+    {
+        "id": "06",
+        "title": "Dokter"
+    },
+    {
+        "id": "07",
+        "title": "Dosen"
+    },
+    {
+        "id": "08",
+        "title": "Guru"
+    },
+    {
+        "id": "09",
+        "title": "Industri"
+    },
+    {
+        "id": "10",
+        "title": "Juru Masak"
+    },
+    {
+        "id": "11",
+        "title": "Karyawan BUMD"
+    },
+    {
+        "id": "12",
+        "title": "Karyawan BUMN"
+    },
+    {
+        "id": "13",
+        "title": "Karyawan Honorer"
+    },
+    {
+        "id": "14",
+        "title": "Karyawan Swasta"
+    },
+    {
+        "id": "15",
+        "title": "Konstruksi"
+    },
+    {
+        "id": "16",
+        "title": "Konsultan"
+    },
+    {
+        "id": "17",
+        "title": "Mekanik"
+    },
+    {
+        "id": "18",
+        "title": "Nelayan atau Perikanan"
+    },
+    {
+        "id": "19",
+        "title": "Notaris"
+    },
+    {
+        "id": "20",
+        "title": "Pedagang"
+    },
+    {
+        "id": "21",
+        "title": "Pelaut"
+    },
+    {
+        "id": "22",
+        "title": "Pembantu Rumah Tangga"
+    },
+    {
+        "id": "23",
+        "title": "Penata Busana"
+    },
+    {
+        "id": "24",
+        "title": "Penata Rambut"
+    },
+    {
+        "id": "25",
+        "title": "Penata Rias"
+    },
+    {
+        "id": "26",
+        "title": "Peneliti"
+    },
+    {
+        "id": "27",
+        "title": "Penerjemah"
+    },
+    {
+        "id": "28",
+        "title": "Pengacara"
+    },
+    {
+        "id": "29",
+        "title": "Penyiar Radio"
+    },
+    {
+        "id": "30",
+        "title": "Penyiar Televisi"
+    },
+    {
+        "id": "31",
+        "title": "Perancang Busana"
+    },
+    {
+        "id": "32",
+        "title": "Perawat"
+    },
+    {
+        "id": "33",
+        "title": "Petani"
+    },
+    {
+        "id": "34",
+        "title": "Peternak"
+    },
+    {
+        "id": "35",
+        "title": "Pilot"
+    },
+    {
+        "id": "36",
+        "title": "Psikolog"
+    },
+    {
+        "id": "37",
+        "title": "Seniman"
+    },
+    {
+        "id": "38",
+        "title": "Sopir"
+    },
+    {
+        "id": "39",
+        "title": "Trasportasi"
+    },
+    {
+        "id": "40",
+        "title": "Tukang Batu"
+    },
+    {
+        "id": "41",
+        "title": "Tukang Cukur"
+    },
+    {
+        "id": "42",
+        "title": "Tukang Gigi"
+    },
+    {
+        "id": "43",
+        "title": "Tukang Kayu"
+    },
+    {
+        "id": "44",
+        "title": "Tukang Las atau Pandai Besi"
+    },
+    {
+        "id": "45",
+        "title": "Tukang Listrik"
+    },
+    {
+        "id": "46",
+        "title": "Tukang Sol Sepatu"
+    },
+    {
+        "id": "47",
+        "title": "Wartawan"
+    },
+    {
+        "id": "48",
+        "title": "Wiraswasta"
+    },
+    {
+        "id": "49",
+        "title": "Penulis"
+    },
+    {
+        "id": "40",
+        "title": "Content Creator atau Videografer"
+    },
+    {
+        "id": "41",
+        "title": "Pengembang Perangkat Lunak"
+    }
+]
