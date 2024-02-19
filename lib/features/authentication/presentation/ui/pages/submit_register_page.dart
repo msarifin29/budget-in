@@ -93,12 +93,6 @@ class _SubmitRegisterPageState extends State<SubmitRegisterPage> {
                                       ),
                                     );
                                   }).toList(),
-                                  validator: (value) {
-                                    if (value == null || value == '') {
-                                      return Strings.emptyDomicile;
-                                    }
-                                    return null;
-                                  },
                                   onChanged: (newValue) {
                                     if (initialCity.value == null) return;
                                     initialCity.value = newValue;
