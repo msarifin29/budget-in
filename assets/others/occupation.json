@@ -1,206 +1,206 @@
 [
     {
-        "id": "01",
+        "occupation_id": "01",
         "title": "Akuntan"
     },
     {
-        "id": "02",
+        "occupation_id": "02",
         "title": "Apoteker"
     },
     {
-        "id": "03",
+        "occupation_id": "03",
         "title": "Arsitek"
     },
     {
-        "id": "04",
+        "occupation_id": "04",
         "title": "Bidan"
     },
     {
-        "id": "05",
+        "occupation_id": "05",
         "title": "Buruh Harian"
     },
     {
-        "id": "06",
+        "occupation_id": "06",
         "title": "Dokter"
     },
     {
-        "id": "07",
+        "occupation_id": "07",
         "title": "Dosen"
     },
     {
-        "id": "08",
+        "occupation_id": "08",
         "title": "Guru"
     },
     {
-        "id": "09",
+        "occupation_id": "09",
         "title": "Industri"
     },
     {
-        "id": "10",
+        "occupation_id": "10",
         "title": "Juru Masak"
     },
     {
-        "id": "11",
+        "occupation_id": "11",
         "title": "Karyawan BUMD"
     },
     {
-        "id": "12",
+        "occupation_id": "12",
         "title": "Karyawan BUMN"
     },
     {
-        "id": "13",
+        "occupation_id": "13",
         "title": "Karyawan Honorer"
     },
     {
-        "id": "14",
+        "occupation_id": "14",
         "title": "Karyawan Swasta"
     },
     {
-        "id": "15",
+        "occupation_id": "15",
         "title": "Konstruksi"
     },
     {
-        "id": "16",
+        "occupation_id": "16",
         "title": "Konsultan"
     },
     {
-        "id": "17",
+        "occupation_id": "17",
         "title": "Mekanik"
     },
     {
-        "id": "18",
+        "occupation_id": "18",
         "title": "Nelayan atau Perikanan"
     },
     {
-        "id": "19",
+        "occupation_id": "19",
         "title": "Notaris"
     },
     {
-        "id": "20",
+        "occupation_id": "20",
         "title": "Pedagang"
     },
     {
-        "id": "21",
+        "occupation_id": "21",
         "title": "Pelaut"
     },
     {
-        "id": "22",
+        "occupation_id": "22",
         "title": "Pembantu Rumah Tangga"
     },
     {
-        "id": "23",
+        "occupation_id": "23",
         "title": "Penata Busana"
     },
     {
-        "id": "24",
+        "occupation_id": "24",
         "title": "Penata Rambut"
     },
     {
-        "id": "25",
+        "occupation_id": "25",
         "title": "Penata Rias"
     },
     {
-        "id": "26",
+        "occupation_id": "26",
         "title": "Peneliti"
     },
     {
-        "id": "27",
+        "occupation_id": "27",
         "title": "Penerjemah"
     },
     {
-        "id": "28",
+        "occupation_id": "28",
         "title": "Pengacara"
     },
     {
-        "id": "29",
+        "occupation_id": "29",
         "title": "Penyiar Radio"
     },
     {
-        "id": "30",
+        "occupation_id": "30",
         "title": "Penyiar Televisi"
     },
     {
-        "id": "31",
+        "occupation_id": "31",
         "title": "Perancang Busana"
     },
     {
-        "id": "32",
+        "occupation_id": "32",
         "title": "Perawat"
     },
     {
-        "id": "33",
+        "occupation_id": "33",
         "title": "Petani"
     },
     {
-        "id": "34",
+        "occupation_id": "34",
         "title": "Peternak"
     },
     {
-        "id": "35",
+        "occupation_id": "35",
         "title": "Pilot"
     },
     {
-        "id": "36",
+        "occupation_id": "36",
         "title": "Psikolog"
     },
     {
-        "id": "37",
+        "occupation_id": "37",
         "title": "Seniman"
     },
     {
-        "id": "38",
+        "occupation_id": "38",
         "title": "Sopir"
     },
     {
-        "id": "39",
+        "occupation_id": "39",
         "title": "Trasportasi"
     },
     {
-        "id": "40",
+        "occupation_id": "40",
         "title": "Tukang Batu"
     },
     {
-        "id": "41",
+        "occupation_id": "41",
         "title": "Tukang Cukur"
     },
     {
-        "id": "42",
+        "occupation_id": "42",
         "title": "Tukang Gigi"
     },
     {
-        "id": "43",
+        "occupation_id": "43",
         "title": "Tukang Kayu"
     },
     {
-        "id": "44",
+        "occupation_id": "44",
         "title": "Tukang Las atau Pandai Besi"
     },
     {
-        "id": "45",
+        "occupation_id": "45",
         "title": "Tukang Listrik"
     },
     {
-        "id": "46",
+        "occupation_id": "46",
         "title": "Tukang Sol Sepatu"
     },
     {
-        "id": "47",
+        "occupation_id": "47",
         "title": "Wartawan"
     },
     {
-        "id": "48",
+        "occupation_id": "48",
         "title": "Wiraswasta"
     },
     {
-        "id": "49",
+        "occupation_id": "49",
         "title": "Penulis"
     },
     {
-        "id": "40",
+        "occupation_id": "40",
         "title": "Content Creator atau Videografer"
     },
     {
-        "id": "41",
+        "occupation_id": "41",
         "title": "Pengembang Perangkat Lunak"
     }
 ]
