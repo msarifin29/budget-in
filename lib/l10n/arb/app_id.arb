@@ -1,5 +1,26 @@
 {
     "@@locale": "id",
     "no": "Tidak",
-    "yes": "Ya"
+    "yes": "Ya",
+    "msg_onboarding": "Membangun kebiasaan finansial yang sehat dan mengendalikan pengeluaran yang tidak perlu",
+    "username": "Nama pengguna",
+    "password": "Kata sandi",
+    "input_password": "Masukkan kata sandi",
+    "input_username": "Masukkan nama pengguna",
+    "email": "Email",
+    "email_lower": "email",
+    "have_account": "Sudah punya akun ?",
+    "login": "Masuk",
+    "next": "Lanjut",
+    "balance": "Saldo",
+    "cash": "Tunai",
+    "submit": "Kirim",
+    "forgot_password": "Lupa password",
+    "new_account": "Buat akun baru",
+    "empty_username": "Nama tidak boleh kosong",
+    "empty_password": "Kata sandi tidak boleh kosong",
+    "empty_email": "Email tidak boleh kosong",
+    "empty_balance": "Minimal saldo 2.000",
+    "empty_cash": "Minimal uang tunai 2.000",
+    "password_to_short": "Kata sandi min 6 karakter"
 }

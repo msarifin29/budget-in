@@ -1,5 +1,26 @@
 {
     "@@locale": "en",
     "no": "No",
-    "yes": "Yes"
+    "yes": "Yes",
+    "msg_onboarding": "Build healthy financial habits and control unncessary expenses",
+    "username": "Username",
+    "password": "Password",
+    "input_password": "Enter password",
+    "input_username": "Enter username",
+    "email": "Email",
+    "email_lower": "email",
+    "have_account": "Already have an account ?",
+    "login": "Login",
+    "next": "Next",
+    "balance": "Balance",
+    "cash": "Cash",
+    "submit": "Submit",
+    "forgot_password": "Forgot password",
+    "new_account": "Create new account",
+    "empty_username": "Username can't be empty",
+    "empty_password": "Password can't be empty",
+    "empty_email": "Email can't be empty",
+    "empty_balance": "Minimun balance  2.000",
+    "empty_cash": "Minimun cash 2.000",
+    "password_to_short": "The password must be at least 6 characters long"
 }

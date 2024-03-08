@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 class RouteName {
   // Authentication
   static const splashPage = 'splash-page';
+  static const onboardingPage = 'onboarding-page';
   static const loginPage = 'login-page';
   static const registerPage = 'register-page';
   static const submitRegisterPage = 'submit-register-page';
@@ -49,13 +50,6 @@ class AppRoute {
         return MaterialPageRoute(
           builder: (context) {
             return const RegisterPage();
-          },
-        );
-
-      case SplashPage.routeName:
-        return MaterialPageRoute(
-          builder: (context) {
-            return const SplashPage();
           },
         );
 

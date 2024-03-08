@@ -1,5 +1,6 @@
 import 'package:budget_in/core/core.dart';
 import 'package:budget_in/features/authentication/authentication.dart';
+import 'package:budget_in/l10n/l10n.dart';
 import 'package:flutter/material.dart';
 
 class RegisterPage extends StatefulWidget {
@@ -40,10 +41,13 @@ class _RegisterPageState extends State<RegisterPage> {
                 children: [
                   const LogoWidget(),
                   FormWidget(
-                    title: Strings.name,
-                    hint: Strings.inputName,
+                    title: context.l10n.username,
+                    hint: context.l10n.username,
                     controller: nameControl,
-                    icon: const Icon(Icons.person_outlined),
+                    icon: const Icon(
+                      Icons.person_outlined,
+                      color: ColorApp.green,
+                    ),
                     validator: (value) {
                       if (value == null || value == '') {
                         return Strings.emptyName;
@@ -57,10 +61,13 @@ class _RegisterPageState extends State<RegisterPage> {
                     hint: Strings.inputEmail,
                     controller: emailControl,
                     keyboardType: TextInputType.emailAddress,
-                    icon: const Icon(Icons.email_outlined),
+                    icon: const Icon(
+                      Icons.email_outlined,
+                      color: ColorApp.green,
+                    ),
                     validator: (value) {
                       if (value == null || value == '') {
-                        return Strings.emptyEmail;
+                        return context.l10n.empty_email;
                       }
                       return null;
                     },
@@ -70,8 +77,8 @@ class _RegisterPageState extends State<RegisterPage> {
                     valueListenable: isObscureText,
                     builder: (context, value, _) {
                       return FormWidget(
-                        title: Strings.password,
-                        hint: Strings.inputPassword,
+                        title: context.l10n.password,
+                        hint: context.l10n.input_password,
                         controller: passwordControl,
                         icon: IconButton(
                           onPressed: () {
@@ -81,42 +88,34 @@ class _RegisterPageState extends State<RegisterPage> {
                             isObscureText.value
                                 ? Icons.visibility_off_outlined
                                 : Icons.visibility_outlined,
+                            color: ColorApp.green,
                           ),
                         ),
                         obscureText: isObscureText.value,
                         validator: (value) {
                           if (value == null || value == '') {
-                            return Strings.emptyPassword;
-                          } else if (value.length < 8) {
-                            return Strings.passwordToShort;
+                            return context.l10n.empty_password;
+                          } else if (value.length < 6) {
+                            return context.l10n.password_to_short;
                           }
                           return null;
                         },
                       );
                     },
                   ),
-                  const SizedBox(height: 50),
-                  PrimaryButton(
-                    text: Strings.continueText,
-                    onPressed: () {
-                      if (globalKey.currentState!.validate()) {
-                        Navigator.pushNamed(
-                          context,
-                          SubmitRegisterPage.routeName,
-                        );
-                      }
-                    },
-                  ),
                 ],
               ),
             ),
-            const SizedBox(height: 20),
+            const SizedBox(height: 5),
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                const Text(Strings.alreadyAccount),
+                Text(
+                  context.l10n.have_account,
+                  style: const TextStyle(color: ColorApp.green),
+                ),
                 PrimaryTextButton(
-                  text: Strings.signIn,
+                  text: context.l10n.login,
                   onPressed: () {
                     Navigator.pushNamedAndRemoveUntil(
                       context,
@@ -126,6 +125,18 @@ class _RegisterPageState extends State<RegisterPage> {
                   },
                 ),
               ],
+            ),
+            const SizedBox(height: 50),
+            PrimaryButton(
+              text: context.l10n.next,
+              onPressed: () {
+                if (globalKey.currentState!.validate()) {
+                  Navigator.pushNamed(
+                    context,
+                    SubmitRegisterPage.routeName,
+                  );
+                }
+              },
             ),
           ],
         ),

@@ -2,6 +2,7 @@
 import 'package:budget_in/core/core.dart';
 import 'package:budget_in/features/authentication/authentication.dart';
 import 'package:budget_in/features/expenses/presentation/ui/expenses_ui.dart';
+import 'package:budget_in/l10n/l10n.dart';
 import 'package:flutter/material.dart';
 
 class LoginPage extends StatefulWidget {
@@ -45,10 +46,13 @@ class _LoginPageState extends State<LoginPage> {
                     hint: Strings.inputEmail,
                     controller: emailControl,
                     keyboardType: TextInputType.emailAddress,
-                    icon: const Icon(Icons.email_outlined),
+                    icon: const Icon(
+                      Icons.email_outlined,
+                      color: ColorApp.green,
+                    ),
                     validator: (value) {
                       if (value == null || value == '') {
-                        return Strings.emptyEmail;
+                        return context.l10n.empty_email;
                       }
                       return null;
                     },
@@ -58,8 +62,8 @@ class _LoginPageState extends State<LoginPage> {
                     valueListenable: isObscureText,
                     builder: (context, value, _) {
                       return FormWidget(
-                        title: Strings.password,
-                        hint: Strings.inputPassword,
+                        title: context.l10n.password,
+                        hint: context.l10n.input_password,
                         controller: passwordControl,
                         icon: IconButton(
                           onPressed: () {
@@ -75,26 +79,13 @@ class _LoginPageState extends State<LoginPage> {
                         obscureText: isObscureText.value,
                         validator: (value) {
                           if (value == null || value == '') {
-                            return Strings.emptyPassword;
-                          } else if (value.length < 8) {
-                            return Strings.passwordToShort;
+                            return context.l10n.empty_password;
+                          } else if (value.length < 6) {
+                            return context.l10n.password_to_short;
                           }
                           return null;
                         },
                       );
-                    },
-                  ),
-                  const SizedBox(height: 75),
-                  PrimaryButton(
-                    text: Strings.signIn,
-                    onPressed: () {
-                      if (globalKey.currentState!.validate()) {
-                        Navigator.pushNamedAndRemoveUntil(
-                          context,
-                          DashboardPage.routeName,
-                          (route) => false,
-                        );
-                      }
                     },
                   ),
                 ],
@@ -108,9 +99,9 @@ class _LoginPageState extends State<LoginPage> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    const Text(Strings.alreadyAccount),
+                    Text(context.l10n.have_account),
                     PrimaryTextButton(
-                      text: Strings.createAccount,
+                      text: context.l10n.new_account,
                       onPressed: () {
                         Navigator.pushNamedAndRemoveUntil(
                           context,
@@ -121,12 +112,24 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                   ],
                 ),
-                const SizedBox(height: 10),
                 PrimaryTextButton(
-                  text: Strings.forgotPassword,
+                  text: context.l10n.forgot_password,
                   onPressed: () {},
                 ),
               ],
+            ),
+            const SizedBox(height: 100),
+            PrimaryButton(
+              text: context.l10n.login,
+              onPressed: () {
+                if (globalKey.currentState!.validate()) {
+                  Navigator.pushNamedAndRemoveUntil(
+                    context,
+                    DashboardPage.routeName,
+                    (route) => false,
+                  );
+                }
+              },
             ),
           ],
         ),

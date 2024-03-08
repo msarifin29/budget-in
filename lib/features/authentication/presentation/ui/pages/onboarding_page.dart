@@ -2,21 +2,22 @@ import 'dart:async';
 
 import 'package:budget_in/core/core.dart';
 import 'package:budget_in/features/authentication/authentication.dart';
+import 'package:budget_in/l10n/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
-class SplashPage extends StatefulWidget {
-  const SplashPage({super.key});
-  static const routeName = RouteName.splashPage;
+class OnboardingPage extends StatefulWidget {
+  const OnboardingPage({super.key});
+  static const routeName = RouteName.onboardingPage;
 
   @override
-  State<SplashPage> createState() => _SplashPageState();
+  State<OnboardingPage> createState() => _OnboardingPageState();
 }
 
-class _SplashPageState extends State<SplashPage> {
+class _OnboardingPageState extends State<OnboardingPage> {
   Future<void> navigationTo() async {
     return Future.delayed(
-      const Duration(seconds: 4),
+      const Duration(seconds: 2),
       () => Navigator.of(context).pushNamedAndRemoveUntil(
         RegisterPage.routeName,
         (route) => false,
@@ -49,7 +50,7 @@ class _SplashPageState extends State<SplashPage> {
             child: SizedBox(
               width: 250,
               child: Text(
-                Strings.onboarding,
+                context.l10n.msg_onboarding,
                 textAlign: TextAlign.center,
                 style: context.textTheme.bodyMedium?.copyWith(
                   fontWeight: FontWeight.w500,

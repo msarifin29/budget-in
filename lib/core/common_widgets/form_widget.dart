@@ -14,6 +14,7 @@ class FormWidget extends StatelessWidget {
     this.obscureText = false,
     this.maxLines = 1,
     this.keyboardType,
+    this.hintStyle,
   });
 
   final String title;
@@ -25,6 +26,7 @@ class FormWidget extends StatelessWidget {
   final TextEditingController controller;
   final int maxLines;
   final TextInputType? keyboardType;
+  final TextStyle? hintStyle;
 
   @override
   Widget build(BuildContext context) {
@@ -47,6 +49,7 @@ class FormWidget extends StatelessWidget {
               ),
             ),
             hintText: hint,
+            hintStyle: hintStyle,
             suffixIcon: icon,
             prefixIcon: prefixIcon,
           ),

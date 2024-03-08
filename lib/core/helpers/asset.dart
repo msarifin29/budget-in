@@ -33,4 +33,6 @@ class SvgName {
   static const signout = '${BaseAsset.svg}signout.svg';
   static const view = '${BaseAsset.svg}view.svg';
   static const newExpense = '${BaseAsset.svg}new.svg';
+  static const wallet = '${BaseAsset.svg}wallet.svg';
+  static const bank = '${BaseAsset.svg}bank-circle.svg';
 }
