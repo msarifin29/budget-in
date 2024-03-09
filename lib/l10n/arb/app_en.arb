@@ -8,6 +8,14 @@
             }
         }
     },
+    "@st": {
+        "description": "A message with a parameters",
+        "placeholders": {
+            "v": {
+                "type": "int"
+            }
+        }
+    },
     "no": "No",
     "yes": "Yes",
     "msg_onboarding": "Build healthy financial habits and control unncessary expenses",
@@ -39,7 +47,7 @@
     "empty_income_msg": "No revenue has been generated as of this time",
     "empty_credit_msg": "Your credit history is still clean, yay!",
     "new_expense": "New expense",
-    "type_x": "Tipe {x}",
+    "type_x": "Type {x}",
     "category": "Category",
     "total": "Total",
     "food_and_beverage": "Food dan Drink",
@@ -56,5 +64,18 @@
     "food_ingredients": "Food ingredients",
     "other": "Other",
     "notes": "Notes",
-    "date": "Date"
+    "date": "Date",
+    "busines": "Busines",
+    "salary": "Salary",
+    "additional_income": "Additional income",
+    "loan": "Loan",
+    "new_income": "New income",
+    "new_credit": "New credit",
+    "duration_payments": "Duration of payments",
+    "installment": "Installment",
+    "due_date": "Due date",
+    "payment": "Payment",
+    "completed": "Completed",
+    "pay_now": "Pay now",
+    "st": "{v} st"
 }

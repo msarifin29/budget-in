@@ -1,6 +1,7 @@
 import 'package:budget_in/features/authentication/authentication.dart';
 import 'package:budget_in/features/expenses/presentation/ui/expenses_ui.dart';
 import 'package:budget_in/features/expenses/presentation/ui/pages/expense_page.dart';
+import 'package:budget_in/features/incomes/incomes.dart';
 import 'package:flutter/material.dart';
 
 class RouteName {
@@ -15,6 +16,8 @@ class RouteName {
   // Expenses
   static const dashboardPage = 'dashboard-page';
   static const expensePage = 'expense-page';
+  // Incomes
+  static const incomePage = 'income-page';
 }
 
 class AppRoute {
@@ -65,6 +68,12 @@ class AppRoute {
         return MaterialPageRoute(
           builder: (context) {
             return const ExpensePage();
+          },
+        );
+      case IncomePage.routeName:
+        return MaterialPageRoute(
+          builder: (context) {
+            return const IncomePage();
           },
         );
 

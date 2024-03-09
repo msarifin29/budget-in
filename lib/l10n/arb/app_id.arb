@@ -8,6 +8,14 @@
       }
     }
   },
+  "@st": {
+    "description": "A message with a parameters",
+    "placeholders": {
+      "v": {
+        "type": "int"
+      }
+    }
+  },
   "no": "Tidak",
   "yes": "Ya",
   "msg_onboarding": "Membangun kebiasaan finansial yang sehat dan mengendalikan pengeluaran yang tidak perlu",
@@ -39,7 +47,7 @@
   "empty_income_msg": "Sampai saat ini, belum ada pendapatan yang dihasilkan",
   "empty_credit_msg": "Riwayat kredit kamu masih bersih, yeay!",
   "new_expense": "Pengeluaran baru",
-  "type_x": "Tipe {x}",
+  "type_x": "Jenis {x}",
   "category": "Kategori",
   "total": "Total",
   "food_and_beverage": "Makanan dan Minuman",
@@ -56,5 +64,18 @@
   "food_ingredients": "Bahan Makanan",
   "other": "Lainnya",
   "notes": "Keterangan",
-  "date": "Tanggal"
+  "date": "Tanggal",
+  "busines": "Bisnis",
+  "salary": "Gaji",
+  "additional_income": "Pendapatan lain",
+  "loan": "Pinjaman",
+  "new_income": "Pendapatan baru",
+  "new_credit": "Kredit baru",
+  "duration_payments": "Lama angsuran",
+  "installment": "Angsuran",
+  "due_date": "Jatuh tempo",
+  "payment": "Pembayaran",
+  "completed": "Selesai",
+  "pay_now": "Bayar sekarang",
+  "st": "ke {v}"
 }

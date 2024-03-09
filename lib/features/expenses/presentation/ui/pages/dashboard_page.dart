@@ -137,7 +137,9 @@ class DashboardPage extends StatelessWidget {
                           image: SvgName.income,
                           title: context.l10n.income,
                           colorFilter: ColorApp.green,
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.pushNamed(context, RouteName.incomePage);
+                          },
                         ),
                         BoxFeaturewidget(
                           image: SvgName.creditSync,

@@ -10,6 +10,8 @@ class AmountCardWidget extends StatelessWidget {
     required this.date,
     required this.color,
     this.onTap,
+    this.plusMin = '',
+    this.colorPlusMinus = ColorApp.green,
   });
   final int total;
   final String category;
@@ -17,6 +19,8 @@ class AmountCardWidget extends StatelessWidget {
   final String date;
   final Color color;
   final VoidCallback? onTap;
+  final String plusMin;
+  final Color colorPlusMinus;
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -43,14 +47,20 @@ class AmountCardWidget extends StatelessWidget {
                 children: [
                   RichText(
                     text: TextSpan(
-                      text: 'Rp. ',
-                      style: context.textTheme.bodyMedium!,
+                      text: plusMin,
+                      style: context.textTheme.bodyMedium!.copyWith(
+                          fontWeight: FontWeight.w600, color: colorPlusMinus),
                       children: [
+                        TextSpan(
+                          text: ' Rp. ',
+                          style: context.textTheme.bodyMedium!
+                              .copyWith(color: colorPlusMinus),
+                        ),
                         TextSpan(
                           text: total.toString(),
                           style: context.textTheme.bodyLarge!.copyWith(
                               fontWeight: FontWeight.w600,
-                              color: ColorApp.green),
+                              color: colorPlusMinus),
                         ),
                       ],
                     ),
