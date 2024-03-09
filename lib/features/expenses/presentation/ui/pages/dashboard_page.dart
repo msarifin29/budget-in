@@ -128,16 +128,21 @@ class DashboardPage extends StatelessWidget {
                         BoxFeaturewidget(
                           image: SvgName.expense,
                           title: context.l10n.expense,
-                          onPressed: () {},
+                          colorFilter: ColorApp.red,
+                          onPressed: () {
+                            Navigator.pushNamed(context, RouteName.expensePage);
+                          },
                         ),
                         BoxFeaturewidget(
                           image: SvgName.income,
                           title: context.l10n.income,
+                          colorFilter: ColorApp.green,
                           onPressed: () {},
                         ),
                         BoxFeaturewidget(
                           image: SvgName.creditSync,
                           title: context.l10n.credit,
+                          colorFilter: ColorApp.red,
                           onPressed: () {},
                         ),
                       ],
@@ -250,42 +255,6 @@ class _CustomCarouselWidgetState extends State<CustomCarouselWidget> {
             ],
           );
         });
-  }
-}
-
-class BoxFeaturewidget extends StatelessWidget {
-  const BoxFeaturewidget({
-    super.key,
-    required this.image,
-    required this.title,
-    required this.onPressed,
-  });
-  final String image;
-  final String title;
-  final VoidCallback onPressed;
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialButton(
-      onPressed: onPressed,
-      padding: const EdgeInsets.all(8.0),
-      height: 65.0,
-      color: Colors.white,
-      splashColor: ColorApp.grey,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.0)),
-      child: Column(
-        children: [
-          SvgPicture.asset(image, width: 25.0),
-          const SizedBox(height: 5.0),
-          Text(
-            title,
-            style: context.textTheme.bodySmall!.copyWith(
-              color: ColorApp.green,
-            ),
-          ),
-        ],
-      ),
-    );
   }
 }
 

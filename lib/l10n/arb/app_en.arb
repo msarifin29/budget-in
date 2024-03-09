@@ -1,5 +1,13 @@
 {
     "@@locale": "en",
+    "@type_x": {
+        "description": "A message with a parameters",
+        "placeholders": {
+            "x": {
+                "type": "String"
+            }
+        }
+    },
     "no": "No",
     "yes": "Yes",
     "msg_onboarding": "Build healthy financial habits and control unncessary expenses",
@@ -14,6 +22,7 @@
     "next": "Next",
     "balance": "Balance",
     "cash": "Cash",
+    "non_cash": "Non cash",
     "submit": "Submit",
     "forgot_password": "Forgot password",
     "new_account": "Create new account",
@@ -25,5 +34,25 @@
     "password_to_short": "The password must be at least 6 characters long",
     "income": "Income",
     "expense": "Expense",
-    "credit": "Credit"
+    "credit": "Credit",
+    "empty_expense_msg": "No expenses yet. Keep track of your budget and we'll help you monitor it to reach your financial goals.",
+    "empty_income_msg": "No revenue has been generated as of this time",
+    "empty_credit_msg": "Your credit history is still clean, yay!",
+    "new_expense": "New expense",
+    "type_x": "Tipe {x}",
+    "category": "Category",
+    "total": "Total",
+    "food_and_beverage": "Food dan Drink",
+    "shopping": "Shopping",
+    "transport": "Transport",
+    "motorcycle_or_car": "Motorcycle atau Car",
+    "traveling": "Traveling",
+    "healty": "Healty",
+    "cost_and_bill": "Cost and Bill",
+    "education": "Education",
+    "sport_and_hoby": "Sport and Hobby",
+    "beauty": "Beauty",
+    "work": "Work",
+    "food_ingredients": "Food ingredients",
+    "other": "Other"
 }

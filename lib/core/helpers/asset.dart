@@ -26,6 +26,8 @@ class SvgName {
   static const delete = '${BaseAsset.svg}delete.svg';
   static const edit = '${BaseAsset.svg}edit.svg';
   static const file = '${BaseAsset.svg}file.svg';
+  static const filter = '${BaseAsset.svg}filter.svg';
+  static const filterWhite = '${BaseAsset.svg}filter_white.svg';
   static const person = '${BaseAsset.svg}person.svg';
   static const profile = '${BaseAsset.svg}profile.svg';
   static const search = '${BaseAsset.svg}search.svg';
