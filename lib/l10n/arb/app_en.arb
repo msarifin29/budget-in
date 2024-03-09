@@ -77,5 +77,13 @@
     "payment": "Payment",
     "completed": "Completed",
     "pay_now": "Pay now",
-    "st": "{v} st"
+    "st": "{v} st",
+    "electronic": "Electronic",
+    "motorcycle": "Motorcycle",
+    "car": "Car",
+    "property": "Property",
+    "furniture": "Furniture",
+    "kitchen_set": "Kitchen set",
+    "venture_capital": "Venture capital",
+    "monthly": "Monthly"
 }

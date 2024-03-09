@@ -1,4 +1,5 @@
 import 'package:budget_in/features/authentication/authentication.dart';
+import 'package:budget_in/features/credit/credits.dart';
 import 'package:budget_in/features/expenses/presentation/ui/expenses_ui.dart';
 import 'package:budget_in/features/expenses/presentation/ui/pages/expense_page.dart';
 import 'package:budget_in/features/incomes/incomes.dart';
@@ -18,6 +19,8 @@ class RouteName {
   static const expensePage = 'expense-page';
   // Incomes
   static const incomePage = 'income-page';
+  // Credits
+  static const creditPage = 'credit-page';
 }
 
 class AppRoute {
@@ -74,6 +77,12 @@ class AppRoute {
         return MaterialPageRoute(
           builder: (context) {
             return const IncomePage();
+          },
+        );
+      case CreditPage.routeName:
+        return MaterialPageRoute(
+          builder: (context) {
+            return const CreditPage();
           },
         );
 

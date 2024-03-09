@@ -145,7 +145,9 @@ class DashboardPage extends StatelessWidget {
                           image: SvgName.creditSync,
                           title: context.l10n.credit,
                           colorFilter: ColorApp.red,
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.pushNamed(context, RouteName.creditPage);
+                          },
                         ),
                       ],
                     ),

@@ -77,5 +77,13 @@
   "payment": "Pembayaran",
   "completed": "Selesai",
   "pay_now": "Bayar sekarang",
-  "st": "ke {v}"
+  "st": "ke {v}",
+  "electronic": "Elektronik",
+  "motorcycle": "Sepeda motor",
+  "car": "Mobil",
+  "property": "Properti",
+  "furniture": "Perabotan",
+  "kitchen_set": "Peralatan dapur",
+  "venture_capital": "Modal usaha",
+  "monthly": "Bulanan"
 }
