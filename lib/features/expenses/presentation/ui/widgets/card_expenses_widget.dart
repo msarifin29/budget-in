@@ -27,22 +27,12 @@ class CardExpensesWidget extends StatelessWidget {
               type: 'cash',
               date: DateTime.now(),
               total: 500000,
+              category: '',
               notes: '',
             ),
           );
         },
-        onLongPress: () {
-          showModalBottomSheet(
-            shape: const RoundedRectangleBorder(
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(20),
-                topRight: Radius.circular(20),
-              ),
-            ),
-            context: context,
-            builder: (context) => const DialogBottomSheetWidget(),
-          );
-        },
+        onLongPress: () {},
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

@@ -9,79 +9,86 @@ class AmountCardWidget extends StatelessWidget {
     required this.type,
     required this.date,
     required this.color,
+    this.onTap,
   });
   final int total;
   final String category;
   final String type;
   final String date;
   final Color color;
+  final VoidCallback? onTap;
   @override
   Widget build(BuildContext context) {
     return Card(
       elevation: 0.5,
       margin: const EdgeInsets.symmetric(horizontal: 15),
-      child: Container(
-        height: 80,
-        width: double.infinity,
-        padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(15),
-          color: Colors.white,
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                RichText(
-                  text: TextSpan(
-                    text: 'Rp. ',
-                    style: context.textTheme.bodyMedium!,
-                    children: [
-                      TextSpan(
-                        text: total.toString(),
-                        style: context.textTheme.bodyLarge!.copyWith(
-                            fontWeight: FontWeight.w600, color: ColorApp.green),
-                      ),
-                    ],
-                  ),
-                ),
-                RichText(
-                  text: TextSpan(
-                    text: category,
-                    style: context.textTheme.bodyMedium!,
-                    children: [
-                      TextSpan(
-                        text: '  $date',
-                        style: context.textTheme.bodySmall!.copyWith(
-                          color: ColorApp.green.withOpacity(0.5),
+      child: InkWell(
+        onTap: onTap,
+        borderRadius: BorderRadius.circular(15),
+        child: Container(
+          height: 80,
+          width: double.infinity,
+          padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(15),
+            color: Colors.white,
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  RichText(
+                    text: TextSpan(
+                      text: 'Rp. ',
+                      style: context.textTheme.bodyMedium!,
+                      children: [
+                        TextSpan(
+                          text: total.toString(),
+                          style: context.textTheme.bodyLarge!.copyWith(
+                              fontWeight: FontWeight.w600,
+                              color: ColorApp.green),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
+                  ),
+                  RichText(
+                    text: TextSpan(
+                      text: category,
+                      style: context.textTheme.bodyMedium!,
+                      children: [
+                        TextSpan(
+                          text: '  $date',
+                          style: context.textTheme.bodySmall!.copyWith(
+                            color: ColorApp.green.withOpacity(0.5),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+              Container(
+                height: 25,
+                width: 90,
+                alignment: Alignment.center,
+                decoration: BoxDecoration(
+                  color: color,
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                child: Text(
+                  type,
+                  style: context.textTheme.labelSmall!.copyWith(
+                    color: Colors.white,
+                    fontWeight: FontWeight.w600,
                   ),
                 ),
-              ],
-            ),
-            Container(
-              height: 25,
-              width: 90,
-              alignment: Alignment.center,
-              decoration: BoxDecoration(
-                color: color,
-                borderRadius: BorderRadius.circular(20),
               ),
-              child: Text(
-                type,
-                style: context.textTheme.labelSmall!.copyWith(
-                  color: Colors.white,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

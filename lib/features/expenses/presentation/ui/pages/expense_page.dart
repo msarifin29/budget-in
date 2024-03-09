@@ -1,5 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:budget_in/core/helpers/util_date.dart';
+import 'package:budget_in/features/expenses/presentation/ui/expenses_ui.dart';
 import 'package:flutter/material.dart';
 
 import 'package:budget_in/core/core.dart';
@@ -17,7 +18,23 @@ class ExpensePage extends StatelessWidget {
         child: NewAppBarWidget(
           title: context.l10n.expense,
           actions: [
-            SvgButton(image: SvgName.filterWhite, onTap: () {}),
+            SvgButton(
+                image: SvgName.filterWhite,
+                onTap: () {
+                  showModalBottomSheet(
+                    shape: const RoundedRectangleBorder(
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(20),
+                        topRight: Radius.circular(20),
+                      ),
+                    ),
+                    context: context,
+                    builder: (context) => FilterWidget(
+                      onPressedCash: () {},
+                      onPressedNonCash: () {},
+                    ),
+                  );
+                }),
             const SizedBox(width: 15.0),
           ],
         ),
@@ -28,15 +45,29 @@ class ExpensePage extends StatelessWidget {
             total: 25000,
             category: 'Food and Drink',
             type: context.l10n.cash,
-            date: UtilDate.today('d MMM y HH:mm', DateTime.now()),
+            date: UtilDate.today('dd/MM/yyyy HH:mm', DateTime.now()),
             color: ColorApp.green,
+            onTap: () {
+              showModalBottomSheet(
+                  context: context,
+                  backgroundColor: Colors.white,
+                  builder: (context) {
+                    return DetailExpensesWidget(
+                      type: context.l10n.cash,
+                      date: DateTime.now(),
+                      total: 25000,
+                      category: context.l10n.food_and_beverage,
+                      notes: '',
+                    );
+                  });
+            },
           ),
           const SizedBox(height: 15),
           AmountCardWidget(
             total: 500000,
             category: 'Food and Drink',
             type: context.l10n.non_cash,
-            date: UtilDate.today('d MMM y HH:mm', DateTime.now()),
+            date: UtilDate.today('dd/MM/yyyy HH:mm', DateTime.now()),
             color: ColorApp.blue,
           ),
         ],

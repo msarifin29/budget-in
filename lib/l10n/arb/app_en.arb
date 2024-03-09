@@ -54,5 +54,7 @@
     "beauty": "Beauty",
     "work": "Work",
     "food_ingredients": "Food ingredients",
-    "other": "Other"
+    "other": "Other",
+    "notes": "Notes",
+    "date": "Date"
 }

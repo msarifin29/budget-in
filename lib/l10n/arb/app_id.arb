@@ -54,5 +54,7 @@
   "beauty": "Kecantikan",
   "work": "Kerja",
   "food_ingredients": "Bahan Makanan",
-  "other": "Lainnya"
+  "other": "Lainnya",
+  "notes": "Keterangan",
+  "date": "Tanggal"
 }
