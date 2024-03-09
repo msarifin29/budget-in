@@ -1,5 +1,5 @@
 import 'package:budget_in/core/core.dart';
-import 'package:budget_in/features/authentication/authentication.dart';
+import 'package:budget_in/features/expenses/presentation/ui/expenses_ui.dart';
 import 'package:budget_in/l10n/l10n.dart';
 import 'package:flutter/material.dart';
 
@@ -18,7 +18,7 @@ class App extends StatelessWidget {
       scaffoldMessengerKey: rootScaffoldMessengerKey,
       navigatorKey: navigatorKey,
       onGenerateRoute: AppRoute.generateRoute,
-      home: const SubmitRegisterPage(),
+      home: const DashboardPage(),
     );
   }
 }

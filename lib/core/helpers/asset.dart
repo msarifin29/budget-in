@@ -35,4 +35,10 @@ class SvgName {
   static const newExpense = '${BaseAsset.svg}new.svg';
   static const wallet = '${BaseAsset.svg}wallet.svg';
   static const bank = '${BaseAsset.svg}bank-circle.svg';
+  static const contactSupport = '${BaseAsset.svg}contact_support.svg';
+  static const creditSync = '${BaseAsset.svg}credit_sync.svg';
+  static const currencyCircle = '${BaseAsset.svg}currency_circle.svg';
+  static const expense = '${BaseAsset.svg}expense.svg';
+  static const income = '${BaseAsset.svg}income.svg';
+  static const privacy = '${BaseAsset.svg}privacy.svg';
 }

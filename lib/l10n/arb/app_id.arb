@@ -22,5 +22,8 @@
     "empty_email": "Email tidak boleh kosong",
     "empty_balance": "Minimal saldo 2.000",
     "empty_cash": "Minimal uang tunai 2.000",
-    "password_to_short": "Kata sandi min 6 karakter"
+    "password_to_short": "Kata sandi min 6 karakter",
+    "income": "Pendapatan",
+    "expense": "Pengeluaran",
+    "credit": "Kredit"
 }

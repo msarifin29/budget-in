@@ -22,5 +22,8 @@
     "empty_email": "Email can't be empty",
     "empty_balance": "Minimun balance  2.000",
     "empty_cash": "Minimun cash 2.000",
-    "password_to_short": "The password must be at least 6 characters long"
+    "password_to_short": "The password must be at least 6 characters long",
+    "income": "Income",
+    "expense": "Expense",
+    "credit": "Credit"
 }

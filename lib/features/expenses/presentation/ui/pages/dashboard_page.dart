@@ -1,9 +1,14 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 // ignore_for_file: inference_failure_on_function_invocation, require_trailing_commas, lines_longer_than_80_chars
 
-import 'package:budget_in/core/core.dart';
-import 'package:budget_in/features/expenses/presentation/ui/expenses_ui.dart';
+import 'package:budget_in/core/helpers/util_date.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+
+import 'package:budget_in/core/core.dart';
+import 'package:budget_in/l10n/l10n.dart';
 
 class DashboardPage extends StatelessWidget {
   const DashboardPage({super.key});
@@ -11,104 +16,422 @@ class DashboardPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(
+      const SystemUiOverlayStyle(statusBarColor: ColorApp.green),
+    );
     return Scaffold(
-      appBar: const PreferredSize(
-        preferredSize: Size(double.infinity, 100),
-        child: LeadingDashboardWidget(),
-      ),
-      body: const ExpenseContentWidget(),
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: ColorApp.grey20,
-        onPressed: () {
-          showDialog(
-              context: context, builder: (context) => const NewExpenseWidget());
-        },
-        child: SvgPicture.asset(SvgName.newExpense),
+      backgroundColor: ColorApp.green,
+      body: CustomScrollView(
+        slivers: [
+          SliverPersistentHeader(
+            delegate: CustomPersistenHeader(expandedHeight: 150.0),
+            pinned: true,
+          ),
+          SliverToBoxAdapter(
+            child: ClipRRect(
+              borderRadius: const BorderRadius.only(
+                topLeft: Radius.circular(20.0),
+                topRight: Radius.circular(20.0),
+              ),
+              child: Container(
+                height: MediaQuery.sizeOf(context).height,
+                decoration: const BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(20.0),
+                    topRight: Radius.circular(20.0),
+                  ),
+                ),
+                child: Column(
+                  children: [
+                    SizedBox(
+                      height: MediaQuery.sizeOf(context).height * 0.1,
+                    ),
+                    Text(
+                      UtilDate.today('yMMMM', DateTime.now()),
+                      textAlign: TextAlign.center,
+                      style: context.textTheme.bodyMedium!.copyWith(
+                        fontWeight: FontWeight.w500,
+                        color: ColorApp.green,
+                      ),
+                    ),
+                    const SizedBox(height: 15.0),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        Container(
+                          height: 80.0,
+                          width: MediaQuery.sizeOf(context).width * 0.4,
+                          decoration: BoxDecoration(
+                            border: Border.all(color: ColorApp.green),
+                            borderRadius: BorderRadius.circular(15.0),
+                          ),
+                          padding: const EdgeInsets.symmetric(
+                            vertical: 10.0,
+                            horizontal: 15.0,
+                          ),
+                          child: Column(
+                            children: [
+                              Text(
+                                context.l10n.income,
+                                textAlign: TextAlign.center,
+                                style: context.textTheme.bodySmall!.copyWith(
+                                  fontWeight: FontWeight.w400,
+                                ),
+                              ),
+                              const SizedBox(height: 5.0),
+                              Text(
+                                "+ Rp. 2.000.000",
+                                style: context.textTheme.bodyMedium!.copyWith(
+                                    fontWeight: FontWeight.w700,
+                                    color: ColorApp.green),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Container(
+                          height: 80.0,
+                          width: MediaQuery.sizeOf(context).width * 0.4,
+                          padding: const EdgeInsets.symmetric(
+                            vertical: 10.0,
+                            horizontal: 15.0,
+                          ),
+                          decoration: BoxDecoration(
+                            border: Border.all(color: ColorApp.green),
+                            borderRadius: BorderRadius.circular(15.0),
+                          ),
+                          child: Column(
+                            children: [
+                              Text(
+                                context.l10n.expense,
+                                textAlign: TextAlign.center,
+                                style: context.textTheme.bodySmall!.copyWith(
+                                  fontWeight: FontWeight.w400,
+                                ),
+                              ),
+                              const SizedBox(height: 5.0),
+                              Text(
+                                "- Rp. 500.000",
+                                style: context.textTheme.bodyMedium!.copyWith(
+                                    fontWeight: FontWeight.w700,
+                                    color: ColorApp.green),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 25.0),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        BoxFeaturewidget(
+                          image: SvgName.expense,
+                          title: context.l10n.expense,
+                          onPressed: () {},
+                        ),
+                        BoxFeaturewidget(
+                          image: SvgName.income,
+                          title: context.l10n.income,
+                          onPressed: () {},
+                        ),
+                        BoxFeaturewidget(
+                          image: SvgName.creditSync,
+                          title: context.l10n.credit,
+                          onPressed: () {},
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 10.0),
+                    const CustomCarouselWidget(),
+                    const SizedBox(height: 20.0),
+                    Text(
+                      'Sponsors',
+                      style: context.textTheme.bodyMedium!
+                          .copyWith(color: ColorApp.green),
+                    ),
+                    const SizedBox(height: 15.0),
+                    Wrap(
+                      spacing: 35.0,
+                      children: [
+                        SvgPicture.asset(SvgName.bank, width: 40.0),
+                        SvgPicture.asset(SvgName.income, width: 40.0),
+                        SvgPicture.asset(SvgName.currencyCircle, width: 40.0),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          )
+        ],
       ),
     );
   }
 }
 
-class ExpenseContentWidget extends StatelessWidget {
-  const ExpenseContentWidget({super.key});
+class CustomCarouselWidget extends StatefulWidget {
+  const CustomCarouselWidget({super.key});
+
+  @override
+  State<CustomCarouselWidget> createState() => _CustomCarouselWidgetState();
+}
+
+class _CustomCarouselWidgetState extends State<CustomCarouselWidget> {
+  final current = ValueNotifier(0);
+  final CarouselController controller = CarouselController();
+  final items = [1, 2, 3, 4, 5, 6, 7, 8, 9];
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return ValueListenableBuilder(
+        valueListenable: current,
+        builder: (context, value, _) {
+          return Column(
+            children: [
+              SizedBox(
+                height: 250.0,
+                width: double.infinity,
+                child: CarouselSlider.builder(
+                  itemCount: items.length,
+                  carouselController: controller,
+                  itemBuilder:
+                      (BuildContext context, int itemIndex, int pageViewIndex) {
+                    return Container(
+                        width: double.infinity,
+                        alignment: Alignment.center,
+                        decoration: BoxDecoration(
+                            color: ColorApp.grey20,
+                            borderRadius: BorderRadius.circular(15.0)),
+                        child: Text('${items[itemIndex]}'));
+                  },
+                  options: CarouselOptions(
+                    height: 200,
+                    aspectRatio: 16 / 9,
+                    viewportFraction: 0.8,
+                    initialPage: 0,
+                    enableInfiniteScroll: true,
+                    reverse: false,
+                    autoPlay: true,
+                    autoPlayInterval: const Duration(seconds: 3),
+                    autoPlayAnimationDuration:
+                        const Duration(milliseconds: 800),
+                    autoPlayCurve: Curves.fastOutSlowIn,
+                    enlargeCenterPage: true,
+                    enlargeFactor: 0.3,
+                    scrollDirection: Axis.horizontal,
+                    onPageChanged: (index, reason) {
+                      current.value = index;
+                    },
+                  ),
+                ),
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: items.asMap().entries.map((entry) {
+                  return GestureDetector(
+                    onTap: () => controller.animateToPage(entry.key),
+                    child: Container(
+                      width: 8.0,
+                      height: 8.0,
+                      margin: const EdgeInsets.symmetric(
+                          vertical: 8.0, horizontal: 4.0),
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: (Theme.of(context).brightness == Brightness.dark
+                                ? Colors.white
+                                : ColorApp.green)
+                            .withOpacity(
+                                current.value == entry.key ? 0.9 : 0.4),
+                      ),
+                    ),
+                  );
+                }).toList(),
+              ),
+            ],
+          );
+        });
+  }
+}
+
+class BoxFeaturewidget extends StatelessWidget {
+  const BoxFeaturewidget({
+    super.key,
+    required this.image,
+    required this.title,
+    required this.onPressed,
+  });
+  final String image;
+  final String title;
+  final VoidCallback onPressed;
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialButton(
+      onPressed: onPressed,
+      padding: const EdgeInsets.all(8.0),
+      height: 65.0,
+      color: Colors.white,
+      splashColor: ColorApp.grey,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.0)),
+      child: Column(
+        children: [
+          SvgPicture.asset(image, width: 25.0),
+          const SizedBox(height: 5.0),
+          Text(
+            title,
+            style: context.textTheme.bodySmall!.copyWith(
+              color: ColorApp.green,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class CustomPersistenHeader extends SliverPersistentHeaderDelegate {
+  final double expandedHeight;
+
+  CustomPersistenHeader({required this.expandedHeight});
+  @override
+  Widget build(
+      BuildContext context, double shrinkOffset, bool overlapsContent) {
+    return Stack(
+      fit: StackFit.expand,
+      clipBehavior: Clip.none,
       children: [
-        const SizedBox(height: 20),
-        const SearchExpensesWidget(),
-        const SizedBox(height: 10),
-        Align(
+        Container(
+          color: ColorApp.green,
+          height: expandedHeight,
+          width: double.infinity,
+          alignment: Alignment.topCenter,
+          padding: EdgeInsets.only(top: expandedHeight / 4),
           child: Text(
-            TimeUtil().today(monthYear, DateTime.now()),
-            style: context.textTheme.titleSmall?.copyWith(
-              fontWeight: FontWeight.w600,
+            'Bang Toyip',
+            style: context.textTheme.bodyLarge!.copyWith(
+              color: Colors.white,
+              fontWeight: FontWeight.w700,
             ),
           ),
         ),
-        const SizedBox(height: 10),
-        const CardExpensesWidget(),
-        const SizedBox(height: 10),
-        const CardExpensesWidget(),
-        const SizedBox(height: 10),
-        const CardExpensesWidget(),
+        Center(
+          child: Opacity(
+              opacity: shrinkOffset / expandedHeight,
+              child: Container(color: ColorApp.green)),
+        ),
+        Positioned(
+          top: expandedHeight / 2 - shrinkOffset,
+          left: MediaQuery.of(context).size.width / 22,
+          child: Opacity(
+            opacity: (1 - shrinkOffset / expandedHeight),
+            child: Card(
+              elevation: 10,
+              child: Container(
+                height: expandedHeight - 10,
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(15.0),
+                ),
+                width: MediaQuery.of(context).size.width * 0.9,
+                padding: const EdgeInsets.all(20.0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    ContentBalanceWidget(
+                      image: SvgName.bank,
+                      title: context.l10n.balance,
+                      subtitle: 'Rp. 2.000.000',
+                      visibility: IconButton(
+                        onPressed: () {},
+                        icon: const Icon(
+                          Icons.visibility_outlined,
+                          color: ColorApp.green,
+                        ),
+                      ),
+                    ),
+                    ContentBalanceWidget(
+                      image: SvgName.wallet,
+                      title: context.l10n.cash,
+                      subtitle: 'Rp. 500.000',
+                      visibility: IconButton(
+                        onPressed: () {},
+                        icon: const Icon(
+                          Icons.visibility_off_outlined,
+                          color: ColorApp.green,
+                        ),
+                      ),
+                    )
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ),
       ],
     );
   }
-}
-
-class SearchExpensesWidget extends StatefulWidget {
-  const SearchExpensesWidget({
-    super.key,
-  });
 
   @override
-  State<SearchExpensesWidget> createState() => _SearchExpensesWidgetState();
-}
-
-class _SearchExpensesWidgetState extends State<SearchExpensesWidget> {
-  final inputControl = TextEditingController();
+  double get maxExtent => expandedHeight;
 
   @override
-  void dispose() {
-    inputControl.dispose();
-    super.dispose();
+  double get minExtent => kToolbarHeight;
+
+  @override
+  bool shouldRebuild(covariant SliverPersistentHeaderDelegate oldDelegate) {
+    return true;
   }
+}
 
+class ContentBalanceWidget extends StatelessWidget {
+  const ContentBalanceWidget({
+    super.key,
+    required this.image,
+    required this.title,
+    required this.subtitle,
+    required this.visibility,
+  });
+  final String image;
+  final String title;
+  final String subtitle;
+  final Widget visibility;
   @override
   Widget build(BuildContext context) {
     return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Container(
-          height: 50,
-          width: context.mediaQuery.size.width - 50.0,
-          padding: const EdgeInsets.symmetric(horizontal: 20),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(20),
-          ),
-          child: TextField(
-            style: context.textTheme.bodySmall,
-            controller: inputControl,
-            decoration: inputDecoratonTextField(
-              context: context,
-            ),
+        SizedBox(
+          child: Row(
+            children: [
+              SvgPicture.asset(
+                image,
+                height: 40.0,
+                width: 40.0,
+              ),
+              const SizedBox(
+                width: 15.0,
+              ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    title,
+                    style: context.textTheme.bodySmall!.copyWith(
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                  Text(
+                    subtitle,
+                    style: context.textTheme.bodySmall!.copyWith(
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                ],
+              ),
+            ],
           ),
         ),
-        InkWell(
-          borderRadius: BorderRadius.circular(20),
-          hoverColor: ColorApp.grey,
-          onTap: () {},
-          child: Container(
-            padding: const EdgeInsets.all(8),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(20),
-            ),
-            child: SvgPicture.asset(
-              SvgName.calendar,
-              width: 30,
-            ),
-          ),
-        ),
+        visibility
       ],
     );
   }
