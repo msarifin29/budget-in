@@ -1,4 +1,5 @@
 import 'package:budget_in/features/authentication/authentication.dart';
+import 'package:budget_in/features/authentication/presentation/ui/pages/forgot_password_page.dart';
 import 'package:budget_in/features/credit/credits.dart';
 import 'package:budget_in/features/expenses/presentation/ui/expenses_ui.dart';
 import 'package:budget_in/features/expenses/presentation/ui/pages/expense_page.dart';
@@ -14,6 +15,7 @@ class RouteName {
   static const submitRegisterPage = 'submit-register-page';
   static const profilePage = 'profile-page';
   static const editProfilePage = 'edit-profile-page';
+  static const forgotPasswordPage = 'forgot-password-page';
   // Expenses
   static const dashboardPage = 'dashboard-page';
   static const expensePage = 'expense-page';
@@ -83,6 +85,12 @@ class AppRoute {
         return MaterialPageRoute(
           builder: (context) {
             return const CreditPage();
+          },
+        );
+      case ForgotPasswordpage.routeName:
+        return MaterialPageRoute(
+          builder: (context) {
+            return const ForgotPasswordpage();
           },
         );
 

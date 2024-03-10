@@ -114,7 +114,9 @@ class _LoginPageState extends State<LoginPage> {
                 ),
                 PrimaryTextButton(
                   text: context.l10n.forgot_password,
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.pushNamed(context, RouteName.forgotPasswordPage);
+                  },
                 ),
               ],
             ),
