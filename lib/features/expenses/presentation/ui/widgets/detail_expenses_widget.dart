@@ -45,38 +45,3 @@ class DetailExpensesWidget extends StatelessWidget {
     );
   }
 }
-
-class InfoWidget extends StatelessWidget {
-  const InfoWidget({
-    required this.k,
-    required this.v,
-    super.key,
-  });
-
-  final String k;
-  final String v;
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(top: 8),
-      child: Row(
-        children: [
-          SizedBox(
-            width: 120,
-            child: Text(
-              k,
-              style: context.textTheme.bodyMedium
-                  ?.copyWith(fontWeight: FontWeight.w500),
-            ),
-          ),
-          Text(
-            v,
-            style: context.textTheme.bodyMedium
-                ?.copyWith(fontWeight: FontWeight.w500),
-          ),
-        ],
-      ),
-    );
-  }
-}

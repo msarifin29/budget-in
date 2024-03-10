@@ -9,6 +9,7 @@ export 'common_widgets/amount_card_widget.dart';
 export 'common_widgets/box_feature_widget.dart';
 export 'common_widgets/image_empty_widget.dart';
 export 'common_widgets/filter_widget.dart';
+export 'common_widgets/info_widget.dart';
 export 'config/route.dart';
 // Helpers
 export 'helpers/asset.dart';

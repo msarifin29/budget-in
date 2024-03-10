@@ -11,8 +11,6 @@ class CardCreditWidget extends StatelessWidget {
     required this.endDate,
     required this.color,
     this.onTap,
-    this.plusMin = '',
-    this.colorPlusMinus = ColorApp.green,
   });
   final int total;
   final String category;
@@ -21,10 +19,11 @@ class CardCreditWidget extends StatelessWidget {
   final String endDate;
   final Color color;
   final VoidCallback? onTap;
-  final String plusMin;
-  final Color colorPlusMinus;
   @override
   Widget build(BuildContext context) {
+    TextStyle? bodySmallStyle = context.textTheme.bodySmall!.copyWith(
+      color: ColorApp.red,
+    );
     return Card(
       elevation: 0.5,
       margin: const EdgeInsets.symmetric(horizontal: 15),
@@ -47,20 +46,16 @@ class CardCreditWidget extends StatelessWidget {
                 children: [
                   RichText(
                     text: TextSpan(
-                      text: plusMin,
+                      text: ' Rp. ',
                       style: context.textTheme.bodyMedium!.copyWith(
-                          fontWeight: FontWeight.w600, color: colorPlusMinus),
+                          fontWeight: FontWeight.w600, color: ColorApp.red),
                       children: [
-                        TextSpan(
-                          text: ' Rp. ',
-                          style: context.textTheme.bodyMedium!
-                              .copyWith(color: colorPlusMinus),
-                        ),
                         TextSpan(
                           text: total.toString(),
                           style: context.textTheme.bodyLarge!.copyWith(
-                              fontWeight: FontWeight.w600,
-                              color: colorPlusMinus),
+                            fontWeight: FontWeight.w600,
+                            color: ColorApp.red,
+                          ),
                         ),
                       ],
                     ),
@@ -96,19 +91,10 @@ class CardCreditWidget extends StatelessWidget {
                   RichText(
                     text: TextSpan(
                       text: startDate,
-                      style: context.textTheme.bodySmall!
-                          .copyWith(color: colorPlusMinus),
+                      style: bodySmallStyle,
                       children: [
-                        TextSpan(
-                          text: ' - ',
-                          style: context.textTheme.bodySmall!
-                              .copyWith(color: colorPlusMinus),
-                        ),
-                        TextSpan(
-                          text: endDate,
-                          style: context.textTheme.bodySmall!
-                              .copyWith(color: colorPlusMinus),
-                        ),
+                        TextSpan(text: ' - ', style: bodySmallStyle),
+                        TextSpan(text: endDate, style: bodySmallStyle),
                       ],
                     ),
                   ),

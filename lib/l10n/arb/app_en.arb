@@ -85,5 +85,7 @@
     "furniture": "Furniture",
     "kitchen_set": "Kitchen set",
     "venture_capital": "Venture capital",
-    "monthly": "Monthly"
+    "monthly": "Monthly",
+    "active": "Active",
+    "payment_with": "Payment with"
 }

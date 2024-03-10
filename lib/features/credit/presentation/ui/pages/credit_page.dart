@@ -22,6 +22,93 @@ class CreditPage extends StatelessWidget {
             startDate: TimeUtil().today(monthYear, DateTime.now()),
             endDate: TimeUtil().today(monthYear, DateTime.now()),
             color: Colors.red,
+            onTap: () {
+              showModalBottomSheet(
+                context: context,
+                builder: (context) {
+                  return SingleChildScrollView(
+                    child: Container(
+                      padding: EdgeInsets.only(
+                          bottom: MediaQuery.of(context).viewInsets.bottom),
+                      child: Padding(
+                        padding:
+                            const EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 0.0),
+                        child: Column(
+                          children: [
+                            const SizedBox(height: 15),
+                            Container(
+                              height: 2,
+                              width: MediaQuery.sizeOf(context).width * 0.3,
+                              color: ColorApp.green,
+                            ),
+                            const SizedBox(height: 15),
+                            Container(
+                              height: 120,
+                              width: double.infinity,
+                              padding: const EdgeInsets.all(8),
+                              decoration: BoxDecoration(
+                                  border: Border.all(color: ColorApp.green),
+                                  borderRadius: BorderRadius.circular(15)),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      InfoSmallWidget(
+                                          k: context.l10n.loan,
+                                          v: ': ${context.l10n.st(1)}'),
+                                      InfoSmallWidget(
+                                          k: context.l10n.total,
+                                          v: ': Rp. 250.000'),
+                                      InfoSmallWidget(
+                                          k: context.l10n.due_date,
+                                          v: ': ${TimeUtil().today(monthDay, DateTime.now())}'),
+                                      InfoSmallWidget(
+                                          k: 'Status',
+                                          v: ': ${context.l10n.active}'),
+                                    ],
+                                  ),
+                                  MaterialButton(
+                                    onPressed: () {
+                                      Navigator.pop(context);
+                                      showDialog(
+                                        context: context,
+                                        builder: (context) {
+                                          return const PaymentCreditWidget();
+                                        },
+                                      );
+                                    },
+                                    color: ColorApp.green,
+                                    padding: const EdgeInsets.symmetric(
+                                      horizontal: 10,
+                                    ),
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(15),
+                                    ),
+                                    child: Text(
+                                      context.l10n.pay_now,
+                                      style: context.textTheme.labelSmall!
+                                          .copyWith(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.w500,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            const SizedBox(height: 20),
+                          ],
+                        ),
+                      ),
+                    ),
+                  );
+                },
+              );
+            },
           ),
         ],
       ),
@@ -48,6 +135,66 @@ class CreditPage extends StatelessWidget {
           color: ColorApp.green,
           size: 40,
         ),
+      ),
+    );
+  }
+}
+
+class PaymentCreditWidget extends StatelessWidget {
+  const PaymentCreditWidget({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final idPayment = ValueNotifier(0);
+    return Dialog(
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          const SizedBox(height: 15),
+          Text(
+            context.l10n.payment_with,
+            style: context.textTheme.bodyMedium!.copyWith(
+              color: Colors.green,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+          const SizedBox(height: 15),
+          ValueListenableBuilder(
+            valueListenable: idPayment,
+            builder: (context, v, _) {
+              return Wrap(
+                spacing: 8,
+                children: [
+                  ItemChoice(1, context.l10n.cash),
+                  ItemChoice(2, context.l10n.non_cash),
+                ]
+                    .map(
+                      (e) => ChoiceChip(
+                        label: Text(e.label),
+                        selected: idPayment.value == e.id,
+                        onSelected: (_) => idPayment.value = e.id,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(25),
+                        ),
+                      ),
+                    )
+                    .toList(),
+              );
+            },
+          ),
+          const SizedBox(height: 30),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: PrimaryButton(
+              text: context.l10n.submit,
+              backgroundColor: ColorApp.green,
+              onPressed: () {
+                Navigator.pop(context);
+              },
+            ),
+          ),
+          const SizedBox(height: 15),
+        ],
       ),
     );
   }

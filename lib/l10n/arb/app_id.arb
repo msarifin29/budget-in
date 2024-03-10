@@ -85,5 +85,7 @@
   "furniture": "Perabotan",
   "kitchen_set": "Peralatan dapur",
   "venture_capital": "Modal usaha",
-  "monthly": "Bulanan"
+  "monthly": "Bulanan",
+  "active": "Aktif",
+  "payment_with": "Bayar dengan"
 }
