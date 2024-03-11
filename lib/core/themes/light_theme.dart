@@ -1,8 +1,13 @@
+import 'package:budget_in/core/core.dart';
 import 'package:flutter/material.dart';
 
 ThemeData lightTheme() => ThemeData(
       useMaterial3: true,
       fontFamily: 'Inter',
+      primaryColor: ColorApp.green,
+      splashColor: Colors.transparent,
+      highlightColor: Colors.transparent,
+      hoverColor: Colors.transparent,
       textTheme: const TextTheme(
         bodySmall: TextStyle(fontSize: 14),
         bodyMedium: TextStyle(fontSize: 16),
