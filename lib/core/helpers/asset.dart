@@ -43,4 +43,5 @@ class SvgName {
   static const expense = '${BaseAsset.svg}expense.svg';
   static const income = '${BaseAsset.svg}income.svg';
   static const privacy = '${BaseAsset.svg}privacy.svg';
+  static const home = '${BaseAsset.svg}home.svg';
 }

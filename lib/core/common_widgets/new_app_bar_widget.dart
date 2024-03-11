@@ -2,13 +2,11 @@ import 'package:budget_in/core/core.dart';
 import 'package:flutter/material.dart';
 
 class NewAppBarWidget extends StatelessWidget {
-  const NewAppBarWidget({
-    super.key,
-    required this.title,
-    this.actions,
-  });
+  const NewAppBarWidget(
+      {super.key, required this.title, this.actions, this.leading = false});
   final String title;
   final List<Widget>? actions;
+  final bool leading;
 
   @override
   Widget build(BuildContext context) {
@@ -23,12 +21,14 @@ class NewAppBarWidget extends StatelessWidget {
       ),
       centerTitle: true,
       actions: actions,
-      leading: IconButton(
-        onPressed: () {
-          Navigator.pop(context);
-        },
-        icon: const Icon(Icons.arrow_back, color: Colors.white),
-      ),
+      leading: leading
+          ? IconButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              icon: const Icon(Icons.arrow_back, color: Colors.white),
+            )
+          : const SizedBox.shrink(),
     );
   }
 }
