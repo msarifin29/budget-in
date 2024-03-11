@@ -52,7 +52,7 @@ class LineChartWidgetState extends State<LineChartWidget> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 250,
+      height: 270,
       color: (Theme.of(context).brightness == Brightness.light
           ? ColorApp.grey20
           : ColorApp.rootBeer),
@@ -61,15 +61,51 @@ class LineChartWidgetState extends State<LineChartWidget> {
         child: Column(
           children: <Widget>[
             const SizedBox(height: 5),
-            Text(
-              context.l10n.monthly_report,
-              style: context.textTheme.bodySmall!.copyWith(
-                color: ColorApp.green,
-                fontWeight: FontWeight.w600,
-              ),
-              textAlign: TextAlign.center,
+            Row(
+              children: [
+                Column(
+                  children: [
+                    Row(
+                      children: [
+                        Container(height: 4, width: 25, color: ColorApp.red),
+                        const SizedBox(width: 10),
+                        Text(
+                          context.l10n.expense,
+                          style: context.textTheme.bodySmall!.copyWith(
+                            color: ColorApp.red,
+                            fontWeight: FontWeight.w400,
+                            fontSize: 10,
+                          ),
+                        ),
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        Container(height: 4, width: 25, color: ColorApp.blue),
+                        const SizedBox(width: 10),
+                        Text(
+                          context.l10n.income,
+                          style: context.textTheme.bodySmall!.copyWith(
+                            color: ColorApp.blue,
+                            fontWeight: FontWeight.w400,
+                            fontSize: 10,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+                const SizedBox(width: 50),
+                Text(
+                  context.l10n.monthly_report,
+                  style: context.textTheme.bodySmall!.copyWith(
+                    color: ColorApp.green,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              ],
             ),
-            const SizedBox(height: 10),
+            const SizedBox(height: 20),
             Expanded(
               child: BarChart(
                 BarChartData(
@@ -97,7 +133,7 @@ class LineChartWidgetState extends State<LineChartWidget> {
                     leftTitles: AxisTitles(
                       sideTitles: SideTitles(
                         showTitles: true,
-                        reservedSize: 35,
+                        reservedSize: 40,
                         interval: 1,
                         getTitlesWidget: leftTitles,
                       ),
@@ -118,7 +154,7 @@ class LineChartWidgetState extends State<LineChartWidget> {
 
   Widget leftTitles(double value, TitleMeta meta) {
     const style = TextStyle(
-      color: ColorApp.blue,
+      color: ColorApp.green,
       fontWeight: FontWeight.bold,
       fontSize: 12,
     );
@@ -126,15 +162,15 @@ class LineChartWidgetState extends State<LineChartWidget> {
     if (value == 0) {
       text = '0';
     } else if (value == 2) {
-      text = '2B';
+      text = '2${context.l10n.milion}';
     } else if (value == 4) {
-      text = '4B';
+      text = '4${context.l10n.milion}';
     } else if (value == 6) {
-      text = '6B';
+      text = '6${context.l10n.milion}';
     } else if (value == 8) {
-      text = '8B';
+      text = '8${context.l10n.milion}';
     } else if (value == 10) {
-      text = '10B';
+      text = '10${context.l10n.milion}';
     } else {
       return Container();
     }
