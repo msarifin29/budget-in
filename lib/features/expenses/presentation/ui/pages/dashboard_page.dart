@@ -2,6 +2,7 @@
 // ignore_for_file: inference_failure_on_function_invocation, require_trailing_commas, lines_longer_than_80_chars
 
 import 'package:budget_in/core/helpers/util_date.dart';
+import 'package:budget_in/features/expenses/presentation/ui/widgets/line_chart_widget.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -55,34 +56,33 @@ class DashboardPage extends StatelessWidget {
                         color: ColorApp.green,
                       ),
                     ),
-                    const SizedBox(height: 15.0),
+                    const SizedBox(height: 8),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
                         Container(
-                          height: 80.0,
-                          width: MediaQuery.sizeOf(context).width * 0.4,
+                          height: 60.0,
+                          width: MediaQuery.sizeOf(context).width * 0.45,
                           decoration: BoxDecoration(
                             border: Border.all(color: ColorApp.green),
                             borderRadius: BorderRadius.circular(15.0),
                           ),
                           padding: const EdgeInsets.symmetric(
-                            vertical: 10.0,
-                            horizontal: 15.0,
+                            vertical: 4,
+                            horizontal: 15,
                           ),
                           child: Column(
                             children: [
                               Text(
                                 context.l10n.income,
                                 textAlign: TextAlign.center,
-                                style: context.textTheme.bodySmall!.copyWith(
+                                style: context.textTheme.labelSmall!.copyWith(
                                   fontWeight: FontWeight.w400,
                                 ),
                               ),
-                              const SizedBox(height: 5.0),
                               Text(
                                 "+ Rp. 2.000.000",
-                                style: context.textTheme.bodyMedium!.copyWith(
+                                style: context.textTheme.bodySmall!.copyWith(
                                     fontWeight: FontWeight.w700,
                                     color: ColorApp.green),
                               ),
@@ -90,11 +90,11 @@ class DashboardPage extends StatelessWidget {
                           ),
                         ),
                         Container(
-                          height: 80.0,
-                          width: MediaQuery.sizeOf(context).width * 0.4,
+                          height: 60,
+                          width: MediaQuery.sizeOf(context).width * 0.45,
                           padding: const EdgeInsets.symmetric(
-                            vertical: 10.0,
-                            horizontal: 15.0,
+                            vertical: 4,
+                            horizontal: 15,
                           ),
                           decoration: BoxDecoration(
                             border: Border.all(color: ColorApp.green),
@@ -105,14 +105,13 @@ class DashboardPage extends StatelessWidget {
                               Text(
                                 context.l10n.expense,
                                 textAlign: TextAlign.center,
-                                style: context.textTheme.bodySmall!.copyWith(
+                                style: context.textTheme.labelSmall!.copyWith(
                                   fontWeight: FontWeight.w400,
                                 ),
                               ),
-                              const SizedBox(height: 5.0),
                               Text(
                                 "- Rp. 500.000",
-                                style: context.textTheme.bodyMedium!.copyWith(
+                                style: context.textTheme.bodySmall!.copyWith(
                                     fontWeight: FontWeight.w700,
                                     color: ColorApp.green),
                               ),
@@ -121,53 +120,24 @@ class DashboardPage extends StatelessWidget {
                         ),
                       ],
                     ),
-                    const SizedBox(height: 25.0),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        BoxFeaturewidget(
-                          image: SvgName.expense,
-                          title: context.l10n.expense,
-                          colorFilter: ColorApp.red,
-                          onPressed: () {
-                            Navigator.pushNamed(context, RouteName.expensePage);
-                          },
-                        ),
-                        BoxFeaturewidget(
-                          image: SvgName.income,
-                          title: context.l10n.income,
-                          colorFilter: ColorApp.green,
-                          onPressed: () {
-                            Navigator.pushNamed(context, RouteName.incomePage);
-                          },
-                        ),
-                        BoxFeaturewidget(
-                          image: SvgName.creditSync,
-                          title: context.l10n.credit,
-                          colorFilter: ColorApp.red,
-                          onPressed: () {
-                            Navigator.pushNamed(context, RouteName.creditPage);
-                          },
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 10.0),
+
+                    const SizedBox(height: 15),
+                    const LineChartWidget(),
                     const CustomCarouselWidget(),
-                    const SizedBox(height: 20.0),
-                    Text(
-                      'Sponsors',
-                      style: context.textTheme.bodyMedium!
-                          .copyWith(color: ColorApp.green),
-                    ),
-                    const SizedBox(height: 15.0),
-                    Wrap(
-                      spacing: 35.0,
-                      children: [
-                        SvgPicture.asset(SvgName.bank, width: 40.0),
-                        SvgPicture.asset(SvgName.income, width: 40.0),
-                        SvgPicture.asset(SvgName.currencyCircle, width: 40.0),
-                      ],
-                    ),
+                    // Text(
+                    //   'Sponsors',
+                    //   style: context.textTheme.bodyMedium!
+                    //       .copyWith(color: ColorApp.green),
+                    // ),
+                    // const SizedBox(height: 15.0),
+                    // Wrap(
+                    //   spacing: 35.0,
+                    //   children: [
+                    //     SvgPicture.asset(SvgName.bank, width: 40.0),
+                    //     SvgPicture.asset(SvgName.income, width: 40.0),
+                    //     SvgPicture.asset(SvgName.currencyCircle, width: 40.0),
+                    //   ],
+                    // ),
                   ],
                 ),
               ),
@@ -280,7 +250,7 @@ class CustomPersistenHeader extends SliverPersistentHeaderDelegate {
           alignment: Alignment.topCenter,
           padding: EdgeInsets.only(top: expandedHeight / 4),
           child: Text(
-            'Bang Toyip',
+            'Budget In',
             style: context.textTheme.bodyLarge!.copyWith(
               color: Colors.white,
               fontWeight: FontWeight.w700,

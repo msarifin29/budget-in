@@ -88,5 +88,19 @@
     "monthly": "Monthly",
     "active": "Active",
     "payment_with": "Payment with",
-    "account": "Account"
+    "account": "Account",
+    "milion": "M",
+    "monthly_report": "Laporan bulanan",
+    "jan": "Jan",
+    "feb": "Feb",
+    "mar": "Mar",
+    "apr": "Apr",
+    "may": "May",
+    "jun": "Jun",
+    "jul": "Jul",
+    "aug": "Aug",
+    "sep": "Sep",
+    "oct": "Oct",
+    "nov": "Nov",
+    "dec": "Dec"
 }
