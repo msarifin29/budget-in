@@ -50,7 +50,7 @@ class ExpensePage extends StatelessWidget {
             onTap: () {
               showModalBottomSheet(
                   context: context,
-                  backgroundColor: Colors.white,
+                  backgroundColor: Theme.of(context).scaffoldBackgroundColor,
                   builder: (context) {
                     return DetailExpensesWidget(
                       type: context.l10n.cash,
@@ -77,7 +77,6 @@ class ExpensePage extends StatelessWidget {
           showModalBottomSheet(
               context: context,
               isScrollControlled: true,
-              backgroundColor: Colors.white,
               shape: const RoundedRectangleBorder(
                 borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(13),
@@ -89,7 +88,7 @@ class ExpensePage extends StatelessWidget {
               });
         },
         tooltip: context.l10n.new_expense,
-        backgroundColor: Colors.white,
+        backgroundColor: Theme.of(context).cardColor,
         child: const Icon(
           Icons.add_circle_outline,
           color: ColorApp.green,

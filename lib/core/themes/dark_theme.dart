@@ -1,16 +1,16 @@
 import 'package:budget_in/core/core.dart';
 import 'package:flutter/material.dart';
 
-ThemeData lightTheme() => ThemeData(
+ThemeData darkTheme() => ThemeData(
       useMaterial3: true,
       fontFamily: 'Inter',
-      brightness: Brightness.light,
-      primaryColor: ColorApp.green,
+      brightness: Brightness.dark,
+      primaryColor: ColorApp.rootBeer,
       splashColor: Colors.transparent,
       highlightColor: Colors.transparent,
       hoverColor: Colors.transparent,
-      cardColor: Colors.white,
-      scaffoldBackgroundColor: Colors.white,
+      scaffoldBackgroundColor: Colors.black,
+      cardColor: ColorApp.rootBeer,
       textTheme: const TextTheme(
         bodySmall: TextStyle(fontSize: 14),
         bodyMedium: TextStyle(fontSize: 16),

@@ -22,5 +22,6 @@ export 'themes/color_app.dart';
 export 'themes/input_decoration_text_field.dart';
 // Themes
 export 'themes/light_theme.dart';
+export 'themes/dark_theme.dart';
 
 export 'models/item_choice.dart';

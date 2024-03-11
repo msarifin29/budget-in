@@ -53,7 +53,9 @@ class LineChartWidgetState extends State<LineChartWidget> {
   Widget build(BuildContext context) {
     return Container(
       height: 250,
-      color: ColorApp.grey20,
+      color: (Theme.of(context).brightness == Brightness.light
+          ? ColorApp.grey20
+          : ColorApp.rootBeer),
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 8),
         child: Column(

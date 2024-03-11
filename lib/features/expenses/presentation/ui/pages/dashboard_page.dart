@@ -18,10 +18,10 @@ class DashboardPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(
-      const SystemUiOverlayStyle(statusBarColor: ColorApp.green),
+      SystemUiOverlayStyle(statusBarColor: Theme.of(context).primaryColor),
     );
     return Scaffold(
-      backgroundColor: ColorApp.green,
+      backgroundColor: Theme.of(context).primaryColor,
       body: CustomScrollView(
         slivers: [
           SliverPersistentHeader(
@@ -36,9 +36,9 @@ class DashboardPage extends StatelessWidget {
               ),
               child: Container(
                 height: MediaQuery.sizeOf(context).height,
-                decoration: const BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.only(
+                decoration: BoxDecoration(
+                  color: Theme.of(context).scaffoldBackgroundColor,
+                  borderRadius: const BorderRadius.only(
                     topLeft: Radius.circular(20.0),
                     topRight: Radius.circular(20.0),
                   ),
@@ -77,8 +77,11 @@ class DashboardPage extends StatelessWidget {
                                 context.l10n.income,
                                 textAlign: TextAlign.center,
                                 style: context.textTheme.labelSmall!.copyWith(
-                                  fontWeight: FontWeight.w400,
-                                ),
+                                    fontWeight: FontWeight.w400,
+                                    color: (Theme.of(context).primaryColor ==
+                                            ColorApp.green
+                                        ? Colors.black
+                                        : ColorApp.snowWhite)),
                               ),
                               Text(
                                 "+ Rp. 2.000.000",
@@ -106,8 +109,11 @@ class DashboardPage extends StatelessWidget {
                                 context.l10n.expense,
                                 textAlign: TextAlign.center,
                                 style: context.textTheme.labelSmall!.copyWith(
-                                  fontWeight: FontWeight.w400,
-                                ),
+                                    fontWeight: FontWeight.w400,
+                                    color: (Theme.of(context).primaryColor ==
+                                            ColorApp.green
+                                        ? Colors.black
+                                        : ColorApp.snowWhite)),
                               ),
                               Text(
                                 "- Rp. 500.000",
@@ -179,8 +185,12 @@ class _CustomCarouselWidgetState extends State<CustomCarouselWidget> {
                         width: double.infinity,
                         alignment: Alignment.center,
                         decoration: BoxDecoration(
-                            color: ColorApp.grey20,
-                            borderRadius: BorderRadius.circular(15.0)),
+                          color:
+                              (Theme.of(context).brightness == Brightness.light
+                                  ? ColorApp.grey20
+                                  : ColorApp.rootBeer),
+                          borderRadius: BorderRadius.circular(15.0),
+                        ),
                         child: Text('${items[itemIndex]}'));
                   },
                   options: CarouselOptions(
@@ -244,7 +254,7 @@ class CustomPersistenHeader extends SliverPersistentHeaderDelegate {
       clipBehavior: Clip.none,
       children: [
         Container(
-          color: ColorApp.green,
+          color: Theme.of(context).primaryColor,
           height: expandedHeight,
           width: double.infinity,
           alignment: Alignment.topCenter,
@@ -260,7 +270,7 @@ class CustomPersistenHeader extends SliverPersistentHeaderDelegate {
         Center(
           child: Opacity(
               opacity: shrinkOffset / expandedHeight,
-              child: Container(color: ColorApp.green)),
+              child: Container(color: Theme.of(context).primaryColor)),
         ),
         Positioned(
           top: expandedHeight / 2 - shrinkOffset,
@@ -268,11 +278,14 @@ class CustomPersistenHeader extends SliverPersistentHeaderDelegate {
           child: Opacity(
             opacity: (1 - shrinkOffset / expandedHeight),
             child: Card(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(15.0),
+              ),
               elevation: 10,
               child: Container(
                 height: expandedHeight - 10,
                 decoration: BoxDecoration(
-                  color: Colors.white,
+                  color: Theme.of(context).scaffoldBackgroundColor,
                   borderRadius: BorderRadius.circular(15.0),
                 ),
                 width: MediaQuery.of(context).size.width * 0.9,
@@ -361,12 +374,18 @@ class ContentBalanceWidget extends StatelessWidget {
                     title,
                     style: context.textTheme.bodySmall!.copyWith(
                       fontWeight: FontWeight.w500,
+                      color: (Theme.of(context).brightness == Brightness.light
+                          ? Colors.black
+                          : ColorApp.snowWhite),
                     ),
                   ),
                   Text(
                     subtitle,
                     style: context.textTheme.bodySmall!.copyWith(
                       fontWeight: FontWeight.w700,
+                      color: (Theme.of(context).brightness == Brightness.light
+                          ? ColorApp.green
+                          : ColorApp.snowWhite),
                     ),
                   ),
                 ],

@@ -21,7 +21,10 @@ class _ForgotPasswordpageState extends State<ForgotPasswordpage> {
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: const Size(double.infinity, kToolbarHeight),
-        child: NewAppBarWidget(title: context.l10n.forgot_password),
+        child: NewAppBarWidget(
+          title: context.l10n.forgot_password,
+          leading: true,
+        ),
       ),
       body: Form(
         key: globalKey,
@@ -55,7 +58,6 @@ class _ForgotPasswordpageState extends State<ForgotPasswordpage> {
               PrimaryButton(
                 text: context.l10n.submit,
                 onPressed: () {},
-                backgroundColor: ColorApp.green,
               ),
             ],
           ),

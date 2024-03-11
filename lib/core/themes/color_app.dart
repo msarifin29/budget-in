@@ -13,4 +13,10 @@ class ColorApp {
   static const red = Color(0xFFDF1A1A);
   // RGB Color #CBCED5
   static const grey30 = Color(0xFFCBCED5);
+  // RGB Color #132C2D
+  static const Color night = Color(0xFF132C2D);
+  // RGB Color #290E05
+  static const Color rootBeer = Color(0xFF290E05);
+  // RGB Color #F2F0EB
+  static const Color snowWhite = Color(0xFFF2F0EB);
 }

@@ -117,7 +117,6 @@ class CreditPage extends StatelessWidget {
           showModalBottomSheet(
               context: context,
               isScrollControlled: true,
-              backgroundColor: Colors.white,
               shape: const RoundedRectangleBorder(
                 borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(13),
@@ -129,7 +128,7 @@ class CreditPage extends StatelessWidget {
               });
         },
         tooltip: context.l10n.new_expense,
-        backgroundColor: Colors.white,
+        backgroundColor: Theme.of(context).cardColor,
         child: const Icon(
           Icons.add_circle_outline,
           color: ColorApp.green,

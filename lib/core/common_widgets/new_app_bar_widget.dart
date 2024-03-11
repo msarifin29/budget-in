@@ -11,7 +11,7 @@ class NewAppBarWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      backgroundColor: ColorApp.green,
+      backgroundColor: Theme.of(context).primaryColor,
       title: Text(
         title,
         style: context.textTheme.bodyLarge!.copyWith(

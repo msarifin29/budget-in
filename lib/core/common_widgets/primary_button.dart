@@ -7,18 +7,18 @@ class PrimaryButton extends StatelessWidget {
     super.key,
     this.onPressed,
     this.minSize = const Size(double.infinity, 50),
-    this.backgroundColor = ColorApp.green,
+    this.backgroundColor,
   });
   final VoidCallback? onPressed;
   final String text;
   final Size minSize;
-  final Color backgroundColor;
+  final Color? backgroundColor;
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
       onPressed: onPressed,
       style: ElevatedButton.styleFrom(
-        backgroundColor: backgroundColor,
+        backgroundColor: backgroundColor ?? Theme.of(context).primaryColor,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10),
         ),
