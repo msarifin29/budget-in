@@ -1,4 +1,5 @@
 import 'package:budget_in/features/authentication/authentication.dart';
+import 'package:budget_in/features/authentication/presentation/ui/pages/account_page.dart';
 import 'package:budget_in/features/authentication/presentation/ui/pages/forgot_password_page.dart';
 import 'package:budget_in/features/credit/credits.dart';
 import 'package:budget_in/features/expenses/presentation/ui/expenses_ui.dart';
@@ -9,6 +10,7 @@ import 'package:flutter/material.dart';
 class RouteName {
   // Authentication
   static const splashPage = 'splash-page';
+  static const accountPage = 'account-page';
   static const onboardingPage = 'onboarding-page';
   static const loginPage = 'login-page';
   static const registerPage = 'register-page';
@@ -91,6 +93,12 @@ class AppRoute {
         return MaterialPageRoute(
           builder: (context) {
             return const ForgotPasswordpage();
+          },
+        );
+      case AccountPage.routeName:
+        return MaterialPageRoute(
+          builder: (context) {
+            return const AccountPage();
           },
         );
 

@@ -1,5 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:budget_in/core/core.dart';
+import 'package:budget_in/features/authentication/authentication.dart';
 import 'package:budget_in/features/credit/credits.dart';
 import 'package:budget_in/features/expenses/presentation/ui/expenses_ui.dart';
 import 'package:budget_in/features/expenses/presentation/ui/pages/expense_page.dart';
@@ -39,7 +40,7 @@ class _MainPageState extends State<MainPage> {
     const ExpensePage(),
     const IncomePage(),
     const CreditPage(),
-    const Center(child: Text('Account')),
+    const AccountPage(),
   ];
   @override
   Widget build(BuildContext context) {
