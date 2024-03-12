@@ -81,7 +81,7 @@ class DashboardPage extends StatelessWidget {
                                     color: (Theme.of(context).primaryColor ==
                                             ColorApp.green
                                         ? Colors.black
-                                        : ColorApp.snowWhite)),
+                                        : Colors.grey)),
                               ),
                               Text(
                                 "+ Rp. 2.000.000",
@@ -113,7 +113,7 @@ class DashboardPage extends StatelessWidget {
                                     color: (Theme.of(context).primaryColor ==
                                             ColorApp.green
                                         ? Colors.black
-                                        : ColorApp.snowWhite)),
+                                        : Colors.grey)),
                               ),
                               Text(
                                 "- Rp. 500.000",
@@ -262,7 +262,9 @@ class CustomPersistenHeader extends SliverPersistentHeaderDelegate {
           child: Text(
             'Budget In',
             style: context.textTheme.bodyLarge!.copyWith(
-              color: Colors.white,
+              color: (Theme.of(context).brightness == Brightness.light
+                  ? Colors.white
+                  : Colors.grey),
               fontWeight: FontWeight.w700,
             ),
           ),
@@ -376,7 +378,7 @@ class ContentBalanceWidget extends StatelessWidget {
                       fontWeight: FontWeight.w500,
                       color: (Theme.of(context).brightness == Brightness.light
                           ? Colors.black
-                          : ColorApp.snowWhite),
+                          : Colors.grey),
                     ),
                   ),
                   Text(
@@ -385,7 +387,7 @@ class ContentBalanceWidget extends StatelessWidget {
                       fontWeight: FontWeight.w700,
                       color: (Theme.of(context).brightness == Brightness.light
                           ? ColorApp.green
-                          : ColorApp.snowWhite),
+                          : Colors.grey),
                     ),
                   ),
                 ],

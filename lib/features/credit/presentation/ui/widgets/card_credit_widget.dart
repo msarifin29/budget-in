@@ -71,7 +71,9 @@ class CardCreditWidget extends StatelessWidget {
                     child: Text(
                       type,
                       style: context.textTheme.labelSmall!.copyWith(
-                        color: Colors.white,
+                        color: (Theme.of(context).brightness == Brightness.light
+                            ? Colors.white
+                            : Colors.grey),
                         fontWeight: FontWeight.w600,
                       ),
                     ),

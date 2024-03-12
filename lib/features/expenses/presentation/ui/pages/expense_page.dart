@@ -50,7 +50,6 @@ class ExpensePage extends StatelessWidget {
             onTap: () {
               showModalBottomSheet(
                   context: context,
-                  backgroundColor: Theme.of(context).scaffoldBackgroundColor,
                   builder: (context) {
                     return DetailExpensesWidget(
                       type: context.l10n.cash,

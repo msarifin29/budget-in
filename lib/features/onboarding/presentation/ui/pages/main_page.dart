@@ -52,7 +52,9 @@ class _MainPageState extends State<MainPage> {
             child: Container(
               height: 60,
               decoration: BoxDecoration(
-                color: Theme.of(context).primaryColor,
+                color: (Theme.of(context).brightness == Brightness.light
+                    ? Colors.white
+                    : ColorApp.darkPrimary),
                 borderRadius: const BorderRadius.only(
                   topLeft: Radius.circular(20),
                   topRight: Radius.circular(20),
@@ -77,7 +79,7 @@ class _MainPageState extends State<MainPage> {
                           SvgName.home,
                           width: 25,
                           colorFilter: ColorFilter.mode(
-                            currentIndex == 0 ? Colors.white : Colors.grey,
+                            currentIndex == 0 ? ColorApp.green : Colors.grey,
                             BlendMode.srcIn,
                           ),
                         ),
@@ -86,8 +88,9 @@ class _MainPageState extends State<MainPage> {
                           'Dashboard',
                           style: context.textTheme.labelSmall!.copyWith(
                             fontSize: 10,
-                            color:
-                                currentIndex == 0 ? Colors.white : Colors.grey,
+                            color: currentIndex == 0
+                                ? ColorApp.green
+                                : Colors.grey,
                           ),
                         )
                       ],
@@ -109,7 +112,7 @@ class _MainPageState extends State<MainPage> {
                           SvgName.expense,
                           width: 25,
                           colorFilter: ColorFilter.mode(
-                            currentIndex == 1 ? Colors.white : Colors.grey,
+                            currentIndex == 1 ? ColorApp.green : Colors.grey,
                             BlendMode.srcIn,
                           ),
                         ),
@@ -118,8 +121,9 @@ class _MainPageState extends State<MainPage> {
                           context.l10n.expense,
                           style: context.textTheme.labelSmall!.copyWith(
                             fontSize: 10,
-                            color:
-                                currentIndex == 1 ? Colors.white : Colors.grey,
+                            color: currentIndex == 1
+                                ? ColorApp.green
+                                : Colors.grey,
                           ),
                         )
                       ],
@@ -141,7 +145,7 @@ class _MainPageState extends State<MainPage> {
                           SvgName.income,
                           width: 25,
                           colorFilter: ColorFilter.mode(
-                            currentIndex == 2 ? Colors.white : Colors.grey,
+                            currentIndex == 2 ? ColorApp.green : Colors.grey,
                             BlendMode.srcIn,
                           ),
                         ),
@@ -150,8 +154,9 @@ class _MainPageState extends State<MainPage> {
                           context.l10n.income,
                           style: context.textTheme.labelSmall!.copyWith(
                             fontSize: 10,
-                            color:
-                                currentIndex == 2 ? Colors.white : Colors.grey,
+                            color: currentIndex == 2
+                                ? ColorApp.green
+                                : Colors.grey,
                           ),
                         )
                       ],
@@ -173,7 +178,7 @@ class _MainPageState extends State<MainPage> {
                           SvgName.creditSync,
                           width: 25,
                           colorFilter: ColorFilter.mode(
-                            currentIndex == 3 ? Colors.white : Colors.grey,
+                            currentIndex == 3 ? ColorApp.green : Colors.grey,
                             BlendMode.srcIn,
                           ),
                         ),
@@ -182,8 +187,9 @@ class _MainPageState extends State<MainPage> {
                           context.l10n.credit,
                           style: context.textTheme.labelSmall!.copyWith(
                             fontSize: 10,
-                            color:
-                                currentIndex == 3 ? Colors.white : Colors.grey,
+                            color: currentIndex == 3
+                                ? ColorApp.green
+                                : Colors.grey,
                           ),
                         )
                       ],
@@ -205,7 +211,7 @@ class _MainPageState extends State<MainPage> {
                           SvgName.person,
                           width: 25,
                           colorFilter: ColorFilter.mode(
-                            currentIndex == 4 ? Colors.white : Colors.grey,
+                            currentIndex == 4 ? ColorApp.green : Colors.grey,
                             BlendMode.srcIn,
                           ),
                         ),
@@ -214,8 +220,9 @@ class _MainPageState extends State<MainPage> {
                           context.l10n.account,
                           style: context.textTheme.labelSmall!.copyWith(
                             fontSize: 10,
-                            color:
-                                currentIndex == 4 ? Colors.white : Colors.grey,
+                            color: currentIndex == 4
+                                ? ColorApp.green
+                                : Colors.grey,
                           ),
                         )
                       ],

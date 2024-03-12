@@ -199,7 +199,13 @@ class LineChartWidgetState extends State<LineChartWidget> {
 
     final Widget text = Text(
       titles[value.toInt()],
-      style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 10),
+      style: TextStyle(
+        fontWeight: FontWeight.w600,
+        fontSize: 10,
+        color: (Theme.of(context).brightness == Brightness.light
+            ? Colors.white
+            : Colors.grey),
+      ),
     );
 
     return SideTitleWidget(

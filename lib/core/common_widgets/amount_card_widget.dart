@@ -68,7 +68,11 @@ class AmountCardWidget extends StatelessWidget {
                   RichText(
                     text: TextSpan(
                       text: category,
-                      style: context.textTheme.bodyMedium!,
+                      style: context.textTheme.bodyMedium!.copyWith(
+                        color: (Theme.of(context).brightness == Brightness.light
+                            ? Colors.white
+                            : Colors.grey),
+                      ),
                       children: [
                         TextSpan(
                           text: '  $date',
@@ -92,7 +96,9 @@ class AmountCardWidget extends StatelessWidget {
                 child: Text(
                   type,
                   style: context.textTheme.labelSmall!.copyWith(
-                    color: Colors.white,
+                    color: (Theme.of(context).brightness == Brightness.light
+                        ? Colors.white
+                        : Colors.grey),
                     fontWeight: FontWeight.w600,
                   ),
                 ),
