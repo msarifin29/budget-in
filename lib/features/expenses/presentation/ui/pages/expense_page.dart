@@ -1,5 +1,4 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'package:budget_in/core/helpers/util_date.dart';
 import 'package:budget_in/features/expenses/presentation/ui/expenses_ui.dart';
 import 'package:flutter/material.dart';
 
@@ -45,7 +44,7 @@ class ExpensePage extends StatelessWidget {
             total: 25000,
             category: 'Food and Drink',
             type: context.l10n.cash,
-            date: UtilDate.today('dd/MM/yyyy HH:mm', DateTime.now()),
+            date: TimeUtil().today('dd/MM/yyyy HH:mm', DateTime.now()),
             color: ColorApp.green,
             onTap: () {
               showModalBottomSheet(
@@ -66,7 +65,7 @@ class ExpensePage extends StatelessWidget {
             total: 500000,
             category: 'Food and Drink',
             type: context.l10n.non_cash,
-            date: UtilDate.today('dd/MM/yyyy HH:mm', DateTime.now()),
+            date: TimeUtil().today('dd/MM/yyyy HH:mm', DateTime.now()),
             color: ColorApp.blue,
           ),
         ],

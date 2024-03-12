@@ -1,7 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 // ignore_for_file: inference_failure_on_function_invocation, require_trailing_commas, lines_longer_than_80_chars
 
-import 'package:budget_in/core/helpers/util_date.dart';
 import 'package:budget_in/features/expenses/presentation/ui/widgets/line_chart_widget.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
@@ -49,7 +48,7 @@ class DashboardPage extends StatelessWidget {
                       height: MediaQuery.sizeOf(context).height * 0.1,
                     ),
                     Text(
-                      UtilDate.today('yMMMM', DateTime.now()),
+                      TimeUtil().today('yMMMM', DateTime.now()),
                       textAlign: TextAlign.center,
                       style: context.textTheme.bodyMedium!.copyWith(
                         fontWeight: FontWeight.w500,
