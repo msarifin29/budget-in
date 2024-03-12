@@ -134,10 +134,16 @@ class _RegisterPageState extends State<RegisterPage> {
                   Navigator.pushNamed(
                     context,
                     SubmitRegisterPage.routeName,
+                    arguments: {
+                      NamedArguments.username: nameControl.text.trim(),
+                      NamedArguments.email: emailControl.text.trim(),
+                      NamedArguments.password: passwordControl.text.trim(),
+                    },
                   );
                 }
               },
             ),
+            const SizedBox(height: 20),
           ],
         ),
       ),

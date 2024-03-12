@@ -17,3 +17,12 @@ class LoginUsecase implements UseCase<LoginResponse, LoginParams> {
     return repository.login(params);
   }
 }
+
+class RegisterUsecase implements UseCase<LoginResponse, RegisterParams> {
+  final AuthRepository repository;
+  RegisterUsecase({required this.repository});
+  @override
+  FutureOr<Either<Failure, LoginResponse>> call(RegisterParams params) async {
+    return repository.register(params);
+  }
+}

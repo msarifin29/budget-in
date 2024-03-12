@@ -8,6 +8,7 @@ import 'package:dio/dio.dart';
 
 abstract class AuthRepository {
   Future<Either<Failure, LoginResponse>> login(LoginParams params);
+  Future<Either<Failure, LoginResponse>> register(RegisterParams params);
 }
 
 class AuthRepositoryImpl extends AuthRepository {
@@ -42,6 +43,49 @@ class AuthRepositoryImpl extends AuthRepository {
         if (errorResponseData is Map &&
             errorResponseData.containsKey('error')) {
           errorData = errorResponseData['error'];
+        }
+        return Left(
+          ServerFailure(
+            DataApiFailure(
+              message: errorMessage,
+              code: error.response?.statusCode,
+              status: errorData,
+            ),
+          ),
+        );
+      } on TypeError catch (error) {
+        return Left(ParsingFailure(error.toString()));
+      }
+    } else {
+      return Left(ConnectionFailure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, LoginResponse>> register(RegisterParams params) async {
+    bool isConnected = await networkInfo.isConnected;
+    if (isConnected) {
+      try {
+        final LoginResponse response = await remoteDataSource.register(params);
+        return Right(response);
+      } on DioException catch (error) {
+        if (error.response == null) {
+          return Left(
+            ServerFailure(
+              DataApiFailure(message: error.message),
+            ),
+          );
+        }
+        final errorResponseData = error.response?.data;
+        dynamic errorData;
+        String errorMessage = Helpers.getErrorMessageFromEndpoint(
+          errorResponseData,
+          error.message ?? '',
+          error.response?.statusCode ?? 400,
+        );
+        if (errorResponseData is Map &&
+            errorResponseData.containsKey('errors')) {
+          errorData = errorResponseData['errors'];
         }
         return Left(
           ServerFailure(

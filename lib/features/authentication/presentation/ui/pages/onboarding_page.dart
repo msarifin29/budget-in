@@ -19,17 +19,10 @@ class _OnboardingPageState extends State<OnboardingPage> {
     return Future.delayed(
       const Duration(seconds: 4),
       () {
-        if (mounted) {
-          Navigator.of(context).pushNamedAndRemoveUntil(
-            RegisterPage.routeName,
-            (route) => false,
-          );
-        } else {
-          Navigator.of(context).pushNamedAndRemoveUntil(
-            LoginPage.routeName,
-            (route) => false,
-          );
-        }
+        Navigator.of(context).pushNamedAndRemoveUntil(
+          RegisterPage.routeName,
+          (route) => false,
+        );
       },
     );
   }

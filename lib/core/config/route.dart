@@ -30,6 +30,9 @@ class RouteName {
 
 class NamedArguments {
   static const currentIndex = 'current-index';
+  static const username = 'username';
+  static const email = 'email';
+  static const password = 'password';
 }
 
 class AppRoute {
@@ -71,9 +74,17 @@ class AppRoute {
         );
 
       case SubmitRegisterPage.routeName:
+        final arguments = settings.arguments as Map<String, dynamic>;
+        final username = arguments[NamedArguments.username] as String;
+        final email = arguments[NamedArguments.email] as String;
+        final password = arguments[NamedArguments.password] as String;
         return MaterialPageRoute(
           builder: (context) {
-            return const SubmitRegisterPage();
+            return SubmitRegisterPage(
+              username: username,
+              email: email,
+              password: password,
+            );
           },
         );
       case ExpensePage.routeName:

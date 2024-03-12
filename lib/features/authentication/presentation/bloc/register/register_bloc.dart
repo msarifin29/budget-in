@@ -8,18 +8,24 @@ import 'package:equatable/equatable.dart';
 
 import 'package:budget_in/features/authentication/authentication.dart';
 
-part 'login_event.dart';
-part 'login_state.dart';
+part 'register_event.dart';
+part 'register_state.dart';
 
-class LoginBloc extends Bloc<LoginEvent, LoginState> {
-  final LoginUsecase loginUsecase;
-  LoginBloc({
-    required this.loginUsecase,
-  }) : super(LoginInitial()) {
-    on<OnUserLogin>((event, emit) async {
-      emit(LoginLoading());
-      final result = await loginUsecase(
-          LoginParams(email: event.email, password: event.password));
+class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
+  final RegisterUsecase registerUsecase;
+  RegisterBloc(
+    this.registerUsecase,
+  ) : super(RegisterInitial()) {
+    on<OnUserRegister>((event, emit) async {
+      emit(RegisterLoading());
+      final result = await registerUsecase(
+        RegisterParams(
+            email: event.email,
+            password: event.password,
+            username: event.username,
+            balance: event.balance,
+            cash: event.cash),
+      );
       emit(result.fold((l) {
         var message = '';
         if (l is ServerFailure) {
@@ -30,8 +36,8 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
           log(message = l.message);
         }
 
-        return LoginFailure(message: message);
-      }, (r) => LoginSuccess(data: r.data)));
+        return RegisterFailure(message: message);
+      }, (r) => RegisterSuccess(data: r.data)));
     });
   }
 }
