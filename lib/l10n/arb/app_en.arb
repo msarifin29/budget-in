@@ -102,5 +102,8 @@
     "sep": "Sep",
     "oct": "Oct",
     "nov": "Nov",
-    "dec": "Dec"
+    "dec": "Dec",
+    "currency": "Currency",
+    "privacy_and_policy": "Privacy and Policy",
+    "contact_support": "Contact Support"
 }

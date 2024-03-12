@@ -102,5 +102,8 @@
   "sep": "Sep",
   "oct": "Okt",
   "nov": "Nov",
-  "dec": "Des"
+  "dec": "Des",
+  "currency": "Mata Uang",
+  "privacy_and_policy": "Privasi dan Kebijakan",
+  "contact_support": "Hubungi Dukungan"
 }

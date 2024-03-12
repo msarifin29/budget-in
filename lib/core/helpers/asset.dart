@@ -30,6 +30,7 @@ class SvgName {
   static const filterWhite = '${BaseAsset.svg}filter_white.svg';
   static const person = '${BaseAsset.svg}person.svg';
   static const profile = '${BaseAsset.svg}profile.svg';
+  static const profileCircle = '${BaseAsset.svg}profile_circle.svg';
   static const search = '${BaseAsset.svg}search.svg';
   static const setting = '${BaseAsset.svg}setting.svg';
   static const signout = '${BaseAsset.svg}signout.svg';

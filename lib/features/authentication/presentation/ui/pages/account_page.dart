@@ -1,6 +1,7 @@
 import 'package:budget_in/core/core.dart';
 import 'package:budget_in/l10n/l10n.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class AccountPage extends StatelessWidget {
   static const routeName = RouteName.accountPage;
@@ -13,6 +14,96 @@ class AccountPage extends StatelessWidget {
         preferredSize: const Size(double.infinity, kToolbarHeight),
         child: NewAppBarWidget(
           title: context.l10n.account,
+        ),
+      ),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            ListTile(
+              leading: SvgPicture.asset(
+                SvgName.profileCircle,
+                width: 40,
+                height: 40,
+                colorFilter: const ColorFilter.mode(
+                  ColorApp.green,
+                  BlendMode.srcIn,
+                ),
+              ),
+              title: Text(
+                'Username',
+                style: context.textTheme.bodyMedium!.copyWith(
+                  color: ColorApp.green,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+              subtitle: Text(
+                'User@mail.com',
+                style: context.textTheme.bodySmall!.copyWith(
+                  color: ColorApp.green,
+                ),
+              ),
+            ),
+            ListTile(
+              leading: SvgPicture.asset(
+                SvgName.currencyCircle,
+                width: 40,
+                height: 40,
+                colorFilter: const ColorFilter.mode(
+                  ColorApp.green,
+                  BlendMode.srcIn,
+                ),
+              ),
+              title: Text(
+                context.l10n.currency,
+                style: context.textTheme.bodyMedium!.copyWith(
+                  color: ColorApp.green,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+              subtitle: Text(
+                'Rupiah',
+                style: context.textTheme.bodySmall!.copyWith(
+                  color: ColorApp.green,
+                ),
+              ),
+            ),
+            ListTile(
+              leading: SvgPicture.asset(
+                SvgName.privacy,
+                width: 40,
+                height: 40,
+                colorFilter: const ColorFilter.mode(
+                  ColorApp.green,
+                  BlendMode.srcIn,
+                ),
+              ),
+              title: Text(
+                context.l10n.privacy_and_policy,
+                style: context.textTheme.bodyMedium!.copyWith(
+                  color: ColorApp.green,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+            ),
+            ListTile(
+              leading: SvgPicture.asset(
+                SvgName.contactSupport,
+                width: 40,
+                height: 40,
+                colorFilter: const ColorFilter.mode(
+                  ColorApp.green,
+                  BlendMode.srcIn,
+                ),
+              ),
+              title: Text(
+                context.l10n.contact_support,
+                style: context.textTheme.bodyMedium!.copyWith(
+                  color: ColorApp.green,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+            ),
+          ],
         ),
       ),
     );
