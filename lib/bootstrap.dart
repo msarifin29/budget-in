@@ -2,11 +2,8 @@ import 'dart:async';
 import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
-import 'package:budget_in/injection.dart';
 import 'package:flutter/widgets.dart';
-
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
 class AppBlocObserver extends BlocObserver {
   const AppBlocObserver();
@@ -28,11 +25,8 @@ Future<void> bootstrap(FutureOr<Widget> Function() builder) async {
   FlutterError.onError = (details) {
     log(details.exceptionAsString(), stackTrace: details.stack);
   };
-  await initContainer();
   Bloc.observer = const AppBlocObserver();
 
-  WidgetsFlutterBinding.ensureInitialized();
-  await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   // Add cross-flavor configuration here
 
   runApp(await builder());

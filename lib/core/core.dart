@@ -10,6 +10,8 @@ export 'common_widgets/box_feature_widget.dart';
 export 'common_widgets/image_empty_widget.dart';
 export 'common_widgets/filter_widget.dart';
 export 'common_widgets/info_widget.dart';
+export 'common_widgets/dialog.dart';
+export 'common_widgets/loading_widget.dart';
 export 'config/route.dart';
 // Helpers
 export 'helpers/asset.dart';
@@ -20,6 +22,7 @@ export 'helpers/time_util.dart';
 export 'helpers/usecase.dart';
 export 'themes/color_app.dart';
 export 'themes/input_decoration_text_field.dart';
+export 'helpers/helper.dart';
 // Themes
 export 'themes/light_theme.dart';
 export 'themes/dark_theme.dart';
@@ -29,4 +32,4 @@ export 'models/item_choice.dart';
 export 'services/dio_logging_interceptor.dart';
 export 'services/network_info.dart';
 export 'services/secure_storage_manager.dart';
-export 'services/shared_preferen_managaer.dart';
+export 'services/shared_preferences_manager.dart';

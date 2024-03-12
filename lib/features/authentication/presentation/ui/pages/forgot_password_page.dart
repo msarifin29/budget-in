@@ -1,4 +1,3 @@
-import 'package:budget_in/core/common_widgets/new_app_bar_widget.dart';
 import 'package:budget_in/core/core.dart';
 import 'package:budget_in/l10n/l10n.dart';
 import 'package:flutter/material.dart';

@@ -24,7 +24,7 @@ class DataApiFailure extends Equatable {
 
 class ServerFailure extends Failure {
   final DataApiFailure failure;
-  ServerFailure({required this.failure});
+  ServerFailure(this.failure);
 
   @override
   List<Object?> get props => [failure];
@@ -39,16 +39,13 @@ class CacheFailure extends Failure {
 }
 
 class ConnectionFailure extends Failure {
-  final String message;
-  ConnectionFailure({required this.message});
-
   @override
-  List<Object?> get props => [message];
+  List<Object?> get props => [];
 }
 
 class ParsingFailure extends Failure {
   final String message;
-  ParsingFailure({required this.message});
+  ParsingFailure(this.message);
 
   @override
   List<Object?> get props => [message];

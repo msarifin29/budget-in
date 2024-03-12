@@ -1,7 +1,10 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 // ignore_for_file: inference_failure_on_function_invocation, require_trailing_commas, lines_longer_than_80_chars
 
+import 'dart:developer';
+
 import 'package:budget_in/features/expenses/presentation/ui/widgets/line_chart_widget.dart';
+import 'package:budget_in/injection.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -10,9 +13,28 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:budget_in/core/core.dart';
 import 'package:budget_in/l10n/l10n.dart';
 
-class DashboardPage extends StatelessWidget {
+class DashboardPage extends StatefulWidget {
   const DashboardPage({super.key});
   static const routeName = RouteName.dashboardPage;
+
+  @override
+  State<DashboardPage> createState() => _DashboardPageState();
+}
+
+class _DashboardPageState extends State<DashboardPage> {
+  final spf = sl<SharedPreferencesManager>();
+  final fts = sl<SecureStorageManager>();
+  @override
+  void initState() {
+    super.initState();
+    getUserInfo();
+  }
+
+  void getUserInfo() async {
+    log('uid : ${spf.getString(SharedPreferencesManager.keyUid)}');
+
+    await fts.getToken().then((value) => log('token : $value'));
+  }
 
   @override
   Widget build(BuildContext context) {

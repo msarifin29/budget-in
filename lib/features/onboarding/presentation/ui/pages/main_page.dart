@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class MainPage extends StatefulWidget {
+  static const routeName = RouteName.mainPage;
   const MainPage({
     super.key,
     required this.currentIndex,

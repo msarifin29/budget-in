@@ -114,3 +114,6 @@ app.*.map.json
 #Platform
 /macos
 /windows
+
+*.g.dart
+*.env

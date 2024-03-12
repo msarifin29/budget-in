@@ -17,11 +17,20 @@ class OnboardingPage extends StatefulWidget {
 class _OnboardingPageState extends State<OnboardingPage> {
   Future<void> navigationTo() async {
     return Future.delayed(
-      const Duration(seconds: 2),
-      () => Navigator.of(context).pushNamedAndRemoveUntil(
-        RegisterPage.routeName,
-        (route) => false,
-      ),
+      const Duration(seconds: 4),
+      () {
+        if (mounted) {
+          Navigator.of(context).pushNamedAndRemoveUntil(
+            RegisterPage.routeName,
+            (route) => false,
+          );
+        } else {
+          Navigator.of(context).pushNamedAndRemoveUntil(
+            LoginPage.routeName,
+            (route) => false,
+          );
+        }
+      },
     );
   }
 
@@ -34,7 +43,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -43,9 +52,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
             width: 200,
             height: 200,
           ),
-          const SizedBox(
-            height: 50,
-          ),
+          const SizedBox(height: 50),
           Align(
             child: SizedBox(
               width: 250,
@@ -54,6 +61,9 @@ class _OnboardingPageState extends State<OnboardingPage> {
                 textAlign: TextAlign.center,
                 style: context.textTheme.bodyMedium?.copyWith(
                   fontWeight: FontWeight.w500,
+                  color: (Theme.of(context).brightness == Brightness.light
+                      ? ColorApp.green
+                      : Colors.grey),
                 ),
               ),
             ),

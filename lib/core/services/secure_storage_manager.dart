@@ -19,7 +19,7 @@ class SecureStorageManager {
     return await storage.read(key: _keyAccessToken);
   }
 
-  Future<void> deleteAll() async {
+  Future<void> deleteToken() async {
     await storage.delete(key: _keyAccessToken);
   }
 }
