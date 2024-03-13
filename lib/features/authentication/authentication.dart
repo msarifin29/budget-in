@@ -5,5 +5,5 @@ export 'presentation/bloc/occupation/occupation_bloc.dart';
 export 'presentation/bloc/login/login_bloc.dart';
 export 'presentation/bloc/auth_user/auth_user_cubit.dart';
 export 'presentation/bloc/account/account_bloc.dart';
-export 'presentation/bloc/show_total/show_balance_cubit.dart';
+export 'presentation/bloc/show_total/show_total_cubit.dart';
 export 'presentation/ui/authentication_ui.dart';

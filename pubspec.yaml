@@ -30,6 +30,7 @@ dependencies:
   json_annotation: ^4.8.1
   lottie: ^3.0.0
   shared_preferences: ^2.2.2
+  shimmer: ^3.0.0
 
 dev_dependencies:
   bloc_test: ^9.1.4

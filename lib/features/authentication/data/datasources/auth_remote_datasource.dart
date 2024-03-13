@@ -2,7 +2,6 @@
 import 'dart:developer';
 
 import 'package:budget_in/core/core.dart';
-import 'package:budget_in/features/authentication/data/models/account_response.dart';
 import 'package:dio/dio.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';

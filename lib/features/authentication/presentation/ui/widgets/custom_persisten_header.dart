@@ -1,13 +1,14 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:developer';
 
-import 'package:budget_in/core/core.dart';
-import 'package:budget_in/features/authentication/authentication.dart';
-import 'package:budget_in/features/authentication/presentation/bloc/show_total/show_total_cubit.dart';
-import 'package:budget_in/l10n/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intl/intl.dart';
+
+import 'package:budget_in/core/core.dart';
+import 'package:budget_in/features/authentication/authentication.dart';
+import 'package:budget_in/l10n/l10n.dart';
 
 class CustomPersistenHeader extends SliverPersistentHeaderDelegate {
   final double expandedHeight;
@@ -71,7 +72,15 @@ class CustomPersistenHeader extends SliverPersistentHeaderDelegate {
                   child: BlocBuilder<AccountBloc, AccountState>(
                     builder: (context, state) {
                       log('account => //');
-                      if (state is AccountSuccess) {
+                      if (state is AccountLoading) {
+                        return ShimmerBox(
+                            width: MediaQuery.of(context).size.width * 0.9,
+                            height: expandedHeight - 10);
+                      } else if (state is AccountFailre) {
+                        return RefreshButton(
+                          onPressed: () {},
+                        );
+                      } else if (state is AccountSuccess) {
                         final data = state.accountData;
                         final balance = NumberFormat.currency(
                                 locale: 'ID', symbol: '', decimalDigits: 0)
@@ -113,6 +122,7 @@ class CustomPersistenHeader extends SliverPersistentHeaderDelegate {
                           },
                         );
                       }
+
                       return const SizedBox();
                     },
                   ),
