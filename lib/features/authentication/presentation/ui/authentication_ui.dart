@@ -8,3 +8,4 @@ export 'widgets/dialog__image_profile_widget.dart';
 export 'widgets/dialog_profile_widget.dart';
 export 'widgets/item_profile_widget.dart';
 export 'widgets/logo_widget.dart';
+export 'widgets/custom_persisten_header.dart';
