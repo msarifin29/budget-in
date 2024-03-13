@@ -4,6 +4,7 @@ import 'package:budget_in/core/core.dart';
 import 'package:budget_in/features/authentication/authentication.dart';
 import 'package:budget_in/features/authentication/presentation/ui/pages/onboarding_page.dart';
 import 'package:budget_in/features/onboarding/presentation/ui/pages/main_page.dart';
+import 'package:budget_in/injection.dart';
 import 'package:budget_in/l10n/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -21,8 +22,16 @@ class App extends StatefulWidget {
 class _AppState extends State<App> {
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => AuthUserCubit()..tokenIsExist(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => AuthUserCubit()..tokenIsExist(),
+        ),
+        BlocProvider(
+          create: (context) =>
+              AccountBloc(accountUsecase: sl<AccountUsecase>()),
+        ),
+      ],
       child: MaterialApp(
         theme: lightTheme(),
         darkTheme: darkTheme(),
@@ -33,7 +42,7 @@ class _AppState extends State<App> {
         onGenerateRoute: AppRoute.generateRoute,
         home: BlocBuilder<AuthUserCubit, AuthUserState>(
           builder: (context, state) {
-            log('auth-user => $state');
+            log('auth-user => //');
             if (state is AuthUserLoaded) {
               if (state.isExist) {
                 return const MainPage(currentIndex: 0);

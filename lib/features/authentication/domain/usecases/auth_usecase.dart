@@ -26,3 +26,14 @@ class RegisterUsecase implements UseCase<LoginResponse, RegisterParams> {
     return repository.register(params);
   }
 }
+
+class AccountUsecase implements UseCase<AccountResponse, String> {
+  final AuthRepository repository;
+
+  AccountUsecase({required this.repository});
+
+  @override
+  FutureOr<Either<Failure, AccountResponse>> call(String param) async {
+    return await repository.account(param);
+  }
+}

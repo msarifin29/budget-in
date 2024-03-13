@@ -47,7 +47,6 @@ class _SubmitRegisterPageState extends State<SubmitRegisterPage> {
     await spm.putString(SharedPreferencesManager.keyUid, uid);
   }
 
-// ${NumberFormat.currency(locale: 'ID', symbol: "", decimalDigits: 0).format(item.price)}
   @override
   Widget build(BuildContext context) {
     return BlocProvider(

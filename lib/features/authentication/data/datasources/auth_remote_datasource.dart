@@ -1,6 +1,8 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:developer';
 
+import 'package:budget_in/core/core.dart';
+import 'package:budget_in/features/authentication/data/models/account_response.dart';
 import 'package:dio/dio.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -10,6 +12,7 @@ import 'package:budget_in/features/authentication/authentication.dart';
 abstract class AuthRemoteDataSource {
   Future<LoginResponse> login(LoginParams params);
   Future<LoginResponse> register(RegisterParams params);
+  Future<AccountResponse> account(String uid);
 }
 
 class AuthRemoteDataSourceImpl extends AuthRemoteDataSource {
@@ -46,6 +49,23 @@ class AuthRemoteDataSourceImpl extends AuthRemoteDataSource {
     );
     if (response.statusCode == 200) {
       return LoginResponse.fromJson(response.data);
+    } else {
+      throw DioException(
+        requestOptions: RequestOptions(path: path),
+      );
+    }
+  }
+
+  @override
+  Future<AccountResponse> account(String uid) async {
+    final String path = '$baseUrl/api/user/$uid';
+    final Response<dynamic> response = await dio.get(path,
+        options: Options(headers: {
+          BaseUrlConfig.requiredToken: true,
+        }));
+    log('account datasource => ${response.data}');
+    if (response.statusCode == 200) {
+      return AccountResponse.fromJson(response.data);
     } else {
       throw DioException(
         requestOptions: RequestOptions(path: path),

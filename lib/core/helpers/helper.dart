@@ -1,3 +1,6 @@
+import 'package:budget_in/core/core.dart';
+import 'package:budget_in/injection.dart';
+
 class Helpers {
   static String getErrorMessageFromEndpoint(
       dynamic dynamicErrorMessage, String httpErrorMessage, int statusCode) {
@@ -14,5 +17,14 @@ class Helpers {
     } else {
       return httpErrorMessage;
     }
+  }
+
+  static String getUid() {
+    final spf = sl<SharedPreferencesManager>();
+    return spf.getString(SharedPreferencesManager.keyUid) ?? '';
+  }
+
+  static String replaceString(String v) {
+    return v.replaceAll(RegExp('.'), "*");
   }
 }

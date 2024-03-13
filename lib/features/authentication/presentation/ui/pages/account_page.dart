@@ -103,6 +103,16 @@ class AccountPage extends StatelessWidget {
                 ),
               ),
             ),
+            Container(
+              height: MediaQuery.sizeOf(context).height * 0.41,
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 24),
+              child: PrimaryButton(
+                text: context.l10n.sigout,
+                onPressed: () {},
+              ),
+            ),
           ],
         ),
       ),
