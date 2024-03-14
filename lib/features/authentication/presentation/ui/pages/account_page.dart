@@ -1,6 +1,8 @@
 import 'package:budget_in/core/core.dart';
+import 'package:budget_in/features/authentication/authentication.dart';
 import 'package:budget_in/l10n/l10n.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class AccountPage extends StatelessWidget {
@@ -19,53 +21,64 @@ class AccountPage extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            ListTile(
-              leading: SvgPicture.asset(
-                SvgName.profileCircle,
-                width: 40,
-                height: 40,
-                colorFilter: const ColorFilter.mode(
-                  ColorApp.green,
-                  BlendMode.srcIn,
-                ),
-              ),
-              title: Text(
-                'Username',
-                style: context.textTheme.bodyMedium!.copyWith(
-                  color: ColorApp.green,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-              subtitle: Text(
-                'User@mail.com',
-                style: context.textTheme.bodySmall!.copyWith(
-                  color: ColorApp.green,
-                ),
-              ),
-            ),
-            ListTile(
-              leading: SvgPicture.asset(
-                SvgName.currencyCircle,
-                width: 40,
-                height: 40,
-                colorFilter: const ColorFilter.mode(
-                  ColorApp.green,
-                  BlendMode.srcIn,
-                ),
-              ),
-              title: Text(
-                context.l10n.currency,
-                style: context.textTheme.bodyMedium!.copyWith(
-                  color: ColorApp.green,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-              subtitle: Text(
-                'Rupiah',
-                style: context.textTheme.bodySmall!.copyWith(
-                  color: ColorApp.green,
-                ),
-              ),
+            BlocBuilder<AccountBloc, AccountState>(
+              builder: (context, state) {
+                if (state is AccountSuccess) {
+                  return Column(
+                    children: [
+                      ListTile(
+                        leading: SvgPicture.asset(
+                          SvgName.profileCircle,
+                          width: 40,
+                          height: 40,
+                          colorFilter: const ColorFilter.mode(
+                            ColorApp.green,
+                            BlendMode.srcIn,
+                          ),
+                        ),
+                        title: Text(
+                          context.l10n.username,
+                          style: context.textTheme.bodyMedium!.copyWith(
+                            color: ColorApp.green,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                        subtitle: Text(
+                          state.accountData.username,
+                          style: context.textTheme.bodySmall!.copyWith(
+                            color: ColorApp.green,
+                          ),
+                        ),
+                      ),
+                      ListTile(
+                        leading: SvgPicture.asset(
+                          SvgName.currencyCircle,
+                          width: 40,
+                          height: 40,
+                          colorFilter: const ColorFilter.mode(
+                            ColorApp.green,
+                            BlendMode.srcIn,
+                          ),
+                        ),
+                        title: Text(
+                          context.l10n.currency,
+                          style: context.textTheme.bodyMedium!.copyWith(
+                            color: ColorApp.green,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                        subtitle: Text(
+                          state.accountData.currency,
+                          style: context.textTheme.bodySmall!.copyWith(
+                            color: ColorApp.green,
+                          ),
+                        ),
+                      ),
+                    ],
+                  );
+                }
+                return const SizedBox();
+              },
             ),
             ListTile(
               leading: SvgPicture.asset(

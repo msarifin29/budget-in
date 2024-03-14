@@ -25,7 +25,6 @@ class _DashboardPageState extends State<DashboardPage> {
   @override
   void initState() {
     uid = Helpers.getUid();
-    getAccount();
     super.initState();
   }
 
@@ -43,7 +42,10 @@ class _DashboardPageState extends State<DashboardPage> {
       body: CustomScrollView(
         slivers: [
           SliverPersistentHeader(
-            delegate: CustomPersistenHeader(expandedHeight: 150.0),
+            delegate: CustomPersistenHeader(
+              expandedHeight: 150,
+              onPressed: getAccount,
+            ),
             pinned: true,
           ),
           SliverToBoxAdapter(

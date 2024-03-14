@@ -2,7 +2,6 @@ import 'dart:developer';
 
 import 'package:budget_in/core/core.dart';
 import 'package:budget_in/features/authentication/authentication.dart';
-import 'package:budget_in/features/authentication/presentation/ui/pages/onboarding_page.dart';
 import 'package:budget_in/features/onboarding/presentation/ui/pages/main_page.dart';
 import 'package:budget_in/injection.dart';
 import 'package:budget_in/l10n/l10n.dart';
@@ -21,6 +20,12 @@ class App extends StatefulWidget {
 
 class _AppState extends State<App> {
   @override
+  void dispose() {
+    AuthUserCubit().close();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
@@ -28,6 +33,7 @@ class _AppState extends State<App> {
           create: (context) => AuthUserCubit()..tokenIsExist(),
         ),
         BlocProvider(
+          lazy: false,
           create: (context) =>
               AccountBloc(accountUsecase: sl<AccountUsecase>()),
         ),
@@ -42,14 +48,14 @@ class _AppState extends State<App> {
         onGenerateRoute: AppRoute.generateRoute,
         home: BlocBuilder<AuthUserCubit, AuthUserState>(
           builder: (context, state) {
-            log('auth-user => //');
+            log('auth-user => $state');
             if (state is AuthUserLoaded) {
               if (state.isExist) {
                 return const MainPage(currentIndex: 0);
               }
-              return const OnboardingPage();
+              return const LoginPage();
             }
-            return const OnboardingPage();
+            return const LoginPage();
           },
         ),
       ),

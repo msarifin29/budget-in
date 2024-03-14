@@ -7,6 +7,7 @@ import 'package:budget_in/features/expenses/presentation/ui/pages/expense_page.d
 import 'package:budget_in/features/incomes/incomes.dart';
 import 'package:budget_in/l10n/l10n.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class MainPage extends StatefulWidget {
@@ -22,12 +23,18 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
-  // ValueNotifier
   int currentIndex = 0;
+  late String uid;
   @override
   void initState() {
     currentIndex = widget.currentIndex;
+    uid = Helpers.getUid();
+    getAccount();
     super.initState();
+  }
+
+  void getAccount() {
+    context.read<AccountBloc>().add(OnInitialAccount(uid: uid));
   }
 
   void selectedTab(int index) {

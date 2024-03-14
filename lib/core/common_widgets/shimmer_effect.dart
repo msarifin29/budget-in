@@ -19,7 +19,6 @@ class ShimmerBox extends StatelessWidget {
       child: Shimmer.fromColors(
           baseColor: Colors.grey.shade300,
           highlightColor: Colors.grey.shade100,
-          enabled: true,
           child: const SizedBox()),
     );
   }
