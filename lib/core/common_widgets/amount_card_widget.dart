@@ -13,7 +13,7 @@ class AmountCardWidget extends StatelessWidget {
     this.plusMin = '',
     this.colorPlusMinus = ColorApp.green,
   });
-  final int total;
+  final String total;
   final String category;
   final String type;
   final String date;
@@ -25,12 +25,12 @@ class AmountCardWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       elevation: 0.5,
-      margin: const EdgeInsets.symmetric(horizontal: 15),
+      margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
       child: InkWell(
         onTap: onTap,
         borderRadius: BorderRadius.circular(15),
         child: Container(
-          height: 80,
+          height: 75,
           width: double.infinity,
           padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
           decoration: BoxDecoration(
@@ -57,7 +57,7 @@ class AmountCardWidget extends StatelessWidget {
                               .copyWith(color: colorPlusMinus),
                         ),
                         TextSpan(
-                          text: total.toString(),
+                          text: total,
                           style: context.textTheme.bodyLarge!.copyWith(
                               fontWeight: FontWeight.w600,
                               color: colorPlusMinus),
@@ -70,7 +70,7 @@ class AmountCardWidget extends StatelessWidget {
                       text: category,
                       style: context.textTheme.bodyMedium!.copyWith(
                         color: (Theme.of(context).brightness == Brightness.light
-                            ? Colors.white
+                            ? ColorApp.green
                             : Colors.grey),
                       ),
                       children: [

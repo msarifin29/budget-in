@@ -8,6 +8,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 abstract class ExpenseRemoteDataSource {
   Future<Expenseresponse> create(Expenseparams params);
+  Future<GetExpenseResponse> getExpenses(GetExpensesparams params);
 }
 
 class ExpenseRemoteDataSourceImpl extends ExpenseRemoteDataSource {
@@ -24,6 +25,23 @@ class ExpenseRemoteDataSourceImpl extends ExpenseRemoteDataSource {
     log('create expenses datasource ${response.data}');
     if (response.statusCode == 200) {
       return Expenseresponse.fromJson(response.data);
+    } else {
+      throw DioException(
+        requestOptions: RequestOptions(path: path),
+      );
+    }
+  }
+
+  @override
+  Future<GetExpenseResponse> getExpenses(GetExpensesparams params) async {
+    final String path = '$baseUrl/api/expenses';
+    final Response<dynamic> response = await dio.get(
+      path,
+      options: Options(headers: {BaseUrlConfig.requiredToken: true}),
+      queryParameters: params.toMap(),
+    );
+    if (response.statusCode == 200) {
+      return GetExpenseResponse.fromJson(response.data);
     } else {
       throw DioException(
         requestOptions: RequestOptions(path: path),
@@ -64,4 +82,42 @@ class Expenseparams extends Equatable {
         category,
         accountId,
       ];
+}
+
+class GetExpensesparams extends Equatable {
+  final int page;
+  final int totalPage;
+  final String? expenseType;
+  final String status;
+
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> data = {};
+    data['page'] = page;
+    data['total_page'] = totalPage;
+    data['status'] = status;
+    if (expenseType != null) data['expense_type'] = expenseType;
+    return data;
+  }
+
+  GetExpensesparams copyWith({
+    int? page,
+    int? totalPage,
+    String? expenseType,
+    String? status,
+  }) {
+    return GetExpensesparams(
+      page: page ?? this.page,
+      totalPage: totalPage ?? this.totalPage,
+      status: status ?? this.status,
+      expenseType: expenseType ?? this.expenseType,
+    );
+  }
+
+  const GetExpensesparams(
+      {required this.page,
+      required this.totalPage,
+      this.expenseType,
+      required this.status});
+  @override
+  List<Object?> get props => throw UnimplementedError();
 }

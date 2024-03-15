@@ -15,14 +15,13 @@ class DetailExpensesWidget extends StatelessWidget {
   });
 
   final String type;
-  final DateTime date;
-  final int total;
+  final String date;
+  final String total;
   final String category;
   final String notes;
 
   @override
   Widget build(BuildContext context) {
-    final time = TimeUtil().today(dmy, date);
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
       child: Column(
@@ -35,7 +34,7 @@ class DetailExpensesWidget extends StatelessWidget {
           const SizedBox(height: 10),
           InfoWidget(
               k: context.l10n.type_x(context.l10n.expense), v: ': $type'),
-          InfoWidget(k: context.l10n.date, v: ': $time'),
+          InfoWidget(k: context.l10n.date, v: ': $date'),
           InfoWidget(k: context.l10n.total, v: ': Rp. $total'),
           InfoWidget(k: context.l10n.category, v: ': $category'),
           InfoWidget(k: context.l10n.notes, v: ': $notes'),

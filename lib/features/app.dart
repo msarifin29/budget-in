@@ -45,6 +45,11 @@ class _AppState extends State<App> {
           create: (context) =>
               ExpenseBloc(createExpenseUsecase: sl<CreateExpenseUsecase>()),
         ),
+        BlocProvider(
+          lazy: false,
+          create: (context) =>
+              GetExpensesBloc(getExpensesUsecase: sl<GetExpensesUsecase>()),
+        ),
       ],
       child: MaterialApp(
         theme: lightTheme(),

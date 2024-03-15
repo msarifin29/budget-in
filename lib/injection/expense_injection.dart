@@ -11,4 +11,5 @@ FutureOr<void> expenseInjection() async {
       ));
 
   sl.registerLazySingleton(() => CreateExpenseUsecase(repository: sl()));
+  sl.registerLazySingleton(() => GetExpensesUsecase(repository: sl()));
 }

@@ -38,7 +38,7 @@ class IncomePage extends StatelessWidget {
         children: [
           AmountCardWidget(
             plusMin: '+',
-            total: 25000,
+            total: '25000',
             category: context.l10n.salary,
             type: context.l10n.cash,
             date: TimeUtil().today(ddMMyyy, DateTime.now()),

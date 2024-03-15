@@ -134,5 +134,6 @@
   "select_category_first": "Pilih kategori {x} terlebih dahulu",
   "select_type_first": "Pilih jenis {x} terlebih dahulu",
   "min_total": "Minimal total 2.000",
-  "msg_success_create": "{x} berhasil ditambahkan"
+  "msg_success_create": "{x} berhasil ditambahkan",
+  "something_wrong": "Terjadi kesalahan"
 }

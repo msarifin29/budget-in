@@ -1,9 +1,11 @@
 import 'package:budget_in/core/core.dart';
 import 'package:budget_in/injection.dart';
+import 'package:intl/intl.dart';
 
 final spf = sl<SharedPreferencesManager>();
 
 class Helpers {
+  static const success = 'success';
   static String getErrorMessageFromEndpoint(
       dynamic dynamicErrorMessage, String httpErrorMessage, int statusCode) {
     if (dynamicErrorMessage is Map &&
@@ -31,6 +33,11 @@ class Helpers {
 
   static String replaceString(String v) {
     return v.replaceAll(RegExp('.'), "*");
+  }
+
+  static String currency(num n) {
+    return NumberFormat.currency(locale: 'ID', symbol: '', decimalDigits: 0)
+        .format(n);
   }
 }
 

@@ -1,4 +1,5 @@
 import 'package:budget_in/core/core.dart';
+import 'package:budget_in/features/authentication/authentication.dart';
 import 'package:budget_in/features/expenses/expenses.dart';
 import 'package:budget_in/l10n/l10n.dart';
 import 'package:currency_text_input_formatter/currency_text_input_formatter.dart';
@@ -194,6 +195,9 @@ class _NewExpensePageState extends State<NewExpensePage> {
                         context.l10n.msg_success_create(context.l10n.expense),
                       ),
                     );
+                    context.read<AccountBloc>().add(
+                          OnInitialAccount(uid: Helpers.getUid()),
+                        );
                   }
                 },
                 builder: (context, state) {

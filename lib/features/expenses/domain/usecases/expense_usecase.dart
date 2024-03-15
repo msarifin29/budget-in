@@ -10,6 +10,18 @@ class CreateExpenseUsecase implements UseCase<Expenseresponse, Expenseparams> {
   CreateExpenseUsecase({required this.repository});
   @override
   FutureOr<Either<Failure, Expenseresponse>> call(Expenseparams params) async {
-    return repository.create(params);
+    return await repository.create(params);
+  }
+}
+
+class GetExpensesUsecase
+    implements UseCase<GetExpenseResponse, GetExpensesparams> {
+  final ExpenseRepository repository;
+
+  GetExpensesUsecase({required this.repository});
+  @override
+  FutureOr<Either<Failure, GetExpenseResponse>> call(
+      GetExpensesparams params) async {
+    return await repository.getExpenses(params);
   }
 }

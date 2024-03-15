@@ -25,7 +25,7 @@ class ExpenseData extends Equatable {
   final int id;
   @JsonKey(name: "expense_type")
   final String expenseType;
-  final double total;
+  final num total;
   final String category;
   final String status;
   final String notes;
