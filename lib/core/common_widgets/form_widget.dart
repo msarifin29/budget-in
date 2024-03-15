@@ -1,6 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first, lines_longer_than_80_chars
 import 'package:budget_in/core/core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class FormWidget extends StatelessWidget {
   const FormWidget({
@@ -15,6 +16,8 @@ class FormWidget extends StatelessWidget {
     this.maxLines = 1,
     this.keyboardType,
     this.hintStyle,
+    this.inputFormatters,
+    this.onChanged,
   });
 
   final String title;
@@ -27,6 +30,8 @@ class FormWidget extends StatelessWidget {
   final int maxLines;
   final TextInputType? keyboardType;
   final TextStyle? hintStyle;
+  final List<TextInputFormatter>? inputFormatters;
+  final Function(String)? onChanged;
 
   @override
   Widget build(BuildContext context) {
@@ -58,6 +63,8 @@ class FormWidget extends StatelessWidget {
           maxLines: maxLines,
           validator: validator,
           keyboardType: keyboardType,
+          inputFormatters: inputFormatters,
+          onChanged: onChanged,
         ),
       ],
     );

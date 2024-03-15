@@ -1,6 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
+
 part 'account_response.g.dart';
 
 @JsonSerializable(explicitToJson: true)
@@ -21,6 +22,8 @@ class AccountResponse extends Equatable {
 @JsonSerializable(explicitToJson: true)
 class AccountData extends Equatable {
   final String uid;
+  @JsonKey(name: "account_id")
+  final String accountId;
   final String username;
   final String email;
   final String photo;
@@ -35,6 +38,7 @@ class AccountData extends Equatable {
   final String? updateddAt;
   const AccountData({
     required this.uid,
+    required this.accountId,
     required this.username,
     required this.email,
     required this.photo,
@@ -53,6 +57,7 @@ class AccountData extends Equatable {
   @override
   List<Object?> get props => [
         uid,
+        accountId,
         username,
         email,
         photo,
@@ -67,6 +72,6 @@ class AccountData extends Equatable {
       ];
   @override
   String toString() {
-    return 'AccountData{uid:$uid, username:$username, email:$email, photo:$photo, typeUser:$typeUser, balance:$balance, savings:$savings, cash:$cash, debts:$debts, currency:$currency, createdAt:$createdAt, updateddAt:$updateddAt,}';
+    return 'AccountData{uid:$uid, accountId:$accountId, username:$username, email:$email, photo:$photo, typeUser:$typeUser, balance:$balance, savings:$savings, cash:$cash, debts:$debts, currency:$currency, createdAt:$createdAt, updateddAt:$updateddAt,}';
   }
 }

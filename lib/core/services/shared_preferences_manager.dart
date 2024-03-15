@@ -6,6 +6,7 @@ class SharedPreferencesManager {
   static const keyDefaultLanguageCode = 'defaultLanguageCode';
   static const keyAccessToken = 'keyAccessToken';
   static const keyUid = 'key-uid';
+  static const keyAccountId = 'key-account-id';
   static const keyLanguageEnglish = 'english';
   static const keyLanguageIndonesia = 'indonesia';
   static const keyLanguageEnglishCode = 'en';

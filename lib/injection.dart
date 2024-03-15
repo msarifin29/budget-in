@@ -3,10 +3,13 @@ import 'dart:async';
 import 'package:budget_in/core/core.dart';
 import 'package:budget_in/features/authentication/authentication.dart';
 import 'package:budget_in/features/authentication/data/datasources/auth_remote_datasource.dart';
+import 'package:budget_in/features/expenses/expenses.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+part 'injection/expense_injection.dart';
 
 part 'injection/authentication_injection.dart';
 
@@ -14,6 +17,7 @@ final sl = GetIt.instance;
 
 FutureOr<void> initContainer() async {
   authenticationInjection();
+  expenseInjection();
 
   sl.registerLazySingleton(() => Connectivity());
 

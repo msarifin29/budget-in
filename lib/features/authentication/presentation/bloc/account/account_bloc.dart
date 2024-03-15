@@ -3,6 +3,7 @@ import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
 import 'package:budget_in/core/core.dart';
+import 'package:budget_in/injection.dart';
 import 'package:equatable/equatable.dart';
 
 import 'package:budget_in/features/authentication/authentication.dart';
@@ -15,6 +16,7 @@ class AccountBloc extends Bloc<AccountEvent, AccountState> {
   AccountBloc({required this.accountUsecase}) : super(AccountInitial()) {
     on<OnInitialAccount>((event, emit) async {
       emit(AccountLoading());
+      final dataSource = sl<SharedPreferencesManager>();
       final result = await accountUsecase(event.uid);
       emit(result.fold((l) {
         var message = '';
@@ -26,7 +28,14 @@ class AccountBloc extends Bloc<AccountEvent, AccountState> {
           log(message = l.message);
         }
         return AccountFailre(message: message);
-      }, (r) => AccountSuccess(accountData: r.data)));
+      }, (r) {
+        if ((dataSource.getString(SharedPreferencesManager.keyAccountId) ?? '')
+            .isEmpty) {
+          dataSource.putString(
+              SharedPreferencesManager.keyAccountId, r.data.accountId);
+        }
+        return AccountSuccess(accountData: r.data);
+      }));
     });
   }
 }

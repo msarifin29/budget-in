@@ -16,6 +16,30 @@
       }
     }
   },
+  "@select_category_first": {
+    "description": "A message with a parameters",
+    "placeholders": {
+      "x": {
+        "type": "String"
+      }
+    }
+  },
+  "@select_type_first": {
+    "description": "A message with a parameters",
+    "placeholders": {
+      "x": {
+        "type": "String"
+      }
+    }
+  },
+  "@msg_success_create": {
+    "description": "A message with a parameters",
+    "placeholders": {
+      "x": {
+        "type": "String"
+      }
+    }
+  },
   "no": "Tidak",
   "yes": "Ya",
   "msg_onboarding": "Membangun kebiasaan finansial yang sehat dan mengendalikan pengeluaran yang tidak perlu",
@@ -106,5 +130,9 @@
   "currency": "Mata Uang",
   "privacy_and_policy": "Privasi dan Kebijakan",
   "contact_support": "Hubungi Dukungan",
-  "sigout": "Keluar"
+  "sigout": "Keluar",
+  "select_category_first": "Pilih kategori {x} terlebih dahulu",
+  "select_type_first": "Pilih jenis {x} terlebih dahulu",
+  "min_total": "Minimal total 2.000",
+  "msg_success_create": "{x} berhasil ditambahkan"
 }

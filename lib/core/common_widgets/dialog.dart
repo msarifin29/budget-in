@@ -12,8 +12,8 @@ Future<T?> simpleDialog<T>(
           title,
           textAlign: TextAlign.center,
           style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                color: ColorApp.blue,
-                fontWeight: FontWeight.w600,
+                color: Colors.grey,
+                fontWeight: FontWeight.w500,
               ),
         ),
       );
@@ -61,5 +61,25 @@ Future selectedDialog(
         ],
       );
     },
+  );
+}
+
+SnackBar floatingSnackBar(BuildContext context, String message) {
+  return SnackBar(
+    backgroundColor: Colors.grey,
+    dismissDirection: DismissDirection.up,
+    behavior: SnackBarBehavior.floating,
+    content: Text(
+      message,
+      style: Theme.of(context)
+          .textTheme
+          .bodySmall!
+          .copyWith(color: ColorApp.darkPrimary),
+    ),
+    margin: EdgeInsets.only(
+      bottom: MediaQuery.of(context).size.height - 150,
+      left: 20,
+      right: 20,
+    ),
   );
 }

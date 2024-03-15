@@ -2,11 +2,14 @@ import 'dart:developer';
 
 import 'package:budget_in/core/core.dart';
 import 'package:budget_in/features/authentication/authentication.dart';
+import 'package:budget_in/features/expenses/expenses.dart';
 import 'package:budget_in/features/onboarding/presentation/ui/pages/main_page.dart';
 import 'package:budget_in/injection.dart';
 import 'package:budget_in/l10n/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import 'expenses/domain/usecases/expense_usecase.dart';
 
 final rootScaffoldMessengerKey = GlobalKey<ScaffoldMessengerState>();
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
@@ -36,6 +39,11 @@ class _AppState extends State<App> {
           lazy: false,
           create: (context) =>
               AccountBloc(accountUsecase: sl<AccountUsecase>()),
+        ),
+        BlocProvider(
+          lazy: false,
+          create: (context) =>
+              ExpenseBloc(createExpenseUsecase: sl<CreateExpenseUsecase>()),
         ),
       ],
       child: MaterialApp(

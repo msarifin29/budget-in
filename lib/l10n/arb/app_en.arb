@@ -16,6 +16,30 @@
             }
         }
     },
+    "@select_category_first": {
+        "description": "A message with a parameters",
+        "placeholders": {
+            "x": {
+                "type": "String"
+            }
+        }
+    },
+    "@select_type_first": {
+        "description": "A message with a parameters",
+        "placeholders": {
+            "x": {
+                "type": "String"
+            }
+        }
+    },
+    "@msg_success_create": {
+        "description": "A message with a parameters",
+        "placeholders": {
+            "x": {
+                "type": "String"
+            }
+        }
+    },
     "no": "No",
     "yes": "Yes",
     "msg_onboarding": "Build healthy financial habits and control unncessary expenses",
@@ -106,5 +130,9 @@
     "currency": "Currency",
     "privacy_and_policy": "Privacy and Policy",
     "contact_support": "Contact Support",
-    "sigout": "Signout"
+    "sigout": "Signout",
+    "select_category_first": "Select category {x} first",
+    "select_type_first": "Select type {x} first",
+    "min_total": "Minimum total 2.000",
+    "msg_success_create": "The {x} was added successfully"
 }
