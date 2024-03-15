@@ -1,5 +1,6 @@
 import 'package:budget_in/core/core.dart';
 import 'package:budget_in/features/authentication/authentication.dart';
+import 'package:budget_in/injection.dart';
 import 'package:budget_in/l10n/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -11,6 +12,14 @@ class AccountPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final spm = sl<SharedPreferencesManager>();
+    final fss = sl<SecureStorageManager>();
+    void clearLocalData() async {
+      await fss.deleteToken();
+      await spm.clearKey(SharedPreferencesManager.keyUid);
+      await spm.clearKey(SharedPreferencesManager.keyAccountId);
+    }
+
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: const Size(double.infinity, kToolbarHeight),
@@ -123,7 +132,13 @@ class AccountPage extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 24),
               child: PrimaryButton(
                 text: context.l10n.sigout,
-                onPressed: () {},
+                onPressed: () {
+                  selectedDialog(context, onContinue: () {
+                    Navigator.pushNamedAndRemoveUntil(
+                            context, RouteName.loginPage, (route) => false)
+                        .then((_) => clearLocalData());
+                  }, title: context.l10n.sigout);
+                },
               ),
             ),
           ],

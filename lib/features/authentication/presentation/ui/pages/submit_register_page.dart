@@ -157,7 +157,9 @@ class _SubmitRegisterPageState extends State<SubmitRegisterPage> {
                       RouteName.mainPage,
                       arguments: {NamedArguments.currentIndex: 0},
                       (route) => false,
-                    );
+                    ).then((_) => context.read<AccountBloc>().add(
+                          OnInitialAccount(uid: state.data.user.uid),
+                        ));
                     saveInfoUser(state.data.token, state.data.user.uid);
                   } else if (state is RegisterFailure) {
                     simpleDialog(context: context, title: state.message);

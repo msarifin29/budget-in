@@ -49,12 +49,13 @@ Future selectedDialog(
                   Navigator.of(context).pop(false);
                 },
                 minSize: const Size(80, 45),
+                backgroundColor: ColorApp.rootBeer,
               ),
               PrimaryButton(
                 onPressed: onContinue,
                 text: context.l10n.yes,
                 minSize: const Size(80, 45),
-                backgroundColor: ColorApp.red,
+                backgroundColor: ColorApp.green,
               ),
             ],
           ),
