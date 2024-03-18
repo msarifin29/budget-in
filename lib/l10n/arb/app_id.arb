@@ -135,5 +135,8 @@
   "select_type_first": "Pilih jenis {x} terlebih dahulu",
   "min_total": "Minimal total 2.000",
   "msg_success_create": "{x} berhasil ditambahkan",
-  "something_wrong": "Terjadi kesalahan"
+  "something_wrong": "Terjadi kesalahan",
+  "cancel_expense": "Batalkan Pengeluaran",
+  "success_cancel_expense": "Pengeluaran berhasil di batalkan",
+  "failed_cancel_expense": "Gagal membatalkan pengeluaran"
 }

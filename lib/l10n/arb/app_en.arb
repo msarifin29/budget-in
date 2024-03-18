@@ -135,5 +135,8 @@
     "select_type_first": "Select type {x} first",
     "min_total": "Minimum total 2.000",
     "msg_success_create": "The {x} was added successfully",
-    "something_wrong": "Something went wrong"
+    "something_wrong": "Something went wrong",
+    "cancel_expense": "Cancel Expense",
+    "success_cancel_expense": "Success cancelled Expense",
+    "failed_cancel_expense": "Failed cancelled Expense"
 }

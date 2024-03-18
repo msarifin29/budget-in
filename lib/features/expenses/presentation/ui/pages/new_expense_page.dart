@@ -24,7 +24,7 @@ class _NewExpensePageState extends State<NewExpensePage> {
 
   final CurrencyTextInputFormatter formatter = CurrencyTextInputFormatter(
     locale: 'id',
-    symbol: '',
+    symbol: '- ',
     decimalDigits: 0,
   );
 
@@ -86,6 +86,10 @@ class _NewExpensePageState extends State<NewExpensePage> {
               FormWidget(
                 title: context.l10n.total,
                 hint: '0',
+                style: context.textTheme.titleSmall!.copyWith(
+                  color: ColorApp.green,
+                  fontWeight: FontWeight.w600,
+                ),
                 controller: totalC,
                 validator: (value) {
                   if (value == null || value.isEmpty) {

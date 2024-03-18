@@ -2,7 +2,6 @@
 import 'dart:async';
 
 import 'package:budget_in/core/core.dart';
-import 'package:budget_in/features/onboarding/data/repositories/onbording_repository.dart';
 import 'package:budget_in/features/onboarding/onboarding.dart';
 import 'package:dartz/dartz.dart';
 

@@ -25,3 +25,15 @@ class GetExpensesUsecase
     return await repository.getExpenses(params);
   }
 }
+
+class UpdateExpensesUsecase
+    implements UseCase<UpdateExpenseResponse, UpdateExpenseParams> {
+  final ExpenseRepository repository;
+
+  UpdateExpensesUsecase({required this.repository});
+  @override
+  FutureOr<Either<Failure, UpdateExpenseResponse>> call(
+      UpdateExpenseParams params) async {
+    return await repository.updateExpense(params);
+  }
+}

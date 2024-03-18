@@ -1,14 +1,17 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:developer';
 
-import 'package:budget_in/core/core.dart';
-import 'package:budget_in/features/expenses/expenses.dart';
 import 'package:dio/dio.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
+import 'package:budget_in/core/core.dart';
+import 'package:budget_in/features/expenses/expenses.dart';
+
 abstract class ExpenseRemoteDataSource {
   Future<Expenseresponse> create(Expenseparams params);
   Future<GetExpenseResponse> getExpenses(GetExpensesparams params);
+  Future<UpdateExpenseResponse> updateExpense(UpdateExpenseParams params);
 }
 
 class ExpenseRemoteDataSourceImpl extends ExpenseRemoteDataSource {
@@ -42,6 +45,26 @@ class ExpenseRemoteDataSourceImpl extends ExpenseRemoteDataSource {
     );
     if (response.statusCode == 200) {
       return GetExpenseResponse.fromJson(response.data);
+    } else {
+      throw DioException(
+        requestOptions: RequestOptions(path: path),
+      );
+    }
+  }
+
+  @override
+  Future<UpdateExpenseResponse> updateExpense(
+      UpdateExpenseParams params) async {
+    final String path = '$baseUrl/api/expenses/update';
+    final Response<dynamic> response = await dio.put(
+      path,
+      options: Options(headers: {
+        BaseUrlConfig.requiredToken: true,
+      }),
+      data: params.toMap(),
+    );
+    if (response.statusCode == 200) {
+      return UpdateExpenseResponse.fromJson(response.data);
     } else {
       throw DioException(
         requestOptions: RequestOptions(path: path),
@@ -120,4 +143,25 @@ class GetExpensesparams extends Equatable {
       required this.status});
   @override
   List<Object?> get props => throw UnimplementedError();
+}
+
+class UpdateExpenseParams extends Equatable {
+  final int id;
+  final String expenseType;
+  final String accountId;
+  const UpdateExpenseParams({
+    required this.id,
+    required this.expenseType,
+    required this.accountId,
+  });
+  Map<String, dynamic> toMap() {
+    return {
+      "id": id,
+      "expense_type": expenseType,
+      "account_id": accountId,
+    };
+  }
+
+  @override
+  List<Object?> get props => [id, expenseType, accountId];
 }

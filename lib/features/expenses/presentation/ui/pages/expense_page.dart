@@ -127,15 +127,7 @@ class _ExpensePageState extends State<ExpensePage> {
                       showModalBottomSheet(
                           context: context,
                           builder: (context) {
-                            return DetailExpensesWidget(
-                              type: x.expenseType == ConstantType.cash
-                                  ? context.l10n.cash
-                                  : context.l10n.non_cash,
-                              date: date,
-                              total: Helpers.currency(x.total),
-                              category: x.category,
-                              notes: x.notes,
-                            );
+                            return DetailExpensesWidget(data: x);
                           });
                     },
                   );
