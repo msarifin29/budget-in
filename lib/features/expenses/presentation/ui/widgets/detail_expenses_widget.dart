@@ -2,7 +2,6 @@
 import 'package:budget_in/core/core.dart';
 import 'package:budget_in/l10n/l10n.dart';
 import 'package:flutter/material.dart';
-import 'package:lottie/lottie.dart';
 
 class DetailExpensesWidget extends StatelessWidget {
   const DetailExpensesWidget({
@@ -27,15 +26,11 @@ class DetailExpensesWidget extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          LottieBuilder.asset(
-            LottieName.wallet,
-            width: 120,
-          ),
-          const SizedBox(height: 10),
+          const SizedBox(height: 20),
           InfoWidget(
               k: context.l10n.type_x(context.l10n.expense), v: ': $type'),
           InfoWidget(k: context.l10n.date, v: ': $date'),
-          InfoWidget(k: context.l10n.total, v: ': Rp. $total'),
+          InfoWidget(k: context.l10n.total, v: ':- Rp. $total'),
           InfoWidget(k: context.l10n.category, v: ': $category'),
           InfoWidget(k: context.l10n.notes, v: ': $notes'),
           const SizedBox(height: 20),

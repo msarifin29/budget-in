@@ -198,6 +198,10 @@ class _NewExpensePageState extends State<NewExpensePage> {
                     context.read<AccountBloc>().add(
                           OnInitialAccount(uid: Helpers.getUid()),
                         );
+                  } else if (state is CreateExpenseFailure) {
+                    context.scaffoldMessenger.showSnackBar(
+                      floatingSnackBar(context, state.message),
+                    );
                   }
                 },
                 builder: (context, state) {

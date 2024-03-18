@@ -29,7 +29,11 @@ class ExpenseData extends Equatable {
   final String category;
   final String status;
   final String notes;
+  @JsonKey(name: "transaction_id")
+  final String? transactionId;
+  @JsonKey(name: "created_at")
   final String? createdAt;
+  @JsonKey(name: "updated_at")
   final String? updatedAt;
   const ExpenseData({
     required this.uid,
@@ -39,6 +43,7 @@ class ExpenseData extends Equatable {
     required this.category,
     required this.status,
     required this.notes,
+    this.transactionId,
     this.createdAt,
     this.updatedAt,
   });
@@ -54,11 +59,12 @@ class ExpenseData extends Equatable {
         category,
         status,
         notes,
+        transactionId,
         createdAt,
         updatedAt,
       ];
   @override
   String toString() {
-    return 'ExpenseData{uid:$uid, id:$id, expenseType:$expenseType, total:$total, category:$category, status:$status, notes:$notes, createdAt:$createdAt, updatedAt:$updatedAt,}';
+    return 'ExpenseData{uid:$uid, id:$id, expenseType:$expenseType, total:$total, category:$category, status:$status, notes:$notes, transactionId:$transactionId, createdAt:$createdAt, updatedAt:$updatedAt,}';
   }
 }
