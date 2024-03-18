@@ -88,6 +88,9 @@ class CustomPersistenHeader extends SliverPersistentHeaderDelegate {
 
                       return CPBox(
                         height: expandedHeight - 10,
+                        color: (Theme.of(context).brightness == Brightness.light
+                            ? Colors.white
+                            : ColorApp.night),
                         child: BlocBuilder<ShowTotalCubit, bool>(
                           builder: (context, state) {
                             return Column(
@@ -153,16 +156,18 @@ class CPBox extends StatelessWidget {
     super.key,
     required this.height,
     required this.child,
+    this.color,
   });
   final double height;
   final Widget child;
+  final Color? color;
 
   @override
   Widget build(BuildContext context) {
     return Container(
       height: height,
       decoration: BoxDecoration(
-        color: Theme.of(context).scaffoldBackgroundColor,
+        color: color ?? Theme.of(context).scaffoldBackgroundColor,
         borderRadius: BorderRadius.circular(15.0),
       ),
       width: MediaQuery.of(context).size.width * 0.9,

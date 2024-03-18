@@ -8,7 +8,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:budget_in/core/core.dart';
 import 'package:budget_in/features/authentication/authentication.dart';
-import 'package:budget_in/features/authentication/presentation/ui/widgets/line_chart_widget.dart';
+import 'package:budget_in/features/onboarding/presentation/ui/widgets/line_chart_widget.dart';
 import 'package:budget_in/l10n/l10n.dart';
 
 class DashboardPage extends StatefulWidget {

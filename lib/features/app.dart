@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:budget_in/core/core.dart';
 import 'package:budget_in/features/authentication/authentication.dart';
 import 'package:budget_in/features/expenses/expenses.dart';
+import 'package:budget_in/features/onboarding/onboarding.dart';
 import 'package:budget_in/features/onboarding/presentation/ui/pages/main_page.dart';
 import 'package:budget_in/injection.dart';
 import 'package:budget_in/l10n/l10n.dart';
@@ -50,6 +51,10 @@ class _AppState extends State<App> {
           create: (context) =>
               GetExpensesBloc(getExpensesUsecase: sl<GetExpensesUsecase>()),
         ),
+        BlocProvider(
+          create: (context) =>
+              GetMonthlyReportBloc(usecase: sl<GetOnboardingUsecase>()),
+        )
       ],
       child: MaterialApp(
         theme: lightTheme(),
