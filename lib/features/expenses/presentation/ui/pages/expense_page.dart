@@ -136,24 +136,30 @@ class _ExpensePageState extends State<ExpensePage> {
                   return const CircularLoading();
                 },
                 firstPageErrorIndicatorBuilder: (context) {
-                  return Center(
-                      child: Text(
-                    pagingController.error,
-                    style: context.textTheme.bodyMedium!.copyWith(
-                      fontWeight: FontWeight.w500,
-                      color: ColorApp.red.withOpacity(0.4),
-                    ),
-                  ));
+                  return Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    child: Center(
+                        child: Text(
+                      pagingController.error,
+                      style: context.textTheme.bodyMedium!.copyWith(
+                        fontWeight: FontWeight.w500,
+                        color: ColorApp.red.withOpacity(0.4),
+                      ),
+                    )),
+                  );
                 },
                 newPageErrorIndicatorBuilder: (context) {
-                  return Center(
-                      child: Text(
-                    pagingController.error,
-                    style: context.textTheme.bodyMedium!.copyWith(
-                      fontWeight: FontWeight.w500,
-                      color: ColorApp.red.withOpacity(0.4),
-                    ),
-                  ));
+                  return Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    child: Center(
+                        child: Text(
+                      pagingController.error,
+                      style: context.textTheme.bodyMedium!.copyWith(
+                        fontWeight: FontWeight.w500,
+                        color: ColorApp.red.withOpacity(0.4),
+                      ),
+                    )),
+                  );
                 },
               ),
             ),

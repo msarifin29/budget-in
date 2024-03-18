@@ -25,6 +25,7 @@ class RouteName {
   static const newExpensePage = 'new-expense-page';
   // Incomes
   static const incomePage = 'income-page';
+  static const newIncomePage = 'new-income-page';
   // Credits
   static const creditPage = 'credit-page';
 }
@@ -122,6 +123,12 @@ class AppRoute {
         return MaterialPageRoute(
           builder: (context) {
             return const NewExpensePage();
+          },
+        );
+      case NewIncomePage.routeName:
+        return MaterialPageRoute(
+          builder: (context) {
+            return const NewIncomePage();
           },
         );
       case MainPage.routeName:

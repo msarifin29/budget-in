@@ -3,6 +3,8 @@ import 'dart:developer';
 import 'package:budget_in/core/core.dart';
 import 'package:budget_in/features/authentication/authentication.dart';
 import 'package:budget_in/features/expenses/expenses.dart';
+import 'package:budget_in/features/incomes/incomes.dart';
+import 'package:budget_in/features/incomes/presentation/bloc/create_income/create_income_bloc.dart';
 import 'package:budget_in/features/onboarding/onboarding.dart';
 import 'package:budget_in/injection.dart';
 import 'package:budget_in/l10n/l10n.dart';
@@ -55,6 +57,10 @@ class _AppState extends State<App> {
         BlocProvider(
           create: (context) =>
               UpdateExpenseBloc(usecase: sl<UpdateExpensesUsecase>()),
+        ),
+        BlocProvider(
+          create: (context) =>
+              CreateIncomeBloc(usecase: sl<CreateIncomeUsecase>()),
         ),
       ],
       child: MaterialApp(
