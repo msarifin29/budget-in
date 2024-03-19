@@ -10,6 +10,7 @@ import 'package:budget_in/features/incomes/incomes.dart';
 
 abstract class IncomeRemoteDatasource {
   Future<IncomeResponse> create(CreateIncomeParams params);
+  Future<GetIncomeResponse> getIncomes(GetIncomeParams params);
 }
 
 class IncomeRemoteDatasourceImpl extends IncomeRemoteDatasource {
@@ -31,6 +32,26 @@ class IncomeRemoteDatasourceImpl extends IncomeRemoteDatasource {
     log('create income datasource ${response.data}');
     if (response.statusCode == 200) {
       return IncomeResponse.fromJson(response.data);
+    } else {
+      throw DioException(
+        requestOptions: RequestOptions(path: path),
+      );
+    }
+  }
+
+  @override
+  Future<GetIncomeResponse> getIncomes(GetIncomeParams params) async {
+    final String path = '$baseUrl/api/incomes';
+    final Response<dynamic> response = await dio.get(
+      path,
+      options: Options(
+        headers: {BaseUrlConfig.requiredToken: true},
+      ),
+      queryParameters: params.toMap(),
+    );
+    log('kaido ${response.data}');
+    if (response.statusCode == 200) {
+      return GetIncomeResponse.fromJson(response.data);
     } else {
       throw DioException(
         requestOptions: RequestOptions(path: path),
@@ -66,6 +87,32 @@ class CreateIncomeParams extends Equatable {
     };
     if (categoryIncome != null) data["category_income"] = categoryIncome;
     if (createdAt != null) data["created_at"] = createdAt;
+    return data;
+  }
+
+  @override
+  List<Object?> get props => [];
+}
+
+class GetIncomeParams extends Equatable {
+  final String? typeIncome;
+  final int? categoryId;
+  final int page;
+  final int totalPage;
+  const GetIncomeParams({
+    this.typeIncome,
+    this.categoryId,
+    required this.page,
+    required this.totalPage,
+  });
+
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> data = {
+      "page": page,
+      "total_page": totalPage,
+    };
+    if (typeIncome != null) data["type_income"] = typeIncome;
+    if (categoryId != null) data["category_id"] = categoryId;
     return data;
   }
 
