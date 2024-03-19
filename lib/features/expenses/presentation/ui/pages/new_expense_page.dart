@@ -24,7 +24,7 @@ class _NewExpensePageState extends State<NewExpensePage> {
 
   final CurrencyTextInputFormatter formatter = CurrencyTextInputFormatter(
     locale: 'id',
-    symbol: '- ',
+    symbol: '',
     decimalDigits: 0,
   );
 
@@ -47,6 +47,7 @@ class _NewExpensePageState extends State<NewExpensePage> {
                   expenseType:
                       ConstantType.newConstantType(expenseType.value.id),
                   total: totalC.text.trim(),
+                  categoryId: expenseType.value.id,
                   category:
                       CategoryExpense.newCategoryExpense(category.value.id),
                   accountId: Helpers.getAccountId()),

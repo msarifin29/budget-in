@@ -20,11 +20,13 @@ class ExpenseBloc extends Bloc<ExpenseEvent, ExpenseState> {
     emit(CreateExpenseLoading());
     final result = await createExpenseUsecase(
       Expenseparams(
-          uid: event.uid,
-          expenseType: event.expenseType,
-          total: event.total,
-          category: event.category,
-          accountId: event.accountId),
+        uid: event.uid,
+        expenseType: event.expenseType,
+        total: event.total,
+        category: event.category,
+        categoryId: event.categoryId,
+        accountId: event.accountId,
+      ),
     );
     emit(result.fold((l) {
       var message = '';

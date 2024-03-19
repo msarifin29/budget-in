@@ -12,23 +12,26 @@ final class CreateExpenseEvent extends ExpenseEvent {
       {required this.uid,
       required this.expenseType,
       required this.total,
-      required this.category,
+      this.category,
+      required this.categoryId,
       required this.accountId});
   final String uid;
   final String expenseType;
   final String total;
-  final String category;
+  final String? category;
+  final int categoryId;
   final String accountId;
   @override
   List<Object> get props => [
         uid,
         expenseType,
         total,
-        category,
+        category!,
+        categoryId,
         accountId,
       ];
   @override
   String toString() {
-    return 'CreateExpenseEvent{uid:$uid, expenseType:$expenseType, total:$total, category:$category, accountId:$accountId,}';
+    return 'CreateExpenseEvent{uid:$uid, expenseType:$expenseType, total:$total, category:$category, categoryId:$categoryId, accountId:$accountId,}';
   }
 }

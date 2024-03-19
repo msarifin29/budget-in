@@ -77,24 +77,28 @@ class Expenseparams extends Equatable {
   final String uid;
   final String expenseType;
   final String total;
-  final String category;
+  final String? category;
+  final int categoryId;
   final String accountId;
 
   const Expenseparams(
       {required this.uid,
       required this.expenseType,
       required this.total,
-      required this.category,
+      this.category,
+      required this.categoryId,
       required this.accountId});
 
   Map<String, dynamic> toMap() {
-    return {
+    Map<String, dynamic> data = {
       "uid": uid,
       "expense_type": expenseType,
       "total": int.parse(total.replaceAll(RegExp(r'[^0-9]'), '')),
-      "category": category,
+      "category_id": categoryId,
       "account_id": accountId,
     };
+    if (category != null) data["category"] = category;
+    return data;
   }
 
   @override
