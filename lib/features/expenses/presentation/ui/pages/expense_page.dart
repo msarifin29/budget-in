@@ -123,6 +123,7 @@ class _ExpensePageState extends State<ExpensePage> {
                     color: x.expenseType == ConstantType.cash
                         ? ColorApp.green
                         : ColorApp.blue,
+                    colorNumber: ColorApp.red,
                     onTap: () {
                       showModalBottomSheet(
                           context: context,

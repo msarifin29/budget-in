@@ -30,6 +30,7 @@ export 'themes/light_theme.dart';
 export 'themes/dark_theme.dart';
 
 export 'models/item_choice.dart';
+export 'models/category_data.dart';
 // Services
 export 'services/dio_logging_interceptor.dart';
 export 'services/network_info.dart';

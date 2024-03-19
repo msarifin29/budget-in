@@ -1,5 +1,7 @@
-import 'package:budget_in/core/core.dart';
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
+
+import 'package:budget_in/core/core.dart';
 
 class AmountCardWidget extends StatelessWidget {
   const AmountCardWidget({
@@ -11,7 +13,8 @@ class AmountCardWidget extends StatelessWidget {
     required this.color,
     this.onTap,
     this.plusMin = '',
-    this.colorPlusMinus = ColorApp.green,
+    this.colorPlusMinus,
+    this.colorNumber,
   });
   final String total;
   final String category;
@@ -20,7 +23,8 @@ class AmountCardWidget extends StatelessWidget {
   final Color color;
   final VoidCallback? onTap;
   final String plusMin;
-  final Color colorPlusMinus;
+  final Color? colorPlusMinus;
+  final Color? colorNumber;
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -49,18 +53,30 @@ class AmountCardWidget extends StatelessWidget {
                     text: TextSpan(
                       text: plusMin,
                       style: context.textTheme.bodyMedium!.copyWith(
-                          fontWeight: FontWeight.w600, color: colorPlusMinus),
+                          fontWeight: FontWeight.w600,
+                          color: colorNumber ??
+                              (Theme.of(context).brightness == Brightness.light
+                                  ? ColorApp.green
+                                  : Colors.grey)),
                       children: [
                         TextSpan(
                           text: ' Rp. ',
-                          style: context.textTheme.bodyMedium!
-                              .copyWith(color: colorPlusMinus),
+                          style: context.textTheme.bodyMedium!.copyWith(
+                              color: colorNumber ??
+                                  (Theme.of(context).brightness ==
+                                          Brightness.light
+                                      ? ColorApp.green
+                                      : Colors.grey)),
                         ),
                         TextSpan(
                           text: total,
                           style: context.textTheme.bodyLarge!.copyWith(
                               fontWeight: FontWeight.w600,
-                              color: colorPlusMinus),
+                              color: colorNumber ??
+                                  (Theme.of(context).brightness ==
+                                          Brightness.light
+                                      ? ColorApp.green
+                                      : Colors.grey)),
                         ),
                       ],
                     ),
@@ -69,9 +85,10 @@ class AmountCardWidget extends StatelessWidget {
                     text: TextSpan(
                       text: category,
                       style: context.textTheme.bodyMedium!.copyWith(
-                        color: (Theme.of(context).brightness == Brightness.light
-                            ? ColorApp.green
-                            : Colors.grey),
+                        color: colorPlusMinus ??
+                            (Theme.of(context).brightness == Brightness.light
+                                ? ColorApp.green
+                                : Colors.grey),
                       ),
                       children: [
                         TextSpan(

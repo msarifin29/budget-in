@@ -2,6 +2,8 @@
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 
+import 'package:budget_in/core/core.dart';
+
 part 'expense_response.g.dart';
 
 @JsonSerializable(explicitToJson: true)
@@ -35,6 +37,8 @@ class ExpenseData extends Equatable {
   final String? createdAt;
   @JsonKey(name: "updated_at")
   final String? updatedAt;
+  @JsonKey(name: "t_category")
+  final CategoryData categoryData;
   const ExpenseData({
     required this.uid,
     required this.id,
@@ -46,6 +50,7 @@ class ExpenseData extends Equatable {
     this.transactionId,
     this.createdAt,
     this.updatedAt,
+    required this.categoryData,
   });
   static ExpenseData fromJson(Map<String, dynamic> json) =>
       _$ExpenseDataFromJson(json);
@@ -62,9 +67,10 @@ class ExpenseData extends Equatable {
         transactionId,
         createdAt,
         updatedAt,
+        categoryData,
       ];
   @override
   String toString() {
-    return 'ExpenseData{uid:$uid, id:$id, expenseType:$expenseType, total:$total, category:$category, status:$status, notes:$notes, transactionId:$transactionId, createdAt:$createdAt, updatedAt:$updatedAt,}';
+    return 'ExpenseData{uid:$uid, id:$id, expenseType:$expenseType, total:$total, category:$category, status:$status, notes:$notes, transactionId:$transactionId, createdAt:$createdAt, updatedAt:$updatedAt,categoryData:$categoryData,}';
   }
 }
