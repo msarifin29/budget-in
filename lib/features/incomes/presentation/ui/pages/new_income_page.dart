@@ -47,6 +47,7 @@ class _NewIncomePageState extends State<NewIncomePage> {
                 categoryIcome: CategoryIncome.newCategoryIncome(
                   categorySelected.value.id,
                 ),
+                categoryId: categorySelected.value.id,
                 typeIcome: ConstantType.newConstantType(incomeType.value.id),
                 total: totalC.text.trim(),
                 accountId: Helpers.getAccountId(),

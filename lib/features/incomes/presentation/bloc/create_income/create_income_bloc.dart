@@ -19,6 +19,7 @@ class CreateIncomeBloc extends Bloc<CreateIncomeEvent, CreateIncomeState> {
         CreateIncomeParams(
           uid: event.uid,
           categoryIncome: event.categoryIcome,
+          categoryId: event.categoryId,
           typeIncome: event.typeIcome,
           total: event.total,
           accountId: event.accountId,

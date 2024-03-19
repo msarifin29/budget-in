@@ -1,12 +1,12 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:developer';
 
-import 'package:budget_in/core/core.dart';
 import 'package:dio/dio.dart';
 import 'package:equatable/equatable.dart';
-
-import 'package:budget_in/features/incomes/incomes.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+
+import 'package:budget_in/core/core.dart';
+import 'package:budget_in/features/incomes/incomes.dart';
 
 abstract class IncomeRemoteDatasource {
   Future<IncomeResponse> create(CreateIncomeParams params);
@@ -41,14 +41,16 @@ class IncomeRemoteDatasourceImpl extends IncomeRemoteDatasource {
 
 class CreateIncomeParams extends Equatable {
   final String uid;
-  final String categoryIncome;
+  final String? categoryIncome;
+  final int categoryId;
   final String typeIncome;
   final String total;
   final String accountId;
   final String? createdAt;
   const CreateIncomeParams({
     required this.uid,
-    required this.categoryIncome,
+    this.categoryIncome,
+    required this.categoryId,
     required this.typeIncome,
     required this.total,
     required this.accountId,
@@ -57,11 +59,12 @@ class CreateIncomeParams extends Equatable {
   Map<String, dynamic> toMap() {
     Map<String, dynamic> data = {
       "uid": uid,
-      "category_income": categoryIncome,
+      "category_id": categoryId,
       "type_income": typeIncome,
       "total": int.parse(total.replaceAll(RegExp(r'[^0-9]'), '')),
       "account_id": accountId,
     };
+    if (categoryIncome != null) data["category_income"] = categoryIncome;
     if (createdAt != null) data["created_at"] = createdAt;
     return data;
   }

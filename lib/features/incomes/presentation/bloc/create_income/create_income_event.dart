@@ -10,14 +10,16 @@ sealed class CreateIncomeEvent extends Equatable {
 final class InitialCreateEvent extends CreateIncomeEvent {
   const InitialCreateEvent({
     required this.uid,
-    required this.categoryIcome,
+    this.categoryIcome,
+    required this.categoryId,
     required this.typeIcome,
     required this.total,
     required this.accountId,
     this.createdAt,
   });
   final String uid;
-  final String categoryIcome;
+  final String? categoryIcome;
+  final int categoryId;
   final String typeIcome;
   final String total;
   final String accountId;
@@ -25,7 +27,7 @@ final class InitialCreateEvent extends CreateIncomeEvent {
   @override
   List<Object> get props => [
         uid,
-        categoryIcome,
+        categoryIcome!,
         typeIcome,
         total,
         accountId,
