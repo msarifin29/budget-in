@@ -60,11 +60,11 @@ class _NewIncomePageState extends State<NewIncomePage> {
   @override
   Widget build(BuildContext context) {
     final categoryIncomes = [
-      ItemChoice(1, context.l10n.busines),
-      ItemChoice(2, context.l10n.salary),
-      ItemChoice(3, context.l10n.additional_income),
-      ItemChoice(4, context.l10n.loan),
-      ItemChoice(5, context.l10n.other),
+      ItemChoice(1, context.l10n.other),
+      ItemChoice(2, context.l10n.busines),
+      ItemChoice(3, context.l10n.salary),
+      ItemChoice(4, context.l10n.additional_income),
+      ItemChoice(5, context.l10n.loan),
     ];
     return Scaffold(
       appBar: PreferredSize(

@@ -50,6 +50,7 @@ class IncomeRemoteDatasourceImpl extends IncomeRemoteDatasource {
       queryParameters: params.toMap(),
     );
     log('kaido ${response.data}');
+    log('kaido ${params.toMap()}');
     if (response.statusCode == 200) {
       return GetIncomeResponse.fromJson(response.data);
     } else {
@@ -105,6 +106,19 @@ class GetIncomeParams extends Equatable {
     required this.page,
     required this.totalPage,
   });
+
+  GetIncomeParams copyWith({
+    String? typeIncome,
+    int? categoryId,
+    int? page,
+    int? totalPage,
+  }) =>
+      GetIncomeParams(
+        page: page ?? this.page,
+        totalPage: totalPage ?? this.totalPage,
+        categoryId: this.categoryId,
+        typeIncome: typeIncome ?? this.typeIncome,
+      );
 
   Map<String, dynamic> toMap() {
     Map<String, dynamic> data = {
