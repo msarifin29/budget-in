@@ -29,7 +29,7 @@ class DetailExpensesWidget extends StatelessWidget {
           InfoWidget(k: context.l10n.date, v: ': $date'),
           InfoWidget(
               k: context.l10n.total,
-              v: ':- Rp. ${Helpers.currency(data.total)}'),
+              v: ': - Rp. ${Helpers.currency(data.total)}'),
           InfoWidget(k: context.l10n.category, v: ': ${data.category}'),
           InfoWidget(k: context.l10n.notes, v: ': ${data.notes}'),
           const SizedBox(height: 20),
@@ -52,6 +52,7 @@ class DetailExpensesWidget extends StatelessWidget {
               }
               return PrimaryButton(
                 text: context.l10n.cancel_expense,
+                minSize: const Size(double.infinity, 45),
                 onPressed: () {
                   context.read<UpdateExpenseBloc>().add(
                         CancelExpense(

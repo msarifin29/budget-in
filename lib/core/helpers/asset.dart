@@ -9,6 +9,7 @@ class LottieName {
   static const empty = '${BaseAsset.lottie}empty.json';
   static const failed = '${BaseAsset.lottie}failed.json';
   static const onboarding = '${BaseAsset.lottie}onboarding.json';
+  static const onboarding2 = '${BaseAsset.lottie}onboarding2.json';
   static const profile = '${BaseAsset.lottie}profile.json';
   static const searchFile = '${BaseAsset.lottie}search_file.json';
   static const success = '${BaseAsset.lottie}success.json';
@@ -19,6 +20,7 @@ class LottieName {
   static const task = '${BaseAsset.lottie}task.json';
   static const task2 = '${BaseAsset.lottie}task2.json';
   static const wallet = '${BaseAsset.lottie}wallet.json';
+  static const coffee = '${BaseAsset.lottie}coffee.json';
 }
 
 class SvgName {

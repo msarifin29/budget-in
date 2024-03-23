@@ -138,5 +138,6 @@
   "something_wrong": "Terjadi kesalahan",
   "cancel_expense": "Batalkan Pengeluaran",
   "success_cancel_expense": "Pengeluaran berhasil di batalkan",
-  "failed_cancel_expense": "Gagal membatalkan pengeluaran"
+  "failed_cancel_expense": "Gagal membatalkan pengeluaran",
+  "all": "Semua"
 }

@@ -17,26 +17,34 @@ class ExpensePage extends StatefulWidget {
   State<ExpensePage> createState() => _ExpensePageState();
 }
 
-class _ExpensePageState extends State<ExpensePage> {
+class _ExpensePageState extends State<ExpensePage>
+    with SingleTickerProviderStateMixin {
   final currentpage = ValueNotifier<int>(1);
+  final category = ValueNotifier(ItemChoice(0, ''));
+  // Controller
   final PagingController<int, ExpenseData> pagingController =
       PagingController(firstPageKey: 1);
+  late TabController tabController;
+  // Other
+  int selectIndex = 0;
   final not = DateTime.now();
-
+  GetExpensesparams params =
+      const GetExpensesparams(page: 1, totalPage: 10, status: Helpers.success);
   @override
   void initState() {
+    tabController = TabController(length: 3, vsync: this);
+    tabController.addListener(() {
+      setState(() => selectIndex = tabController.index);
+    });
     pagingController.addPageRequestListener((pageKey) {
       currentpage.value = pageKey;
       context.read<GetExpensesBloc>().add(
             OnGetInitialExpenses(
-              params: GetExpensesparams(
-                page: currentpage.value,
-                totalPage: 10,
-                status: Helpers.success,
-              ),
+              params: params.copyWith(page: currentpage.value),
             ),
           );
     });
+
     super.initState();
   }
 
@@ -52,6 +60,21 @@ class _ExpensePageState extends State<ExpensePage> {
 
   @override
   Widget build(BuildContext context) {
+    // final categoryExpepenses = [
+    //   ItemChoice(1, context.l10n.other),
+    //   ItemChoice(2, context.l10n.food_and_beverage),
+    //   ItemChoice(3, context.l10n.shopping),
+    //   ItemChoice(4, context.l10n.transport),
+    //   ItemChoice(5, context.l10n.motorcycle_or_car),
+    //   ItemChoice(6, context.l10n.traveling),
+    //   ItemChoice(7, context.l10n.healty),
+    //   ItemChoice(8, context.l10n.cost_and_bill),
+    //   ItemChoice(9, context.l10n.education),
+    //   ItemChoice(10, context.l10n.sport_and_hoby),
+    //   ItemChoice(11, context.l10n.beauty),
+    //   ItemChoice(12, context.l10n.work),
+    //   ItemChoice(13, context.l10n.food_ingredients),
+    // ];
     return RefreshIndicator(
       color: ColorApp.green,
       onRefresh: () {
@@ -61,110 +84,330 @@ class _ExpensePageState extends State<ExpensePage> {
       child: Scaffold(
         appBar: PreferredSize(
           preferredSize: const Size(double.infinity, kToolbarHeight),
-          child: NewAppBarWidget(
-            title: context.l10n.expense,
-            actions: [
-              SvgButton(
-                  image: SvgName.filterWhite,
-                  onTap: () {
-                    showModalBottomSheet(
-                      shape: const RoundedRectangleBorder(
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(20),
-                          topRight: Radius.circular(20),
+          child: NewAppBarWidget(title: context.l10n.expense),
+        ),
+        body: Column(
+          children: [
+            TabBar(
+              controller: tabController,
+              labelColor: Colors.grey,
+              tabAlignment: TabAlignment.center,
+              labelStyle: Theme.of(context).textTheme.bodySmall,
+              splashFactory: NoSplash.splashFactory,
+              onTap: (value) {
+                switch (value) {
+                  case 0:
+                    params = params.copyWith(expenseType: '');
+                    pagingController.itemList = [];
+                    pagingController.appendPage([], 1);
+                    pagingController.refresh();
+                  case 1:
+                    params = params.copyWith(expenseType: ConstantType.cash);
+                    pagingController.itemList = [];
+                    pagingController.appendPage([], 1);
+                    pagingController.refresh();
+                  case 2:
+                    params = params.copyWith(expenseType: ConstantType.debit);
+                    pagingController.itemList = [];
+                    pagingController.appendPage([], 1);
+                    pagingController.refresh();
+                }
+              },
+              tabs: [
+                Tab(
+                  text: context.l10n.all,
+                ),
+                Tab(
+                  text: context.l10n.cash,
+                ),
+                Tab(
+                  text: context.l10n.non_cash,
+                )
+              ],
+            ),
+            const SizedBox(height: 5),
+            // Container(
+            //   width: double.infinity,
+            //   margin: const EdgeInsets.only(top: 5, right: 5, bottom: 10),
+            //   child: Row(
+            //     mainAxisAlignment: MainAxisAlignment.end,
+            //     children: [
+            //       Text('Filter', style: Theme.of(context).textTheme.bodySmall),
+            //       const SizedBox(width: 10),
+            //       SvgButton(
+            //         image: SvgName.filterWhite,
+            //         onTap: () {
+            //           showModalBottomSheet(
+            //             shape: const RoundedRectangleBorder(
+            //               borderRadius: BorderRadius.only(
+            //                 topLeft: Radius.circular(5),
+            //                 topRight: Radius.circular(5),
+            //               ),
+            //             ),
+            //             context: context,
+            //             builder: (context) => Container(
+            //               width: double.infinity,
+            //               padding: const EdgeInsets.symmetric(
+            //                 horizontal: 10,
+            //                 vertical: 15,
+            //               ),
+            //               child: Column(
+            //                 mainAxisSize: MainAxisSize.min,
+            //                 children: [
+            //                   ValueListenableBuilder(
+            //                     valueListenable: category,
+            //                     builder: (context, v, _) {
+            //                       return Wrap(
+            //                         spacing: 8,
+            //                         children: categoryExpepenses
+            //                             .map(
+            //                               (e) => ChoiceChip(
+            //                                 label: Text(e.label),
+            //                                 selected: category.value.id == e.id,
+            //                                 onSelected: (_) =>
+            //                                     category.value = e,
+            //                                 shape: RoundedRectangleBorder(
+            //                                   borderRadius:
+            //                                       BorderRadius.circular(25),
+            //                                 ),
+            //                               ),
+            //                             )
+            //                             .toList(),
+            //                       );
+            //                     },
+            //                   ),
+            //                   const SizedBox(height: 20),
+            //                   PrimaryButton(
+            //                     text: context.l10n.submit,
+            //                     onPressed: () {
+            //                       if (category.value.id == 0) return;
+            //                       params =
+            //                           params.copyWith(id: category.value.id);
+            //                       pagingController.itemList = [];
+            //                       pagingController.appendPage([], 1);
+            //                       pagingController.refresh();
+            //                       Navigator.pop(context);
+            //                     },
+            //                   ),
+            //                 ],
+            //               ),
+            //             ),
+            //           );
+            //         },
+            //       ),
+            //       const SizedBox(width: 15),
+            //     ],
+            //   ),
+            // ),
+            Flexible(
+              child: SizedBox(
+                height: MediaQuery.of(context).size.height * 0.9,
+                child: TabBarView(
+                  controller: tabController,
+                  children: [
+                    BlocListener<GetExpensesBloc, GetExpensesState>(
+                      listener: (context, state) {
+                        if (state is GetExpensesSuccess) {
+                          final isLastPage =
+                              currentpage.value == state.expenseData.lastPage;
+                          if (isLastPage) {
+                            pagingController
+                                .appendLastPage(state.expenseData.data);
+                          } else {
+                            final nextPageKey =
+                                (pagingController.nextPageKey ?? 1) + 1;
+
+                            pagingController.appendPage(
+                              state.expenseData.data,
+                              nextPageKey,
+                            );
+                          }
+                        } else if (state is GetExpensesFailure) {
+                          pagingController.error = state.message;
+                        }
+                      },
+                      child: SizedBox(
+                        height: MediaQuery.sizeOf(context).height,
+                        child: PagedListView<int, ExpenseData>(
+                          pagingController: pagingController,
+                          builderDelegate: PagedChildBuilderDelegate(
+                              itemBuilder: (context, x, index) {
+                            final date = TimeUtil().today(
+                                ddMMyyy,
+                                DateTime.parse(
+                                    x.createdAt ?? '2012-12-12T15:54:11Z'));
+                            return AmountCardWidget(
+                              plusMin: '-',
+                              total: Helpers.currency(x.total),
+                              category: x.category,
+                              type: x.expenseType == ConstantType.cash
+                                  ? context.l10n.cash
+                                  : context.l10n.non_cash,
+                              date: date,
+                              color: x.expenseType == ConstantType.cash
+                                  ? ColorApp.green
+                                  : ColorApp.blue,
+                              colorNumber: ColorApp.red,
+                              onTap: () {
+                                showModalBottomSheet(
+                                    context: context,
+                                    builder: (context) {
+                                      return DetailExpensesWidget(data: x);
+                                    });
+                              },
+                            );
+                          }, firstPageProgressIndicatorBuilder: (context) {
+                            return const CircularLoading();
+                          }, firstPageErrorIndicatorBuilder: (context) {
+                            return ErrorLottieWidget(
+                                text: pagingController.error);
+                          }, newPageErrorIndicatorBuilder: (context) {
+                            return ErrorLottieWidget(
+                                text: pagingController.error);
+                          }, noItemsFoundIndicatorBuilder: (context) {
+                            return EmptyWidget(
+                                text: context.l10n.empty_expense_msg);
+                          }),
                         ),
                       ),
-                      context: context,
-                      builder: (context) => FilterWidget(
-                        onPressedCash: () {},
-                        onPressedNonCash: () {},
-                      ),
-                    );
-                  }),
-              const SizedBox(width: 15.0),
-            ],
-          ),
-        ),
-        body: BlocListener<GetExpensesBloc, GetExpensesState>(
-          listener: (context, state) {
-            if (state is GetExpensesSuccess) {
-              final isLastPage =
-                  currentpage.value == state.expenseData.lastPage;
-              if (isLastPage) {
-                pagingController.appendLastPage(state.expenseData.data);
-              } else {
-                final nextPageKey = (pagingController.nextPageKey ?? 1) + 1;
+                    ),
+                    BlocListener<GetExpensesBloc, GetExpensesState>(
+                      listener: (context, state) {
+                        if (state is GetExpensesSuccess) {
+                          final isLastPage =
+                              currentpage.value == state.expenseData.lastPage;
+                          if (isLastPage) {
+                            pagingController
+                                .appendLastPage(state.expenseData.data);
+                          } else {
+                            final nextPageKey =
+                                (pagingController.nextPageKey ?? 1) + 1;
 
-                pagingController.appendPage(
-                  state.expenseData.data,
-                  nextPageKey,
-                );
-              }
-            } else if (state is GetExpensesFailure) {
-              pagingController.error = state.message;
-            }
-          },
-          child: SizedBox(
-            height: MediaQuery.sizeOf(context).height,
-            child: PagedListView<int, ExpenseData>(
-              pagingController: pagingController,
-              builderDelegate: PagedChildBuilderDelegate(
-                itemBuilder: (context, x, index) {
-                  final date = TimeUtil().today(ddMMyyy,
-                      DateTime.parse(x.createdAt ?? '2012-12-12T15:54:11Z'));
-                  return AmountCardWidget(
-                    plusMin: '-',
-                    total: Helpers.currency(x.total),
-                    category: x.category,
-                    type: x.expenseType == ConstantType.cash
-                        ? context.l10n.cash
-                        : context.l10n.non_cash,
-                    date: date,
-                    color: x.expenseType == ConstantType.cash
-                        ? ColorApp.green
-                        : ColorApp.blue,
-                    colorNumber: ColorApp.red,
-                    onTap: () {
-                      showModalBottomSheet(
-                          context: context,
-                          builder: (context) {
-                            return DetailExpensesWidget(data: x);
-                          });
-                    },
-                  );
-                },
-                firstPageProgressIndicatorBuilder: (context) {
-                  return const CircularLoading();
-                },
-                firstPageErrorIndicatorBuilder: (context) {
-                  return Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20),
-                    child: Center(
-                        child: Text(
-                      pagingController.error,
-                      style: context.textTheme.bodyMedium!.copyWith(
-                        fontWeight: FontWeight.w500,
-                        color: ColorApp.red.withOpacity(0.4),
+                            pagingController.appendPage(
+                              state.expenseData.data,
+                              nextPageKey,
+                            );
+                          }
+                        } else if (state is GetExpensesFailure) {
+                          pagingController.error = state.message;
+                        }
+                      },
+                      child: SizedBox(
+                        height: MediaQuery.sizeOf(context).height,
+                        child: PagedListView<int, ExpenseData>(
+                          pagingController: pagingController,
+                          builderDelegate: PagedChildBuilderDelegate(
+                              itemBuilder: (context, x, index) {
+                            final date = TimeUtil().today(
+                                ddMMyyy,
+                                DateTime.parse(
+                                    x.createdAt ?? '2012-12-12T15:54:11Z'));
+                            return AmountCardWidget(
+                              plusMin: '-',
+                              total: Helpers.currency(x.total),
+                              category: x.category,
+                              type: x.expenseType == ConstantType.cash
+                                  ? context.l10n.cash
+                                  : context.l10n.non_cash,
+                              date: date,
+                              color: x.expenseType == ConstantType.cash
+                                  ? ColorApp.green
+                                  : ColorApp.blue,
+                              colorNumber: ColorApp.red,
+                              onTap: () {
+                                showModalBottomSheet(
+                                    context: context,
+                                    builder: (context) {
+                                      return DetailExpensesWidget(data: x);
+                                    });
+                              },
+                            );
+                          }, firstPageProgressIndicatorBuilder: (context) {
+                            return const CircularLoading();
+                          }, firstPageErrorIndicatorBuilder: (context) {
+                            return ErrorLottieWidget(
+                                text: pagingController.error);
+                          }, newPageErrorIndicatorBuilder: (context) {
+                            return ErrorLottieWidget(
+                                text: pagingController.error);
+                          }, noItemsFoundIndicatorBuilder: (context) {
+                            return EmptyWidget(
+                                text: context.l10n.empty_expense_msg);
+                          }),
+                        ),
                       ),
-                    )),
-                  );
-                },
-                newPageErrorIndicatorBuilder: (context) {
-                  return Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20),
-                    child: Center(
-                        child: Text(
-                      pagingController.error,
-                      style: context.textTheme.bodyMedium!.copyWith(
-                        fontWeight: FontWeight.w500,
-                        color: ColorApp.red.withOpacity(0.4),
+                    ),
+                    BlocListener<GetExpensesBloc, GetExpensesState>(
+                      listener: (context, state) {
+                        if (state is GetExpensesSuccess) {
+                          final isLastPage =
+                              currentpage.value == state.expenseData.lastPage;
+                          if (isLastPage) {
+                            pagingController
+                                .appendLastPage(state.expenseData.data);
+                          } else {
+                            final nextPageKey =
+                                (pagingController.nextPageKey ?? 1) + 1;
+
+                            pagingController.appendPage(
+                              state.expenseData.data,
+                              nextPageKey,
+                            );
+                          }
+                        } else if (state is GetExpensesFailure) {
+                          pagingController.error = state.message;
+                        }
+                      },
+                      child: SizedBox(
+                        height: MediaQuery.sizeOf(context).height,
+                        child: PagedListView<int, ExpenseData>(
+                          pagingController: pagingController,
+                          builderDelegate: PagedChildBuilderDelegate(
+                              itemBuilder: (context, x, index) {
+                            final date = TimeUtil().today(
+                                ddMMyyy,
+                                DateTime.parse(
+                                    x.createdAt ?? '2012-12-12T15:54:11Z'));
+                            return AmountCardWidget(
+                              plusMin: '-',
+                              total: Helpers.currency(x.total),
+                              category: x.category,
+                              type: x.expenseType == ConstantType.cash
+                                  ? context.l10n.cash
+                                  : context.l10n.non_cash,
+                              date: date,
+                              color: x.expenseType == ConstantType.cash
+                                  ? ColorApp.green
+                                  : ColorApp.blue,
+                              colorNumber: ColorApp.red,
+                              onTap: () {
+                                showModalBottomSheet(
+                                    context: context,
+                                    builder: (context) {
+                                      return DetailExpensesWidget(data: x);
+                                    });
+                              },
+                            );
+                          }, firstPageProgressIndicatorBuilder: (context) {
+                            return const CircularLoading();
+                          }, firstPageErrorIndicatorBuilder: (context) {
+                            return ErrorLottieWidget(
+                                text: pagingController.error);
+                          }, newPageErrorIndicatorBuilder: (context) {
+                            return ErrorLottieWidget(
+                                text: pagingController.error);
+                          }, noItemsFoundIndicatorBuilder: (context) {
+                            return EmptyWidget(
+                                text: context.l10n.empty_expense_msg);
+                          }),
+                        ),
                       ),
-                    )),
-                  );
-                },
+                    ),
+                  ],
+                ),
               ),
             ),
-          ),
+          ],
         ),
         floatingActionButton: FloatingActionButton(
           onPressed: () {
@@ -178,31 +421,6 @@ class _ExpensePageState extends State<ExpensePage> {
             size: 40,
           ),
         ),
-      ),
-    );
-  }
-}
-
-class EmptyExpenseWidget extends StatelessWidget {
-  const EmptyExpenseWidget({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      width: double.infinity,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          const ImageEmptyWidget(),
-          Text(
-            context.l10n.empty_expense_msg,
-            textAlign: TextAlign.center,
-            style: context.textTheme.bodyMedium!.copyWith(
-              color: ColorApp.green,
-              fontWeight: FontWeight.w500,
-            ),
-          ),
-        ],
       ),
     );
   }

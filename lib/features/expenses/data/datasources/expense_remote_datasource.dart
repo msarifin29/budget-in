@@ -116,13 +116,14 @@ class GetExpensesparams extends Equatable {
   final int totalPage;
   final String? expenseType;
   final String status;
-
+  final int? id;
   Map<String, dynamic> toMap() {
     Map<String, dynamic> data = {};
     data['page'] = page;
     data['total_page'] = totalPage;
     data['status'] = status;
     if (expenseType != null) data['expense_type'] = expenseType;
+    if (id != null) data['id'] = id;
     return data;
   }
 
@@ -131,20 +132,24 @@ class GetExpensesparams extends Equatable {
     int? totalPage,
     String? expenseType,
     String? status,
+    int? id,
   }) {
     return GetExpensesparams(
       page: page ?? this.page,
       totalPage: totalPage ?? this.totalPage,
       status: status ?? this.status,
       expenseType: expenseType ?? this.expenseType,
+      id: id ?? this.id,
     );
   }
 
-  const GetExpensesparams(
-      {required this.page,
-      required this.totalPage,
-      this.expenseType,
-      required this.status});
+  const GetExpensesparams({
+    required this.page,
+    required this.totalPage,
+    this.expenseType,
+    required this.status,
+    this.id,
+  });
   @override
   List<Object?> get props => throw UnimplementedError();
 }

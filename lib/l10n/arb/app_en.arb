@@ -138,5 +138,6 @@
     "something_wrong": "Something went wrong",
     "cancel_expense": "Cancel Expense",
     "success_cancel_expense": "Success cancelled Expense",
-    "failed_cancel_expense": "Failed cancelled Expense"
+    "failed_cancel_expense": "Failed cancelled Expense",
+    "all": "All"
 }
