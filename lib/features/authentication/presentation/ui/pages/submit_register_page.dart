@@ -3,6 +3,7 @@ import 'dart:developer';
 
 import 'package:budget_in/features/authentication/presentation/bloc/register/register_bloc.dart';
 import 'package:budget_in/injection.dart';
+import 'package:currency_text_input_formatter/currency_text_input_formatter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -47,6 +48,11 @@ class _SubmitRegisterPageState extends State<SubmitRegisterPage> {
     await spm.putString(SharedPreferencesManager.keyUid, uid);
   }
 
+  final CurrencyTextInputFormatter formatter = CurrencyTextInputFormatter(
+    locale: 'id',
+    symbol: '',
+    decimalDigits: 0,
+  );
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -65,6 +71,10 @@ class _SubmitRegisterPageState extends State<SubmitRegisterPage> {
                     FormWidget(
                       title: context.l10n.balance,
                       hint: '0',
+                      style: context.textTheme.bodyLarge!.copyWith(
+                        color: ColorApp.green,
+                        fontWeight: FontWeight.w700,
+                      ),
                       hintStyle: context.textTheme.bodyLarge!.copyWith(
                         color: ColorApp.green,
                         fontWeight: FontWeight.w700,
@@ -88,16 +98,23 @@ class _SubmitRegisterPageState extends State<SubmitRegisterPage> {
                       validator: (value) {
                         if (value == null ||
                             value == '' ||
-                            int.parse(value) < 100000) {
+                            double.parse(
+                                    value.replaceAll(RegExp(r'[^0-9]'), '')) <
+                                100000) {
                           return context.l10n.empty_balance;
                         }
                         return null;
                       },
+                      inputFormatters: [formatter],
                     ),
                     const SizedBox(height: 20),
                     FormWidget(
                       title: context.l10n.cash,
                       hint: '0',
+                      style: context.textTheme.bodyLarge!.copyWith(
+                        color: ColorApp.green,
+                        fontWeight: FontWeight.w700,
+                      ),
                       hintStyle: context.textTheme.bodyLarge!.copyWith(
                         color: ColorApp.green,
                         fontWeight: FontWeight.w700,
@@ -121,11 +138,14 @@ class _SubmitRegisterPageState extends State<SubmitRegisterPage> {
                       validator: (value) {
                         if (value == null ||
                             value == '' ||
-                            int.parse(value) < 0000) {
+                            double.parse(
+                                    value.replaceAll(RegExp(r'[^0-9]'), '')) <
+                                0000) {
                           return context.l10n.empty_cash;
                         }
                         return null;
                       },
+                      inputFormatters: [formatter],
                     ),
                   ],
                 ),
@@ -154,8 +174,8 @@ class _SubmitRegisterPageState extends State<SubmitRegisterPage> {
                   if (state is RegisterSuccess) {
                     Navigator.pushNamedAndRemoveUntil(
                       context,
-                      RouteName.mainPage,
-                      arguments: {NamedArguments.currentIndex: 0},
+                      RouteName.onboardingPage,
+                      arguments: {NamedArguments.isRegister: true},
                       (route) => false,
                     ).then((_) => context.read<AccountBloc>().add(
                           OnInitialAccount(uid: state.data.user.uid),
@@ -178,9 +198,8 @@ class _SubmitRegisterPageState extends State<SubmitRegisterPage> {
                                   username: widget.username,
                                   email: widget.email,
                                   password: widget.password,
-                                  balance:
-                                      double.parse(balanceControl.text.trim()),
-                                  cash: double.parse(cashControl.text.trim())),
+                                  balance: balanceControl.text.trim(),
+                                  cash: cashControl.text.trim()),
                             );
                       }
                     },

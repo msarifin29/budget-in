@@ -1,24 +1,16 @@
-import 'package:budget_in/core/core.dart';
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
-import 'package:lottie/lottie.dart';
+
+import 'package:budget_in/core/core.dart';
 
 class LogoWidget extends StatelessWidget {
-  const LogoWidget({
-    super.key,
-  });
-
+  const LogoWidget({super.key});
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         const SizedBox(height: 50),
-        Align(
-          child: Lottie.asset(
-            LottieName.wallet,
-            width: 150,
-            height: 150,
-          ),
-        ),
+        const Align(child: ImageLogo(size: 150)),
         Align(
           child: Text(
             Strings.budgetIn,
@@ -31,5 +23,19 @@ class LogoWidget extends StatelessWidget {
         const SizedBox(height: 20),
       ],
     );
+  }
+}
+
+class ImageLogo extends StatelessWidget {
+  const ImageLogo({
+    super.key,
+    this.size = 100,
+  });
+
+  final double size;
+
+  @override
+  Widget build(BuildContext context) {
+    return Image.asset(ImageName.logo, width: size, height: size);
   }
 }

@@ -11,8 +11,8 @@ final class OnUserRegister extends RegisterEvent {
   final String username;
   final String email;
   final String password;
-  final double balance;
-  final double cash;
+  final String balance;
+  final String cash;
 
   const OnUserRegister(
       {required this.username,

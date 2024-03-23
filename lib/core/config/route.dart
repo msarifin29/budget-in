@@ -1,5 +1,6 @@
 import 'package:budget_in/features/authentication/authentication.dart';
 import 'package:budget_in/features/authentication/presentation/ui/pages/forgot_password_page.dart';
+import 'package:budget_in/features/authentication/presentation/ui/pages/onboarding_page.dart';
 import 'package:budget_in/features/credit/credits.dart';
 import 'package:budget_in/features/expenses/presentation/ui/expenses_ui.dart';
 import 'package:budget_in/features/expenses/presentation/ui/pages/expense_page.dart';
@@ -28,6 +29,7 @@ class RouteName {
   static const newIncomePage = 'new-income-page';
   // Credits
   static const creditPage = 'credit-page';
+  static const newCreditPage = 'new-credit-page';
 }
 
 class NamedArguments {
@@ -35,6 +37,7 @@ class NamedArguments {
   static const username = 'username';
   static const email = 'email';
   static const password = 'password';
+  static const isRegister = 'is-register';
 }
 
 class AppRoute {
@@ -137,6 +140,14 @@ class AppRoute {
         return MaterialPageRoute(
           builder: (context) {
             return MainPage(currentIndex: currentIndex);
+          },
+        );
+      case OnboardingPage.routeName:
+        final arguments = settings.arguments as Map<String, dynamic>;
+        final isRegister = arguments[NamedArguments.isRegister] as bool;
+        return MaterialPageRoute(
+          builder: (context) {
+            return OnboardingPage(isRegister: isRegister);
           },
         );
 

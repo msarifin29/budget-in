@@ -92,8 +92,8 @@ class RegisterParams extends Equatable {
   final String username;
   final String email;
   final String password;
-  final double balance;
-  final double cash;
+  final String balance;
+  final String cash;
   const RegisterParams({
     required this.email,
     required this.password,
@@ -106,8 +106,8 @@ class RegisterParams extends Equatable {
       "username": username,
       "email": email,
       "password": password,
-      "balance": balance,
-      "cash": cash,
+      "balance": int.parse(balance.replaceAll(RegExp(r'[^0-9]'), '')),
+      "cash": int.parse(cash.replaceAll(RegExp(r'[^0-9]'), '')),
       "type_user": "personal", //by default type_user is personal
     };
   }

@@ -2,6 +2,7 @@ class BaseAsset {
   static const lottie = 'assets/lottie/';
   static const svg = 'assets/svg/';
   static const other = 'assets/others/';
+  static const images = 'assets/images/';
 }
 
 class LottieName {
@@ -45,4 +46,8 @@ class SvgName {
   static const income = '${BaseAsset.svg}income.svg';
   static const privacy = '${BaseAsset.svg}privacy.svg';
   static const home = '${BaseAsset.svg}home.svg';
+}
+
+class ImageName {
+  static const logo = '${BaseAsset.images}transparant_logo.png';
 }

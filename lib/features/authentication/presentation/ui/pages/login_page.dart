@@ -140,8 +140,8 @@ class _LoginPageState extends State<LoginPage> {
                   if (state is LoginSuccess) {
                     Navigator.pushNamedAndRemoveUntil(
                       context,
-                      RouteName.mainPage,
-                      arguments: {NamedArguments.currentIndex: 0},
+                      RouteName.onboardingPage,
+                      arguments: {NamedArguments.isRegister: true},
                       (route) => false,
                     ).then((_) => context.read<AccountBloc>().add(
                           OnInitialAccount(uid: state.data.user.uid),

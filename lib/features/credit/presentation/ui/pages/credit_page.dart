@@ -124,7 +124,7 @@ class CreditPage extends StatelessWidget {
                 ),
               ),
               builder: (context) {
-                return const NewCreditWidget();
+                return const NewPage();
               });
         },
         tooltip: context.l10n.new_expense,
@@ -140,6 +140,7 @@ class CreditPage extends StatelessWidget {
 }
 
 class PaymentCreditWidget extends StatelessWidget {
+  static const routeName = RouteName.newCreditPage;
   const PaymentCreditWidget({super.key});
 
   @override
@@ -199,14 +200,14 @@ class PaymentCreditWidget extends StatelessWidget {
   }
 }
 
-class NewCreditWidget extends StatefulWidget {
-  const NewCreditWidget({super.key});
+class NewPage extends StatefulWidget {
+  const NewPage({super.key});
 
   @override
-  State<NewCreditWidget> createState() => _NewCreditWidgetState();
+  State<NewPage> createState() => _NewPageState();
 }
 
-class _NewCreditWidgetState extends State<NewCreditWidget> {
+class _NewPageState extends State<NewPage> {
   final globalKey = GlobalKey<FormState>();
   final idSelected = ValueNotifier(1);
   final idType = ValueNotifier(1);
@@ -335,18 +336,26 @@ class _NewCreditWidgetState extends State<NewCreditWidget> {
                 ValueListenableBuilder(
                     valueListenable: due,
                     builder: (context, v, _) {
-                      return Wrap(
-                        spacing: 8,
-                        children: months
-                            .map((e) => ChoiceChip(
-                                  label: Text(e.day.toString()),
-                                  selected: due.value == e.day,
-                                  onSelected: (_) => due.value = e.day,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(25),
-                                  ),
-                                ))
-                            .toList(),
+                      return SizedBox(
+                        width: double.infinity,
+                        child: SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          child: Row(
+                            children: months
+                                .map((e) => ChoiceChip(
+                                      padding: const EdgeInsets.symmetric(
+                                        horizontal: 5,
+                                      ),
+                                      label: Text(e.day.toString()),
+                                      selected: due.value == e.day,
+                                      onSelected: (_) => due.value = e.day,
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(25),
+                                      ),
+                                    ))
+                                .toList(),
+                          ),
+                        ),
                       );
                     }),
                 const SizedBox(height: 15),
