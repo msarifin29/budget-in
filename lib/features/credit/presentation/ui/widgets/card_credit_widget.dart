@@ -1,29 +1,29 @@
 import 'package:budget_in/core/core.dart';
+import 'package:budget_in/features/credit/credits.dart';
+import 'package:budget_in/l10n/l10n.dart';
 import 'package:flutter/material.dart';
 
 class CardCreditWidget extends StatelessWidget {
   const CardCreditWidget({
     super.key,
-    required this.total,
-    required this.category,
-    required this.type,
-    required this.startDate,
-    required this.endDate,
+    required this.creditData,
     required this.color,
     this.onTap,
   });
-  final int total;
-  final String category;
-  final String type;
-  final String startDate;
-  final String endDate;
+  final CreditData creditData;
   final Color color;
   final VoidCallback? onTap;
   @override
   Widget build(BuildContext context) {
     TextStyle? bodySmallStyle = context.textTheme.bodySmall!.copyWith(
-      color: ColorApp.red,
+      color: creditData.statusCredit == 'active' ? color : ColorApp.green,
     );
+    final categoryData = creditData.categoryData ??
+        CategoryData(
+          categoryId: creditData.id,
+          id: 1,
+          title: context.l10n.other,
+        );
     return Card(
       elevation: 0.5,
       margin: const EdgeInsets.symmetric(horizontal: 15),
@@ -48,13 +48,18 @@ class CardCreditWidget extends StatelessWidget {
                     text: TextSpan(
                       text: ' Rp. ',
                       style: context.textTheme.bodyMedium!.copyWith(
-                          fontWeight: FontWeight.w600, color: ColorApp.red),
+                          fontWeight: FontWeight.w600,
+                          color: creditData.statusCredit == 'active'
+                              ? color
+                              : ColorApp.green),
                       children: [
                         TextSpan(
-                          text: total.toString(),
+                          text: creditData.total.toString(),
                           style: context.textTheme.bodyLarge!.copyWith(
                             fontWeight: FontWeight.w600,
-                            color: ColorApp.red,
+                            color: creditData.statusCredit == 'active'
+                                ? color
+                                : ColorApp.green,
                           ),
                         ),
                       ],
@@ -65,15 +70,17 @@ class CardCreditWidget extends StatelessWidget {
                     width: 90,
                     alignment: Alignment.center,
                     decoration: BoxDecoration(
-                      color: color,
+                      color: creditData.statusCredit == 'active'
+                          ? color
+                          : ColorApp.green,
                       borderRadius: BorderRadius.circular(20),
                     ),
                     child: Text(
-                      type,
+                      creditData.statusCredit,
                       style: context.textTheme.labelSmall!.copyWith(
                         color: (Theme.of(context).brightness == Brightness.light
                             ? Colors.white
-                            : Colors.grey),
+                            : ColorApp.darkPrimary),
                         fontWeight: FontWeight.w600,
                       ),
                     ),
@@ -84,19 +91,29 @@ class CardCreditWidget extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    category,
-                    style: context.textTheme.bodyMedium!.copyWith(
+                    categoryData.title,
+                    style: context.textTheme.bodySmall!.copyWith(
                       fontWeight: FontWeight.w500,
-                      color: ColorApp.green.withOpacity(0.5),
+                      color: creditData.statusCredit == 'active'
+                          ? color.withOpacity(0.5)
+                          : ColorApp.green,
                     ),
                   ),
                   RichText(
                     text: TextSpan(
-                      text: startDate,
+                      text: TimeUtil().today(
+                          monthYear,
+                          DateTime.parse(creditData.createdAt ??
+                              DateTime.now().toString())),
                       style: bodySmallStyle,
                       children: [
                         TextSpan(text: ' - ', style: bodySmallStyle),
-                        TextSpan(text: endDate, style: bodySmallStyle),
+                        TextSpan(
+                            text: TimeUtil().today(
+                                monthYear,
+                                DateTime.parse(creditData.createdAt ??
+                                    DateTime.now().toString())),
+                            style: bodySmallStyle),
                       ],
                     ),
                   ),

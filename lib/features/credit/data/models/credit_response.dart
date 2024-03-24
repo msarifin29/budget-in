@@ -33,14 +33,14 @@ class CreditData extends Equatable {
   @JsonKey(name: "payment_time")
   final int paymentTime;
   @JsonKey(name: "created_at")
-  final String createdAt;
+  final String? createdAt;
   @JsonKey(name: "updated_at")
   final String? updatedAt;
   @JsonKey(name: "status_credit")
   final String statusCredit;
   final int installment;
   @JsonKey(name: "t_category")
-  final CategoryData categoryData;
+  final CategoryData? categoryData;
   const CreditData({
     required this.uid,
     required this.id,
@@ -48,11 +48,11 @@ class CreditData extends Equatable {
     required this.total,
     required this.loanTerm,
     required this.paymentTime,
-    required this.createdAt,
+    this.createdAt,
     this.updatedAt,
     required this.statusCredit,
     required this.installment,
-    required this.categoryData,
+    this.categoryData,
   });
 
   static CreditData fromJson(Map<String, dynamic> json) =>

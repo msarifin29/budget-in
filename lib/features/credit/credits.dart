@@ -1,7 +1,15 @@
 export 'presentation/ui/pages/credit_page.dart';
+export 'presentation/ui/pages/new_credit_page.dart';
+export 'presentation/ui/pages/histories_credit_page.dart';
+export 'presentation/ui/widgets/payment_credit_widget.dart';
+export 'presentation/bloc/create_credit/create_credit_bloc.dart';
+export 'presentation/bloc/get_credits/get_credits_bloc.dart';
+export 'presentation/bloc/get_histories_credit/get_histories_credit_bloc.dart';
+export 'presentation/bloc/pay_credit/pay_credit_bloc.dart';
 export 'data/datasources/credit_remote_datasource.dart';
 export 'data/models/credit_response.dart';
 export 'data/models/get_credit_response.dart';
 export 'data/models/history_credit_response.dart';
+export 'data/models/pay_credit_response.dart';
 export 'data/repositories/credit_repository.dart';
 export 'domain/credit_usecase.dart';

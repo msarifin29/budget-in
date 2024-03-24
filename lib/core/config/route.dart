@@ -30,6 +30,7 @@ class RouteName {
   // Credits
   static const creditPage = 'credit-page';
   static const newCreditPage = 'new-credit-page';
+  static const historiesCreditPage = 'histories-credit-page';
 }
 
 class NamedArguments {
@@ -38,6 +39,7 @@ class NamedArguments {
   static const email = 'email';
   static const password = 'password';
   static const isRegister = 'is-register';
+  static const creditId = 'credit-id';
 }
 
 class AppRoute {
@@ -150,7 +152,20 @@ class AppRoute {
             return OnboardingPage(isRegister: isRegister);
           },
         );
-
+      case NewCreditPage.routeName:
+        return MaterialPageRoute(
+          builder: (context) {
+            return const NewCreditPage();
+          },
+        );
+      case HistoriesCreditPage.routeName:
+        final arguments = settings.arguments as Map<String, dynamic>;
+        final creditId = arguments[NamedArguments.creditId] as int;
+        return MaterialPageRoute(
+          builder: (context) {
+            return HistoriesCreditPage(creditId: creditId);
+          },
+        );
       default:
         return MaterialPageRoute(
           builder: (context) => const Scaffold(

@@ -139,5 +139,9 @@
   "cancel_expense": "Batalkan Pengeluaran",
   "success_cancel_expense": "Pengeluaran berhasil di batalkan",
   "failed_cancel_expense": "Gagal membatalkan pengeluaran",
-  "all": "Semua"
+  "all": "Semua",
+  "confirm_new_income": "Apakah Anda yakin ingin membuat kredit baru?",
+  "save": "Simpan",
+  "month": "Bulan",
+  "empty_installment_or_date": "Jatuh tempo dan Lama angsuran tidak boleh kosong"
 }

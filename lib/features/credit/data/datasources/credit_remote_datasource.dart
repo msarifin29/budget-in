@@ -1,15 +1,18 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'package:budget_in/core/core.dart';
+import 'dart:developer';
+
 import 'package:dio/dio.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
+import 'package:budget_in/core/core.dart';
 import 'package:budget_in/features/credit/credits.dart';
 
 abstract class CreditRemoteDatasource {
   Future<CreditResponse> create(CreateCreditParams params);
   Future<GetCreditResponse> getCredits(GetCreditParams params);
-  Future<HistoryResponse> getHistories(GetCreditParams params);
+  Future<HistoryResponse> getHistories(GetHistorisCreditParams params);
+  Future<PayCreditResponse> payCredit(UpdateCreditParams params);
 }
 
 class CreditRemoteDatasourceImpl extends CreditRemoteDatasource {
@@ -42,13 +45,16 @@ class CreditRemoteDatasourceImpl extends CreditRemoteDatasource {
   @override
   Future<GetCreditResponse> getCredits(GetCreditParams params) async {
     final String path = '$baseUrl/api/credits';
-    final Response<dynamic> response = await dio.get(path,
-        options: Options(
-          headers: {
-            BaseUrlConfig.requiredToken: true,
-          },
-        ),
-        queryParameters: params.toMap());
+    final Response<dynamic> response = await dio.get(
+      path,
+      options: Options(
+        headers: {
+          BaseUrlConfig.requiredToken: true,
+        },
+      ),
+      queryParameters: params.toMap(),
+    );
+    log('${response.data}');
     if (response.statusCode == 200) {
       return GetCreditResponse.fromJson(response.data);
     } else {
@@ -59,15 +65,37 @@ class CreditRemoteDatasourceImpl extends CreditRemoteDatasource {
   }
 
   @override
-  Future<HistoryResponse> getHistories(GetCreditParams params) async {
+  Future<HistoryResponse> getHistories(GetHistorisCreditParams params) async {
     final String path = '$baseUrl/api/histories_credits';
-    final Response<dynamic> response = await dio.get(path,
-        options: Options(headers: {
-          BaseUrlConfig.requiredToken: true,
-        }),
-        queryParameters: params.toMap());
+    final Response<dynamic> response = await dio.get(
+      path,
+      options: Options(headers: {
+        BaseUrlConfig.requiredToken: true,
+      }),
+      queryParameters: params.toMap(),
+    );
+    log('${response.data}');
     if (response.statusCode == 200) {
       return HistoryResponse.fromJson(response.data);
+    } else {
+      throw DioException(
+        requestOptions: RequestOptions(path: path),
+      );
+    }
+  }
+
+  @override
+  Future<PayCreditResponse> payCredit(UpdateCreditParams params) async {
+    final String path = '$baseUrl/api/credits/update_history';
+    final Response<dynamic> response = await dio.put(
+      path,
+      options: Options(headers: {
+        BaseUrlConfig.requiredToken: true,
+      }),
+      data: params.toMap(),
+    );
+    if (response.statusCode == 200) {
+      return PayCreditResponse.fromJson(response.data);
     } else {
       throw DioException(
         requestOptions: RequestOptions(path: path),
@@ -81,7 +109,7 @@ class CreateCreditParams extends Equatable {
   final int categoryId;
   final String typeCredit;
   final int loanTerm;
-  final int installment;
+  final String installment;
   final int paymentTime;
   const CreateCreditParams({
     required this.uid,
@@ -98,7 +126,7 @@ class CreateCreditParams extends Equatable {
       "category_id": categoryId,
       "type_credit": typeCredit,
       "loan_term": loanTerm,
-      "installment": installment,
+      "installment": int.parse(installment.replaceAll(RegExp(r'[^0-9]'), '')),
       "payment_time": paymentTime,
     };
     return data;
@@ -121,6 +149,55 @@ class GetCreditParams extends Equatable {
       "total_page": totalPage,
     };
     return data;
+  }
+
+  @override
+  List<Object?> get props => [page, totalPage];
+}
+
+class GetHistorisCreditParams extends Equatable {
+  final int page;
+  final int totalPage;
+  final int creditId;
+  const GetHistorisCreditParams({
+    required this.page,
+    required this.totalPage,
+    required this.creditId,
+  });
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> data = {
+      "page": page,
+      "total_page": totalPage,
+      "credit_id": creditId,
+    };
+    return data;
+  }
+
+  @override
+  List<Object?> get props => [page, totalPage];
+}
+
+class UpdateCreditParams extends Equatable {
+  final String uid;
+  final int creditId;
+  final int id;
+  final String typePayment;
+  final String accountId;
+  const UpdateCreditParams({
+    required this.uid,
+    required this.creditId,
+    required this.id,
+    required this.typePayment,
+    required this.accountId,
+  });
+  Map<String, dynamic> toMap() {
+    return {
+      "uid": uid,
+      "credit_id": creditId,
+      "id": id,
+      "type_payment": typePayment,
+      "account_id": accountId,
+    };
   }
 
   @override

@@ -2,10 +2,8 @@ import 'dart:developer';
 
 import 'package:budget_in/core/core.dart';
 import 'package:budget_in/features/authentication/authentication.dart';
-import 'package:budget_in/features/expenses/expenses.dart';
-import 'package:budget_in/features/incomes/incomes.dart';
+import 'package:budget_in/features/new_bloc.dart';
 import 'package:budget_in/features/onboarding/onboarding.dart';
-import 'package:budget_in/injection.dart';
 import 'package:budget_in/l10n/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -29,61 +27,29 @@ class _AppState extends State<App> {
 
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider(
-          create: (context) => AuthUserCubit()..tokenIsExist(),
-        ),
-        BlocProvider(
-          lazy: false,
-          create: (context) =>
-              AccountBloc(accountUsecase: sl<AccountUsecase>()),
-        ),
-        BlocProvider(
-          lazy: false,
-          create: (context) =>
-              ExpenseBloc(createExpenseUsecase: sl<CreateExpenseUsecase>()),
-        ),
-        BlocProvider(
-          lazy: false,
-          create: (context) =>
-              GetExpensesBloc(getExpensesUsecase: sl<GetExpensesUsecase>()),
-        ),
-        BlocProvider(
-          create: (context) =>
-              GetMonthlyReportBloc(usecase: sl<GetOnboardingUsecase>()),
-        ),
-        BlocProvider(
-          create: (context) =>
-              UpdateExpenseBloc(usecase: sl<UpdateExpensesUsecase>()),
-        ),
-        BlocProvider(
-          create: (context) =>
-              CreateIncomeBloc(usecase: sl<CreateIncomeUsecase>()),
-        ),
-        BlocProvider(
-          create: (context) => GetIncomeBloc(usecase: sl<GetIncomesUsecase>()),
-        ),
-      ],
-      child: MaterialApp(
-        theme: lightTheme(),
-        darkTheme: darkTheme(),
-        localizationsDelegates: AppLocalizations.localizationsDelegates,
-        supportedLocales: AppLocalizations.supportedLocales,
-        scaffoldMessengerKey: rootScaffoldMessengerKey,
-        navigatorKey: navigatorKey,
-        onGenerateRoute: AppRoute.generateRoute,
-        home: BlocBuilder<AuthUserCubit, AuthUserState>(
-          builder: (context, state) {
-            log('auth-user => $state');
-            if (state is AuthUserLoaded) {
-              if (state.isExist) {
-                return const MainPage(currentIndex: 0);
+    return BlocProvider(
+      create: (context) => AuthUserCubit()..tokenIsExist(),
+      child: NewBloc(
+        child: MaterialApp(
+          theme: lightTheme(),
+          darkTheme: darkTheme(),
+          localizationsDelegates: AppLocalizations.localizationsDelegates,
+          supportedLocales: AppLocalizations.supportedLocales,
+          scaffoldMessengerKey: rootScaffoldMessengerKey,
+          navigatorKey: navigatorKey,
+          onGenerateRoute: AppRoute.generateRoute,
+          home: BlocBuilder<AuthUserCubit, AuthUserState>(
+            builder: (context, state) {
+              log('auth-user => $state');
+              if (state is AuthUserLoaded) {
+                if (state.isExist) {
+                  return const MainPage(currentIndex: 0);
+                }
+                return const LoginPage();
               }
               return const LoginPage();
-            }
-            return const LoginPage();
-          },
+            },
+          ),
         ),
       ),
     );

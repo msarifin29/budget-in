@@ -56,16 +56,18 @@ class HistoryCreditData extends Equatable {
 
 @JsonSerializable(explicitToJson: true)
 class HistoryCredit extends Equatable {
+  @JsonKey(name: "credit_id")
+  final int creditId;
   final int id;
   final int th;
   final int total;
   final String status;
   @JsonKey(name: "type_payment")
   final String typePayment;
-
   @JsonKey(name: "created_at")
   final String createdAt;
   const HistoryCredit({
+    required this.creditId,
     required this.id,
     required this.th,
     required this.total,
@@ -79,6 +81,7 @@ class HistoryCredit extends Equatable {
   Map<String?, dynamic> toJson() => _$HistoryCreditToJson(this);
   @override
   List<Object?> get props => [
+        creditId,
         id,
         th,
         total,

@@ -28,12 +28,26 @@ class GetCreditUsecase implements UseCase<GetCreditResponse, GetCreditParams> {
   }
 }
 
-class GetHistoriesUsecase implements UseCase<HistoryResponse, GetCreditParams> {
+class GetHistoriesUsecase
+    implements UseCase<HistoryResponse, GetHistorisCreditParams> {
   final CreditRepository repository;
   GetHistoriesUsecase({required this.repository});
 
   @override
-  FutureOr<Either<Failure, HistoryResponse>> call(GetCreditParams param) async {
+  FutureOr<Either<Failure, HistoryResponse>> call(
+      GetHistorisCreditParams param) async {
     return repository.getHistories(param);
+  }
+}
+
+class PayCreditUsecase
+    implements UseCase<PayCreditResponse, UpdateCreditParams> {
+  final CreditRepository repository;
+  PayCreditUsecase({required this.repository});
+
+  @override
+  FutureOr<Either<Failure, PayCreditResponse>> call(
+      UpdateCreditParams param) async {
+    return repository.payCredit(param);
   }
 }

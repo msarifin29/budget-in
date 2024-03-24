@@ -7,7 +7,10 @@ import 'package:dio/dio.dart';
 abstract class CreditRepository {
   Future<Either<Failure, CreditResponse>> create(CreateCreditParams params);
   Future<Either<Failure, GetCreditResponse>> getCredits(GetCreditParams params);
-  Future<Either<Failure, HistoryResponse>> getHistories(GetCreditParams params);
+  Future<Either<Failure, HistoryResponse>> getHistories(
+      GetHistorisCreditParams params);
+  Future<Either<Failure, PayCreditResponse>> payCredit(
+      UpdateCreditParams params);
 }
 
 class CreditRepositoryImpl extends CreditRepository {
@@ -109,12 +112,57 @@ class CreditRepositoryImpl extends CreditRepository {
 
   @override
   Future<Either<Failure, HistoryResponse>> getHistories(
-      GetCreditParams params) async {
+      GetHistorisCreditParams params) async {
     bool isConnected = await networkInfo.isConnected;
     if (isConnected) {
       try {
         final HistoryResponse response =
             await remoteDataSource.getHistories(params);
+        return Right(response);
+      } on DioException catch (error) {
+        if (error.response == null) {
+          return Left(
+            ServerFailure(
+              DataApiFailure(message: error.message),
+            ),
+          );
+        }
+        final errorResponseData = error.response?.data;
+        dynamic errorData;
+        String errorMessage = Helpers.getErrorMessageFromEndpoint(
+          errorResponseData,
+          error.message ?? '',
+          error.response?.statusCode ?? 400,
+        );
+        if (errorResponseData is Map &&
+            errorResponseData.containsKey('error')) {
+          errorData = errorResponseData['error'];
+        }
+        return Left(
+          ServerFailure(
+            DataApiFailure(
+              message: errorMessage,
+              code: error.response?.statusCode,
+              status: errorData,
+            ),
+          ),
+        );
+      } on TypeError catch (error) {
+        return Left(ParsingFailure(error.toString()));
+      }
+    } else {
+      return Left(ConnectionFailure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, PayCreditResponse>> payCredit(
+      UpdateCreditParams params) async {
+    bool isConnected = await networkInfo.isConnected;
+    if (isConnected) {
+      try {
+        final PayCreditResponse response =
+            await remoteDataSource.payCredit(params);
         return Right(response);
       } on DioException catch (error) {
         if (error.response == null) {
