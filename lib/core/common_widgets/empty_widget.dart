@@ -1,5 +1,6 @@
 import 'package:budget_in/core/core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class EmptyWidget extends StatelessWidget {
   const EmptyWidget({super.key, required this.text});
@@ -28,8 +29,8 @@ class EmptyWidget extends StatelessWidget {
   }
 }
 
-class ErrorLottieWidget extends StatelessWidget {
-  const ErrorLottieWidget({super.key, required this.text});
+class ErrorImageWidget extends StatelessWidget {
+  const ErrorImageWidget({super.key, required this.text});
   final String text;
 
   @override
@@ -40,7 +41,7 @@ class ErrorLottieWidget extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const Icon(Icons.sync_problem_sharp, size: 75, color: Colors.grey),
+          SvgPicture.asset(SvgName.error, width: 100),
           const SizedBox(height: 20),
           Text(
             text,

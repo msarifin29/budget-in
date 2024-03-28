@@ -100,9 +100,9 @@ class _CreditPageState extends State<CreditPage>
               }, firstPageProgressIndicatorBuilder: (context) {
                 return const CircularLoading();
               }, firstPageErrorIndicatorBuilder: (context) {
-                return ErrorLottieWidget(text: pagingController.error);
+                return ErrorImageWidget(text: pagingController.error);
               }, newPageErrorIndicatorBuilder: (context) {
-                return ErrorLottieWidget(text: pagingController.error);
+                return ErrorImageWidget(text: pagingController.error);
               }, noItemsFoundIndicatorBuilder: (context) {
                 return EmptyWidget(text: context.l10n.empty_credit_msg);
               }),

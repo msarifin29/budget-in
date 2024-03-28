@@ -115,7 +115,7 @@ class _MainPageState extends State<MainPage> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           SvgPicture.asset(
-                            SvgName.expense,
+                            SvgName.icon,
                             width: 25,
                             colorFilter: ColorFilter.mode(
                               currentIndex == 1 ? ColorApp.green : Colors.grey,
@@ -148,7 +148,7 @@ class _MainPageState extends State<MainPage> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           SvgPicture.asset(
-                            SvgName.income,
+                            SvgName.incomeIcon,
                             width: 25,
                             colorFilter: ColorFilter.mode(
                               currentIndex == 2 ? ColorApp.green : Colors.grey,
@@ -181,7 +181,7 @@ class _MainPageState extends State<MainPage> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           SvgPicture.asset(
-                            SvgName.creditSync,
+                            SvgName.creditIcon,
                             width: 25,
                             colorFilter: ColorFilter.mode(
                               currentIndex == 3 ? ColorApp.green : Colors.grey,

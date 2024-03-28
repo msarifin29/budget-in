@@ -20,7 +20,7 @@ class LottieName {
   static const task = '${BaseAsset.lottie}task.json';
   static const task2 = '${BaseAsset.lottie}task2.json';
   static const wallet = '${BaseAsset.lottie}wallet.json';
-  static const coffee = '${BaseAsset.lottie}coffee.json';
+  static const error = '${BaseAsset.lottie}error.json';
 }
 
 class SvgName {
@@ -48,8 +48,17 @@ class SvgName {
   static const income = '${BaseAsset.svg}income.svg';
   static const privacy = '${BaseAsset.svg}privacy.svg';
   static const home = '${BaseAsset.svg}home.svg';
+  static const confirmSave = '${BaseAsset.svg}confirm_save.svg';
+  static const credit = '${BaseAsset.svg}credit.svg';
+  static const emailPassword = '${BaseAsset.svg}email_password.svg';
+  static const error = '${BaseAsset.svg}error.svg';
+  static const icon = '${BaseAsset.svg}icon.svg';
+  static const logout = '${BaseAsset.svg}logout.svg';
+  static const creditIcon = '${BaseAsset.svg}credit_icon.svg';
+  static const incomeIcon = '${BaseAsset.svg}income_icon.svg';
 }
 
 class ImageName {
-  static const logo = '${BaseAsset.images}transparant_logo.png';
+  static const logoTr = '${BaseAsset.images}transparant_logo.png';
+  static const logo = '${BaseAsset.images}logo.png';
 }

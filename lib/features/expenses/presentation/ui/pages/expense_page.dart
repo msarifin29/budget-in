@@ -259,10 +259,10 @@ class _ExpensePageState extends State<ExpensePage>
                           }, firstPageProgressIndicatorBuilder: (context) {
                             return const CircularLoading();
                           }, firstPageErrorIndicatorBuilder: (context) {
-                            return ErrorLottieWidget(
+                            return ErrorImageWidget(
                                 text: pagingController.error);
                           }, newPageErrorIndicatorBuilder: (context) {
-                            return ErrorLottieWidget(
+                            return ErrorImageWidget(
                                 text: pagingController.error);
                           }, noItemsFoundIndicatorBuilder: (context) {
                             return EmptyWidget(
@@ -325,10 +325,10 @@ class _ExpensePageState extends State<ExpensePage>
                           }, firstPageProgressIndicatorBuilder: (context) {
                             return const CircularLoading();
                           }, firstPageErrorIndicatorBuilder: (context) {
-                            return ErrorLottieWidget(
+                            return ErrorImageWidget(
                                 text: pagingController.error);
                           }, newPageErrorIndicatorBuilder: (context) {
-                            return ErrorLottieWidget(
+                            return ErrorImageWidget(
                                 text: pagingController.error);
                           }, noItemsFoundIndicatorBuilder: (context) {
                             return EmptyWidget(
@@ -391,10 +391,10 @@ class _ExpensePageState extends State<ExpensePage>
                           }, firstPageProgressIndicatorBuilder: (context) {
                             return const CircularLoading();
                           }, firstPageErrorIndicatorBuilder: (context) {
-                            return ErrorLottieWidget(
+                            return ErrorImageWidget(
                                 text: pagingController.error);
                           }, newPageErrorIndicatorBuilder: (context) {
-                            return ErrorLottieWidget(
+                            return ErrorImageWidget(
                                 text: pagingController.error);
                           }, noItemsFoundIndicatorBuilder: (context) {
                             return EmptyWidget(
