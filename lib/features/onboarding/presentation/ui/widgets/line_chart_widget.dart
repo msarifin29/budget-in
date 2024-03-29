@@ -23,7 +23,9 @@ class LineChartWidgetState extends State<LineChartWidget> {
   }
 
   void getMonthlyEvent() {
-    context.read<GetMonthlyReportBloc>().add(const MonthlyReportInitialEvent());
+    context.read<GetMonthlyReportBloc>().add(
+          MonthlyReportInitialEvent(uid: Helpers.getUid()),
+        );
   }
 
   @override

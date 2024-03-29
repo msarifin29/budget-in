@@ -6,7 +6,7 @@ import 'package:budget_in/features/onboarding/onboarding.dart';
 import 'package:dio/dio.dart';
 
 abstract class OnboardingRepository {
-  Future<Either<Failure, MonthlyReportResponse>> getMonthlyReport();
+  Future<Either<Failure, MonthlyReportResponse>> getMonthlyReport(String uid);
 }
 
 class OnboardingRepositoryImpl extends OnboardingRepository {
@@ -18,12 +18,13 @@ class OnboardingRepositoryImpl extends OnboardingRepository {
   });
 
   @override
-  Future<Either<Failure, MonthlyReportResponse>> getMonthlyReport() async {
+  Future<Either<Failure, MonthlyReportResponse>> getMonthlyReport(
+      String uid) async {
     bool isConnected = await networkInfo.isConnected;
     if (isConnected) {
       try {
         final MonthlyReportResponse response =
-            await remoteDataSource.getMonthlyReport();
+            await remoteDataSource.getMonthlyReport(uid);
         return Right(response);
       } on DioException catch (error) {
         if (error.response == null) {

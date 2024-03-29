@@ -15,7 +15,7 @@ class GetMonthlyReportBloc
       : super(GetMonthlyReportInitial()) {
     on<MonthlyReportInitialEvent>((event, emit) async {
       emit(GetMonthlyReportLoading());
-      final result = await usecase(NoParams());
+      final result = await usecase(event.uid);
       emit(result.fold((l) {
         var message = '';
         if (l is ServerFailure) {

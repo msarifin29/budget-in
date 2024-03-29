@@ -5,7 +5,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 abstract class OnboardingRemoteDatasource {
-  Future<MonthlyReportResponse> getMonthlyReport();
+  Future<MonthlyReportResponse> getMonthlyReport(String uid);
 }
 
 class OnboardingRemoteDatasourceImpl extends OnboardingRemoteDatasource {
@@ -17,8 +17,8 @@ class OnboardingRemoteDatasourceImpl extends OnboardingRemoteDatasource {
   final baseUrl = dotenv.env['BASE_URL'];
 
   @override
-  Future<MonthlyReportResponse> getMonthlyReport() async {
-    final String path = '$baseUrl/api/user/monthly_report/';
+  Future<MonthlyReportResponse> getMonthlyReport(String uid) async {
+    final String path = '$baseUrl/api/user/monthly_report/$uid';
     final Response<dynamic> response = await dio.get(path,
         options: Options(headers: {
           BaseUrlConfig.requiredToken: true,

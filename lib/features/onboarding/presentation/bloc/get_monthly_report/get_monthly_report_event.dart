@@ -8,11 +8,8 @@ sealed class GetMonthlyReportEvent extends Equatable {
 }
 
 final class MonthlyReportInitialEvent extends GetMonthlyReportEvent {
-  const MonthlyReportInitialEvent();
+  const MonthlyReportInitialEvent({required this.uid});
+  final String uid;
   @override
-  List<Object> get props => [];
-  @override
-  String toString() {
-    return 'MonthlyReportInitialEvent{}';
-  }
+  List<Object> get props => [uid];
 }
