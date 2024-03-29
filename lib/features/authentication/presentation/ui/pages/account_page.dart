@@ -125,23 +125,20 @@ class AccountPage extends StatelessWidget {
                 ),
               ),
             ),
-            Container(
-              height: MediaQuery.sizeOf(context).height * 0.41,
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 24),
-              child: PrimaryButton(
-                text: context.l10n.sigout,
-                onPressed: () {
-                  selectedDialog(context, onContinue: () {
-                    Navigator.pushNamedAndRemoveUntil(
-                            context, RouteName.loginPage, (route) => false)
-                        .then((_) => clearLocalData());
-                  }, title: context.l10n.sigout);
-                },
-              ),
-            ),
           ],
+        ),
+      ),
+      bottomNavigationBar: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 20),
+        child: PrimaryButton(
+          text: context.l10n.sigout,
+          onPressed: () {
+            selectedDialog(context, onContinue: () {
+              Navigator.pushNamedAndRemoveUntil(
+                      context, RouteName.loginPage, (route) => false)
+                  .then((_) => clearLocalData());
+            }, title: context.l10n.sigout);
+          },
         ),
       ),
     );

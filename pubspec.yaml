@@ -24,6 +24,7 @@ dependencies:
   flutter_dotenv: ^5.1.0
   flutter_localizations:
     sdk: flutter
+  flutter_native_splash: ^2.3.10
   flutter_secure_storage: ^9.0.0
   flutter_svg: ^2.0.9
   get_it: ^7.6.6
@@ -43,6 +44,7 @@ dev_dependencies:
     sdk: flutter
   json_serializable: ^6.7.1
   mocktail: ^1.0.0
+  flutter_launcher_icons: "^0.13.1"
 
 flutter:
   uses-material-design: true
@@ -59,3 +61,19 @@ flutter:
     - family: Schyler
       fonts:
         - asset: assets/fonts/Inter/Inter-Regular.ttf
+
+flutter_launcher_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/images/appstore_icon.png"
+  min_sdk_android: 21 # android min sdk min:16, default 21
+
+flutter_native_splash:
+  color: "#ffffff"
+  image: assets/images/budget_in_logo.png
+  android_12:
+    color: "#ffffff"
+  web: false
+  fullscreen: true
+  color_dark: "#000000"
+  image_dark: assets/images/budget_in_logo.png
