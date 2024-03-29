@@ -24,13 +24,13 @@ class InfoWidget extends StatelessWidget {
             child: Text(
               k,
               style: context.textTheme.bodyMedium
-                  ?.copyWith(fontWeight: FontWeight.w500),
+                  ?.copyWith(fontWeight: FontWeight.w400),
             ),
           ),
           Text(
             v,
             style: context.textTheme.bodyMedium
-                ?.copyWith(fontWeight: FontWeight.w500),
+                ?.copyWith(fontWeight: FontWeight.w400),
           ),
         ],
       ),

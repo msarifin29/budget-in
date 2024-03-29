@@ -411,7 +411,12 @@ class _ExpensePageState extends State<ExpensePage>
         ),
         floatingActionButton: FloatingActionButton(
           onPressed: () {
-            Navigator.pushNamed(context, RouteName.newExpensePage);
+            Navigator.pushNamed(context, RouteName.newExpensePage).then((_) {
+              params = params.copyWith(expenseType: '');
+              pagingController.itemList = [];
+              pagingController.appendPage([], 1);
+              pagingController.refresh();
+            });
           },
           tooltip: context.l10n.new_expense,
           backgroundColor: Theme.of(context).cardColor,

@@ -16,3 +16,15 @@ class ImageEmptyWidget extends StatelessWidget {
     return LottieBuilder.asset(LottieName.empty, height: height, width: width);
   }
 }
+
+class BudgetInImage extends StatelessWidget {
+  const BudgetInImage({super.key});
+  @override
+  Widget build(BuildContext context) {
+    return Image.asset(
+      ImageName.budgetInImage,
+      width: 100,
+      fit: BoxFit.cover,
+    );
+  }
+}

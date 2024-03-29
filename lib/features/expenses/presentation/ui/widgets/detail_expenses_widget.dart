@@ -23,6 +23,8 @@ class DetailExpensesWidget extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           const SizedBox(height: 20),
+          const BudgetInImage(),
+          const SizedBox(height: 20),
           InfoWidget(
               k: context.l10n.type_x(context.l10n.expense),
               v: ': ${data.expenseType == ConstantType.cash ? context.l10n.cash : context.l10n.non_cash}'),
@@ -32,7 +34,7 @@ class DetailExpensesWidget extends StatelessWidget {
               v: ': - Rp. ${Helpers.currency(data.total)}'),
           InfoWidget(k: context.l10n.category, v: ': ${data.category}'),
           InfoWidget(k: context.l10n.notes, v: ': ${data.notes}'),
-          const SizedBox(height: 20),
+          const SizedBox(height: 30),
           BlocConsumer<UpdateExpenseBloc, UpdateExpenseState>(
             listener: (context, state) {
               log('UpdateExpense $state');

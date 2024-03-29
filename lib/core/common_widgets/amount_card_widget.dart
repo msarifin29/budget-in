@@ -29,7 +29,7 @@ class AmountCardWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       elevation: 0.5,
-      margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 3),
+      margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 3),
       child: InkWell(
         onTap: onTap,
         borderRadius: BorderRadius.circular(15),
@@ -104,7 +104,7 @@ class AmountCardWidget extends StatelessWidget {
               ),
               Container(
                 height: 25,
-                width: 90,
+                padding: const EdgeInsets.symmetric(horizontal: 15),
                 alignment: Alignment.center,
                 decoration: BoxDecoration(
                   color: color,
