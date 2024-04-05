@@ -1,11 +1,12 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first, unused_field, unnecessary_null_comparison
+import 'dart:developer';
 import 'dart:io';
 
+import 'package:budget_in/core/core.dart';
+import 'package:budget_in/injection.dart';
 import 'package:dio/dio.dart';
 import 'package:dio/io.dart';
 import 'package:flutter/material.dart';
-
-import 'secure_storage_manager.dart';
 
 class DioLoggingInterceptor extends InterceptorsWrapper {
   final Dio _dio;
@@ -42,11 +43,19 @@ class DioLoggingInterceptor extends InterceptorsWrapper {
       options.extra.remove(BaseUrlConfig.toFormData);
       options.data = FormData.fromMap(options.data);
     }
+    if (options.extra.containsKey(BaseUrlConfig.requiredAccountId)) {
+      final spm = sl<SharedPreferencesManager>();
+      var accountId = spm.getString(SharedPreferencesManager.keyAccountId);
+      options.extra.remove(BaseUrlConfig.requiredAccountId);
+      options.data['account_id'] = accountId;
+    }
     if (options.headers.containsKey(BaseUrlConfig.download)) {
       options.headers.remove(BaseUrlConfig.download);
     }
 
     options.headers.addAll({HttpHeaders.acceptHeader: 'application/json'});
+    log('headers => ${options.headers}');
+    log('data =>${options.data}');
     return handler.next(options);
   }
 
@@ -102,4 +111,5 @@ class BaseUrlConfig {
   static const requiredToken = 'requiredToken';
   static const download = 'download';
   static const toFormData = "toFormData";
+  static const requiredAccountId = "requiredAccountId";
 }

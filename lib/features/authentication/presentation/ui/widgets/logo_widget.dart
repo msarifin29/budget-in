@@ -10,7 +10,7 @@ class LogoWidget extends StatelessWidget {
     return Column(
       children: [
         const SizedBox(height: 50),
-        const Align(child: ImageLogo(size: 150)),
+        const Align(child: ImageLogo(size: 100)),
         Align(
           child: Text(
             Strings.budgetIn,
@@ -36,6 +36,6 @@ class ImageLogo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Image.asset(ImageName.logo, width: size, height: size);
+    return Image.asset(ImageName.budgetInImage, width: size, height: size);
   }
 }

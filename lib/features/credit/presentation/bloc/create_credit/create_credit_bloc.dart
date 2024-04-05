@@ -18,9 +18,9 @@ class CreateCreditBloc extends Bloc<CreateCreditEvent, CreateCreditState> {
           uid: event.params.uid,
           categoryId: event.params.categoryId,
           typeCredit: event.params.typeCredit,
-          loanTerm: event.params.loanTerm,
+          startDate: event.params.startDate,
           installment: event.params.installment,
-          paymentTime: event.params.paymentTime,
+          endDate: event.params.endDate,
         ),
       );
       emit(result.fold((l) {

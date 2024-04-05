@@ -106,8 +106,8 @@ class _HistoriesCreditPageState extends State<HistoriesCreditPage> {
                               InfoSmallWidget(
                                   k: context.l10n.total, v: ': Rp. ${h.total}'),
                               InfoSmallWidget(
-                                  k: context.l10n.due_date,
-                                  v: ': ${TimeUtil().today(monthDay, DateTime.now())}'),
+                                  k: context.l10n.date,
+                                  v: ': ${TimeUtil().today(monthDay, DateTime.parse(h.date ?? '2000-01-02T00:00:00Z'))}'),
                               InfoSmallWidget(k: 'Status', v: ': $status'),
                             ],
                           ),

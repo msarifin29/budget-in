@@ -43,9 +43,10 @@ class _SubmitRegisterPageState extends State<SubmitRegisterPage> {
     super.dispose();
   }
 
-  void saveInfoUser(String token, String uid) async {
+  void saveInfoUser(String token, String uid, String accountId) async {
     await ssm.saveToken(token);
     await spm.putString(SharedPreferencesManager.keyUid, uid);
+    await spm.putString(SharedPreferencesManager.keyAccountId, accountId);
   }
 
   final CurrencyTextInputFormatter formatter = CurrencyTextInputFormatter(
@@ -180,7 +181,11 @@ class _SubmitRegisterPageState extends State<SubmitRegisterPage> {
                     ).then((_) => context.read<AccountBloc>().add(
                           OnInitialAccount(uid: state.data.user.uid),
                         ));
-                    saveInfoUser(state.data.token, state.data.user.uid);
+                    saveInfoUser(
+                      state.data.token,
+                      state.data.user.uid,
+                      state.data.user.accountId,
+                    );
                   } else if (state is RegisterFailure) {
                     simpleDialog(context: context, title: state.message);
                   }

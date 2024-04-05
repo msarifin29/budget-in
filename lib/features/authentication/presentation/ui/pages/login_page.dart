@@ -35,9 +35,10 @@ class _LoginPageState extends State<LoginPage> {
     super.dispose();
   }
 
-  void saveInfoUser(String token, String uid) async {
+  void saveInfoUser(String token, String uid, String accountId) async {
     await ssm.saveToken(token);
     await spm.putString(SharedPreferencesManager.keyUid, uid);
+    await spm.putString(SharedPreferencesManager.keyAccountId, accountId);
   }
 
   @override
@@ -146,7 +147,11 @@ class _LoginPageState extends State<LoginPage> {
                     ).then((_) => context.read<AccountBloc>().add(
                           OnInitialAccount(uid: state.data.user.uid),
                         ));
-                    saveInfoUser(state.data.token, state.data.user.uid);
+                    saveInfoUser(
+                      state.data.token,
+                      state.data.user.uid,
+                      state.data.user.accountId,
+                    );
                   } else if (state is LoginFailure) {
                     simpleDialog(context: context, title: state.message);
                   }

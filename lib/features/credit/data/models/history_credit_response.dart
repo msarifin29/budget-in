@@ -15,10 +15,6 @@ class HistoryResponse extends Equatable {
   Map<String?, dynamic> toJson() => _$HistoryResponseToJson(this);
   @override
   List<Object?> get props => [];
-  @override
-  String toString() {
-    return 'HistoryResponse{}';
-  }
 }
 
 @JsonSerializable(explicitToJson: true)
@@ -48,10 +44,6 @@ class HistoryCreditData extends Equatable {
         total,
         data,
       ];
-  @override
-  String toString() {
-    return 'HistoryCreditData{}';
-  }
 }
 
 @JsonSerializable(explicitToJson: true)
@@ -66,6 +58,7 @@ class HistoryCredit extends Equatable {
   final String typePayment;
   @JsonKey(name: "created_at")
   final String createdAt;
+  final String? date;
   const HistoryCredit({
     required this.creditId,
     required this.id,
@@ -74,6 +67,7 @@ class HistoryCredit extends Equatable {
     required this.status,
     required this.typePayment,
     required this.createdAt,
+    this.date,
   });
 
   static HistoryCredit fromJson(Map<String, dynamic> json) =>
@@ -88,9 +82,6 @@ class HistoryCredit extends Equatable {
         status,
         typePayment,
         createdAt,
+        date,
       ];
-  @override
-  String toString() {
-    return 'HistoryCredit{}';
-  }
 }

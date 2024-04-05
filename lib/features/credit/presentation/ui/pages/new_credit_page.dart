@@ -1,5 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 
+import 'dart:developer';
+
 import 'package:currency_text_input_formatter/currency_text_input_formatter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -20,22 +22,12 @@ class _NewCreditPageState extends State<NewCreditPage> {
   final globalKey = GlobalKey<FormState>();
   final category = ValueNotifier(ItemChoice(0, ''));
   final idType = ValueNotifier(ItemChoice(0, ''));
-  final due = ValueNotifier(0);
-  final dp = ValueNotifier(0);
+  final endDate = ValueNotifier('');
+  final startDate = ValueNotifier('');
 
   final totalC = TextEditingController();
-  final categoryC = TextEditingController();
-  final durations = [3, 6, 9, 12, 18, 24, 30, 36, 48, 50, 62, 120, 240];
-  List<DateTime> months = getAllDays(DateTime.now().year, DateTime.now().month);
-
-  static List<DateTime> getAllDays(int year, int month) {
-    List<DateTime> days = [];
-    int lastDay = DateTime(year, month + 1, 0).day; // Get last day of the month
-    for (int day = 1; day <= lastDay; day++) {
-      days.add(DateTime(year, month, day));
-    }
-    return days;
-  }
+  final startDateC = TextEditingController();
+  final endDateC = TextEditingController();
 
   final CurrencyTextInputFormatter formatter = CurrencyTextInputFormatter(
     locale: 'id',
@@ -43,34 +35,16 @@ class _NewCreditPageState extends State<NewCreditPage> {
     decimalDigits: 0,
   );
 
-  void submit(BuildContext context) {
-    if (category.value.id == 0) {
-      context.scaffoldMessenger.showSnackBar(
-        floatingSnackBar(
-          context,
-          context.l10n.select_category_first(context.l10n.credit),
-        ),
-      );
-    } else if (due.value == 0 || dp.value == 0) {
-      context.scaffoldMessenger.showSnackBar(
-        floatingSnackBar(
-          context,
-          context.l10n.empty_installment_or_date,
-        ),
-      );
-    } else {
-      if (globalKey.currentState!.validate()) {
-        CreateCreditParams params = CreateCreditParams(
-          uid: Helpers.getUid(),
-          categoryId: category.value.id,
-          typeCredit: 'monthly',
-          loanTerm: dp.value,
-          installment: totalC.text.trim(),
-          paymentTime: due.value,
-        );
-        context.read<CreateCreditBloc>().add(OnCreated(params: params));
-      }
-    }
+  void submit() {
+    CreateCreditParams params = CreateCreditParams(
+      uid: Helpers.getUid(),
+      categoryId: category.value.id,
+      typeCredit: 'monthly',
+      startDate: startDateC.text,
+      installment: totalC.text.trim(),
+      endDate: endDateC.text,
+    );
+    context.read<CreateCreditBloc>().add(OnCreated(params: params));
   }
 
   @override
@@ -205,97 +179,74 @@ class _NewCreditPageState extends State<NewCreditPage> {
                   return null;
                 },
               ),
-              const SizedBox(height: 15),
-              Text(
-                context.l10n.due_date,
-                style: context.textTheme.bodyMedium!.copyWith(
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
               const SizedBox(height: 8),
               ValueListenableBuilder(
-                  valueListenable: due,
+                  valueListenable: startDate,
                   builder: (context, v, _) {
-                    return InkWell(
-                      onTap: () {
-                        showModalBottomSheet(
-                            context: context,
-                            builder: (context) {
-                              return Container(
-                                width: double.infinity,
-                                padding: const EdgeInsets.all(20),
-                                child: Wrap(
-                                  spacing: 8,
-                                  children: months
-                                      .map((e) => ChoiceChip(
-                                            padding: const EdgeInsets.symmetric(
-                                              horizontal: 5,
-                                            ),
-                                            label: Text(e.day.toString()),
-                                            selected: due.value == e.day,
-                                            onSelected: (_) {
-                                              due.value = e.day;
-                                              Navigator.pop(context);
-                                            },
-                                            shape: RoundedRectangleBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(25),
-                                            ),
-                                          ))
-                                      .toList(),
-                                ),
-                              );
-                            });
+                    return FormWidget(
+                      title: context.l10n.start_date,
+                      hint: context.l10n.date,
+                      controller: startDateC,
+                      readOnly: true,
+                      onTap: () async {
+                        await showDatePicker(
+                                context: context,
+                                initialDate: DateTime.now(),
+                                firstDate: DateTime(2024),
+                                lastDate: DateTime(2050))
+                            .then((v) {
+                          if (v != null) {
+                            String formattedDate =
+                                TimeUtil().today('yyyy-MM-dd', v);
+                            startDateC.text = formattedDate;
+                          }
+                        });
                       },
-                      child: BoxCredit(text: due.value.toString()),
+                      validator: (v) {
+                        if (v == null || v == '') {
+                          return context.l10n.empty_date;
+                        }
+                        return null;
+                      },
+                      icon: const Icon(Icons.calendar_month_outlined),
                     );
                   }),
               const SizedBox(height: 15),
-              Text(
-                context.l10n.duration_payments,
-                style: context.textTheme.bodyMedium!.copyWith(
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-              const SizedBox(height: 8),
               ValueListenableBuilder(
-                  valueListenable: dp,
+                  valueListenable: endDate,
                   builder: (context, v, _) {
-                    return InkWell(
-                      onTap: () {
-                        showModalBottomSheet(
-                            context: context,
-                            builder: (context) {
-                              return Container(
-                                width: double.infinity,
-                                padding: const EdgeInsets.all(20),
-                                child: Wrap(
-                                  spacing: 8,
-                                  children: durations
-                                      .map((e) => ChoiceChip(
-                                            label: Text(e.toString()),
-                                            selected: dp.value == e,
-                                            onSelected: (_) {
-                                              dp.value = e;
-                                              Navigator.pop(context);
-                                            },
-                                            shape: RoundedRectangleBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(25),
-                                            ),
-                                          ))
-                                      .toList(),
-                                ),
-                              );
-                            });
+                    return FormWidget(
+                      title: context.l10n.end_date,
+                      hint: context.l10n.date,
+                      controller: endDateC,
+                      readOnly: true,
+                      onTap: () async {
+                        await showDatePicker(
+                                context: context,
+                                initialDate: DateTime.now(),
+                                firstDate: DateTime(2024),
+                                lastDate: DateTime(2050))
+                            .then((v) {
+                          if (v != null) {
+                            String formattedDate =
+                                TimeUtil().today('yyyy-MM-dd', v);
+                            endDateC.text = formattedDate;
+                          }
+                        });
                       },
-                      child: BoxCredit(
-                          text: '${dp.value.toString()} ${context.l10n.month}'),
+                      validator: (v) {
+                        if (v == null || v == '') {
+                          return context.l10n.empty_date;
+                        }
+                        return null;
+                      },
+                      icon: const Icon(Icons.calendar_month_outlined),
                     );
                   }),
               const SizedBox(height: 30),
               BlocConsumer<CreateCreditBloc, CreateCreditState>(
                 listener: (context, state) {
+                  log('kong lol $state');
                   if (state is CreateCreditFailure) {
                     context.scaffoldMessenger.showSnackBar(
                       floatingSnackBar(
@@ -320,14 +271,25 @@ class _NewCreditPageState extends State<NewCreditPage> {
                   return PrimaryButton(
                     text: context.l10n.submit,
                     onPressed: () {
-                      selectedDialog(
-                        context,
-                        onContinue: () {
-                          submit(context);
-                          Navigator.pop(context);
-                        },
-                        title: context.l10n.confirm_new_income,
-                      );
+                      if (category.value.id == 0) {
+                        context.scaffoldMessenger.showSnackBar(
+                          floatingSnackBar(
+                            context,
+                            context.l10n
+                                .select_category_first(context.l10n.credit),
+                          ),
+                        );
+                      } else if (startDateC.text == '' || endDateC.text == '') {
+                        context.scaffoldMessenger.showSnackBar(
+                            floatingSnackBar(context, context.l10n.empty_date));
+                      } else if (double.parse(
+                              totalC.text.replaceAll(RegExp(r'[^0-9]'), '')) <
+                          2000) {
+                        context.scaffoldMessenger.showSnackBar(
+                            floatingSnackBar(context, context.l10n.min_total));
+                      } else {
+                        submit();
+                      }
                     },
                   );
                 },

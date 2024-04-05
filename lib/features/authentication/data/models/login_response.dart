@@ -1,5 +1,7 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
+
 part 'login_response.g.dart';
 
 @JsonSerializable(explicitToJson: true)
@@ -11,10 +13,6 @@ class LoginResponse extends Equatable {
   Map<String?, dynamic> toJson() => _$LoginResponseToJson(this);
   @override
   List<Object?> get props => [data];
-  @override
-  String toString() {
-    return 'LoginResponse{data:$data}';
-  }
 }
 
 @JsonSerializable(explicitToJson: true)
@@ -30,10 +28,6 @@ class DataLogin extends Equatable {
   Map<String?, dynamic> toJson() => _$DataLoginToJson(this);
   @override
   List<Object?> get props => [token, user];
-  @override
-  String toString() {
-    return 'DataLogin{token:$token, user:$user}';
-  }
 }
 
 @JsonSerializable(explicitToJson: true)
@@ -41,15 +35,14 @@ class User extends Equatable {
   const User({
     required this.uid,
     required this.username,
+    required this.accountId,
   });
   final String uid;
   final String username;
+  @JsonKey(name: "account_id")
+  final String accountId;
   static User fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
   Map<String?, dynamic> toJson() => _$UserToJson(this);
   @override
-  List<Object?> get props => [uid, username];
-  @override
-  String toString() {
-    return 'User{uid:$uid, username:$username}';
-  }
+  List<Object?> get props => [uid, username, accountId];
 }

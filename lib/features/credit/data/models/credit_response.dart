@@ -15,10 +15,6 @@ class CreditResponse extends Equatable {
   Map<String?, dynamic> toJson() => _$CreditResponseToJson(this);
   @override
   List<Object?> get props => [data];
-  @override
-  String toString() {
-    return 'CreditResponse{}';
-  }
 }
 
 @JsonSerializable(explicitToJson: true)
@@ -41,6 +37,10 @@ class CreditData extends Equatable {
   final int installment;
   @JsonKey(name: "t_category")
   final CategoryData? categoryData;
+  @JsonKey(name: "start_date")
+  final String? startDate;
+  @JsonKey(name: "end_date")
+  final String? endDate;
   const CreditData({
     required this.uid,
     required this.id,
@@ -53,6 +53,8 @@ class CreditData extends Equatable {
     required this.statusCredit,
     required this.installment,
     this.categoryData,
+    this.startDate,
+    this.endDate,
   });
 
   static CreditData fromJson(Map<String, dynamic> json) =>
@@ -71,9 +73,7 @@ class CreditData extends Equatable {
         statusCredit,
         installment,
         categoryData,
+        startDate,
+        endDate,
       ];
-  @override
-  String toString() {
-    return 'CreditData{}';
-  }
 }

@@ -108,16 +108,16 @@ class CreateCreditParams extends Equatable {
   final String uid;
   final int categoryId;
   final String typeCredit;
-  final int loanTerm;
   final String installment;
-  final int paymentTime;
+  final String startDate;
+  final String endDate;
   const CreateCreditParams({
     required this.uid,
     required this.categoryId,
     required this.typeCredit,
-    required this.loanTerm,
     required this.installment,
-    required this.paymentTime,
+    required this.startDate,
+    required this.endDate,
   });
 
   Map<String, dynamic> toMap() {
@@ -125,9 +125,9 @@ class CreateCreditParams extends Equatable {
       "uid": uid,
       "category_id": categoryId,
       "type_credit": typeCredit,
-      "loan_term": loanTerm,
+      "start_date": startDate,
       "installment": int.parse(installment.replaceAll(RegExp(r'[^0-9]'), '')),
-      "payment_time": paymentTime,
+      "end_date": endDate,
     };
     return data;
   }
@@ -149,6 +149,13 @@ class GetCreditParams extends Equatable {
       "total_page": totalPage,
     };
     return data;
+  }
+
+  GetCreditParams copyWith({int? page, int? totalPage}) {
+    return GetCreditParams(
+      page: page ?? this.page,
+      totalPage: totalPage ?? this.totalPage,
+    );
   }
 
   @override

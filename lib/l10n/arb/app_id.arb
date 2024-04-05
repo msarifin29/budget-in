@@ -95,9 +95,9 @@
   "loan": "Pinjaman",
   "new_income": "Pendapatan baru",
   "new_credit": "Kredit baru",
-  "duration_payments": "Lama angsuran",
+  "end_date": "Tanggal Berakhir",
   "installment": "Angsuran",
-  "due_date": "Jatuh tempo",
+  "start_date": "Tanggal Mulai",
   "payment": "Pembayaran",
   "completed": "Selesai",
   "pay_now": "Bayar sekarang",
@@ -143,5 +143,6 @@
   "confirm_new_income": "Apakah Anda yakin ingin membuat kredit baru?",
   "save": "Simpan",
   "month": "Bulan",
-  "empty_installment_or_date": "Jatuh tempo dan Lama angsuran tidak boleh kosong"
+  "empty_installment_or_date": "Jatuh tempo dan Lama angsuran tidak boleh kosong",
+  "empty_date": "Tanggal boleh kosong"
 }

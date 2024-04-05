@@ -20,6 +20,8 @@ class FormWidget extends StatelessWidget {
     this.inputFormatters,
     this.onChanged,
     this.style,
+    this.readOnly = false,
+    this.onTap,
   });
 
   final String title;
@@ -35,6 +37,8 @@ class FormWidget extends StatelessWidget {
   final List<TextInputFormatter>? inputFormatters;
   final Function(String)? onChanged;
   final TextStyle? style;
+  final bool readOnly;
+  final VoidCallback? onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -61,6 +65,8 @@ class FormWidget extends StatelessWidget {
             suffixIcon: icon,
             prefixIcon: prefixIcon,
           ),
+          readOnly: readOnly,
+          onTap: onTap,
           obscureText: obscureText,
           controller: controller,
           maxLines: maxLines,

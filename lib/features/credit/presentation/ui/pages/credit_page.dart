@@ -20,18 +20,13 @@ class _CreditPageState extends State<CreditPage>
   // Controller
   final PagingController<int, CreditData> pagingController =
       PagingController(firstPageKey: 1);
-
+  GetCreditParams params = const GetCreditParams(page: 1, totalPage: 10);
   @override
   void initState() {
     pagingController.addPageRequestListener((pageKey) {
       currentpage.value = pageKey;
       context.read<GetCreditsBloc>().add(
-            InitialCreditEvent(
-              params: GetCreditParams(
-                page: currentpage.value,
-                totalPage: 10,
-              ),
-            ),
+            InitialCreditEvent(params: params),
           );
     });
     super.initState();
@@ -111,7 +106,12 @@ class _CreditPageState extends State<CreditPage>
         ),
         floatingActionButton: FloatingActionButton(
           onPressed: () {
-            Navigator.pushNamed(context, NewCreditPage.routeName);
+            Navigator.pushNamed(context, NewCreditPage.routeName).then((_) {
+              params = params.copyWith(page: currentpage.value = 1);
+              pagingController.itemList = [];
+              pagingController.appendPage([], 1);
+              pagingController.refresh();
+            });
           },
           tooltip: context.l10n.new_expense,
           backgroundColor: Theme.of(context).cardColor,

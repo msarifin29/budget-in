@@ -103,16 +103,16 @@ class CardCreditWidget extends StatelessWidget {
                     text: TextSpan(
                       text: TimeUtil().today(
                           monthYear,
-                          DateTime.parse(creditData.createdAt ??
-                              DateTime.now().toString())),
+                          DateTime.parse(
+                              creditData.startDate ?? '2000-01-02T00:00:00Z')),
                       style: bodySmallStyle,
                       children: [
                         TextSpan(text: ' - ', style: bodySmallStyle),
                         TextSpan(
                             text: TimeUtil().today(
                                 monthYear,
-                                DateTime.parse(creditData.createdAt ??
-                                    DateTime.now().toString())),
+                                DateTime.parse(creditData.endDate ??
+                                    '2000-01-02T00:00:00Z')),
                             style: bodySmallStyle),
                       ],
                     ),

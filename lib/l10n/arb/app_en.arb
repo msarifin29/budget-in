@@ -95,9 +95,9 @@
     "loan": "Loan",
     "new_income": "New income",
     "new_credit": "New credit",
-    "duration_payments": "Duration of payments",
+    "end_date": "End Date",
     "installment": "Installment",
-    "due_date": "Due date",
+    "start_date": "Start Date",
     "payment": "Payment",
     "completed": "Completed",
     "pay_now": "Pay now",
@@ -143,5 +143,6 @@
     "confirm_new_income": "Are you sure you want to create a new credit?",
     "save": "Save",
     "month": "Month",
-    "empty_installment_or_date": "Installment or Due date can't be empty"
+    "empty_installment_or_date": "Installment or Due date can't be empty",
+    "empty_date": "Date can't be empty"
 }
