@@ -35,6 +35,7 @@ FutureOr<void> authenticationInjection() async {
   sl.registerLazySingleton(() => LoginUsecase(repository: sl()));
   sl.registerLazySingleton(() => RegisterUsecase(repository: sl()));
   sl.registerLazySingleton(() => AccountUsecase(repository: sl()));
+  sl.registerLazySingleton(() => DeleteAccountUsecase(repository: sl()));
 
   // Bloc
   sl.registerFactory(() => CityBloc(getCities: sl()));

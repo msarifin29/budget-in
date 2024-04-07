@@ -37,3 +37,14 @@ class AccountUsecase implements UseCase<AccountResponse, String> {
     return await repository.account(param);
   }
 }
+
+class DeleteAccountUsecase implements UseCase<DeleteResponse, NoParams> {
+  final AuthRepository repository;
+
+  DeleteAccountUsecase({required this.repository});
+
+  @override
+  FutureOr<Either<Failure, DeleteResponse>> call(NoParams param) async {
+    return await repository.deleteAccount();
+  }
+}

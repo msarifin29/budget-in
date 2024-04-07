@@ -2,6 +2,7 @@
 import 'dart:developer';
 
 import 'package:budget_in/core/core.dart';
+import 'package:budget_in/injection.dart';
 import 'package:dio/dio.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -12,6 +13,7 @@ abstract class AuthRemoteDataSource {
   Future<LoginResponse> login(LoginParams params);
   Future<LoginResponse> register(RegisterParams params);
   Future<AccountResponse> account(String uid);
+  Future<DeleteResponse> deleteAccount();
 }
 
 class AuthRemoteDataSourceImpl extends AuthRemoteDataSource {
@@ -65,6 +67,29 @@ class AuthRemoteDataSourceImpl extends AuthRemoteDataSource {
     log('account datasource => ${response.data}');
     if (response.statusCode == 200) {
       return AccountResponse.fromJson(response.data);
+    } else {
+      throw DioException(
+        requestOptions: RequestOptions(path: path),
+      );
+    }
+  }
+
+  @override
+  Future<DeleteResponse> deleteAccount() async {
+    final spm = sl<SharedPreferencesManager>();
+    var uid = spm.getString(SharedPreferencesManager.keyUid);
+    final String path = '$baseUrl/api/user/delete';
+    final Response<dynamic> response = await dio.put(
+      path,
+      options: Options(
+        headers: {
+          BaseUrlConfig.requiredToken: true,
+        },
+      ),
+      data: {"uid": uid},
+    );
+    if (response.statusCode == 200) {
+      return DeleteResponse.fromJson(response.data);
     } else {
       throw DioException(
         requestOptions: RequestOptions(path: path),
