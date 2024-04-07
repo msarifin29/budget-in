@@ -54,7 +54,8 @@ class CardCreditWidget extends StatelessWidget {
                               : ColorApp.green),
                       children: [
                         TextSpan(
-                          text: creditData.total.toString(),
+                          text:
+                              '${creditData.total <= 0 ? 0 : creditData.total}',
                           style: context.textTheme.bodyLarge!.copyWith(
                             fontWeight: FontWeight.w600,
                             color: creditData.statusCredit == 'active'

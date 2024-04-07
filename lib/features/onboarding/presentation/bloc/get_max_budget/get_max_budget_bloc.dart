@@ -13,7 +13,12 @@ class GetMaxBudgetBloc extends Bloc<GetMaxBudgetEvent, GetMaxBudgetState> {
   GetMaxBudgetBloc({required this.usecase}) : super(GetMaxBudgetInitial()) {
     on<InitialData>((event, emit) async {
       emit(GetMaxBudgetLoading());
-      final result = await usecase(NoParams());
+      final result = await usecase(
+        GetMaxBudgetparam(
+          accountId: event.accountId,
+          uid: event.uid,
+        ),
+      );
       emit(result.fold((l) {
         var message = '';
         if (l is ServerFailure) {

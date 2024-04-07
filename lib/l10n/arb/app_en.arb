@@ -150,5 +150,7 @@
     "empty_monthly_budget": "Minimum monthly budget 10.000",
     "confirm_sign_out": "Are you sure you want to exit?",
     "delete_account": "Delete Account",
-    "confir_delete_account": "Deleting your account is permanent and cannot be undone. \nAre you sure you want to proceed?"
+    "confir_delete_account": "Deleting your account is permanent and cannot be undone. \nAre you sure you want to proceed?",
+    "success_forgot_password": "A new password has been sent to your email address. Check your inbox (including spam folder) to reset your password",
+    "failed_forgot_password": "The email address you entered appears to be incorrect. Please enter a valid email address."
 }

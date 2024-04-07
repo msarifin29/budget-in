@@ -33,7 +33,12 @@ class _DashboardPageState extends State<DashboardPage> {
 
   void getAllData() {
     getAccount();
-    context.read<GetMaxBudgetBloc>().add(InitialData());
+    context.read<GetMaxBudgetBloc>().add(
+          InitialData(
+            accountId: Helpers.getAccountId(),
+            uid: uid,
+          ),
+        );
   }
 
   @override

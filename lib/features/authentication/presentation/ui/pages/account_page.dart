@@ -14,7 +14,7 @@ class AccountPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final spm = sl<SharedPreferencesManager>();
     final fss = sl<SecureStorageManager>();
-    void clearLocalData() async {
+    Future<void> clearLocalData() async {
       await fss.deleteToken();
       await spm.clearKey(SharedPreferencesManager.keyUid);
       await spm.clearKey(SharedPreferencesManager.keyAccountId);
@@ -118,9 +118,8 @@ class AccountPage extends StatelessWidget {
             selectedDialog(
               context,
               onContinue: () {
-                Navigator.pushNamedAndRemoveUntil(
-                        context, RouteName.loginPage, (route) => false)
-                    .then((_) => clearLocalData());
+                clearLocalData().then((_) => Navigator.pushNamedAndRemoveUntil(
+                    context, RouteName.loginPage, (route) => false));
               },
               title: context.l10n.confirm_sign_out,
               image: SvgName.signout,

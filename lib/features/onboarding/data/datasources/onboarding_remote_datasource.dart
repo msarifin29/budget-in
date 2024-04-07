@@ -6,11 +6,10 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 import 'package:budget_in/core/core.dart';
 import 'package:budget_in/features/onboarding/onboarding.dart';
-import 'package:budget_in/injection.dart';
 
 abstract class OnboardingRemoteDatasource {
   Future<MonthlyReportResponse> getMonthlyReport(String uid);
-  Future<MaxBudgetResponse> getMaximumBudget();
+  Future<MaxBudgetResponse> getMaximumBudget(GetMaxBudgetparam param);
   Future<UpdateBudgetResponse> updateMaxBudget(UpdateMaxBudgetparam param);
 }
 
@@ -39,17 +38,16 @@ class OnboardingRemoteDatasourceImpl extends OnboardingRemoteDatasource {
   }
 
   @override
-  Future<MaxBudgetResponse> getMaximumBudget() async {
-    final spm = sl<SharedPreferencesManager>();
-    var accountId = spm.getString(SharedPreferencesManager.keyAccountId);
-    var uId = spm.getString(SharedPreferencesManager.keyUid);
+  Future<MaxBudgetResponse> getMaximumBudget(GetMaxBudgetparam param) async {
     final String path = '$baseUrl/api/accounts/max_budget';
     final Response<dynamic> response = await dio.get(
       path,
-      options: Options(headers: {
-        BaseUrlConfig.requiredToken: true,
-      }),
-      queryParameters: {"uid": uId, "account_id": accountId},
+      options: Options(
+        headers: {
+          BaseUrlConfig.requiredToken: true,
+        },
+      ),
+      queryParameters: param.toMap(),
     );
 
     if (response.statusCode == 200) {
@@ -94,6 +92,21 @@ class UpdateMaxBudgetparam extends Equatable {
     return {
       "max_budget": double.parse(maxBudget.replaceAll(RegExp(r'[^0-9]'), ''))
     };
+  }
+
+  @override
+  List<Object?> get props => [];
+}
+
+class GetMaxBudgetparam extends Equatable {
+  final String accountId;
+  final String uid;
+  const GetMaxBudgetparam({
+    required this.accountId,
+    required this.uid,
+  });
+  Map<String, dynamic> toMap() {
+    return {"account_id": accountId, "uid": uid};
   }
 
   @override

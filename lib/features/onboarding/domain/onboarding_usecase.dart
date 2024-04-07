@@ -16,13 +16,15 @@ class GetOnboardingUsecase implements UseCase<MonthlyReportResponse, String> {
   }
 }
 
-class GetMaxBudgetUsecase implements UseCase<MaxBudgetResponse, NoParams> {
+class GetMaxBudgetUsecase
+    implements UseCase<MaxBudgetResponse, GetMaxBudgetparam> {
   final OnboardingRepository repository;
   GetMaxBudgetUsecase({required this.repository});
 
   @override
-  FutureOr<Either<Failure, MaxBudgetResponse>> call(NoParams params) async {
-    return repository.getmaximumBudget();
+  FutureOr<Either<Failure, MaxBudgetResponse>> call(
+      GetMaxBudgetparam param) async {
+    return repository.getmaximumBudget(param);
   }
 }
 

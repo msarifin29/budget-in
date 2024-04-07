@@ -7,4 +7,11 @@ sealed class GetMaxBudgetEvent extends Equatable {
   List<Object> get props => [];
 }
 
-final class InitialData extends GetMaxBudgetEvent {}
+final class InitialData extends GetMaxBudgetEvent {
+  final String accountId;
+  final String uid;
+
+  const InitialData({required this.accountId, required this.uid});
+  @override
+  List<Object> get props => [accountId, uid];
+}

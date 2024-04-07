@@ -48,3 +48,16 @@ class DeleteAccountUsecase implements UseCase<DeleteResponse, NoParams> {
     return await repository.deleteAccount();
   }
 }
+
+class ForgotPasswordUsecase
+    implements UseCase<DynamicResponse, ForgotPasswordParam> {
+  final AuthRepository repository;
+
+  ForgotPasswordUsecase({required this.repository});
+
+  @override
+  FutureOr<Either<Failure, DynamicResponse>> call(
+      ForgotPasswordParam param) async {
+    return await repository.forgotPassword(param);
+  }
+}

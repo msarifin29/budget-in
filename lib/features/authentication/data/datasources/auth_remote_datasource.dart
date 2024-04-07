@@ -1,19 +1,20 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:developer';
 
-import 'package:budget_in/core/core.dart';
-import 'package:budget_in/injection.dart';
 import 'package:dio/dio.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
+import 'package:budget_in/core/core.dart';
 import 'package:budget_in/features/authentication/authentication.dart';
+import 'package:budget_in/injection.dart';
 
 abstract class AuthRemoteDataSource {
   Future<LoginResponse> login(LoginParams params);
   Future<LoginResponse> register(RegisterParams params);
   Future<AccountResponse> account(String uid);
   Future<DeleteResponse> deleteAccount();
+  Future<DynamicResponse> forgotPassword(ForgotPasswordParam param);
 }
 
 class AuthRemoteDataSourceImpl extends AuthRemoteDataSource {
@@ -96,6 +97,22 @@ class AuthRemoteDataSourceImpl extends AuthRemoteDataSource {
       );
     }
   }
+
+  @override
+  Future<DynamicResponse> forgotPassword(ForgotPasswordParam param) async {
+    final String path = '$baseUrl/api/user/forgot_password';
+    final Response<dynamic> response = await dio.post(
+      path,
+      data: param.toMap(),
+    );
+    if (response.statusCode == 200) {
+      return DynamicResponse.fromJson(response.data);
+    } else {
+      throw DioException(
+        requestOptions: RequestOptions(path: path),
+      );
+    }
+  }
 }
 
 class LoginParams extends Equatable {
@@ -139,4 +156,17 @@ class RegisterParams extends Equatable {
 
   @override
   List<Object?> get props => [username, email, password, balance, cash];
+}
+
+class ForgotPasswordParam extends Equatable {
+  final String email;
+  const ForgotPasswordParam({
+    required this.email,
+  });
+  Map<String, dynamic> toMap() {
+    return {"email": email};
+  }
+
+  @override
+  List<Object?> get props => [email];
 }

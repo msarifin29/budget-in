@@ -22,6 +22,7 @@ class FormWidget extends StatelessWidget {
     this.style,
     this.readOnly = false,
     this.onTap,
+    this.onEditingComplete,
   });
 
   final String title;
@@ -39,6 +40,7 @@ class FormWidget extends StatelessWidget {
   final TextStyle? style;
   final bool readOnly;
   final VoidCallback? onTap;
+  final VoidCallback? onEditingComplete;
 
   @override
   Widget build(BuildContext context) {
@@ -65,6 +67,7 @@ class FormWidget extends StatelessWidget {
             suffixIcon: icon,
             prefixIcon: prefixIcon,
           ),
+          onEditingComplete: onEditingComplete,
           readOnly: readOnly,
           onTap: onTap,
           obscureText: obscureText,

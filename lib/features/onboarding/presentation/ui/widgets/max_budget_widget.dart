@@ -34,7 +34,12 @@ class MaxBudgetWidget extends StatelessWidget {
           } else if (state is GetMaxBudgetFailure) {
             return RefreshButton(
               onPressed: () {
-                context.read<GetMaxBudgetBloc>().add(InitialData());
+                context.read<GetMaxBudgetBloc>().add(
+                      InitialData(
+                        accountId: Helpers.getAccountId(),
+                        uid: Helpers.getUid(),
+                      ),
+                    );
               },
             );
           } else if (state is GetMaxBudgetSuccess) {
@@ -195,7 +200,10 @@ class _EditMonthlyBudgetWidgetState extends State<EditMonthlyBudgetWidget> {
                             .msg_success_create(context.l10n.monthly_budget),
                       ),
                     );
-                    context.read<GetMaxBudgetBloc>().add(InitialData());
+                    context.read<GetMaxBudgetBloc>().add(InitialData(
+                          accountId: Helpers.getAccountId(),
+                          uid: Helpers.getUid(),
+                        ));
                   }
                 },
                 builder: (context, state) {

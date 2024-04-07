@@ -1,4 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'dart:developer';
+
 import 'package:budget_in/core/core.dart';
 import 'package:budget_in/features/authentication/authentication.dart';
 import 'package:budget_in/features/credit/credits.dart';
@@ -6,6 +8,7 @@ import 'package:budget_in/features/expenses/presentation/ui/expenses_ui.dart';
 import 'package:budget_in/features/expenses/presentation/ui/pages/expense_page.dart';
 import 'package:budget_in/features/incomes/incomes.dart';
 import 'package:budget_in/features/onboarding/presentation/bloc/get_max_budget/get_max_budget_bloc.dart';
+import 'package:budget_in/injection.dart';
 import 'package:budget_in/l10n/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -34,9 +37,17 @@ class _MainPageState extends State<MainPage> {
     super.initState();
   }
 
+  final spm = sl<SharedPreferencesManager>();
+
   void getAllEvent() {
     context.read<AccountBloc>().add(OnInitialAccount(uid: uid));
-    context.read<GetMaxBudgetBloc>().add(InitialData());
+    log('lol  account id => ${Helpers.getAccountId()} uid => $uid');
+    context.read<GetMaxBudgetBloc>().add(
+          InitialData(
+            accountId: Helpers.getAccountId(),
+            uid: uid,
+          ),
+        );
   }
 
   void selectedTab(int index) {

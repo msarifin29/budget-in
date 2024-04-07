@@ -150,5 +150,7 @@
   "empty_monthly_budget": "Minimum anggaran bulananan adalah 10.000",
   "confirm_sign_out": "Apakah Anda yakin ingin keluar?",
   "delete_account": "Hapus Akun",
-  "confir_delete_account": "Menghapus akun Anda bersifat permanen dan tidak dapat dibatalkan. \nApakah Anda yakin ingin melanjutkan?"
+  "confir_delete_account": "Menghapus akun Anda bersifat permanen dan tidak dapat dibatalkan. \nApakah Anda yakin ingin melanjutkan?",
+  "success_forgot_password": "kata sandi telah dikirim ke alamat email Anda. Periksa kotak masuk Anda (termasuk folder spam) untuk mengatur ulang kata sandi Anda.",
+  "failed_forgot_password": "Alamat email yang Anda masukkan tampaknya salah. Silakan masukkan alamat email yang valid."
 }

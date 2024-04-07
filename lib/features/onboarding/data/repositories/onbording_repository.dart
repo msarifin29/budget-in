@@ -7,7 +7,8 @@ import 'package:dio/dio.dart';
 
 abstract class OnboardingRepository {
   Future<Either<Failure, MonthlyReportResponse>> getMonthlyReport(String uid);
-  Future<Either<Failure, MaxBudgetResponse>> getmaximumBudget();
+  Future<Either<Failure, MaxBudgetResponse>> getmaximumBudget(
+      GetMaxBudgetparam param);
   Future<Either<Failure, UpdateBudgetResponse>> updateMaxBudget(
       UpdateMaxBudgetparam param);
 }
@@ -66,12 +67,13 @@ class OnboardingRepositoryImpl extends OnboardingRepository {
   }
 
   @override
-  Future<Either<Failure, MaxBudgetResponse>> getmaximumBudget() async {
+  Future<Either<Failure, MaxBudgetResponse>> getmaximumBudget(
+      GetMaxBudgetparam param) async {
     bool isConnected = await networkInfo.isConnected;
     if (isConnected) {
       try {
         final MaxBudgetResponse response =
-            await remoteDataSource.getMaximumBudget();
+            await remoteDataSource.getMaximumBudget(param);
         return Right(response);
       } on DioException catch (error) {
         if (error.response == null) {
