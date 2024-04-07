@@ -40,6 +40,7 @@ class NamedArguments {
   static const password = 'password';
   static const isRegister = 'is-register';
   static const creditId = 'credit-id';
+  static const accountData = 'account-data';
 }
 
 class AppRoute {
@@ -52,12 +53,12 @@ class AppRoute {
           },
         );
 
-      case EditProfilePage.routeName:
-        return MaterialPageRoute(
-          builder: (context) {
-            return const EditProfilePage();
-          },
-        );
+      // case EditProfilePage.routeName:
+      //   return MaterialPageRoute(
+      //     builder: (context) {
+      //       return const EditProfilePage();
+      //     },
+      //   );
 
       case LoginPage.routeName:
         return MaterialPageRoute(
@@ -67,9 +68,11 @@ class AppRoute {
         );
 
       case ProfilePage.routeName:
+        final arguments = settings.arguments as Map<String, dynamic>;
+        final data = arguments[NamedArguments.accountData] as AccountData;
         return MaterialPageRoute(
           builder: (context) {
-            return const ProfilePage();
+            return ProfilePage(data: data);
           },
         );
 

@@ -36,6 +36,12 @@ class AccountPage extends StatelessWidget {
                   return Column(
                     children: [
                       ListTile(
+                        onTap: () {
+                          Navigator.pushNamed(context, ProfilePage.routeName,
+                              arguments: {
+                                NamedArguments.accountData: state.accountData,
+                              });
+                        },
                         leading: SvgPicture.asset(
                           SvgName.profileCircle,
                           width: 40,
@@ -46,7 +52,7 @@ class AccountPage extends StatelessWidget {
                           ),
                         ),
                         title: Text(
-                          context.l10n.username,
+                          context.l10n.account,
                           style: context.textTheme.bodyMedium!.copyWith(
                             color: ColorApp.green,
                             fontWeight: FontWeight.w600,
@@ -54,30 +60,6 @@ class AccountPage extends StatelessWidget {
                         ),
                         subtitle: Text(
                           state.accountData.username,
-                          style: context.textTheme.bodySmall!.copyWith(
-                            color: ColorApp.green,
-                          ),
-                        ),
-                      ),
-                      ListTile(
-                        leading: SvgPicture.asset(
-                          SvgName.currencyCircle,
-                          width: 40,
-                          height: 40,
-                          colorFilter: const ColorFilter.mode(
-                            ColorApp.green,
-                            BlendMode.srcIn,
-                          ),
-                        ),
-                        title: Text(
-                          context.l10n.currency,
-                          style: context.textTheme.bodyMedium!.copyWith(
-                            color: ColorApp.green,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                        subtitle: Text(
-                          state.accountData.currency,
                           style: context.textTheme.bodySmall!.copyWith(
                             color: ColorApp.green,
                           ),

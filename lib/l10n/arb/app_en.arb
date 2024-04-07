@@ -148,5 +148,7 @@
     "remaining_budget": "The remaining budget",
     "monthly_budget": "Monthly budget",
     "empty_monthly_budget": "Minimum monthly budget 10.000",
-    "confirm_sign_out": "Are you sure you want to exit?"
+    "confirm_sign_out": "Are you sure you want to exit?",
+    "delete_account": "Delete Account",
+    "confir_delete_account": "Deleting your account is permanent and cannot be undone. \nAre you sure you want to proceed?"
 }

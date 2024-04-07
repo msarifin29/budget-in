@@ -45,6 +45,7 @@ Future selectedDialog(
             ),
             Text(
               title,
+              textAlign: TextAlign.center,
               style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                     color: (Theme.of(context).brightness == Brightness.light
                         ? ColorApp.green

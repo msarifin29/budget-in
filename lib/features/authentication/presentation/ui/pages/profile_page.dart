@@ -1,110 +1,136 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first, inference_failure_on_function_invocation, lines_longer_than_80_chars
-import 'package:budget_in/core/core.dart';
-import 'package:budget_in/features/authentication/presentation/ui/authentication_ui.dart';
+import 'package:budget_in/injection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:lottie/lottie.dart';
+
+import 'package:budget_in/core/core.dart';
+import 'package:budget_in/features/authentication/authentication.dart';
+import 'package:budget_in/l10n/l10n.dart';
 
 class ProfilePage extends StatelessWidget {
   static const routeName = RouteName.profilePage;
 
-  const ProfilePage({super.key});
+  const ProfilePage({super.key, required this.data});
+  final AccountData data;
   @override
   Widget build(BuildContext context) {
-    const valueBox = 150.0;
+    final spm = sl<SharedPreferencesManager>();
+    final fss = sl<SecureStorageManager>();
+    void clearLocalData() async {
+      await fss.deleteToken();
+      await spm.clearKey(SharedPreferencesManager.keyUid);
+      await spm.clearKey(SharedPreferencesManager.keyAccountId);
+    }
+
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        actions: [
-          InkWell(
-            borderRadius: BorderRadius.circular(20),
-            onTap: () {
-              showModalBottomSheet(
-                shape: const RoundedRectangleBorder(
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(20),
-                    topRight: Radius.circular(20),
-                  ),
-                ),
-                context: context,
-                builder: (context) => const DialogProfileWidget(),
-              );
-            },
-            child: Container(
-              padding: const EdgeInsets.all(5),
-              child: SvgPicture.asset(SvgName.setting),
-            ),
-          ),
-          const SizedBox(width: 10),
-        ],
+      appBar: const PreferredSize(
+        preferredSize: Size(double.infinity, kToolbarHeight),
+        child: NewAppBarWidget(
+          title: 'Profile',
+          leading: true,
+        ),
       ),
       body: SingleChildScrollView(
         child: Column(
           children: [
             const SizedBox(height: 20),
-            Align(
-              child: InkWell(
-                borderRadius: BorderRadius.circular(120),
-                onTap: () {
-                  showModalBottomSheet(
-                    shape: const RoundedRectangleBorder(
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(20),
-                        topRight: Radius.circular(20),
-                      ),
-                    ),
-                    context: context,
-                    builder: (context) => const DialogImageProfileWidget(),
-                  );
-                },
-                child: Container(
-                  height: valueBox,
-                  width: valueBox,
-                  decoration: BoxDecoration(
-                    border: Border.all(width: 5, color: ColorApp.grey30),
-                    shape: BoxShape.circle,
-                  ),
-                  child: Lottie.asset(
-                    LottieName.imageLoading,
-                    width: 120,
-                    height: 120,
-                  ),
-                ),
-              ),
+            DetailAccountwidget(
+              image: SvgName.profileCircle,
+              title: context.l10n.username,
+              subTitle: data.username,
             ),
-            const SizedBox(height: 50),
-            const ItemProfileWidget(
-              k: 'Name',
-              v: 'User Name',
+            DetailAccountwidget(
+              image: SvgName.email,
+              title: context.l10n.email,
+              subTitle: data.email,
             ),
-            const ItemProfileWidget(
-              k: 'Email',
-              v: 'user@mail.com',
+            DetailAccountwidget(
+              image: SvgName.currencyCircle,
+              title: context.l10n.currency,
+              subTitle: data.currency,
             ),
-            const ItemProfileWidget(
-              k: Strings.domicile,
-              v: 'Denpasar',
+            DetailAccountwidget(
+              image: SvgName.delete,
+              title: context.l10n.delete_account,
+              subTitle: '',
+              onTap: () {
+                selectedDialog(
+                  context,
+                  onContinue: () {
+                    Navigator.pushNamedAndRemoveUntil(
+                            context, RouteName.loginPage, (route) => false)
+                        .then((_) => clearLocalData);
+                  },
+                  title: context.l10n.confir_delete_account,
+                  image: SvgName.delete,
+                  color: ColorApp.red,
+                );
+              },
             ),
-            const ItemProfileWidget(
-              k: Strings.income,
-              v: 'Rp. 2.000.000',
-            ),
-            const ItemProfileWidget(
-              k: Strings.occupation,
-              v: 'Chef',
-            ),
+
+            // Align(
+            //   child: InkWell(
+            //     borderRadius: BorderRadius.circular(120),
+            //     onTap: () {},
+            //     child: Container(
+            //       height: valueBox,
+            //       width: valueBox,
+            //       decoration: BoxDecoration(
+            //         border: Border.all(width: 5, color: ColorApp.grey30),
+            //         shape: BoxShape.circle,
+            //       ),
+            //       child: Lottie.asset(
+            //         LottieName.imageLoading,
+            //         width: 120,
+            //         height: 120,
+            //       ),
+            //     ),
+            //   ),
+            // ),
           ],
         ),
       ),
-      bottomNavigationBar: Padding(
-        padding: const EdgeInsets.symmetric(
-          vertical: 15,
-          horizontal: 20,
+    );
+  }
+}
+
+class DetailAccountwidget extends StatelessWidget {
+  const DetailAccountwidget({
+    super.key,
+    required this.image,
+    required this.title,
+    required this.subTitle,
+    this.onTap,
+  });
+
+  final String image;
+  final String title;
+  final String subTitle;
+  final VoidCallback? onTap;
+  @override
+  Widget build(BuildContext context) {
+    return ListTile(
+      onTap: onTap,
+      leading: SvgPicture.asset(
+        image,
+        width: 30,
+        height: 30,
+        colorFilter: const ColorFilter.mode(
+          ColorApp.green,
+          BlendMode.srcIn,
         ),
-        child: IconTextWidget(
-          onTap: () {},
-          image: SvgName.signout,
-          title: Strings.signout,
+      ),
+      title: Text(
+        title,
+        style: context.textTheme.bodyMedium!.copyWith(
+          color: ColorApp.green,
+          fontWeight: FontWeight.w600,
+        ),
+      ),
+      subtitle: Text(
+        subTitle,
+        style: context.textTheme.bodySmall!.copyWith(
+          color: ColorApp.green,
         ),
       ),
     );
