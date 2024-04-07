@@ -21,6 +21,9 @@ class DioLoggingInterceptor extends InterceptorsWrapper {
   @override
   Future onRequest(
       RequestOptions options, RequestInterceptorHandler handler) async {
+    final spm = sl<SharedPreferencesManager>();
+    var accountId = spm.getString(SharedPreferencesManager.keyAccountId);
+    var uId = spm.getString(SharedPreferencesManager.keyUid);
     (_dio.httpClientAdapter as IOHttpClientAdapter).createHttpClient = () {
       final HttpClient client = HttpClient(
         context: SecurityContext(
@@ -44,10 +47,12 @@ class DioLoggingInterceptor extends InterceptorsWrapper {
       options.data = FormData.fromMap(options.data);
     }
     if (options.extra.containsKey(BaseUrlConfig.requiredAccountId)) {
-      final spm = sl<SharedPreferencesManager>();
-      var accountId = spm.getString(SharedPreferencesManager.keyAccountId);
       options.extra.remove(BaseUrlConfig.requiredAccountId);
       options.data['account_id'] = accountId;
+    }
+    if (options.extra.containsKey(BaseUrlConfig.requiredUId)) {
+      options.extra.remove(BaseUrlConfig.requiredUId);
+      options.data['uid'] = uId;
     }
     if (options.headers.containsKey(BaseUrlConfig.download)) {
       options.headers.remove(BaseUrlConfig.download);
@@ -112,4 +117,5 @@ class BaseUrlConfig {
   static const download = 'download';
   static const toFormData = "toFormData";
   static const requiredAccountId = "requiredAccountId";
+  static const requiredUId = "requiredUId";
 }

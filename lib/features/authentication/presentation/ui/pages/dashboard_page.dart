@@ -1,6 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 // ignore_for_file: inference_failure_on_function_invocation, require_trailing_commas, lines_longer_than_80_chars
 
+import 'package:budget_in/features/onboarding/onboarding.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -8,8 +9,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:budget_in/core/core.dart';
 import 'package:budget_in/features/authentication/authentication.dart';
-import 'package:budget_in/features/onboarding/presentation/ui/widgets/line_chart_widget.dart';
-import 'package:budget_in/l10n/l10n.dart';
 
 class DashboardPage extends StatefulWidget {
   const DashboardPage({super.key});
@@ -34,6 +33,7 @@ class _DashboardPageState extends State<DashboardPage> {
 
   void getAllData() {
     getAccount();
+    context.read<GetMaxBudgetBloc>().add(InitialData());
   }
 
   @override
@@ -78,84 +78,8 @@ class _DashboardPageState extends State<DashboardPage> {
                       SizedBox(
                         height: MediaQuery.sizeOf(context).height * 0.1,
                       ),
-                      Text(
-                        TimeUtil().today('yMMMM', DateTime.now()),
-                        textAlign: TextAlign.center,
-                        style: context.textTheme.bodyMedium!.copyWith(
-                          fontWeight: FontWeight.w500,
-                          color: ColorApp.green,
-                        ),
-                      ),
-                      const SizedBox(height: 8),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          Container(
-                            height: 60.0,
-                            width: MediaQuery.sizeOf(context).width * 0.45,
-                            decoration: BoxDecoration(
-                              border: Border.all(color: ColorApp.green),
-                              borderRadius: BorderRadius.circular(15.0),
-                            ),
-                            padding: const EdgeInsets.symmetric(
-                              vertical: 4,
-                              horizontal: 15,
-                            ),
-                            child: Column(
-                              children: [
-                                Text(
-                                  context.l10n.income,
-                                  textAlign: TextAlign.center,
-                                  style: context.textTheme.labelSmall!.copyWith(
-                                      fontWeight: FontWeight.w400,
-                                      color: (Theme.of(context).primaryColor ==
-                                              ColorApp.green
-                                          ? Colors.black
-                                          : Colors.grey)),
-                                ),
-                                Text(
-                                  "+ Rp. 2.000.000",
-                                  style: context.textTheme.bodySmall!.copyWith(
-                                      fontWeight: FontWeight.w700,
-                                      color: ColorApp.green),
-                                ),
-                              ],
-                            ),
-                          ),
-                          Container(
-                            height: 60,
-                            width: MediaQuery.sizeOf(context).width * 0.45,
-                            padding: const EdgeInsets.symmetric(
-                              vertical: 4,
-                              horizontal: 15,
-                            ),
-                            decoration: BoxDecoration(
-                              border: Border.all(color: ColorApp.green),
-                              borderRadius: BorderRadius.circular(15.0),
-                            ),
-                            child: Column(
-                              children: [
-                                Text(
-                                  context.l10n.expense,
-                                  textAlign: TextAlign.center,
-                                  style: context.textTheme.labelSmall!.copyWith(
-                                      fontWeight: FontWeight.w400,
-                                      color: (Theme.of(context).primaryColor ==
-                                              ColorApp.green
-                                          ? Colors.black
-                                          : Colors.grey)),
-                                ),
-                                Text(
-                                  "- Rp. 500.000",
-                                  style: context.textTheme.bodySmall!.copyWith(
-                                      fontWeight: FontWeight.w700,
-                                      color: ColorApp.green),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
+
+                      const MaxBudgetWidget(),
 
                       const SizedBox(height: 15),
                       const LineChartWidget(),

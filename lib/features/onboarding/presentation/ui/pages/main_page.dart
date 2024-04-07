@@ -5,6 +5,7 @@ import 'package:budget_in/features/credit/credits.dart';
 import 'package:budget_in/features/expenses/presentation/ui/expenses_ui.dart';
 import 'package:budget_in/features/expenses/presentation/ui/pages/expense_page.dart';
 import 'package:budget_in/features/incomes/incomes.dart';
+import 'package:budget_in/features/onboarding/presentation/bloc/get_max_budget/get_max_budget_bloc.dart';
 import 'package:budget_in/l10n/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -29,12 +30,13 @@ class _MainPageState extends State<MainPage> {
   void initState() {
     currentIndex = widget.currentIndex;
     uid = Helpers.getUid();
-    getAccount();
+    getAllEvent();
     super.initState();
   }
 
-  void getAccount() {
+  void getAllEvent() {
     context.read<AccountBloc>().add(OnInitialAccount(uid: uid));
+    context.read<GetMaxBudgetBloc>().add(InitialData());
   }
 
   void selectedTab(int index) {

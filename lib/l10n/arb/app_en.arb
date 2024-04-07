@@ -144,5 +144,8 @@
     "save": "Save",
     "month": "Month",
     "empty_installment_or_date": "Installment or Due date can't be empty",
-    "empty_date": "Date can't be empty"
+    "empty_date": "Date can't be empty",
+    "remaining_budget": "The remaining budget",
+    "monthly_budget": "Monthly budget",
+    "empty_monthly_budget": "Minimum monthly budget 10.000"
 }

@@ -144,5 +144,8 @@
   "save": "Simpan",
   "month": "Bulan",
   "empty_installment_or_date": "Jatuh tempo dan Lama angsuran tidak boleh kosong",
-  "empty_date": "Tanggal boleh kosong"
+  "empty_date": "Tanggal boleh kosong",
+  "remaining_budget": "Sisa anggaran",
+  "monthly_budget": "Anggaran bulanan",
+  "empty_monthly_budget": "Minimum anggaran bulananan adalah 10.000"
 }
