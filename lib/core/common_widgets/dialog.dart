@@ -1,6 +1,7 @@
 import 'package:budget_in/core/core.dart';
 import 'package:budget_in/l10n/l10n.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 Future<T?> simpleDialog<T>(
     {required BuildContext context, required String title}) {
@@ -24,20 +25,34 @@ Future<T?> simpleDialog<T>(
 Future selectedDialog(
   BuildContext context, {
   required Function()? onContinue,
+  required String image,
   required String title,
+  required Color color,
+  double width = 65,
 }) {
   return showDialog(
     context: context,
     barrierDismissible: false,
     builder: (BuildContext context) {
       return AlertDialog(
-        title: Text(
-          title,
-          style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                color: (Theme.of(context).brightness == Brightness.light
-                    ? ColorApp.green
-                    : Colors.grey),
-              ),
+        title: Column(
+          children: [
+            const SizedBox(height: 20),
+            SvgPicture.asset(
+              image,
+              colorFilter: ColorFilter.mode(color, BlendMode.srcIn),
+              width: width,
+            ),
+            Text(
+              title,
+              style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                    color: (Theme.of(context).brightness == Brightness.light
+                        ? ColorApp.green
+                        : Colors.grey),
+                  ),
+            ),
+            const SizedBox(height: 20),
+          ],
         ),
         actions: <Widget>[
           Row(

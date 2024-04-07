@@ -147,5 +147,6 @@
   "empty_date": "Tanggal boleh kosong",
   "remaining_budget": "Sisa anggaran",
   "monthly_budget": "Anggaran bulanan",
-  "empty_monthly_budget": "Minimum anggaran bulananan adalah 10.000"
+  "empty_monthly_budget": "Minimum anggaran bulananan adalah 10.000",
+  "confirm_sign_out": "Apakah Anda yakin ingin keluar?"
 }

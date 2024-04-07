@@ -133,11 +133,17 @@ class AccountPage extends StatelessWidget {
         child: PrimaryButton(
           text: context.l10n.sigout,
           onPressed: () {
-            selectedDialog(context, onContinue: () {
-              Navigator.pushNamedAndRemoveUntil(
-                      context, RouteName.loginPage, (route) => false)
-                  .then((_) => clearLocalData());
-            }, title: context.l10n.sigout);
+            selectedDialog(
+              context,
+              onContinue: () {
+                Navigator.pushNamedAndRemoveUntil(
+                        context, RouteName.loginPage, (route) => false)
+                    .then((_) => clearLocalData());
+              },
+              title: context.l10n.confirm_sign_out,
+              image: SvgName.signout,
+              color: ColorApp.green,
+            );
           },
         ),
       ),

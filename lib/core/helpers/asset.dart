@@ -36,7 +36,7 @@ class SvgName {
   static const profileCircle = '${BaseAsset.svg}profile_circle.svg';
   static const search = '${BaseAsset.svg}search.svg';
   static const setting = '${BaseAsset.svg}setting.svg';
-  static const signout = '${BaseAsset.svg}signout.svg';
+  static const signout = '${BaseAsset.svg}sign_out.svg';
   static const view = '${BaseAsset.svg}view.svg';
   static const newExpense = '${BaseAsset.svg}new.svg';
   static const wallet = '${BaseAsset.svg}wallet.svg';

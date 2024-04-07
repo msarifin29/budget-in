@@ -147,5 +147,6 @@
     "empty_date": "Date can't be empty",
     "remaining_budget": "The remaining budget",
     "monthly_budget": "Monthly budget",
-    "empty_monthly_budget": "Minimum monthly budget 10.000"
+    "empty_monthly_budget": "Minimum monthly budget 10.000",
+    "confirm_sign_out": "Are you sure you want to exit?"
 }
