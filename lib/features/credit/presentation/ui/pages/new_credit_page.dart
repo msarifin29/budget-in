@@ -28,6 +28,13 @@ class _NewCreditPageState extends State<NewCreditPage> {
   final totalC = TextEditingController();
   final startDateC = TextEditingController();
   final endDateC = TextEditingController();
+  @override
+  void dispose() {
+    totalC.dispose();
+    startDate.dispose();
+    endDate.dispose();
+    super.dispose();
+  }
 
   final CurrencyTextInputFormatter formatter = CurrencyTextInputFormatter(
     locale: 'id',
@@ -45,6 +52,56 @@ class _NewCreditPageState extends State<NewCreditPage> {
       endDate: endDateC.text,
     );
     context.read<CreateCreditBloc>().add(OnCreated(params: params));
+  }
+
+  Future<dynamic> confirmNewCredit() {
+    return confirmDialog(context,
+        image: SvgName.creditIcon,
+        title: context.l10n.confirm_new(context.l10n.new_credit),
+        actions: [
+          BlocConsumer<CreateCreditBloc, CreateCreditState>(
+            listener: (context, state) {
+              log('kong lol $state');
+              if (state is CreateCreditFailure) {
+                context.scaffoldMessenger.showSnackBar(
+                  floatingSnackBar(
+                    context,
+                    state.message,
+                  ),
+                );
+              } else if (state is CreateCreditSuccess) {
+                Navigator.pop(context);
+                Navigator.pop(context);
+                context.scaffoldMessenger.showSnackBar(
+                  floatingSnackBar(
+                    context,
+                    context.l10n.msg_success_create(context.l10n.credit),
+                  ),
+                );
+              }
+            },
+            builder: (context, state) {
+              if (state is CreateCreditLoading) {
+                return const CircularLoading();
+              }
+              return Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  PrimaryButton(
+                    text: context.l10n.no,
+                    minSize: const Size(100, 40),
+                    onPressed: () => Navigator.pop(context),
+                  ),
+                  PrimaryButton(
+                    text: context.l10n.yes,
+                    minSize: const Size(100, 40),
+                    onPressed: () => submit(),
+                  ),
+                ],
+              );
+            },
+          ),
+        ]);
   }
 
   @override
@@ -244,54 +301,29 @@ class _NewCreditPageState extends State<NewCreditPage> {
                     );
                   }),
               const SizedBox(height: 30),
-              BlocConsumer<CreateCreditBloc, CreateCreditState>(
-                listener: (context, state) {
-                  log('kong lol $state');
-                  if (state is CreateCreditFailure) {
+              PrimaryButton(
+                text: context.l10n.submit,
+                onPressed: () {
+                  if (category.value.id == 0) {
                     context.scaffoldMessenger.showSnackBar(
                       floatingSnackBar(
                         context,
-                        state.message,
+                        context.l10n.select_category_first(context.l10n.credit),
                       ),
                     );
-                  } else if (state is CreateCreditSuccess) {
+                  } else if (startDateC.text == '' || endDateC.text == '') {
                     context.scaffoldMessenger.showSnackBar(
-                      floatingSnackBar(
-                        context,
-                        context.l10n.msg_success_create(context.l10n.credit),
-                      ),
-                    );
-                    Navigator.pop(context);
+                        floatingSnackBar(context, context.l10n.empty_date));
+                  } else if (double.parse(
+                          totalC.text.replaceAll(RegExp(r'[^0-9]'), '')) <
+                      2000) {
+                    context.scaffoldMessenger.showSnackBar(
+                        floatingSnackBar(context, context.l10n.min_total));
+                  } else {
+                    if (globalKey.currentState!.validate()) {
+                      confirmNewCredit();
+                    }
                   }
-                },
-                builder: (context, state) {
-                  if (state is CreateCreditLoading) {
-                    return const CircularLoading();
-                  }
-                  return PrimaryButton(
-                    text: context.l10n.submit,
-                    onPressed: () {
-                      if (category.value.id == 0) {
-                        context.scaffoldMessenger.showSnackBar(
-                          floatingSnackBar(
-                            context,
-                            context.l10n
-                                .select_category_first(context.l10n.credit),
-                          ),
-                        );
-                      } else if (startDateC.text == '' || endDateC.text == '') {
-                        context.scaffoldMessenger.showSnackBar(
-                            floatingSnackBar(context, context.l10n.empty_date));
-                      } else if (double.parse(
-                              totalC.text.replaceAll(RegExp(r'[^0-9]'), '')) <
-                          2000) {
-                        context.scaffoldMessenger.showSnackBar(
-                            floatingSnackBar(context, context.l10n.min_total));
-                      } else {
-                        submit();
-                      }
-                    },
-                  );
                 },
               ),
               const SizedBox(height: 20),
