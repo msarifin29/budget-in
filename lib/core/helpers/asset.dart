@@ -61,6 +61,6 @@ class SvgName {
 }
 
 class ImageName {
-  static const budgetInImage = '${BaseAsset.images}budget_in_logo.png';
-  static const logo = '${BaseAsset.images}appstore_icon.png';
+  static const budgetInImage = '${BaseAsset.images}budgetin_image.png';
+  static const logo = '${BaseAsset.images}budgetin_icon.png';
 }
