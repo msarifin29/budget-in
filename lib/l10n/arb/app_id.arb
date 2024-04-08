@@ -152,5 +152,12 @@
   "delete_account": "Hapus Akun",
   "confir_delete_account": "Menghapus akun Anda bersifat permanen dan tidak dapat dibatalkan. \nApakah Anda yakin ingin melanjutkan?",
   "success_forgot_password": "kata sandi telah dikirim ke alamat email Anda. Periksa kotak masuk Anda (termasuk folder spam) untuk mengatur ulang kata sandi Anda.",
-  "failed_forgot_password": "Alamat email yang Anda masukkan tampaknya salah. Silakan masukkan alamat email yang valid."
+  "failed_forgot_password": "Alamat email yang Anda masukkan tampaknya salah. Silakan masukkan alamat email yang valid.",
+  "reset_password": "Atur ulang Kata Sandi",
+  "old_password": "Kata Sandi Lama",
+  "new_password": "Kata Sandi Baru",
+  "invalid_password": "Kata Sandi tidak valid",
+  "confirm_password": "Konfirmasi Kata Sandi",
+  "success_reset_pwd": "Kata sandi Anda telah berhasil diatur ulang. Sekarang Anda dapat masuk dengan kata sandi baru Anda",
+  "failed_reset_pwd": "Terjadi kesalahan saat mengatur ulang kata sandi Anda. Silahkan coba lagi"
 }

@@ -6,5 +6,6 @@ export 'presentation/bloc/login/login_bloc.dart';
 export 'presentation/bloc/auth_user/auth_user_cubit.dart';
 export 'presentation/bloc/account/account_bloc.dart';
 export 'presentation/bloc/delete_account/delete_account_bloc.dart';
+export 'presentation/bloc/reset_password/reset_password_bloc.dart';
 export 'presentation/bloc/show_total/show_total_cubit.dart';
 export 'presentation/ui/authentication_ui.dart';

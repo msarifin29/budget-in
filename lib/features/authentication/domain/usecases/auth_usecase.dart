@@ -61,3 +61,16 @@ class ForgotPasswordUsecase
     return await repository.forgotPassword(param);
   }
 }
+
+class ResetPasswordUsecase
+    implements UseCase<DynamicResponse, ResetPasswordParam> {
+  final AuthRepository repository;
+
+  ResetPasswordUsecase({required this.repository});
+
+  @override
+  FutureOr<Either<Failure, DynamicResponse>> call(
+      ResetPasswordParam param) async {
+    return await repository.resetPassword(param);
+  }
+}

@@ -152,5 +152,12 @@
     "delete_account": "Delete Account",
     "confir_delete_account": "Deleting your account is permanent and cannot be undone. \nAre you sure you want to proceed?",
     "success_forgot_password": "A new password has been sent to your email address. Check your inbox (including spam folder) to reset your password",
-    "failed_forgot_password": "The email address you entered appears to be incorrect. Please enter a valid email address."
+    "failed_forgot_password": "The email address you entered appears to be incorrect. Please enter a valid email address.",
+    "reset_password": "Reset Password",
+    "old_password": "Old Password",
+    "new_password": "New Password",
+    "invalid_password": "Invalid password",
+    "confirm_password": "Confirm password",
+    "success_reset_pwd": "Your password has been reset successfully. You can now log in with your new password",
+    "failed_reset_pwd": "There was an error resetting your password. Please try again"
 }

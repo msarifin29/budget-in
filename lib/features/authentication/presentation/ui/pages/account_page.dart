@@ -20,6 +20,89 @@ class AccountPage extends StatelessWidget {
       await spm.clearKey(SharedPreferencesManager.keyAccountId);
     }
 
+    Future<T?> dialogDeleteAccount<T>() {
+      return showDialog(
+          context: context,
+          barrierDismissible: false,
+          builder: (context) {
+            return BlocProvider(
+              create: (context) =>
+                  DeleteAccountBloc(usecase: sl<DeleteAccountUsecase>()),
+              child: AlertDialog(
+                title: Column(
+                  children: [
+                    const SizedBox(height: 20),
+                    SvgPicture.asset(
+                      SvgName.delete,
+                      colorFilter:
+                          const ColorFilter.mode(ColorApp.red, BlendMode.srcIn),
+                      width: 65,
+                    ),
+                    Text(
+                      context.l10n.confir_delete_account,
+                      textAlign: TextAlign.center,
+                      style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                            color: (Theme.of(context).brightness ==
+                                    Brightness.light
+                                ? ColorApp.green
+                                : Colors.grey),
+                          ),
+                    ),
+                    const SizedBox(height: 20),
+                  ],
+                ),
+                actions: <Widget>[
+                  BlocConsumer<DeleteAccountBloc, DeleteAccountState>(
+                    listener: (context, state) {
+                      if (state is DeleteAccountFailure) {
+                        Navigator.pop(context);
+                        context.scaffoldMessenger.showSnackBar(
+                          floatingSnackBar(
+                            context,
+                            context.l10n.something_wrong,
+                          ),
+                        );
+                      } else if (state is DeleteAccountSuccess) {
+                        Navigator.pushNamedAndRemoveUntil(
+                                context, LoginPage.routeName, (route) => false)
+                            .then((_) => clearLocalData());
+                      }
+                    },
+                    builder: (context, state) {
+                      if (state is DeleteAccountLoading) {
+                        return const CircularLoading();
+                      }
+                      return Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          PrimaryButton(
+                            text: context.l10n.no,
+                            onPressed: () {
+                              Navigator.of(context).pop(false);
+                            },
+                            minSize: const Size(80, 45),
+                            backgroundColor: ColorApp.rootBeer,
+                          ),
+                          PrimaryButton(
+                            onPressed: () {
+                              context.read<DeleteAccountBloc>().add(
+                                    OnDeleted(),
+                                  );
+                            },
+                            text: context.l10n.yes,
+                            minSize: const Size(80, 45),
+                            backgroundColor: ColorApp.green,
+                          ),
+                        ],
+                      );
+                    },
+                  ),
+                ],
+              ),
+            );
+          });
+    }
+
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: const Size(double.infinity, kToolbarHeight),
@@ -33,79 +116,42 @@ class AccountPage extends StatelessWidget {
             BlocBuilder<AccountBloc, AccountState>(
               builder: (context, state) {
                 if (state is AccountSuccess) {
-                  return Column(
-                    children: [
-                      ListTile(
-                        onTap: () {
-                          Navigator.pushNamed(context, ProfilePage.routeName,
-                              arguments: {
-                                NamedArguments.accountData: state.accountData,
-                              });
-                        },
-                        leading: SvgPicture.asset(
-                          SvgName.profileCircle,
-                          width: 40,
-                          height: 40,
-                          colorFilter: const ColorFilter.mode(
-                            ColorApp.green,
-                            BlendMode.srcIn,
-                          ),
-                        ),
-                        title: Text(
-                          context.l10n.account,
-                          style: context.textTheme.bodyMedium!.copyWith(
-                            color: ColorApp.green,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                        subtitle: Text(
-                          state.accountData.username,
-                          style: context.textTheme.bodySmall!.copyWith(
-                            color: ColorApp.green,
-                          ),
-                        ),
-                      ),
-                    ],
+                  return DetailAccountwidget(
+                    image: SvgName.profileCircle,
+                    title: context.l10n.account,
+                    subTitle: state.accountData.username,
+                    onTap: () {
+                      Navigator.pushNamed(context, ProfilePage.routeName,
+                          arguments: {
+                            NamedArguments.accountData: state.accountData,
+                          });
+                    },
                   );
                 }
                 return const SizedBox();
               },
             ),
-            ListTile(
-              leading: SvgPicture.asset(
-                SvgName.privacy,
-                width: 40,
-                height: 40,
-                colorFilter: const ColorFilter.mode(
-                  ColorApp.green,
-                  BlendMode.srcIn,
-                ),
-              ),
-              title: Text(
-                context.l10n.privacy_and_policy,
-                style: context.textTheme.bodyMedium!.copyWith(
-                  color: ColorApp.green,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
+            DetailAccountOnlyTitlewidget(
+              image: SvgName.privacy,
+              title: context.l10n.privacy_and_policy,
             ),
-            ListTile(
-              leading: SvgPicture.asset(
-                SvgName.contactSupport,
-                width: 40,
-                height: 40,
-                colorFilter: const ColorFilter.mode(
-                  ColorApp.green,
-                  BlendMode.srcIn,
-                ),
-              ),
-              title: Text(
-                context.l10n.contact_support,
-                style: context.textTheme.bodyMedium!.copyWith(
-                  color: ColorApp.green,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
+            // DetailAccountOnlyTitlewidget(
+            //     image: SvgName.contactSupport,
+            //     title: context.l10n.contact_support,),
+            DetailAccountOnlyTitlewidget(
+              image: SvgName.password,
+              title: context.l10n.reset_password,
+              onTap: () {
+                Navigator.pushNamed(
+                  context,
+                  ResetPasswordPage.routeName,
+                );
+              },
+            ),
+            DetailAccountOnlyTitlewidget(
+              image: SvgName.delete,
+              title: context.l10n.delete_account,
+              onTap: () => dialogDeleteAccount(),
             ),
           ],
         ),
@@ -126,6 +172,41 @@ class AccountPage extends StatelessWidget {
               color: ColorApp.green,
             );
           },
+        ),
+      ),
+    );
+  }
+}
+
+class DetailAccountOnlyTitlewidget extends StatelessWidget {
+  const DetailAccountOnlyTitlewidget({
+    super.key,
+    required this.image,
+    required this.title,
+    this.onTap,
+  });
+
+  final String image;
+  final String title;
+  final VoidCallback? onTap;
+  @override
+  Widget build(BuildContext context) {
+    return ListTile(
+      onTap: onTap,
+      leading: SvgPicture.asset(
+        image,
+        width: 30,
+        height: 30,
+        colorFilter: const ColorFilter.mode(
+          ColorApp.green,
+          BlendMode.srcIn,
+        ),
+      ),
+      title: Text(
+        title,
+        style: context.textTheme.bodyMedium!.copyWith(
+          color: ColorApp.green,
+          fontWeight: FontWeight.w600,
         ),
       ),
     );

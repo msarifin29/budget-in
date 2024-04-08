@@ -57,6 +57,7 @@ class SvgName {
   static const creditIcon = '${BaseAsset.svg}credit_icon.svg';
   static const incomeIcon = '${BaseAsset.svg}income_icon.svg';
   static const email = '${BaseAsset.svg}email.svg';
+  static const password = '${BaseAsset.svg}password.svg';
 }
 
 class ImageName {

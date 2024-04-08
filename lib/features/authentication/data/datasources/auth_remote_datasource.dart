@@ -15,6 +15,7 @@ abstract class AuthRemoteDataSource {
   Future<AccountResponse> account(String uid);
   Future<DeleteResponse> deleteAccount();
   Future<DynamicResponse> forgotPassword(ForgotPasswordParam param);
+  Future<DynamicResponse> resetPassword(ResetPasswordParam param);
 }
 
 class AuthRemoteDataSourceImpl extends AuthRemoteDataSource {
@@ -113,6 +114,27 @@ class AuthRemoteDataSourceImpl extends AuthRemoteDataSource {
       );
     }
   }
+
+  @override
+  Future<DynamicResponse> resetPassword(ResetPasswordParam param) async {
+    final String path = '$baseUrl/api/user/reset_password';
+    final Response<dynamic> response = await dio.put(
+      path,
+      data: param.toMap(),
+      options: Options(headers: {
+        BaseUrlConfig.requiredToken: true,
+      }, extra: {
+        BaseUrlConfig.requiredUId: true,
+      }),
+    );
+    if (response.statusCode == 200) {
+      return DynamicResponse.fromJson(response.data);
+    } else {
+      throw DioException(
+        requestOptions: RequestOptions(path: path),
+      );
+    }
+  }
 }
 
 class LoginParams extends Equatable {
@@ -169,4 +191,22 @@ class ForgotPasswordParam extends Equatable {
 
   @override
   List<Object?> get props => [email];
+}
+
+class ResetPasswordParam extends Equatable {
+  final String oldPassword;
+  final String newPassword;
+  const ResetPasswordParam({
+    required this.oldPassword,
+    required this.newPassword,
+  });
+  Map<String, dynamic> toMap() {
+    return {
+      "old_password": oldPassword,
+      "new_password": newPassword,
+    };
+  }
+
+  @override
+  List<Object?> get props => [oldPassword, newPassword];
 }
