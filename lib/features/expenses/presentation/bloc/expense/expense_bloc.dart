@@ -26,6 +26,7 @@ class ExpenseBloc extends Bloc<ExpenseEvent, ExpenseState> {
         category: event.category,
         categoryId: event.categoryId,
         accountId: event.accountId,
+        notes: event.notes,
       ),
     );
     emit(result.fold((l) {

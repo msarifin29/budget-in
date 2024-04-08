@@ -29,31 +29,66 @@ class _NewExpensePageState extends State<NewExpensePage> {
   );
 
   void submit() {
-    if (expenseType.value.id == 0) {
-      context.scaffoldMessenger.showSnackBar(
-        floatingSnackBar(
-            context, context.l10n.select_type_first(context.l10n.expense)),
-      );
-    } else if (category.value.id == 0) {
-      context.scaffoldMessenger.showSnackBar(
-        floatingSnackBar(
-            context, context.l10n.select_category_first(context.l10n.expense)),
-      );
-    } else {
-      if (globalKey.currentState!.validate()) {
-        context.read<ExpenseBloc>().add(
-              CreateExpenseEvent(
-                  uid: Helpers.getUid(),
-                  expenseType:
-                      ConstantType.newConstantType(expenseType.value.id),
-                  total: totalC.text.trim(),
-                  categoryId: expenseType.value.id,
-                  category:
-                      CategoryExpense.newCategoryExpense(category.value.id),
-                  accountId: Helpers.getAccountId()),
-            );
-      }
-    }
+    context.read<ExpenseBloc>().add(
+          CreateExpenseEvent(
+            uid: Helpers.getUid(),
+            expenseType: ConstantType.newConstantType(expenseType.value.id),
+            total: totalC.text.trim(),
+            categoryId: expenseType.value.id,
+            category: CategoryExpense.newCategoryExpense(category.value.id),
+            accountId: Helpers.getAccountId(),
+            notes: notesC.text.trim(),
+          ),
+        );
+  }
+
+  Future<dynamic> confirmNewExpense() {
+    return confirmDialog(context,
+        image: SvgName.icon,
+        title: context.l10n.confirm_new(context.l10n.new_expense),
+        actions: [
+          BlocConsumer<ExpenseBloc, ExpenseState>(
+            listener: (context, state) {
+              if (state is CreateExpenseSuccess) {
+                Navigator.pop(context);
+                Navigator.pop(context);
+                context.scaffoldMessenger.showSnackBar(
+                  floatingSnackBar(
+                    context,
+                    context.l10n.msg_success_create(context.l10n.expense),
+                  ),
+                );
+                context.read<AccountBloc>().add(
+                      OnInitialAccount(uid: Helpers.getUid()),
+                    );
+              } else if (state is CreateExpenseFailure) {
+                context.scaffoldMessenger.showSnackBar(
+                  floatingSnackBar(context, state.message),
+                );
+              }
+            },
+            builder: (context, state) {
+              if (state is CreateExpenseLoading) {
+                return const CircularLoading();
+              }
+              return Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  PrimaryButton(
+                    text: context.l10n.no,
+                    minSize: const Size(100, 40),
+                    onPressed: () => Navigator.pop(context),
+                  ),
+                  PrimaryButton(
+                    text: context.l10n.yes,
+                    minSize: const Size(100, 40),
+                    onPressed: () => submit(),
+                  ),
+                ],
+              );
+            },
+          ),
+        ]);
   }
 
   @override
@@ -190,33 +225,26 @@ class _NewExpensePageState extends State<NewExpensePage> {
                 ],
               ),
               const SizedBox(height: 30),
-              BlocConsumer<ExpenseBloc, ExpenseState>(
-                listener: (context, state) {
-                  if (state is CreateExpenseSuccess) {
-                    Navigator.pop(context);
+              PrimaryButton(
+                text: context.l10n.submit,
+                onPressed: () {
+                  if (expenseType.value.id == 0) {
+                    context.scaffoldMessenger.showSnackBar(
+                      floatingSnackBar(context,
+                          context.l10n.select_type_first(context.l10n.expense)),
+                    );
+                  } else if (category.value.id == 0) {
                     context.scaffoldMessenger.showSnackBar(
                       floatingSnackBar(
-                        context,
-                        context.l10n.msg_success_create(context.l10n.expense),
-                      ),
+                          context,
+                          context.l10n
+                              .select_category_first(context.l10n.expense)),
                     );
-                    context.read<AccountBloc>().add(
-                          OnInitialAccount(uid: Helpers.getUid()),
-                        );
-                  } else if (state is CreateExpenseFailure) {
-                    context.scaffoldMessenger.showSnackBar(
-                      floatingSnackBar(context, state.message),
-                    );
+                  } else {
+                    if (globalKey.currentState!.validate()) {
+                      confirmNewExpense();
+                    }
                   }
-                },
-                builder: (context, state) {
-                  if (state is CreateExpenseLoading) {
-                    return const CircularLoading();
-                  }
-                  return PrimaryButton(
-                    text: context.l10n.submit,
-                    onPressed: () => submit(),
-                  );
                 },
               ),
               const SizedBox(height: 20),

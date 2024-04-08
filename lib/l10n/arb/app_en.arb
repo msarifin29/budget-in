@@ -40,6 +40,14 @@
             }
         }
     },
+    "@confirm_new": {
+        "description": "A message with a parameters",
+        "placeholders": {
+            "type_x": {
+                "type": "String"
+            }
+        }
+    },
     "no": "No",
     "yes": "Yes",
     "msg_onboarding": "Build healthy financial habits and control unncessary expenses",
@@ -159,5 +167,6 @@
     "invalid_password": "Invalid password",
     "confirm_password": "Confirm password",
     "success_reset_pwd": "Your password has been reset successfully. You can now log in with your new password",
-    "failed_reset_pwd": "There was an error resetting your password. Please try again"
+    "failed_reset_pwd": "There was an error resetting your password. Please try again",
+    "confirm_new": "Once you confirm, this {type_x} will be created. Are you sure you want to proceed?"
 }

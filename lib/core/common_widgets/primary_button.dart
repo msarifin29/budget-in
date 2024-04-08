@@ -26,7 +26,7 @@ class PrimaryButton extends StatelessWidget {
       ),
       child: Text(
         text,
-        style: context.textTheme.bodyLarge?.copyWith(
+        style: context.textTheme.bodyMedium?.copyWith(
           color: (Theme.of(context).brightness == Brightness.light
               ? Colors.white
               : Colors.grey),

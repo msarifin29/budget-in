@@ -100,3 +100,44 @@ SnackBar floatingSnackBar(BuildContext context, String message) {
     ),
   );
 }
+
+Future confirmDialog(
+  BuildContext context, {
+  List<Widget>? actions,
+  required String image,
+  required String title,
+  double width = 65,
+}) {
+  return showDialog(
+    context: context,
+    barrierDismissible: false,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: Column(
+          children: [
+            const SizedBox(height: 20),
+            SvgPicture.asset(
+              image,
+              colorFilter: const ColorFilter.mode(
+                ColorApp.green,
+                BlendMode.srcIn,
+              ),
+              width: width,
+            ),
+            Text(
+              title,
+              textAlign: TextAlign.center,
+              style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                    color: (Theme.of(context).brightness == Brightness.light
+                        ? ColorApp.green
+                        : Colors.grey),
+                  ),
+            ),
+            const SizedBox(height: 20),
+          ],
+        ),
+        actions: actions,
+      );
+    },
+  );
+}

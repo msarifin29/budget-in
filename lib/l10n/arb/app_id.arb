@@ -40,6 +40,14 @@
       }
     }
   },
+  "@confirm_new": {
+    "description": "A message with a parameters",
+    "placeholders": {
+      "type_x": {
+        "type": "String"
+      }
+    }
+  },
   "no": "Tidak",
   "yes": "Ya",
   "msg_onboarding": "Membangun kebiasaan finansial yang sehat dan mengendalikan pengeluaran yang tidak perlu",
@@ -159,5 +167,6 @@
   "invalid_password": "Kata Sandi tidak valid",
   "confirm_password": "Konfirmasi Kata Sandi",
   "success_reset_pwd": "Kata sandi Anda telah berhasil diatur ulang. Sekarang Anda dapat masuk dengan kata sandi baru Anda",
-  "failed_reset_pwd": "Terjadi kesalahan saat mengatur ulang kata sandi Anda. Silahkan coba lagi"
+  "failed_reset_pwd": "Terjadi kesalahan saat mengatur ulang kata sandi Anda. Silahkan coba lagi",
+  "confirm_new": "Setelah Anda konfirmasi, {type_x} ini akan dibuat. Apakah Anda yakin ingin melanjutkan?"
 }
