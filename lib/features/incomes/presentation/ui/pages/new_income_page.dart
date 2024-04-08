@@ -29,32 +29,62 @@ class _NewIncomePageState extends State<NewIncomePage> {
   );
 
   void submitIncome() {
-    if (incomeType.value.id == 0) {
-      context.scaffoldMessenger.showSnackBar(
-        floatingSnackBar(
-            context, context.l10n.select_type_first(context.l10n.income)),
-      );
-    } else if (categorySelected.value.id == 0) {
-      context.scaffoldMessenger.showSnackBar(
-        floatingSnackBar(
-            context, context.l10n.select_category_first(context.l10n.income)),
-      );
-    } else {
-      if (globalKey.currentState!.validate()) {
-        context.read<CreateIncomeBloc>().add(
-              InitialCreateEvent(
-                uid: Helpers.getUid(),
-                categoryIcome: CategoryIncome.newCategoryIncome(
-                  categorySelected.value.id,
-                ),
-                categoryId: categorySelected.value.id,
-                typeIcome: ConstantType.newConstantType(incomeType.value.id),
-                total: totalC.text.trim(),
-                accountId: Helpers.getAccountId(),
-              ),
-            );
-      }
-    }
+    context.read<CreateIncomeBloc>().add(
+          InitialCreateEvent(
+            uid: Helpers.getUid(),
+            categoryId: categorySelected.value.id,
+            typeIcome: ConstantType.newConstantType(incomeType.value.id),
+            total: totalC.text.trim(),
+            accountId: Helpers.getAccountId(),
+          ),
+        );
+  }
+
+  Future<dynamic> confirmNewIncome() {
+    return confirmDialog(context,
+        image: SvgName.incomeIcon,
+        title: context.l10n.confirm_new(context.l10n.new_income),
+        actions: [
+          BlocConsumer<CreateIncomeBloc, CreateIncomeState>(
+            listener: (context, state) {
+              log('CreateIncome $state');
+              if (state is CreateIncomeSuccess) {
+                Navigator.pop(context);
+                Navigator.pop(context);
+                context.scaffoldMessenger.showSnackBar(
+                  floatingSnackBar(
+                    context,
+                    context.l10n.msg_success_create(context.l10n.income),
+                  ),
+                );
+              } else if (state is CreateIncomeFailed) {
+                context.scaffoldMessenger.showSnackBar(
+                  floatingSnackBar(context, state.message),
+                );
+              }
+            },
+            builder: (context, state) {
+              if (state is CreateIncomeLoading) {
+                return const CircularLoading();
+              }
+              return Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  PrimaryButton(
+                    text: context.l10n.no,
+                    minSize: const Size(100, 40),
+                    onPressed: () => Navigator.pop(context),
+                  ),
+                  PrimaryButton(
+                    text: context.l10n.yes,
+                    minSize: const Size(100, 40),
+                    onPressed: () => submitIncome(),
+                  ),
+                ],
+              );
+            },
+          ),
+        ]);
   }
 
   @override
@@ -184,32 +214,28 @@ class _NewIncomePageState extends State<NewIncomePage> {
                     },
                   ),
                   SizedBox(height: MediaQuery.sizeOf(context).height * 0.3),
-                  BlocConsumer<CreateIncomeBloc, CreateIncomeState>(
-                    listener: (context, state) {
-                      log('CreateIncome $state');
-                      if (state is CreateIncomeSuccess) {
-                        Navigator.pop(context);
+                  PrimaryButton(
+                    text: context.l10n.submit,
+                    onPressed: () {
+                      if (incomeType.value.id == 0) {
                         context.scaffoldMessenger.showSnackBar(
                           floatingSnackBar(
-                            context,
-                            context.l10n
-                                .msg_success_create(context.l10n.income),
-                          ),
+                              context,
+                              context.l10n
+                                  .select_type_first(context.l10n.income)),
                         );
-                      } else if (state is CreateIncomeFailed) {
+                      } else if (categorySelected.value.id == 0) {
                         context.scaffoldMessenger.showSnackBar(
-                          floatingSnackBar(context, state.message),
+                          floatingSnackBar(
+                              context,
+                              context.l10n
+                                  .select_category_first(context.l10n.income)),
                         );
+                      } else {
+                        if (globalKey.currentState!.validate()) {
+                          confirmNewIncome();
+                        }
                       }
-                    },
-                    builder: (context, state) {
-                      if (state is CreateIncomeLoading) {
-                        return const CircularLoading();
-                      }
-                      return PrimaryButton(
-                        text: context.l10n.submit,
-                        onPressed: () => submitIncome(),
-                      );
                     },
                   ),
                   const SizedBox(height: 20),
