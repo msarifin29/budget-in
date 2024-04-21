@@ -94,6 +94,8 @@ class _ExpensePageState extends State<ExpensePage>
               tabAlignment: TabAlignment.center,
               labelStyle: Theme.of(context).textTheme.bodySmall,
               splashFactory: NoSplash.splashFactory,
+              automaticIndicatorColorAdjustment: false,
+              dividerHeight: 0,
               onTap: (value) {
                 switch (value) {
                   case 0:

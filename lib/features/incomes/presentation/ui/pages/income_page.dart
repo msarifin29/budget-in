@@ -72,6 +72,8 @@ class _IncomePageState extends State<IncomePage>
               tabAlignment: TabAlignment.center,
               labelStyle: Theme.of(context).textTheme.bodySmall,
               splashFactory: NoSplash.splashFactory,
+              automaticIndicatorColorAdjustment: false,
+              dividerHeight: 0,
               onTap: (value) {
                 switch (value) {
                   case 0:
