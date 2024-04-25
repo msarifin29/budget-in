@@ -69,48 +69,34 @@ class LineChartWidgetState extends State<LineChartWidget> {
               children: <Widget>[
                 const SizedBox(height: 5),
                 Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Column(
                       children: [
-                        Row(
-                          children: [
-                            Container(
-                                height: 4, width: 25, color: ColorApp.red),
-                            const SizedBox(width: 10),
-                            Text(
-                              context.l10n.expense,
-                              style: context.textTheme.bodySmall!.copyWith(
-                                color: ColorApp.red,
-                                fontWeight: FontWeight.w400,
-                                fontSize: 10,
-                              ),
-                            ),
-                          ],
-                        ),
-                        Row(
-                          children: [
-                            Container(
-                                height: 4, width: 25, color: ColorApp.blue),
-                            const SizedBox(width: 10),
-                            Text(
-                              context.l10n.income,
-                              style: context.textTheme.bodySmall!.copyWith(
-                                color: ColorApp.blue,
-                                fontWeight: FontWeight.w400,
-                                fontSize: 10,
-                              ),
-                            ),
-                          ],
-                        ),
+                        DescMonthlyReportWidget(
+                            text: context.l10n.expense, color: ColorApp.red),
+                        DescMonthlyReportWidget(
+                            text: context.l10n.income, color: ColorApp.blue),
                       ],
                     ),
-                    const SizedBox(width: 50),
                     Text(
                       context.l10n.monthly_report,
                       style: context.textTheme.bodySmall!.copyWith(
                         color: ColorApp.green,
                         fontWeight: FontWeight.w600,
                       ),
+                    ),
+                    IconButton(
+                      onPressed: () {
+                        Navigator.pushNamed(
+                          context,
+                          MonthlyReportDetailPage.routeName,
+                          arguments: {
+                            NamedArguments.data: report,
+                          },
+                        );
+                      },
+                      icon: const Icon(Icons.more_horiz_rounded),
                     ),
                   ],
                 ),
@@ -239,6 +225,33 @@ class LineChartWidgetState extends State<LineChartWidget> {
           toY: y2 > 5 ? 5.0 : y2,
           color: ColorApp.blue,
           width: 3,
+        ),
+      ],
+    );
+  }
+}
+
+class DescMonthlyReportWidget extends StatelessWidget {
+  const DescMonthlyReportWidget({
+    super.key,
+    required this.text,
+    required this.color,
+  });
+  final String text;
+  final Color color;
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Container(height: 4, width: 25, color: color),
+        const SizedBox(width: 10),
+        Text(
+          text,
+          style: context.textTheme.bodySmall!.copyWith(
+            color: color,
+            fontWeight: FontWeight.w400,
+            fontSize: 10,
+          ),
         ),
       ],
     );

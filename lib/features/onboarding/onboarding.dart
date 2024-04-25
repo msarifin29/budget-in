@@ -1,4 +1,5 @@
 export 'presentation/ui/pages/main_page.dart';
+export 'presentation/ui/pages/monthly_report_detail_page.dart';
 export 'presentation/ui/widgets/line_chart_widget.dart';
 export 'presentation/ui/widgets/max_budget_widget.dart';
 export 'data/models/monthly_report.dart';

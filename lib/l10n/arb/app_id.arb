@@ -168,5 +168,6 @@
   "confirm_password": "Konfirmasi Kata Sandi",
   "success_reset_pwd": "Kata sandi Anda telah berhasil diatur ulang. Sekarang Anda dapat masuk dengan kata sandi baru Anda",
   "failed_reset_pwd": "Terjadi kesalahan saat mengatur ulang kata sandi Anda. Silahkan coba lagi",
-  "confirm_new": "Setelah Anda konfirmasi, {type_x} ini akan dibuat. Apakah Anda yakin ingin melanjutkan?"
+  "confirm_new": "Setelah Anda konfirmasi, {type_x} ini akan dibuat. Apakah Anda yakin ingin melanjutkan?",
+  "empty_monthly_report": "Tidak ada laporan pemasukan dan pengeluaran yang tersedia"
 }

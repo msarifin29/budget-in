@@ -19,6 +19,7 @@ class RouteName {
   static const forgotPasswordPage = 'forgot-password-page';
   static const resetPasswordPage = 'reset-password-page';
   static const mainPage = 'main-page';
+  static const monthlyReportDetailPage = 'monthly-report-detail-page';
   // Expenses
   static const dashboardPage = 'dashboard-page';
   static const expensePage = 'expense-page';
@@ -40,6 +41,7 @@ class NamedArguments {
   static const isRegister = 'is-register';
   static const creditId = 'credit-id';
   static const accountData = 'account-data';
+  static const data = 'data';
 }
 
 class AppRoute {
@@ -168,6 +170,16 @@ class AppRoute {
             return HistoriesCreditPage(creditId: creditId);
           },
         );
+
+      case MonthlyReportDetailPage.routeName:
+        final arguments = settings.arguments as Map<String, dynamic>;
+        final data = arguments[NamedArguments.data] as List<MonthlyReportData>;
+        return MaterialPageRoute(
+          builder: (context) {
+            return MonthlyReportDetailPage(data: data);
+          },
+        );
+
       default:
         return MaterialPageRoute(
           builder: (context) => const Scaffold(
