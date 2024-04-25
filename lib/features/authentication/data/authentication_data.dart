@@ -5,4 +5,6 @@ export 'repositories/occupation_repository.dart';
 export 'models/login_response.dart';
 export 'models/account_response.dart';
 export 'models/delete_response.dart';
+export 'models/privacy_en.dart';
+export 'models/privacy_id.dart';
 export 'repositories/auth_repository.dart';

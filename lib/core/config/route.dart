@@ -20,6 +20,7 @@ class RouteName {
   static const resetPasswordPage = 'reset-password-page';
   static const mainPage = 'main-page';
   static const monthlyReportDetailPage = 'monthly-report-detail-page';
+  static const privacyPolicePage = 'privacy-police-page';
   // Expenses
   static const dashboardPage = 'dashboard-page';
   static const expensePage = 'expense-page';
@@ -177,6 +178,12 @@ class AppRoute {
         return MaterialPageRoute(
           builder: (context) {
             return MonthlyReportDetailPage(data: data);
+          },
+        );
+      case PrivacyPolicePage.routeName:
+        return MaterialPageRoute(
+          builder: (context) {
+            return const PrivacyPolicePage();
           },
         );
 

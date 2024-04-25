@@ -1,5 +1,4 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'dart:developer';
 
 import 'package:dio/dio.dart';
 import 'package:equatable/equatable.dart';
@@ -29,7 +28,6 @@ class IncomeRemoteDatasourceImpl extends IncomeRemoteDatasource {
       ),
       data: params.toMap(),
     );
-    log('create income datasource ${response.data}');
     if (response.statusCode == 200) {
       return IncomeResponse.fromJson(response.data);
     } else {
@@ -49,8 +47,6 @@ class IncomeRemoteDatasourceImpl extends IncomeRemoteDatasource {
       ),
       queryParameters: params.toMap(),
     );
-    log('kaido ${response.data}');
-    log('kaido ${params.toMap()}');
     if (response.statusCode == 200) {
       return GetIncomeResponse.fromJson(response.data);
     } else {

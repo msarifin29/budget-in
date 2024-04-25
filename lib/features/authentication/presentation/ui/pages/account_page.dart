@@ -134,6 +134,9 @@ class AccountPage extends StatelessWidget {
             DetailAccountOnlyTitlewidget(
               image: SvgName.privacy,
               title: context.l10n.privacy_and_policy,
+              onTap: () {
+                Navigator.pushNamed(context, PrivacyPolicePage.routeName);
+              },
             ),
             // DetailAccountOnlyTitlewidget(
             //     image: SvgName.contactSupport,

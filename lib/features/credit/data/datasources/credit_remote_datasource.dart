@@ -1,5 +1,4 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'dart:developer';
 
 import 'package:dio/dio.dart';
 import 'package:equatable/equatable.dart';
@@ -54,7 +53,6 @@ class CreditRemoteDatasourceImpl extends CreditRemoteDatasource {
       ),
       queryParameters: params.toMap(),
     );
-    log('${response.data}');
     if (response.statusCode == 200) {
       return GetCreditResponse.fromJson(response.data);
     } else {
@@ -74,7 +72,6 @@ class CreditRemoteDatasourceImpl extends CreditRemoteDatasource {
       }),
       queryParameters: params.toMap(),
     );
-    log('${response.data}');
     if (response.statusCode == 200) {
       return HistoryResponse.fromJson(response.data);
     } else {
