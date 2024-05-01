@@ -78,12 +78,21 @@ class _ForgotPasswordpageState extends State<ForgotPasswordpage> {
                 BlocConsumer<ForgotPasswordBloc, ForgotPasswordState>(
                   listener: (context, state) {
                     if (state is ForgotPasswordFailure) {
-                      context.scaffoldMessenger.showSnackBar(
-                        floatingSnackBar(
-                          context,
-                          context.l10n.failed_forgot_password,
-                        ),
-                      );
+                      if (state.message.contains('email')) {
+                        context.scaffoldMessenger.showSnackBar(
+                          floatingSnackBar(
+                            context,
+                            context.l10n.failed_forgot_password,
+                          ),
+                        );
+                      } else {
+                        context.scaffoldMessenger.showSnackBar(
+                          floatingSnackBar(
+                            context,
+                            context.l10n.try_again_later,
+                          ),
+                        );
+                      }
                     }
                     if (state is ForgotPasswordSuccess) {
                       Navigator.pop(context);

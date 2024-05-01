@@ -59,7 +59,8 @@ class _NewIncomePageState extends State<NewIncomePage> {
                 );
               } else if (state is CreateIncomeFailed) {
                 context.scaffoldMessenger.showSnackBar(
-                  floatingSnackBar(context, state.message),
+                  floatingSnackBar(context,
+                      context.l10n.msg_failed_add_new(context.l10n.income)),
                 );
               }
             },
@@ -77,6 +78,7 @@ class _NewIncomePageState extends State<NewIncomePage> {
                   ),
                   PrimaryButton(
                     text: context.l10n.yes,
+                    backgroundColor: ColorApp.green,
                     minSize: const Size(100, 40),
                     onPressed: () => submitIncome(),
                   ),

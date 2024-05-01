@@ -38,6 +38,7 @@ class AccountPage extends StatelessWidget {
                           const ColorFilter.mode(ColorApp.red, BlendMode.srcIn),
                       width: 65,
                     ),
+                    const SizedBox(height: 20),
                     Text(
                       context.l10n.confir_delete_account,
                       textAlign: TextAlign.center,
@@ -59,7 +60,7 @@ class AccountPage extends StatelessWidget {
                         context.scaffoldMessenger.showSnackBar(
                           floatingSnackBar(
                             context,
-                            context.l10n.something_wrong,
+                            context.l10n.try_again_later,
                           ),
                         );
                       } else if (state is DeleteAccountSuccess) {
@@ -91,7 +92,7 @@ class AccountPage extends StatelessWidget {
                             },
                             text: context.l10n.yes,
                             minSize: const Size(80, 45),
-                            backgroundColor: ColorApp.green,
+                            backgroundColor: ColorApp.red.withOpacity(0.7),
                           ),
                         ],
                       );

@@ -63,7 +63,8 @@ class _NewExpensePageState extends State<NewExpensePage> {
                     );
               } else if (state is CreateExpenseFailure) {
                 context.scaffoldMessenger.showSnackBar(
-                  floatingSnackBar(context, state.message),
+                  floatingSnackBar(context,
+                      context.l10n.msg_failed_add_new(context.l10n.expense)),
                 );
               }
             },
@@ -81,6 +82,7 @@ class _NewExpensePageState extends State<NewExpensePage> {
                   ),
                   PrimaryButton(
                     text: context.l10n.yes,
+                    backgroundColor: ColorApp.green,
                     minSize: const Size(100, 40),
                     onPressed: () => submit(),
                   ),
@@ -150,8 +152,9 @@ class _NewExpensePageState extends State<NewExpensePage> {
                 keyboardType: TextInputType.number,
                 inputFormatters: [formatter],
               ),
+              const SizedBox(height: 10),
               FormWidget(
-                title: 'Notes',
+                title: context.l10n.desc,
                 hint: '',
                 controller: notesC,
               ),

@@ -71,7 +71,7 @@ class _CreditPageState extends State<CreditPage>
                 );
               }
             } else if (state is GetCreditsFailure) {
-              pagingController.error = state.message;
+              pagingController.error = context.l10n.something_wrong;
             }
           },
           child: SizedBox(

@@ -225,7 +225,7 @@ class _ExpensePageState extends State<ExpensePage>
                             );
                           }
                         } else if (state is GetExpensesFailure) {
-                          pagingController.error = state.message;
+                          pagingController.error = context.l10n.something_wrong;
                         }
                       },
                       child: SizedBox(
@@ -291,7 +291,7 @@ class _ExpensePageState extends State<ExpensePage>
                             );
                           }
                         } else if (state is GetExpensesFailure) {
-                          pagingController.error = state.message;
+                          pagingController.error = context.l10n.something_wrong;
                         }
                       },
                       child: SizedBox(
@@ -357,7 +357,7 @@ class _ExpensePageState extends State<ExpensePage>
                             );
                           }
                         } else if (state is GetExpensesFailure) {
-                          pagingController.error = state.message;
+                          pagingController.error = context.l10n.something_wrong;
                         }
                       },
                       child: SizedBox(

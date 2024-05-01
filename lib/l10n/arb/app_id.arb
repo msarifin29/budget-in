@@ -48,6 +48,14 @@
       }
     }
   },
+  "@msg_failed_add_new": {
+    "description": "A message with a parameters",
+    "placeholders": {
+      "typex": {
+        "type": "String"
+      }
+    }
+  },
   "no": "Tidak",
   "yes": "Ya",
   "msg_onboarding": "Membangun kebiasaan finansial yang sehat dan mengendalikan pengeluaran yang tidak perlu",
@@ -172,5 +180,8 @@
   "empty_monthly_report": "Tidak ada laporan pemasukan dan pengeluaran yang tersedia",
   "invalid_email_or_pwd": "Maaf! Alamat email yang Anda masukkan tampaknya tidak valid. Mohon periksa kembali dan masukkan alamat email yang benar.",
   "enter_email_valid": "Masukkan alamat email yang benar",
-  "failed_create_account": "Kami tidak dapat memproses permintaan Anda saat ini. Silakan coba lagi nanti."
+  "failed_create_account": "Kami tidak dapat memproses permintaan Anda saat ini. Silakan coba lagi nanti.",
+  "desc": "Keterangan",
+  "msg_failed_add_new": "Kami mengalami masalah saat menambahkan {typex} Anda. Silakan coba lagi nanti.",
+  "try_again_later": "Tidak dapat memproses permintaan Anda. Silakan coba lagi nanti. "
 }

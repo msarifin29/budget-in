@@ -66,7 +66,7 @@ class _NewCreditPageState extends State<NewCreditPage> {
                 context.scaffoldMessenger.showSnackBar(
                   floatingSnackBar(
                     context,
-                    state.message,
+                    context.l10n.msg_failed_add_new(context.l10n.credit),
                   ),
                 );
               } else if (state is CreateCreditSuccess) {
@@ -94,6 +94,7 @@ class _NewCreditPageState extends State<NewCreditPage> {
                   ),
                   PrimaryButton(
                     text: context.l10n.yes,
+                    backgroundColor: ColorApp.green,
                     minSize: const Size(100, 40),
                     onPressed: () => submit(),
                   ),

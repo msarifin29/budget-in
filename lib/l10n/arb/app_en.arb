@@ -48,6 +48,14 @@
             }
         }
     },
+    "@msg_failed_add_new": {
+        "description": "A message with a parameters",
+        "placeholders": {
+            "typex": {
+                "type": "String"
+            }
+        }
+    },
     "no": "No",
     "yes": "Yes",
     "msg_onboarding": "Build healthy financial habits and control unncessary expenses",
@@ -172,5 +180,8 @@
     "empty_monthly_report": "There are no income and expense reports to show",
     "invalid_email_or_pwd": "Sorry! The email address you entered appears to be invalid. Please double-check and enter a valid email address",
     "enter_email_valid": "Enter a valid email address",
-    "failed_create_account": "We're unable to process your request at this time. Please try again later"
+    "failed_create_account": "We're unable to process your request at this time. Please try again later",
+    "desc": "Description",
+    "msg_failed_add_new": "We encountered an issue adding your {typex}. Please try again later",
+    "try_again_later": "Unable to process your request. Please try again later."
 }

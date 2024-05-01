@@ -68,7 +68,7 @@ class PaymentCreditWidget extends StatelessWidget {
                   log('kong state $state');
                   if (state is PayCreditFailure) {
                     context.scaffoldMessenger.showSnackBar(
-                      floatingSnackBar(context, state.message),
+                      floatingSnackBar(context, context.l10n.try_again_later),
                     );
                     Navigator.pop(context);
                   } else if (state is PayCreditSuccess) {

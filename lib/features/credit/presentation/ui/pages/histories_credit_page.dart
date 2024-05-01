@@ -70,7 +70,7 @@ class _HistoriesCreditPageState extends State<HistoriesCreditPage> {
               );
             }
           } else if (state is GetHistoriesCreditFailure) {
-            pagingController.error = state.message;
+            pagingController.error = context.l10n.something_wrong;
           }
         },
         child: SizedBox(
