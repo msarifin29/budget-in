@@ -140,6 +140,13 @@ class EditMonthlyBudgetWidget extends StatefulWidget {
 class _EditMonthlyBudgetWidgetState extends State<EditMonthlyBudgetWidget> {
   final textControl = TextEditingController();
   final globalKey = GlobalKey<FormState>();
+
+  @override
+  void initState() {
+    textControl.text = widget.maxBudget;
+    super.initState();
+  }
+
   @override
   void dispose() {
     textControl.dispose();
@@ -214,6 +221,7 @@ class _EditMonthlyBudgetWidgetState extends State<EditMonthlyBudgetWidget> {
                     text: context.l10n.submit,
                     onPressed: () {
                       if (globalKey.currentState!.validate()) {
+                        if (textControl.text.trim() == widget.maxBudget) return;
                         context.read<UpdateMaxBudgetBloc>().add(
                               OnUpdated(
                                 param: UpdateMaxBudgetparam(

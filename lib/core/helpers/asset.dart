@@ -58,6 +58,10 @@ class SvgName {
   static const incomeIcon = '${BaseAsset.svg}income_icon.svg';
   static const email = '${BaseAsset.svg}email.svg';
   static const password = '${BaseAsset.svg}password.svg';
+  static const crab1 = '${BaseAsset.svg}crab1.svg';
+  static const crab2 = '${BaseAsset.svg}crab2.svg';
+  static const crab3 = '${BaseAsset.svg}crab3.svg';
+  static const crab4 = '${BaseAsset.svg}crab4.svg';
 }
 
 class ImageName {

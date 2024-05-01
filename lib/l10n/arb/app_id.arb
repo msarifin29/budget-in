@@ -183,5 +183,9 @@
   "failed_create_account": "Kami tidak dapat memproses permintaan Anda saat ini. Silakan coba lagi nanti.",
   "desc": "Keterangan",
   "msg_failed_add_new": "Kami mengalami masalah saat menambahkan {typex} Anda. Silakan coba lagi nanti.",
-  "try_again_later": "Tidak dapat memproses permintaan Anda. Silakan coba lagi nanti. "
+  "try_again_later": "Tidak dapat memproses permintaan Anda. Silakan coba lagi nanti.",
+  "quote1": "Kelola keuangan Anda! \nLacak pendapatan, pengeluaran & buat anggaran",
+  "quote2": "Atur keuangan dengan mudah!\n Anggaran, lacak pengeluaran, capai tujuan finansial.",
+  "quote3": "Bebas finansial dimulai di sini!\n Kelola pendapatan, pengeluaran & bangun kekayaan",
+  "quote4": "Wujudkan mimpi finansial!\n Lacak pemasukan & pengeluaran. Hemat & berinvestasi."
 }

@@ -183,5 +183,9 @@
     "failed_create_account": "We're unable to process your request at this time. Please try again later",
     "desc": "Description",
     "msg_failed_add_new": "We encountered an issue adding your {typex}. Please try again later",
-    "try_again_later": "Unable to process your request. Please try again later."
+    "try_again_later": "Unable to process your request. Please try again later.",
+    "quote1": "Take control of your finances!\n Track income, expenses & budget with ease.",
+    "quote2": "Master your money!\n Budget, track expenses, reach financial goals.",
+    "quote3": "Simplify finances!\n Easy budgeting & expense tracking. Save for your dreams.",
+    "quote4": "Financial freedom starts here!\n Manage income, expenses & build wealth."
 }
