@@ -6,19 +6,22 @@ class PrimaryTextButton extends StatelessWidget {
     required this.text,
     super.key,
     this.onPressed,
+    this.style,
   });
   final VoidCallback? onPressed;
   final String text;
+  final TextStyle? style;
   @override
   Widget build(BuildContext context) {
     return TextButton(
       onPressed: onPressed,
       child: Text(
         text,
-        style: context.textTheme.bodyMedium?.copyWith(
-          color: ColorApp.blue,
-          fontWeight: FontWeight.w600,
-        ),
+        style: style ??
+            context.textTheme.bodyMedium?.copyWith(
+              color: ColorApp.blue,
+              fontWeight: FontWeight.w600,
+            ),
       ),
     );
   }

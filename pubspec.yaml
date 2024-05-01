@@ -15,6 +15,7 @@ dependencies:
   dartz: ^0.10.1
   dio: ^5.4.1
   dropdown_search: ^5.0.6
+  email_validator: ^2.1.17
   equatable: ^2.0.5
   firebase_core: ^2.26.0
   fl_chart: ^0.66.2

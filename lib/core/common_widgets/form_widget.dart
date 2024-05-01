@@ -55,7 +55,7 @@ class FormWidget extends StatelessWidget {
         ),
         const SizedBox(height: 10),
         TextFormField(
-          style: style ?? context.textTheme.bodyMedium,
+          style: style ?? context.textTheme.bodySmall,
           decoration: InputDecoration(
             border: const OutlineInputBorder(
               borderRadius: BorderRadius.all(

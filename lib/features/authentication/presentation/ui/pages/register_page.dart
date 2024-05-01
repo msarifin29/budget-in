@@ -2,6 +2,7 @@ import 'package:budget_in/core/core.dart';
 import 'package:budget_in/features/authentication/authentication.dart';
 import 'package:budget_in/l10n/l10n.dart';
 import 'package:flutter/material.dart';
+import 'package:email_validator/email_validator.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});
@@ -28,6 +29,10 @@ class _RegisterPageState extends State<RegisterPage> {
     super.dispose();
   }
 
+  bool isValidEmail(String email) {
+    return EmailValidator.validate(email);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -50,7 +55,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     ),
                     validator: (value) {
                       if (value == null || value == '') {
-                        return Strings.emptyName;
+                        return context.l10n.empty_username;
                       }
                       return null;
                     },
@@ -68,6 +73,8 @@ class _RegisterPageState extends State<RegisterPage> {
                     validator: (value) {
                       if (value == null || value == '') {
                         return context.l10n.empty_email;
+                      } else if (!isValidEmail(value.trim())) {
+                        return context.l10n.enter_email_valid;
                       }
                       return null;
                     },

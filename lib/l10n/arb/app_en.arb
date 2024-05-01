@@ -71,7 +71,7 @@
     "empty_email": "Email can't be empty",
     "empty_balance": "Minimun balance 100.000",
     "empty_cash": "Minimun cash 50.000",
-    "password_to_short": "The password must be at least 6 characters long",
+    "password_to_short": "The password must be at least 6 characters",
     "income": "Income",
     "expense": "Expense",
     "credit": "Credit",
@@ -169,5 +169,8 @@
     "success_reset_pwd": "Your password has been reset successfully. You can now log in with your new password",
     "failed_reset_pwd": "There was an error resetting your password. Please try again",
     "confirm_new": "Once you confirm, this {type_x} will be created. Are you sure you want to proceed?",
-    "empty_monthly_report": "There are no income and expense reports to show"
+    "empty_monthly_report": "There are no income and expense reports to show",
+    "invalid_email_or_pwd": "Sorry! The email address you entered appears to be invalid. Please double-check and enter a valid email address",
+    "enter_email_valid": "Enter a valid email address",
+    "failed_create_account": "We're unable to process your request at this time. Please try again later"
 }

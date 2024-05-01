@@ -5,6 +5,7 @@ import 'package:budget_in/core/core.dart';
 import 'package:budget_in/features/authentication/authentication.dart';
 import 'package:budget_in/injection.dart';
 import 'package:budget_in/l10n/l10n.dart';
+import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -41,13 +42,16 @@ class _LoginPageState extends State<LoginPage> {
     await spm.putString(SharedPreferencesManager.keyAccountId, accountId);
   }
 
+  bool isValidEmail(String email) {
+    return EmailValidator.validate(email);
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => LoginBloc(loginUsecase: sl()),
       child: Scaffold(
         body: SingleChildScrollView(
-          padding: const EdgeInsets.symmetric(horizontal: 24),
           child: Column(
             children: [
               const LogoWidget(),
@@ -55,85 +59,96 @@ class _LoginPageState extends State<LoginPage> {
                 key: globalKey,
                 child: Column(
                   children: [
-                    FormWidget(
-                      title: 'Email',
-                      hint: Strings.inputEmail,
-                      controller: emailControl,
-                      keyboardType: TextInputType.emailAddress,
-                      icon: const Icon(
-                        Icons.email_outlined,
-                        color: ColorApp.green,
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 24),
+                      child: FormWidget(
+                        title: 'Email',
+                        hint: Strings.inputEmail,
+                        controller: emailControl,
+                        keyboardType: TextInputType.emailAddress,
+                        icon: const Icon(
+                          Icons.email_outlined,
+                          color: ColorApp.green,
+                        ),
+                        validator: (value) {
+                          if (value == null || value == '') {
+                            return context.l10n.empty_email;
+                          } else if (!isValidEmail(value.trim())) {
+                            return context.l10n.enter_email_valid;
+                          }
+                          return null;
+                        },
                       ),
-                      validator: (value) {
-                        if (value == null || value == '') {
-                          return context.l10n.empty_email;
-                        }
-                        return null;
-                      },
                     ),
                     const SizedBox(height: 20),
-                    ValueListenableBuilder(
-                      valueListenable: isObscureText,
-                      builder: (context, value, _) {
-                        return FormWidget(
-                          title: context.l10n.password,
-                          hint: context.l10n.input_password,
-                          controller: passwordControl,
-                          icon: IconButton(
-                            onPressed: () {
-                              isObscureText.value = !isObscureText.value;
-                            },
-                            icon: Icon(
-                              isObscureText.value
-                                  ? Icons.visibility_off_outlined
-                                  : Icons.visibility_outlined,
-                              color: ColorApp.green,
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 24),
+                      child: ValueListenableBuilder(
+                        valueListenable: isObscureText,
+                        builder: (context, value, _) {
+                          return FormWidget(
+                            title: context.l10n.password,
+                            hint: context.l10n.input_password,
+                            controller: passwordControl,
+                            icon: IconButton(
+                              onPressed: () {
+                                isObscureText.value = !isObscureText.value;
+                              },
+                              icon: Icon(
+                                isObscureText.value
+                                    ? Icons.visibility_off_outlined
+                                    : Icons.visibility_outlined,
+                                color: ColorApp.green,
+                              ),
                             ),
-                          ),
-                          obscureText: isObscureText.value,
-                          validator: (value) {
-                            if (value == null || value == '') {
-                              return context.l10n.empty_password;
-                            } else if (value.length < 6) {
-                              return context.l10n.password_to_short;
-                            }
-                            return null;
-                          },
-                        );
-                      },
+                            obscureText: isObscureText.value,
+                            validator: (value) {
+                              if (value == null || value == '') {
+                                return context.l10n.empty_password;
+                              } else if (value.length < 6) {
+                                return context.l10n.password_to_short;
+                              }
+                              return null;
+                            },
+                          );
+                        },
+                      ),
                     ),
                   ],
                 ),
               ),
               const SizedBox(height: 20),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      Text(context.l10n.have_account),
-                      PrimaryTextButton(
-                        text: context.l10n.new_account,
-                        onPressed: () {
-                          Navigator.pushNamedAndRemoveUntil(
-                            context,
-                            RegisterPage.routeName,
-                            (route) => false,
-                          );
-                        },
-                      ),
-                    ],
+              Container(
+                alignment: Alignment.centerRight,
+                padding: const EdgeInsets.only(right: 20),
+                child: PrimaryTextButton(
+                  text: context.l10n.new_account,
+                  style: context.textTheme.bodySmall?.copyWith(
+                    color: ColorApp.blue,
+                    fontWeight: FontWeight.w500,
                   ),
-                  PrimaryTextButton(
-                    text: context.l10n.forgot_password,
-                    onPressed: () {
-                      Navigator.pushNamed(
-                          context, RouteName.forgotPasswordPage);
-                    },
+                  onPressed: () {
+                    Navigator.pushNamedAndRemoveUntil(
+                      context,
+                      RegisterPage.routeName,
+                      (route) => false,
+                    );
+                  },
+                ),
+              ),
+              Container(
+                alignment: Alignment.centerRight,
+                padding: const EdgeInsets.only(right: 20),
+                child: PrimaryTextButton(
+                  text: context.l10n.forgot_password,
+                  style: context.textTheme.bodySmall?.copyWith(
+                    color: ColorApp.blue,
+                    fontWeight: FontWeight.w500,
                   ),
-                ],
+                  onPressed: () {
+                    Navigator.pushNamed(context, RouteName.forgotPasswordPage);
+                  },
+                ),
               ),
               const SizedBox(height: 100),
               BlocConsumer<LoginBloc, LoginState>(
@@ -153,7 +168,9 @@ class _LoginPageState extends State<LoginPage> {
                       state.data.user.accountId,
                     );
                   } else if (state is LoginFailure) {
-                    simpleDialog(context: context, title: state.message);
+                    simpleDialog(
+                        context: context,
+                        title: context.l10n.invalid_email_or_pwd);
                   }
                 },
                 builder: (context, state) {
@@ -161,18 +178,21 @@ class _LoginPageState extends State<LoginPage> {
                   if (state is LoginLoading) {
                     return const CircularLoading();
                   }
-                  return PrimaryButton(
-                    text: context.l10n.login,
-                    onPressed: () {
-                      if (globalKey.currentState!.validate()) {
-                        context.read<LoginBloc>().add(
-                              OnUserLogin(
-                                email: emailControl.text.trim(),
-                                password: passwordControl.text.trim(),
-                              ),
-                            );
-                      }
-                    },
+                  return Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    child: PrimaryButton(
+                      text: context.l10n.login,
+                      onPressed: () {
+                        if (globalKey.currentState!.validate()) {
+                          context.read<LoginBloc>().add(
+                                OnUserLogin(
+                                  email: emailControl.text.trim(),
+                                  password: passwordControl.text.trim(),
+                                ),
+                              );
+                        }
+                      },
+                    ),
                   );
                 },
               ),

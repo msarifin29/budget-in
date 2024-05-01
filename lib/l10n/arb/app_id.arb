@@ -169,5 +169,8 @@
   "success_reset_pwd": "Kata sandi Anda telah berhasil diatur ulang. Sekarang Anda dapat masuk dengan kata sandi baru Anda",
   "failed_reset_pwd": "Terjadi kesalahan saat mengatur ulang kata sandi Anda. Silahkan coba lagi",
   "confirm_new": "Setelah Anda konfirmasi, {type_x} ini akan dibuat. Apakah Anda yakin ingin melanjutkan?",
-  "empty_monthly_report": "Tidak ada laporan pemasukan dan pengeluaran yang tersedia"
+  "empty_monthly_report": "Tidak ada laporan pemasukan dan pengeluaran yang tersedia",
+  "invalid_email_or_pwd": "Maaf! Alamat email yang Anda masukkan tampaknya tidak valid. Mohon periksa kembali dan masukkan alamat email yang benar.",
+  "enter_email_valid": "Masukkan alamat email yang benar",
+  "failed_create_account": "Kami tidak dapat memproses permintaan Anda saat ini. Silakan coba lagi nanti."
 }
