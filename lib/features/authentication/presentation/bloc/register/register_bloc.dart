@@ -13,9 +13,11 @@ part 'register_state.dart';
 
 class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
   final RegisterUsecase registerUsecase;
-  RegisterBloc(
-    this.registerUsecase,
-  ) : super(RegisterInitial()) {
+  final ExistingEmailUsecase existingEmailUsecase;
+  RegisterBloc({
+    required this.registerUsecase,
+    required this.existingEmailUsecase,
+  }) : super(RegisterInitial()) {
     on<OnUserRegister>((event, emit) async {
       emit(RegisterLoading());
       final result = await registerUsecase(
@@ -38,6 +40,22 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
 
         return RegisterFailure(message: message);
       }, (r) => RegisterSuccess(data: r.data)));
+    });
+    on<ExistingEmail>((event, emit) async {
+      emit(ExistingEmailLoading());
+      final result = await existingEmailUsecase(event.email);
+      emit(result.fold((l) {
+        var message = '';
+        if (l is ServerFailure) {
+          message = l.failure.message ?? '';
+        } else if (l is ConnectionFailure) {
+          message = 'Connection Faiure';
+        } else if (l is ParsingFailure) {
+          log(message = l.message);
+        }
+
+        return ExistingEmailFailure(message: message);
+      }, (r) => ExistingEmailSuccess(isExist: r.data)));
     });
   }
 }

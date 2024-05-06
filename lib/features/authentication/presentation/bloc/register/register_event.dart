@@ -27,3 +27,14 @@ final class OnUserRegister extends RegisterEvent {
     return 'OnUserRegister{username:$username, email:$email, password:$password, balance:$balance, cash:$cash,}';
   }
 }
+
+class ExistingEmail extends RegisterEvent {
+  const ExistingEmail({required this.email});
+  final String email;
+  @override
+  List<Object> get props => [email];
+  @override
+  String toString() {
+    return 'ExistingEmail{email:$email}';
+  }
+}

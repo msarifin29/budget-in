@@ -15,6 +15,7 @@ abstract class AuthRepository {
       ForgotPasswordParam param);
   Future<Either<Failure, DynamicResponse>> resetPassword(
       ResetPasswordParam param);
+  Future<Either<Failure, DynamicResponse>> checkEmail(String email);
 }
 
 class AuthRepositoryImpl extends AuthRepository {
@@ -249,6 +250,50 @@ class AuthRepositoryImpl extends AuthRepository {
       try {
         final DynamicResponse response =
             await remoteDataSource.resetPassword(param);
+        return Right(response);
+      } on DioException catch (error) {
+        if (error.response == null) {
+          return Left(
+            ServerFailure(
+              DataApiFailure(message: error.message),
+            ),
+          );
+        }
+        final errorResponseData = error.response?.data;
+        dynamic errorData;
+        String errorMessage = Helpers.getErrorMessageFromEndpoint(
+          errorResponseData,
+          error.message ?? '',
+          error.response?.statusCode ?? 400,
+        );
+        if (errorResponseData is Map &&
+            errorResponseData.containsKey('error')) {
+          errorData = errorResponseData['error'];
+        }
+        return Left(
+          ServerFailure(
+            DataApiFailure(
+              message: errorMessage,
+              code: error.response?.statusCode,
+              status: errorData,
+            ),
+          ),
+        );
+      } on TypeError catch (error) {
+        return Left(ParsingFailure(error.toString()));
+      }
+    } else {
+      return Left(ConnectionFailure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, DynamicResponse>> checkEmail(String email) async {
+    bool isConnected = await networkInfo.isConnected;
+    if (isConnected) {
+      try {
+        final DynamicResponse response =
+            await remoteDataSource.checkEmail(email);
         return Right(response);
       } on DioException catch (error) {
         if (error.response == null) {

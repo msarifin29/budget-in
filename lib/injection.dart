@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:budget_in/core/core.dart';
 import 'package:budget_in/features/authentication/authentication.dart';
 import 'package:budget_in/features/authentication/data/datasources/auth_remote_datasource.dart';
+import 'package:budget_in/features/authentication/presentation/bloc/register/register_bloc.dart';
 import 'package:budget_in/features/expenses/expenses.dart';
 import 'package:budget_in/features/incomes/incomes.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';

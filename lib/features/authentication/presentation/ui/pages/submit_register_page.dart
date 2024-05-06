@@ -57,7 +57,7 @@ class _SubmitRegisterPageState extends State<SubmitRegisterPage> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => RegisterBloc(sl<RegisterUsecase>()),
+      create: (context) => sl<RegisterBloc>(),
       child: Scaffold(
         body: SingleChildScrollView(
           padding: const EdgeInsets.symmetric(horizontal: 24),

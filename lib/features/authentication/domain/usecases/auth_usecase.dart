@@ -74,3 +74,14 @@ class ResetPasswordUsecase
     return await repository.resetPassword(param);
   }
 }
+
+class ExistingEmailUsecase implements UseCase<DynamicResponse, String> {
+  final AuthRepository repository;
+
+  ExistingEmailUsecase({required this.repository});
+
+  @override
+  FutureOr<Either<Failure, DynamicResponse>> call(String param) async {
+    return await repository.checkEmail(param);
+  }
+}

@@ -36,3 +36,31 @@ final class RegisterFailure extends RegisterState {
     return 'RegisterFailure{message:$message}';
   }
 }
+
+final class ExistingEmailLoading extends RegisterState {}
+
+final class ExistingEmailSuccess extends RegisterState {
+  const ExistingEmailSuccess({required this.isExist});
+
+  final bool isExist;
+  @override
+  List<Object> get props => [isExist];
+
+  @override
+  String toString() {
+    return 'ExistingEmailSuccess{isExist:$isExist}';
+  }
+}
+
+final class ExistingEmailFailure extends RegisterState {
+  const ExistingEmailFailure({required this.message});
+  final String message;
+
+  @override
+  List<Object> get props => [message];
+
+  @override
+  String toString() {
+    return 'ExistingEmailFailure{message:$message}';
+  }
+}

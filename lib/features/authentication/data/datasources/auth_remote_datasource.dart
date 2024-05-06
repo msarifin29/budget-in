@@ -15,6 +15,7 @@ abstract class AuthRemoteDataSource {
   Future<DeleteResponse> deleteAccount();
   Future<DynamicResponse> forgotPassword(ForgotPasswordParam param);
   Future<DynamicResponse> resetPassword(ResetPasswordParam param);
+  Future<DynamicResponse> checkEmail(String email);
 }
 
 class AuthRemoteDataSourceImpl extends AuthRemoteDataSource {
@@ -124,6 +125,19 @@ class AuthRemoteDataSourceImpl extends AuthRemoteDataSource {
         BaseUrlConfig.requiredUId: true,
       }),
     );
+    if (response.statusCode == 200) {
+      return DynamicResponse.fromJson(response.data);
+    } else {
+      throw DioException(
+        requestOptions: RequestOptions(path: path),
+      );
+    }
+  }
+
+  @override
+  Future<DynamicResponse> checkEmail(String email) async {
+    final String path = '$baseUrl/api/check-email/$email';
+    final Response<dynamic> response = await dio.get(path);
     if (response.statusCode == 200) {
       return DynamicResponse.fromJson(response.data);
     } else {
