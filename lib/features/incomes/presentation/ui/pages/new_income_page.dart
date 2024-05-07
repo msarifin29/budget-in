@@ -1,11 +1,11 @@
-import 'dart:developer';
-
 import 'package:budget_in/core/core.dart';
 import 'package:budget_in/features/incomes/incomes.dart';
 import 'package:budget_in/l10n/l10n.dart';
 import 'package:currency_text_input_formatter/currency_text_input_formatter.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 
 class NewIncomePage extends StatefulWidget {
   static const routeName = RouteName.newIncomePage;
@@ -19,7 +19,9 @@ class _NewIncomePageState extends State<NewIncomePage> {
   final globalKey = GlobalKey<FormState>();
   final categorySelected = ValueNotifier(ItemChoice(0, ''));
   final incomeType = ValueNotifier(ItemChoice(0, ''));
+  final date = ValueNotifier<DateTime?>(null);
 
+  final dateC = TextEditingController();
   final totalC = TextEditingController();
 
   final CurrencyTextInputFormatter formatter = CurrencyTextInputFormatter(
@@ -29,6 +31,10 @@ class _NewIncomePageState extends State<NewIncomePage> {
   );
 
   void submitIncome() {
+    String desiredFormat = "yyyy-MM-dd'T'HH:mm:ss'Z'";
+
+    String? formattedDate =
+        DateFormat(desiredFormat).format(date.value ?? DateTime.now());
     context.read<CreateIncomeBloc>().add(
           InitialCreateEvent(
             uid: Helpers.getUid(),
@@ -36,8 +42,26 @@ class _NewIncomePageState extends State<NewIncomePage> {
             typeIcome: ConstantType.newConstantType(incomeType.value.id),
             total: totalC.text.trim(),
             accountId: Helpers.getAccountId(),
+            createdAt: formattedDate,
           ),
         );
+  }
+
+  void showCupertinoDialog(Widget child) {
+    showCupertinoModalPopup<void>(
+      context: context,
+      builder: (BuildContext context) => Container(
+        height: 216,
+        padding: const EdgeInsets.only(top: 6.0),
+        margin: EdgeInsets.only(
+          bottom: MediaQuery.of(context).viewInsets.bottom,
+        ),
+        color: (Theme.of(context).brightness == Brightness.dark
+            ? ColorApp.night
+            : Colors.white),
+        child: SafeArea(top: false, child: child),
+      ),
+    );
   }
 
   Future<dynamic> confirmNewIncome() {
@@ -47,7 +71,6 @@ class _NewIncomePageState extends State<NewIncomePage> {
         actions: [
           BlocConsumer<CreateIncomeBloc, CreateIncomeState>(
             listener: (context, state) {
-              log('CreateIncome $state');
               if (state is CreateIncomeSuccess) {
                 Navigator.pop(context);
                 Navigator.pop(context);
@@ -58,6 +81,7 @@ class _NewIncomePageState extends State<NewIncomePage> {
                   ),
                 );
               } else if (state is CreateIncomeFailed) {
+                Navigator.pop(context);
                 context.scaffoldMessenger.showSnackBar(
                   floatingSnackBar(context,
                       context.l10n.msg_failed_add_new(context.l10n.income)),
@@ -157,6 +181,46 @@ class _NewIncomePageState extends State<NewIncomePage> {
                       return null;
                     },
                   ),
+                  const SizedBox(height: 10),
+                  ValueListenableBuilder(
+                      valueListenable: date,
+                      builder: (context, v, _) {
+                        String stringDate = TimeUtil()
+                            .today('d MMMM', date.value ?? DateTime.now());
+                        return FormWidget(
+                          title: context.l10n.date,
+                          hint: stringDate,
+                          controller: dateC,
+                          readOnly: true,
+                          icon: InkWell(
+                            onTap: () {
+                              showCupertinoDialog(
+                                CupertinoDatePicker(
+                                  initialDateTime: date.value,
+                                  mode: CupertinoDatePickerMode.date,
+                                  use24hFormat: true,
+                                  showDayOfWeek: true,
+                                  maximumYear: 2050,
+                                  onDateTimeChanged: (DateTime newDate) {
+                                    date.value = newDate;
+                                  },
+                                ),
+                              );
+                            },
+                            child: Container(
+                              alignment: Alignment.center,
+                              width: 100,
+                              margin: const EdgeInsets.all(10),
+                              padding: const EdgeInsets.all(4),
+                              decoration: BoxDecoration(
+                                border: Border.all(color: ColorApp.green),
+                                borderRadius: BorderRadius.circular(20),
+                              ),
+                              child: Text(context.l10n.yesterday),
+                            ),
+                          ),
+                        );
+                      }),
                   const SizedBox(height: 15),
                   Text(
                     context.l10n.type_x(context.l10n.income),
@@ -215,7 +279,7 @@ class _NewIncomePageState extends State<NewIncomePage> {
                       );
                     },
                   ),
-                  SizedBox(height: MediaQuery.sizeOf(context).height * 0.3),
+                  SizedBox(height: MediaQuery.sizeOf(context).height * 0.2),
                   PrimaryButton(
                     text: context.l10n.submit,
                     onPressed: () {

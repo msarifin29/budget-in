@@ -79,6 +79,7 @@ class Expenseparams extends Equatable {
   final int categoryId;
   final String accountId;
   final String? notes;
+  final String? createdAt;
 
   const Expenseparams({
     required this.uid,
@@ -88,6 +89,7 @@ class Expenseparams extends Equatable {
     required this.categoryId,
     required this.accountId,
     this.notes,
+    this.createdAt,
   });
 
   Map<String, dynamic> toMap() {
@@ -100,6 +102,7 @@ class Expenseparams extends Equatable {
     };
     if (category != null) data["category"] = category;
     if (notes != null) data["notes"] = notes;
+    if (createdAt != null) data["created_at"] = createdAt;
     return data;
   }
 

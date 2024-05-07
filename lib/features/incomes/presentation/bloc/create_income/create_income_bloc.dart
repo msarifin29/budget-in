@@ -1,11 +1,11 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
 import 'package:budget_in/core/core.dart';
 import 'package:equatable/equatable.dart';
 
 import 'package:budget_in/features/incomes/incomes.dart';
+import 'package:flutter/rendering.dart';
 
 part 'create_income_event.dart';
 part 'create_income_state.dart';
@@ -23,6 +23,7 @@ class CreateIncomeBloc extends Bloc<CreateIncomeEvent, CreateIncomeState> {
           typeIncome: event.typeIcome,
           total: event.total,
           accountId: event.accountId,
+          createdAt: event.createdAt,
         ),
       );
       emit(result.fold((l) {
@@ -32,7 +33,7 @@ class CreateIncomeBloc extends Bloc<CreateIncomeEvent, CreateIncomeState> {
         } else if (l is ConnectionFailure) {
           message = 'Connection Faiure';
         } else if (l is ParsingFailure) {
-          log(message = l.message);
+          debugPrint(message = l.message);
         }
         return CreateIncomeFailed(message: message);
       }, (r) => CreateIncomeSuccess(data: r.data)));

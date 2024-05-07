@@ -1,5 +1,4 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
 import 'package:budget_in/core/core.dart';
@@ -7,6 +6,7 @@ import 'package:budget_in/injection.dart';
 import 'package:equatable/equatable.dart';
 
 import 'package:budget_in/features/authentication/authentication.dart';
+import 'package:flutter/rendering.dart';
 
 part 'account_event.dart';
 part 'account_state.dart';
@@ -25,7 +25,7 @@ class AccountBloc extends Bloc<AccountEvent, AccountState> {
         } else if (l is ConnectionFailure) {
           message = 'Connection Faiure';
         } else if (l is ParsingFailure) {
-          log(message = l.message);
+          debugPrint(message = l.message);
         }
         return AccountFailre(message: message);
       }, (r) {

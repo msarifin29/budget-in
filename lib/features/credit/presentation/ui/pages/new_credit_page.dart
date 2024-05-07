@@ -1,7 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 
-import 'dart:developer';
-
 import 'package:currency_text_input_formatter/currency_text_input_formatter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -61,7 +59,6 @@ class _NewCreditPageState extends State<NewCreditPage> {
         actions: [
           BlocConsumer<CreateCreditBloc, CreateCreditState>(
             listener: (context, state) {
-              log('kong lol $state');
               if (state is CreateCreditFailure) {
                 context.scaffoldMessenger.showSnackBar(
                   floatingSnackBar(

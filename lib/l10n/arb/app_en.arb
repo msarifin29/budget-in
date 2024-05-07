@@ -190,5 +190,6 @@
     "quote4": "Financial freedom starts here!\n Manage income, expenses & build wealth.",
     "msg_email_exist": "This email address is already in use.\n please choose a different one",
     "expense_type": "Expense Type",
-    "income_type": "Income Type"
+    "income_type": "Income Type",
+    "yesterday": "yesterday"
 }

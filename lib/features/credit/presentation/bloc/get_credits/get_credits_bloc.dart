@@ -1,9 +1,8 @@
-import 'dart:developer';
-
 import 'package:bloc/bloc.dart';
 import 'package:budget_in/core/core.dart';
 import 'package:budget_in/features/credit/credits.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/rendering.dart';
 
 part 'get_credits_event.dart';
 part 'get_credits_state.dart';
@@ -24,7 +23,7 @@ class GetCreditsBloc extends Bloc<GetCreditsEvent, GetCreditsState> {
         } else if (l is ConnectionFailure) {
           message = 'Connection Faiure';
         } else if (l is ParsingFailure) {
-          log(message = l.message);
+          debugPrint(message = l.message);
         }
         return GetCreditsFailure(message: message);
       }, (r) => GetCreditsSuccess(response: r)));

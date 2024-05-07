@@ -1,10 +1,9 @@
-import 'dart:developer';
-
 import 'package:bloc/bloc.dart';
 import 'package:budget_in/core/core.dart';
 import 'package:budget_in/features/authentication/authentication.dart';
 import 'package:budget_in/features/authentication/data/datasources/auth_remote_datasource.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/rendering.dart';
 
 part 'reset_password_event.dart';
 part 'reset_password_state.dart';
@@ -28,7 +27,7 @@ class ResetPasswordBloc extends Bloc<ResetPasswordEvent, ResetPasswordState> {
           } else if (l is ConnectionFailure) {
             message = 'Connection Faiure';
           } else if (l is ParsingFailure) {
-            log(message = l.message);
+            debugPrint(message = l.message);
           }
           return ResetPasswordFailure(message: message);
         }, (r) => ResetPasswordSuccess(response: r)),

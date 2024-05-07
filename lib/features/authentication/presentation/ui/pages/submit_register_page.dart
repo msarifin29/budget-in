@@ -1,5 +1,4 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'dart:developer';
 
 import 'package:budget_in/features/authentication/presentation/bloc/register/register_bloc.dart';
 import 'package:budget_in/injection.dart';
@@ -171,7 +170,7 @@ class _SubmitRegisterPageState extends State<SubmitRegisterPage> {
               const SizedBox(height: 100),
               BlocConsumer<RegisterBloc, RegisterState>(
                 listener: (context, state) {
-                  log('register => $state');
+                  debugPrint('register => $state');
                   if (state is RegisterSuccess) {
                     Navigator.pushNamedAndRemoveUntil(
                       context,

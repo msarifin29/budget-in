@@ -1,10 +1,10 @@
 import 'dart:async';
-import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
 import 'package:budget_in/core/core.dart';
 import 'package:budget_in/features/expenses/expenses.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/rendering.dart';
 
 part 'expense_event.dart';
 part 'expense_state.dart';
@@ -27,6 +27,7 @@ class ExpenseBloc extends Bloc<ExpenseEvent, ExpenseState> {
         categoryId: event.categoryId,
         accountId: event.accountId,
         notes: event.notes,
+        createdAt: event.createdAt,
       ),
     );
     emit(result.fold((l) {
@@ -36,7 +37,7 @@ class ExpenseBloc extends Bloc<ExpenseEvent, ExpenseState> {
       } else if (l is ConnectionFailure) {
         message = 'Connection Faiure';
       } else if (l is ParsingFailure) {
-        log(message = l.message);
+        debugPrint(message = l.message);
       }
       return CreateExpenseFailure(message: message);
     }, (r) => CreateExpenseSuccess(expenseData: r.data)));

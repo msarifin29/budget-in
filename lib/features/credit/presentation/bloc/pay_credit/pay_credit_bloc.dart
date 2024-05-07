@@ -1,9 +1,8 @@
-import 'dart:developer';
-
 import 'package:bloc/bloc.dart';
 import 'package:budget_in/core/core.dart';
 import 'package:budget_in/features/credit/credits.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/rendering.dart';
 
 part 'pay_credit_event.dart';
 part 'pay_credit_state.dart';
@@ -29,7 +28,7 @@ class PayCreditBloc extends Bloc<PayCreditEvent, PayCreditState> {
         } else if (l is ConnectionFailure) {
           message = 'Connection Faiure';
         } else if (l is ParsingFailure) {
-          log(message = l.message);
+          debugPrint(message = l.message);
         }
         return PayCreditFailure(message: message);
       }, (r) => PayCreditSuccess(data: r.data)));

@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:budget_in/core/core.dart';
 import 'package:budget_in/features/onboarding/onboarding.dart';
 import 'package:budget_in/features/onboarding/presentation/bloc/update_max_budget/update_max_budget_bloc.dart';
@@ -28,7 +26,6 @@ class MaxBudgetWidget extends StatelessWidget {
       ),
       child: BlocBuilder<GetMaxBudgetBloc, GetMaxBudgetState>(
         builder: (context, state) {
-          log('maxbudget $state');
           if (state is GetMaxBudgetLoading) {
             return const CircularLoading();
           } else if (state is GetMaxBudgetFailure) {

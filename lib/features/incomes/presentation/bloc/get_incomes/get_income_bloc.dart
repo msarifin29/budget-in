@@ -1,9 +1,8 @@
-import 'dart:developer';
-
 import 'package:bloc/bloc.dart';
 import 'package:budget_in/core/core.dart';
 import 'package:budget_in/features/incomes/incomes.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/rendering.dart';
 
 part 'get_income_event.dart';
 part 'get_income_state.dart';
@@ -28,7 +27,7 @@ class GetIncomeBloc extends Bloc<GetIncomeEvent, GetIncomeState> {
         } else if (l is ConnectionFailure) {
           message = 'Connection Faiure';
         } else if (l is ParsingFailure) {
-          log(message = l.message);
+          debugPrint(message = l.message);
         }
         return GetIncomeFailure(message: message);
       }, (r) => GetIncomeSuccess(data: r.data)));

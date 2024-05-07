@@ -1,10 +1,9 @@
-import 'dart:developer';
-
 import 'package:bloc/bloc.dart';
 import 'package:budget_in/core/core.dart';
 import 'package:budget_in/features/authentication/authentication.dart';
 import 'package:budget_in/features/authentication/data/datasources/auth_remote_datasource.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/rendering.dart';
 
 part 'forgot_password_event.dart';
 part 'forgot_password_state.dart';
@@ -23,7 +22,7 @@ class ForgotPasswordBloc
         } else if (l is ConnectionFailure) {
           message = 'Connection Faiure';
         } else if (l is ParsingFailure) {
-          log(message = l.message);
+          debugPrint(message = l.message);
         }
         return ForgotPasswordFailure(message: message);
       }, (r) => ForgotPasswordSuccess(response: r)));

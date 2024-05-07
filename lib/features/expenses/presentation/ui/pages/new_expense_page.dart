@@ -3,8 +3,10 @@ import 'package:budget_in/features/authentication/authentication.dart';
 import 'package:budget_in/features/expenses/expenses.dart';
 import 'package:budget_in/l10n/l10n.dart';
 import 'package:currency_text_input_formatter/currency_text_input_formatter.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 
 class NewExpensePage extends StatefulWidget {
   static const routeName = RouteName.newExpensePage;
@@ -18,9 +20,11 @@ class _NewExpensePageState extends State<NewExpensePage> {
   final globalKey = GlobalKey<FormState>();
   final category = ValueNotifier(ItemChoice(0, ''));
   final expenseType = ValueNotifier(ItemChoice(0, ''));
+  final date = ValueNotifier<DateTime?>(null);
 
   final totalC = TextEditingController();
   final notesC = TextEditingController();
+  final dateC = TextEditingController();
 
   final CurrencyTextInputFormatter formatter = CurrencyTextInputFormatter(
     locale: 'id',
@@ -28,17 +32,38 @@ class _NewExpensePageState extends State<NewExpensePage> {
     decimalDigits: 0,
   );
 
+  void showCupertinoDialog(Widget child) {
+    showCupertinoModalPopup<void>(
+      context: context,
+      builder: (BuildContext context) => Container(
+        height: 216,
+        padding: const EdgeInsets.only(top: 6.0),
+        margin: EdgeInsets.only(
+          bottom: MediaQuery.of(context).viewInsets.bottom,
+        ),
+        color: (Theme.of(context).brightness == Brightness.dark
+            ? ColorApp.night
+            : Colors.white),
+        child: SafeArea(top: false, child: child),
+      ),
+    );
+  }
+
   void submit() {
+    String desiredFormat = "yyyy-MM-dd'T'HH:mm:ss'Z'";
+
+    String? formattedDate =
+        DateFormat(desiredFormat).format(date.value ?? DateTime.now());
     context.read<ExpenseBloc>().add(
           CreateExpenseEvent(
-            uid: Helpers.getUid(),
-            expenseType: ConstantType.newConstantType(expenseType.value.id),
-            total: totalC.text.trim(),
-            categoryId: category.value.id,
-            category: CategoryExpense.newCategoryExpense(category.value.id),
-            accountId: Helpers.getAccountId(),
-            notes: notesC.text.trim(),
-          ),
+              uid: Helpers.getUid(),
+              expenseType: ConstantType.newConstantType(expenseType.value.id),
+              total: totalC.text.trim(),
+              categoryId: category.value.id,
+              category: CategoryExpense.newCategoryExpense(category.value.id),
+              accountId: Helpers.getAccountId(),
+              notes: notesC.text.trim(),
+              createdAt: formattedDate),
         );
   }
 
@@ -62,6 +87,7 @@ class _NewExpensePageState extends State<NewExpensePage> {
                       OnInitialAccount(uid: Helpers.getUid()),
                     );
               } else if (state is CreateExpenseFailure) {
+                Navigator.pop(context);
                 context.scaffoldMessenger.showSnackBar(
                   floatingSnackBar(context,
                       context.l10n.msg_failed_add_new(context.l10n.expense)),
@@ -158,6 +184,48 @@ class _NewExpensePageState extends State<NewExpensePage> {
                 hint: '',
                 controller: notesC,
               ),
+              const SizedBox(height: 10),
+              ValueListenableBuilder(
+                  valueListenable: date,
+                  builder: (context, v, _) {
+                    String stringDate = TimeUtil()
+                        .today('d MMMM', date.value ?? DateTime.now());
+                    return FormWidget(
+                      title: context.l10n.date,
+                      hint: stringDate,
+                      controller: dateC,
+                      readOnly: true,
+                      icon: InkWell(
+                        onTap: () {
+                          showCupertinoDialog(
+                            CupertinoDatePicker(
+                              initialDateTime: date.value,
+                              mode: CupertinoDatePickerMode.date,
+                              use24hFormat: true,
+                              showDayOfWeek: true,
+                              maximumYear: 2050,
+                              onDateTimeChanged: (DateTime newDate) {
+                                date.value = newDate;
+                              },
+                            ),
+                          );
+                        },
+                        child: Container(
+                          alignment: Alignment.center,
+                          width: 100,
+                          margin: const EdgeInsets.all(10),
+                          padding: const EdgeInsets.all(4),
+                          decoration: BoxDecoration(
+                            border: Border.all(color: ColorApp.green),
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          child: Text(
+                            context.l10n.yesterday,
+                          ),
+                        ),
+                      ),
+                    );
+                  }),
               const SizedBox(height: 15),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,

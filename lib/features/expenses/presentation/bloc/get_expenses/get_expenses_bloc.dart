@@ -1,10 +1,10 @@
 import 'dart:async';
-import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
 import 'package:budget_in/core/helpers/failure.dart';
 import 'package:budget_in/features/expenses/expenses.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/rendering.dart';
 
 part 'get_expenses_event.dart';
 part 'get_expenses_state.dart';
@@ -34,7 +34,7 @@ class GetExpensesBloc extends Bloc<GetExpensesEvent, GetExpensesState> {
       } else if (l is ConnectionFailure) {
         message = 'Connection Faiure';
       } else if (l is ParsingFailure) {
-        log(message = l.message);
+        debugPrint(message = l.message);
       }
       return GetExpensesFailure(message: message);
     }, (r) => GetExpensesSuccess(expenseData: r.data)));

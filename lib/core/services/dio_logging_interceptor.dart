@@ -1,5 +1,4 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first, unused_field, unnecessary_null_comparison
-import 'dart:developer';
 import 'dart:io';
 
 import 'package:budget_in/core/core.dart';
@@ -59,8 +58,6 @@ class DioLoggingInterceptor extends InterceptorsWrapper {
     }
 
     options.headers.addAll({HttpHeaders.acceptHeader: 'application/json'});
-    log('headers => ${options.headers}');
-    log('data =>${options.data}');
     return handler.next(options);
   }
 

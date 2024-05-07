@@ -1,5 +1,4 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'dart:developer';
 
 import 'package:budget_in/core/core.dart';
 import 'package:budget_in/features/authentication/authentication.dart';
@@ -40,7 +39,7 @@ class _MainPageState extends State<MainPage> {
 
   void getAllEvent() {
     context.read<AccountBloc>().add(OnInitialAccount(uid: uid));
-    log('lol  account id => ${Helpers.getAccountId()} uid => $uid');
+
     context.read<GetMaxBudgetBloc>().add(
           InitialData(
             accountId: Helpers.getAccountId(),

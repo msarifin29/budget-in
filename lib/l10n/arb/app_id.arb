@@ -190,5 +190,6 @@
   "quote4": "Wujudkan mimpi finansial!\n Lacak pemasukan & pengeluaran. Hemat & berinvestasi.",
   "msg_email_exist": "Alamat email ini sudah digunakan.\n Silakan pilih yang lain",
   "expense_type": "Tipe Pengeluaran",
-  "income_type": "Tipe Pendapatan"
+  "income_type": "Tipe Pendapatan",
+  "yesterday": "kemarin"
 }

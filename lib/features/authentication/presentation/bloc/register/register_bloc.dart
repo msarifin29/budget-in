@@ -1,5 +1,4 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
 import 'package:budget_in/core/core.dart';
@@ -7,6 +6,7 @@ import 'package:budget_in/features/authentication/data/datasources/auth_remote_d
 import 'package:equatable/equatable.dart';
 
 import 'package:budget_in/features/authentication/authentication.dart';
+import 'package:flutter/rendering.dart';
 
 part 'register_event.dart';
 part 'register_state.dart';
@@ -35,7 +35,7 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
         } else if (l is ConnectionFailure) {
           message = 'Connection Faiure';
         } else if (l is ParsingFailure) {
-          log(message = l.message);
+          debugPrint(message = l.message);
         }
 
         return RegisterFailure(message: message);
@@ -51,7 +51,7 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
         } else if (l is ConnectionFailure) {
           message = 'Connection Faiure';
         } else if (l is ParsingFailure) {
-          log(message = l.message);
+          debugPrint(message = l.message);
         }
 
         return ExistingEmailFailure(message: message);

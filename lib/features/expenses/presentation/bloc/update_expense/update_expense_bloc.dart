@@ -1,9 +1,8 @@
-import 'dart:developer';
-
 import 'package:bloc/bloc.dart';
 import 'package:budget_in/core/core.dart';
 import 'package:budget_in/features/expenses/expenses.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/rendering.dart';
 
 part 'update_expense_event.dart';
 part 'update_expense_state.dart';
@@ -25,7 +24,7 @@ class UpdateExpenseBloc extends Bloc<UpdateExpenseEvent, UpdateExpenseState> {
         } else if (l is ConnectionFailure) {
           message = 'Connection Faiure';
         } else if (l is ParsingFailure) {
-          log(message = l.message);
+          debugPrint(message = l.message);
         }
         return UpdateExpenseFailure(message: message);
       }, (r) => UpdateExpenseSuccess(response: r)));

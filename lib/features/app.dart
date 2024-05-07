@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:budget_in/core/core.dart';
 import 'package:budget_in/features/authentication/authentication.dart';
 import 'package:budget_in/features/new_bloc.dart';
@@ -47,7 +45,6 @@ class _AppState extends State<App> {
           onGenerateRoute: AppRoute.generateRoute,
           home: BlocBuilder<AuthUserCubit, AuthUserState>(
             builder: (context, state) {
-              log('auth-user => $state');
               if (state is AuthUserLoaded) {
                 if (state.isExist) {
                   return const MainPage(currentIndex: 0);

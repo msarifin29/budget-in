@@ -1,9 +1,8 @@
-import 'dart:developer';
-
 import 'package:bloc/bloc.dart';
 import 'package:budget_in/core/core.dart';
 import 'package:budget_in/features/credit/credits.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/rendering.dart';
 
 part 'create_credit_event.dart';
 part 'create_credit_state.dart';
@@ -30,7 +29,7 @@ class CreateCreditBloc extends Bloc<CreateCreditEvent, CreateCreditState> {
         } else if (l is ConnectionFailure) {
           message = 'Connection Faiure';
         } else if (l is ParsingFailure) {
-          log(message = l.message);
+          debugPrint(message = l.message);
         }
         return CreateCreditFailure(message: message);
       }, (r) => CreateCreditSuccess(response: r.data)));

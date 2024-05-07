@@ -1,5 +1,4 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'dart:developer';
 
 import 'package:budget_in/features/onboarding/onboarding.dart';
 import 'package:budget_in/l10n/l10n.dart';
@@ -43,7 +42,6 @@ class LineChartWidgetState extends State<LineChartWidget> {
           : ColorApp.night),
       child: BlocBuilder<GetMonthlyReportBloc, GetMonthlyReportState>(
           builder: (context, state) {
-        log('GetMonthlyReport $state');
         if (state is GetMonthlyReportLoading) {
           return const CircularLoading();
         } else if (state is GetMonthlyReportFailure) {
