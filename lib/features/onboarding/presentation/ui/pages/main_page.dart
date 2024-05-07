@@ -3,7 +3,6 @@ import 'dart:developer';
 
 import 'package:budget_in/core/core.dart';
 import 'package:budget_in/features/authentication/authentication.dart';
-import 'package:budget_in/features/credit/credits.dart';
 import 'package:budget_in/features/expenses/presentation/ui/expenses_ui.dart';
 import 'package:budget_in/features/expenses/presentation/ui/pages/expense_page.dart';
 import 'package:budget_in/features/incomes/incomes.dart';
@@ -60,7 +59,7 @@ class _MainPageState extends State<MainPage> {
     const DashboardPage(),
     const ExpensePage(),
     const IncomePage(),
-    const CreditPage(),
+    // const CreditPage(),
     const AccountPage(),
   ];
   @override
@@ -181,6 +180,39 @@ class _MainPageState extends State<MainPage> {
                         ],
                       ),
                     ),
+                    // MaterialButton(
+                    //   padding: EdgeInsets.zero,
+                    //   enableFeedback: false,
+                    //   minWidth: minWidth,
+                    //   onPressed: () {
+                    //     setState(() {
+                    //       currentIndex = 3;
+                    //     });
+                    //   },
+                    //   child: Column(
+                    //     mainAxisAlignment: MainAxisAlignment.center,
+                    //     children: [
+                    //       SvgPicture.asset(
+                    //         SvgName.creditIcon,
+                    //         width: 25,
+                    //         colorFilter: ColorFilter.mode(
+                    //           currentIndex == 3 ? ColorApp.green : Colors.grey,
+                    //           BlendMode.srcIn,
+                    //         ),
+                    //       ),
+                    //       const SizedBox(height: 3),
+                    //       Text(
+                    //         context.l10n.credit,
+                    //         style: context.textTheme.labelSmall!.copyWith(
+                    //           fontSize: 10,
+                    //           color: currentIndex == 3
+                    //               ? ColorApp.green
+                    //               : Colors.grey,
+                    //         ),
+                    //       )
+                    //     ],
+                    //   ),
+                    // ),
                     MaterialButton(
                       padding: EdgeInsets.zero,
                       enableFeedback: false,
@@ -194,7 +226,7 @@ class _MainPageState extends State<MainPage> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           SvgPicture.asset(
-                            SvgName.creditIcon,
+                            SvgName.person,
                             width: 25,
                             colorFilter: ColorFilter.mode(
                               currentIndex == 3 ? ColorApp.green : Colors.grey,
@@ -203,43 +235,10 @@ class _MainPageState extends State<MainPage> {
                           ),
                           const SizedBox(height: 3),
                           Text(
-                            context.l10n.credit,
-                            style: context.textTheme.labelSmall!.copyWith(
-                              fontSize: 10,
-                              color: currentIndex == 3
-                                  ? ColorApp.green
-                                  : Colors.grey,
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
-                    MaterialButton(
-                      padding: EdgeInsets.zero,
-                      enableFeedback: false,
-                      minWidth: minWidth,
-                      onPressed: () {
-                        setState(() {
-                          currentIndex = 4;
-                        });
-                      },
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          SvgPicture.asset(
-                            SvgName.person,
-                            width: 25,
-                            colorFilter: ColorFilter.mode(
-                              currentIndex == 4 ? ColorApp.green : Colors.grey,
-                              BlendMode.srcIn,
-                            ),
-                          ),
-                          const SizedBox(height: 3),
-                          Text(
                             context.l10n.account,
                             style: context.textTheme.labelSmall!.copyWith(
                               fontSize: 10,
-                              color: currentIndex == 4
+                              color: currentIndex == 3
                                   ? ColorApp.green
                                   : Colors.grey,
                             ),
