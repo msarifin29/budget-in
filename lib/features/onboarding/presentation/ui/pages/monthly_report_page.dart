@@ -56,7 +56,7 @@ class MonthlyReportPage extends StatelessWidget {
                 return item.totalExpense != 0 || item.totalIncome != 0
                     ? InkWell(
                         onTap: () {
-                          Navigator.popAndPushNamed(
+                          Navigator.pushNamed(
                             context,
                             MonthlyReportDetailPage.routeName,
                             arguments: {
