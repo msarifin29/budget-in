@@ -36,10 +36,8 @@ class NewBloc extends StatelessWidget {
           create: (context) =>
               GetExpensesBloc(getExpensesUsecase: sl<GetExpensesUsecase>()),
         ),
-        BlocProvider(
-          create: (context) =>
-              GetMonthlyReportBloc(usecase: sl<GetOnboardingUsecase>()),
-        ),
+        BlocProvider(create: (context) => sl<GetMonthlyReportBloc>()),
+        BlocProvider(create: (context) => sl<MonthlyReportDetailBloc>()),
         BlocProvider(
           create: (context) =>
               UpdateExpenseBloc(usecase: sl<UpdateExpensesUsecase>()),

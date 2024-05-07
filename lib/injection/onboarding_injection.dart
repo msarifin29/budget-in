@@ -13,4 +13,8 @@ FutureOr<void> onboardingInjection() async {
   sl.registerLazySingleton(() => GetOnboardingUsecase(repository: sl()));
   sl.registerLazySingleton(() => GetMaxBudgetUsecase(repository: sl()));
   sl.registerLazySingleton(() => UpdateMaxBudgetUsecase(repository: sl()));
+  sl.registerLazySingleton(() => MonthlyReportDetailUsecase(repository: sl()));
+  // Bloc
+  sl.registerLazySingleton(() => GetMonthlyReportBloc(usecase: sl()));
+  sl.registerLazySingleton(() => MonthlyReportDetailBloc(usecase: sl()));
 }

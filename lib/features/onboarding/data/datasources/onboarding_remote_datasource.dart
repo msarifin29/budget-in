@@ -11,6 +11,8 @@ abstract class OnboardingRemoteDatasource {
   Future<MonthlyReportResponse> getMonthlyReport(String uid);
   Future<MaxBudgetResponse> getMaximumBudget(GetMaxBudgetparam param);
   Future<UpdateBudgetResponse> updateMaxBudget(UpdateMaxBudgetparam param);
+  Future<MonthlyReportDetailResponse> monthlyReportDetail(
+      MonthlyReportDetailParam param);
 }
 
 class OnboardingRemoteDatasourceImpl extends OnboardingRemoteDatasource {
@@ -81,6 +83,26 @@ class OnboardingRemoteDatasourceImpl extends OnboardingRemoteDatasource {
       );
     }
   }
+
+  @override
+  Future<MonthlyReportDetailResponse> monthlyReportDetail(
+      MonthlyReportDetailParam param) async {
+    final String path = '$baseUrl/api/user/monthly-report-detail';
+    final Response<dynamic> response = await dio.get(
+      path,
+      options: Options(
+        headers: {BaseUrlConfig.requiredToken: true},
+      ),
+      queryParameters: param.toMap(),
+    );
+    if (response.statusCode == 200) {
+      return MonthlyReportDetailResponse.fromJson(response.data);
+    } else {
+      throw DioException(
+        requestOptions: RequestOptions(path: path),
+      );
+    }
+  }
 }
 
 class UpdateMaxBudgetparam extends Equatable {
@@ -111,4 +133,17 @@ class GetMaxBudgetparam extends Equatable {
 
   @override
   List<Object?> get props => [];
+}
+
+class MonthlyReportDetailParam extends Equatable {
+  final String month;
+  const MonthlyReportDetailParam({
+    required this.month,
+  });
+  Map<String, dynamic> toMap() {
+    return {"month": month};
+  }
+
+  @override
+  List<Object?> get props => [month];
 }

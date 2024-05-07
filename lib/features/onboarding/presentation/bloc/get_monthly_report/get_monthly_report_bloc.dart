@@ -11,8 +11,9 @@ part 'get_monthly_report_state.dart';
 class GetMonthlyReportBloc
     extends Bloc<GetMonthlyReportEvent, GetMonthlyReportState> {
   final GetOnboardingUsecase usecase;
-  GetMonthlyReportBloc({required this.usecase})
-      : super(GetMonthlyReportInitial()) {
+  GetMonthlyReportBloc({
+    required this.usecase,
+  }) : super(GetMonthlyReportInitial()) {
     on<MonthlyReportInitialEvent>((event, emit) async {
       emit(GetMonthlyReportLoading());
       final result = await usecase(event.uid);

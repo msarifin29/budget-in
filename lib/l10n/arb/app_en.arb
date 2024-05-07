@@ -188,5 +188,7 @@
     "quote2": "Master your money!\n Budget, track expenses, reach financial goals.",
     "quote3": "Simplify finances!\n Easy budgeting & expense tracking. Save for your dreams.",
     "quote4": "Financial freedom starts here!\n Manage income, expenses & build wealth.",
-    "msg_email_exist": "This email address is already in use.\n please choose a different one"
+    "msg_email_exist": "This email address is already in use.\n please choose a different one",
+    "expense_type": "Expense Type",
+    "income_type": "Income Type"
 }

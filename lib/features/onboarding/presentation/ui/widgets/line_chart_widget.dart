@@ -90,7 +90,7 @@ class LineChartWidgetState extends State<LineChartWidget> {
                       onPressed: () {
                         Navigator.pushNamed(
                           context,
-                          MonthlyReportDetailPage.routeName,
+                          MonthlyReportPage.routeName,
                           arguments: {
                             NamedArguments.data: report,
                           },

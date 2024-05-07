@@ -188,5 +188,7 @@
   "quote2": "Atur keuangan dengan mudah!\n Anggaran, lacak pengeluaran, capai tujuan finansial.",
   "quote3": "Bebas finansial dimulai di sini!\n Kelola pendapatan, pengeluaran & bangun kekayaan",
   "quote4": "Wujudkan mimpi finansial!\n Lacak pemasukan & pengeluaran. Hemat & berinvestasi.",
-  "msg_email_exist": "Alamat email ini sudah digunakan.\n Silakan pilih yang lain"
+  "msg_email_exist": "Alamat email ini sudah digunakan.\n Silakan pilih yang lain",
+  "expense_type": "Tipe Pengeluaran",
+  "income_type": "Tipe Pendapatan"
 }

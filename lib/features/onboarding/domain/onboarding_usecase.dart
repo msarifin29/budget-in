@@ -39,3 +39,15 @@ class UpdateMaxBudgetUsecase
     return repository.updateMaxBudget(params);
   }
 }
+
+class MonthlyReportDetailUsecase
+    implements UseCase<MonthlyReportDetailResponse, MonthlyReportDetailParam> {
+  final OnboardingRepository repository;
+  MonthlyReportDetailUsecase({required this.repository});
+
+  @override
+  FutureOr<Either<Failure, MonthlyReportDetailResponse>> call(
+      MonthlyReportDetailParam params) async {
+    return repository.monthlyReportDetail(params);
+  }
+}
