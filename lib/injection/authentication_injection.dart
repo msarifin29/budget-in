@@ -39,6 +39,7 @@ FutureOr<void> authenticationInjection() async {
   sl.registerLazySingleton(() => ForgotPasswordUsecase(repository: sl()));
   sl.registerLazySingleton(() => ResetPasswordUsecase(repository: sl()));
   sl.registerLazySingleton(() => ExistingEmailUsecase(repository: sl()));
+  sl.registerLazySingleton(() => GetPrivacyUsecase(repository: sl()));
 
   // Bloc
   sl.registerFactory(() => CityBloc(getCities: sl()));
@@ -47,4 +48,5 @@ FutureOr<void> authenticationInjection() async {
         registerUsecase: sl(),
         existingEmailUsecase: sl(),
       ));
+  sl.registerFactory(() => PrivacyBloc(sl()));
 }

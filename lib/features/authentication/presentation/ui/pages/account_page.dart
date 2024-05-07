@@ -132,16 +132,17 @@ class AccountPage extends StatelessWidget {
                 return const SizedBox();
               },
             ),
+            DetailAccountOnlyTitlewidget(
+              image: SvgName.privacy,
+              title: context.l10n.privacy_and_policy,
+              onTap: () {
+                Navigator.pushNamed(context, PrivacyPolicePage.routeName);
+              },
+            ),
             // DetailAccountOnlyTitlewidget(
-            //   image: SvgName.privacy,
-            //   title: context.l10n.privacy_and_policy,
-            //   onTap: () {
-            //     Navigator.pushNamed(context, PrivacyPolicePage.routeName);
-            //   },
+            //   image: SvgName.contactSupport,
+            //   title: context.l10n.contact_support,
             // ),
-            // DetailAccountOnlyTitlewidget(
-            //     image: SvgName.contactSupport,
-            //     title: context.l10n.contact_support,),
             DetailAccountOnlyTitlewidget(
               image: SvgName.password,
               title: context.l10n.reset_password,

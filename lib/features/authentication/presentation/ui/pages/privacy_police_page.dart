@@ -1,8 +1,9 @@
 import 'package:budget_in/core/core.dart';
-import 'package:budget_in/features/authentication/data/authentication_data.dart';
+import 'package:budget_in/features/authentication/presentation/bloc/privacy/privacy_bloc.dart';
 import 'package:budget_in/l10n/l10n.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_html/flutter_html.dart';
 
 class PrivacyPolicePage extends StatefulWidget {
@@ -19,6 +20,7 @@ class _PrivacyPolicePageState extends State<PrivacyPolicePage> {
   void initState() {
     super.initState();
     localeCode = PlatformDispatcher.instance.locale.languageCode;
+    context.read<PrivacyBloc>().add(InitialPrivacy(localeCode));
   }
 
   @override
@@ -32,8 +34,21 @@ class _PrivacyPolicePageState extends State<PrivacyPolicePage> {
         ),
       ),
       body: SingleChildScrollView(
-        child: Html(
-          data: localeCode == 'id' ? privacyIn : privacyEn,
+        child: BlocBuilder<PrivacyBloc, PrivacyState>(
+          builder: (context, state) {
+            if (state is PrivacyLoading) {
+              return const CircularLoading();
+            } else if (state is PrivacyFailure) {
+              return ErrorImageWidget(text: context.l10n.something_wrong);
+            } else if (state is PrivacySuccess) {
+              return Padding(
+                padding: const EdgeInsets.all(10),
+                child: Html(data: state.data),
+              );
+            }
+
+            return Container();
+          },
         ),
       ),
     );

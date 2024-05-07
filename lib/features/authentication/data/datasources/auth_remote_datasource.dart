@@ -16,6 +16,7 @@ abstract class AuthRemoteDataSource {
   Future<DynamicResponse> forgotPassword(ForgotPasswordParam param);
   Future<DynamicResponse> resetPassword(ResetPasswordParam param);
   Future<DynamicResponse> checkEmail(String email);
+  Future<String> privacyPolice(String lang);
 }
 
 class AuthRemoteDataSourceImpl extends AuthRemoteDataSource {
@@ -140,6 +141,19 @@ class AuthRemoteDataSourceImpl extends AuthRemoteDataSource {
     final Response<dynamic> response = await dio.get(path);
     if (response.statusCode == 200) {
       return DynamicResponse.fromJson(response.data);
+    } else {
+      throw DioException(
+        requestOptions: RequestOptions(path: path),
+      );
+    }
+  }
+
+  @override
+  Future<String> privacyPolice(String lang) async {
+    String path = '$baseUrl/api/privacy-police/$lang';
+    final Response<dynamic> response = await dio.get(path);
+    if (response.statusCode == 200) {
+      return response.data;
     } else {
       throw DioException(
         requestOptions: RequestOptions(path: path),

@@ -85,3 +85,14 @@ class ExistingEmailUsecase implements UseCase<DynamicResponse, String> {
     return await repository.checkEmail(param);
   }
 }
+
+class GetPrivacyUsecase implements UseCase<String, String> {
+  final AuthRepository repository;
+
+  GetPrivacyUsecase({required this.repository});
+
+  @override
+  FutureOr<Either<Failure, String>> call(String param) async {
+    return await repository.privacyPolice(param);
+  }
+}
