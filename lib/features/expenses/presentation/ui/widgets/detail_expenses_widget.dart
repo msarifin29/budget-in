@@ -1,6 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first, lines_longer_than_80_chars
 import 'dart:developer';
 
+import 'package:budget_in/features/onboarding/onboarding.dart';
 import 'package:flutter/material.dart';
 
 import 'package:budget_in/core/core.dart';
@@ -15,6 +16,7 @@ class DetailExpensesWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final category = data.tCategory ?? const TCategory();
     final date = TimeUtil().today(
         ddMMyyy, DateTime.parse(data.createdAt ?? '2012-12-12T15:54:11Z'));
     return Container(
@@ -32,7 +34,7 @@ class DetailExpensesWidget extends StatelessWidget {
           InfoWidget(
               k: context.l10n.total,
               v: ': - Rp. ${Helpers.currency(data.total)}'),
-          InfoWidget(k: context.l10n.category, v: ': ${data.category}'),
+          InfoWidget(k: context.l10n.category, v: ': ${category.title ?? ''}'),
           InfoWidget(k: context.l10n.notes, v: ': ${data.notes}'),
           const SizedBox(height: 30),
           BlocConsumer<UpdateExpenseBloc, UpdateExpenseState>(

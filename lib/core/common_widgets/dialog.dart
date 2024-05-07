@@ -124,6 +124,7 @@ Future confirmDialog(
               ),
               width: width,
             ),
+            const SizedBox(height: 20),
             Text(
               title,
               textAlign: TextAlign.center,

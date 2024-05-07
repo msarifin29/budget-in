@@ -36,3 +36,34 @@ class PrimaryButton extends StatelessWidget {
     );
   }
 }
+
+class PrimaryOutlineButton extends StatelessWidget {
+  const PrimaryOutlineButton({
+    required this.text,
+    super.key,
+    this.onPressed,
+    this.minSize = const Size(double.infinity, 50),
+  });
+  final VoidCallback? onPressed;
+  final String text;
+  final Size minSize;
+  @override
+  Widget build(BuildContext context) {
+    return OutlinedButton(
+      onPressed: onPressed,
+      style: OutlinedButton.styleFrom(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10),
+        ),
+        minimumSize: minSize,
+      ),
+      child: Text(
+        text,
+        style: context.textTheme.bodyMedium?.copyWith(
+          color: ColorApp.green,
+          fontWeight: FontWeight.w600,
+        ),
+      ),
+    );
+  }
+}

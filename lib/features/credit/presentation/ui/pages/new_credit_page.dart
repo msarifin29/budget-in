@@ -87,7 +87,7 @@ class _NewCreditPageState extends State<NewCreditPage> {
               return Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  PrimaryButton(
+                  PrimaryOutlineButton(
                     text: context.l10n.no,
                     minSize: const Size(100, 40),
                     onPressed: () => Navigator.pop(context),

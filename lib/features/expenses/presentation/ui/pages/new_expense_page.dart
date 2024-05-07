@@ -34,7 +34,7 @@ class _NewExpensePageState extends State<NewExpensePage> {
             uid: Helpers.getUid(),
             expenseType: ConstantType.newConstantType(expenseType.value.id),
             total: totalC.text.trim(),
-            categoryId: expenseType.value.id,
+            categoryId: category.value.id,
             category: CategoryExpense.newCategoryExpense(category.value.id),
             accountId: Helpers.getAccountId(),
             notes: notesC.text.trim(),
@@ -75,7 +75,7 @@ class _NewExpensePageState extends State<NewExpensePage> {
               return Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  PrimaryButton(
+                  PrimaryOutlineButton(
                     text: context.l10n.no,
                     minSize: const Size(100, 40),
                     onPressed: () => Navigator.pop(context),

@@ -2,6 +2,7 @@ import 'package:budget_in/core/core.dart';
 import 'package:budget_in/features/credit/credits.dart';
 import 'package:budget_in/l10n/l10n.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class CardCreditWidget extends StatelessWidget {
   const CardCreditWidget({
@@ -24,6 +25,8 @@ class CardCreditWidget extends StatelessWidget {
           id: 1,
           title: context.l10n.other,
         );
+    String t = NumberFormat.currency(locale: 'ID', symbol: '', decimalDigits: 0)
+        .format(creditData.total <= 0 ? 0 : creditData.total);
     return Card(
       elevation: 0.5,
       margin: const EdgeInsets.symmetric(horizontal: 15),
@@ -46,7 +49,7 @@ class CardCreditWidget extends StatelessWidget {
                 children: [
                   RichText(
                     text: TextSpan(
-                      text: ' Rp. ',
+                      text: ' Rp ',
                       style: context.textTheme.bodyMedium!.copyWith(
                           fontWeight: FontWeight.w600,
                           color: creditData.statusCredit == 'active'
@@ -54,8 +57,7 @@ class CardCreditWidget extends StatelessWidget {
                               : ColorApp.green),
                       children: [
                         TextSpan(
-                          text:
-                              '${creditData.total <= 0 ? 0 : creditData.total}',
+                          text: t,
                           style: context.textTheme.bodyLarge!.copyWith(
                             fontWeight: FontWeight.w600,
                             color: creditData.statusCredit == 'active'

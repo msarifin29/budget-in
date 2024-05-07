@@ -1,4 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:budget_in/features/onboarding/onboarding.dart';
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 
@@ -35,6 +36,8 @@ class ExpenseData extends Equatable {
   final String? createdAt;
   @JsonKey(name: "updated_at")
   final String? updatedAt;
+  @JsonKey(name: "t_category")
+  final TCategory? tCategory;
   const ExpenseData({
     required this.uid,
     required this.id,
@@ -46,6 +49,7 @@ class ExpenseData extends Equatable {
     this.transactionId,
     this.createdAt,
     this.updatedAt,
+    this.tCategory,
   });
   static ExpenseData fromJson(Map<String, dynamic> json) =>
       _$ExpenseDataFromJson(json);
@@ -62,9 +66,10 @@ class ExpenseData extends Equatable {
         transactionId,
         createdAt,
         updatedAt,
+        tCategory,
       ];
   @override
   String toString() {
-    return 'ExpenseData{uid:$uid, id:$id, expenseType:$expenseType, total:$total, category:$category, status:$status, notes:$notes, transactionId:$transactionId, createdAt:$createdAt, updatedAt:$updatedAt,}';
+    return 'ExpenseData{uid:$uid, id:$id, expenseType:$expenseType, total:$total, category:$category, status:$status, notes:$notes, transactionId:$transactionId, createdAt:$createdAt, updatedAt:$updatedAt, tCategory:$tCategory,}';
   }
 }

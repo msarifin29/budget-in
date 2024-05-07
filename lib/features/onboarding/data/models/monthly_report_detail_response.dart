@@ -114,14 +114,14 @@ class VIncome extends Equatable {
 @JsonSerializable(explicitToJson: true)
 class TCategory extends Equatable {
   @JsonKey(name: "category_id")
-  final int categoryId;
+  final int? categoryId;
   @JsonKey(name: "t_id")
-  final int tId;
-  final String title;
+  final int? tId;
+  final String? title;
   const TCategory({
-    required this.categoryId,
-    required this.tId,
-    required this.title,
+    this.categoryId,
+    this.tId,
+    this.title,
   });
   static TCategory fromJson(Map<String, dynamic> json) =>
       _$TCategoryFromJson(json);

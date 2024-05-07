@@ -8,7 +8,6 @@ import 'package:flutter/material.dart';
 
 import 'package:budget_in/core/core.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter/rendering.dart';
 import 'package:intl/intl.dart';
 
 class MonthlyReportDetailPage extends StatefulWidget {
@@ -112,7 +111,7 @@ class _MonthlyReportDetailPageState extends State<MonthlyReportDetailPage> {
                               DataCell(Text(date)),
                               DataCell(Text(item.expenseType)),
                               DataCell(Text('Rp $t')),
-                              DataCell(Text(category.title)),
+                              DataCell(Text(category.title ?? '')),
                               DataCell(Text(item.notes))
                             ]);
                           }),
@@ -164,7 +163,7 @@ class _MonthlyReportDetailPageState extends State<MonthlyReportDetailPage> {
                               DataCell(Text(date)),
                               DataCell(Text(item.typeIncome)),
                               DataCell(Text('Rp $t')),
-                              DataCell(Text(category.title)),
+                              DataCell(Text(category.title ?? '')),
                             ]);
                           }),
                         ),

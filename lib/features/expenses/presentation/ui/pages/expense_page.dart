@@ -2,6 +2,7 @@
 
 import 'package:budget_in/features/expenses/expenses.dart';
 import 'package:budget_in/features/expenses/presentation/ui/expenses_ui.dart';
+import 'package:budget_in/features/onboarding/data/models/monthly_report_detail_response.dart';
 import 'package:flutter/material.dart';
 
 import 'package:budget_in/core/core.dart';
@@ -304,10 +305,11 @@ class _ExpensePageState extends State<ExpensePage>
                                 ddMMyyy,
                                 DateTime.parse(
                                     x.createdAt ?? '2012-12-12T15:54:11Z'));
+                            final category = x.tCategory ?? const TCategory();
                             return AmountCardWidget(
                               plusMin: '-',
                               total: Helpers.currency(x.total),
-                              category: x.category,
+                              category: category.title ?? '',
                               type: x.expenseType == ConstantType.cash
                                   ? context.l10n.cash
                                   : context.l10n.non_cash,
