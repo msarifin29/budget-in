@@ -29,8 +29,7 @@ class _ExpensePageState extends State<ExpensePage>
   // Other
   int selectIndex = 0;
   final not = DateTime.now();
-  GetExpensesparams params =
-      const GetExpensesparams(page: 1, totalPage: 10, status: Helpers.success);
+  GetExpensesparams params = const GetExpensesparams();
   @override
   void initState() {
     tabController = TabController(length: 3, vsync: this);
@@ -100,7 +99,7 @@ class _ExpensePageState extends State<ExpensePage>
               onTap: (value) {
                 switch (value) {
                   case 0:
-                    params = params.copyWith(expenseType: '');
+                    params = const GetExpensesparams();
                     pagingController.itemList = [];
                     pagingController.appendPage([], 1);
                     pagingController.refresh();

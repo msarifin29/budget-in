@@ -117,16 +117,17 @@ class Expenseparams extends Equatable {
 }
 
 class GetExpensesparams extends Equatable {
-  final int page;
-  final int totalPage;
+  final int? page;
+  final int? totalPage;
   final String? expenseType;
-  final String status;
+  final String? status;
   final int? id;
   Map<String, dynamic> toMap() {
-    Map<String, dynamic> data = {};
-    data['page'] = page;
-    data['total_page'] = totalPage;
-    data['status'] = status;
+    Map<String, dynamic> data = {
+      'status': 'success',
+      'total_page': 10,
+    };
+    if (page != null) data['page'] = page;
     if (expenseType != null) data['expense_type'] = expenseType;
     if (id != null) data['id'] = id;
     return data;
@@ -149,10 +150,10 @@ class GetExpensesparams extends Equatable {
   }
 
   const GetExpensesparams({
-    required this.page,
-    required this.totalPage,
+    this.page,
+    this.totalPage,
     this.expenseType,
-    required this.status,
+    this.status,
     this.id,
   });
   @override
