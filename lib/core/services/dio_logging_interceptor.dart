@@ -1,7 +1,9 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first, unused_field, unnecessary_null_comparison
 import 'dart:io';
 
+import 'package:budget_in/bootstrap.dart';
 import 'package:budget_in/core/core.dart';
+import 'package:budget_in/features/authentication/authentication.dart';
 import 'package:budget_in/injection.dart';
 import 'package:dio/dio.dart';
 import 'package:dio/io.dart';
@@ -77,6 +79,9 @@ class DioLoggingInterceptor extends InterceptorsWrapper {
     var responseCode = err.response?.statusCode;
     debugPrint("<-- response data = ${err.response?.data}");
     debugPrint("<-- response code = $responseCode");
+    if ((responseCode ?? 0) == 401) {
+      navigatorKey.currentState?.pushNamed(LoginPage.routeName);
+    }
     if (isRefreshTokenProcessing && err.response != null) {
       await Future.delayed(const Duration(seconds: 2));
       final options = err.response!.requestOptions;
@@ -84,27 +89,7 @@ class DioLoggingInterceptor extends InterceptorsWrapper {
       final response = await _dio.fetch(options);
       return handler.resolve(response);
     }
-    if (responseCode == 302) {
-      if (err.response != null &&
-          err.response!.headers.map['location'] != null) {
-        final newUrl = err.response!.headers.map['location']!.isNotEmpty
-            ? err.response!.headers.map['location']!.first
-            : '';
-        try {
-          final response = await _dio.get(
-            newUrl,
-            options: Options(
-              headers: {
-                BaseUrlConfig.requiredToken: true,
-              },
-            ),
-          );
-          return handler.resolve(response);
-        } on DioException catch (error) {
-          return handler.next(error);
-        }
-      }
-    }
+
     return handler.next(err);
   }
 }

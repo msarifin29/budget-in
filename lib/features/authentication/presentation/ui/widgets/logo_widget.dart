@@ -7,21 +7,28 @@ class LogoWidget extends StatelessWidget {
   const LogoWidget({super.key});
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        const SizedBox(height: 50),
-        const Align(child: ImageLogo(size: 100)),
-        Align(
-          child: Text(
-            Strings.budgetIn,
-            style: context.textTheme.titleLarge?.copyWith(
-              color: ColorApp.green,
-              fontWeight: FontWeight.bold,
+    return Container(
+      width: 120,
+      padding: const EdgeInsets.all(10),
+      margin: const EdgeInsets.only(top: 20, bottom: 50),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(16),
+        color: ColorApp.grey,
+      ),
+      child: Column(
+        children: [
+          const Align(child: ImageLogo(size: 60)),
+          Align(
+            child: Text(
+              Strings.budgetIn,
+              style: context.textTheme.bodyMedium?.copyWith(
+                color: ColorApp.green,
+                fontWeight: FontWeight.bold,
+              ),
             ),
           ),
-        ),
-        const SizedBox(height: 20),
-      ],
+        ],
+      ),
     );
   }
 }
@@ -36,6 +43,6 @@ class ImageLogo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Image.asset(ImageName.budgetInImage, width: size, height: size);
+    return Image.asset(ImageName.logo, width: size, height: size);
   }
 }
