@@ -12,7 +12,7 @@ final class ExpenseInitial extends ExpenseState {}
 final class CreateExpenseLoading extends ExpenseState {}
 
 final class CreateExpenseSuccess extends ExpenseState {
-  final ExpenseData expenseData;
+  final bool expenseData;
   const CreateExpenseSuccess({required this.expenseData});
 
   @override

@@ -6,7 +6,7 @@ import 'package:budget_in/features/incomes/incomes.dart';
 import 'package:dio/dio.dart';
 
 abstract class IncomeRepository {
-  Future<Either<Failure, IncomeResponse>> create(CreateIncomeParams params);
+  Future<Either<Failure, bool>> create(CreateIncomeParams params);
   Future<Either<Failure, GetIncomeResponse>> getIncomes(GetIncomeParams params);
 }
 
@@ -18,12 +18,11 @@ class IncomeRepositoryImpl extends IncomeRepository {
     required this.networkInfo,
   });
   @override
-  Future<Either<Failure, IncomeResponse>> create(
-      CreateIncomeParams params) async {
+  Future<Either<Failure, bool>> create(CreateIncomeParams params) async {
     bool isConnected = await networkInfo.isConnected;
     if (isConnected) {
       try {
-        final IncomeResponse response = await remoteDataSource.create(params);
+        final response = await remoteDataSource.create(params);
         return Right(response);
       } on DioException catch (error) {
         if (error.response == null) {

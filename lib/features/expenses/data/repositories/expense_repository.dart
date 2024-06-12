@@ -5,7 +5,7 @@ import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 
 abstract class ExpenseRepository {
-  Future<Either<Failure, Expenseresponse>> create(Expenseparams params);
+  Future<Either<Failure, bool>> create(Expenseparams params);
   Future<Either<Failure, GetExpenseResponse>> getExpenses(
       GetExpensesparams params);
   Future<Either<Failure, UpdateExpenseResponse>> updateExpense(
@@ -22,11 +22,11 @@ class ExpenseRepositoryImpl extends ExpenseRepository {
   });
 
   @override
-  Future<Either<Failure, Expenseresponse>> create(Expenseparams params) async {
+  Future<Either<Failure, bool>> create(Expenseparams params) async {
     bool isConnected = await networkInfo.isConnected;
     if (isConnected) {
       try {
-        final Expenseresponse response = await remoteDataSource.create(params);
+        final response = await remoteDataSource.create(params);
         return Right(response);
       } on DioException catch (error) {
         if (error.response == null) {

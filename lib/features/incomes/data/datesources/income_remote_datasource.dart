@@ -8,7 +8,7 @@ import 'package:budget_in/core/core.dart';
 import 'package:budget_in/features/incomes/incomes.dart';
 
 abstract class IncomeRemoteDatasource {
-  Future<IncomeResponse> create(CreateIncomeParams params);
+  Future<bool> create(CreateIncomeParams params);
   Future<GetIncomeResponse> getIncomes(GetIncomeParams params);
 }
 
@@ -19,7 +19,7 @@ class IncomeRemoteDatasourceImpl extends IncomeRemoteDatasource {
   });
   final baseUrl = dotenv.env['BASE_URL'];
   @override
-  Future<IncomeResponse> create(CreateIncomeParams params) async {
+  Future<bool> create(CreateIncomeParams params) async {
     final String path = '$baseUrl/api/incomes/create';
     final Response<dynamic> response = await dio.post(
       path,
@@ -29,7 +29,7 @@ class IncomeRemoteDatasourceImpl extends IncomeRemoteDatasource {
       data: params.toMap(),
     );
     if (response.statusCode == 200) {
-      return IncomeResponse.fromJson(response.data);
+      return true;
     } else {
       throw DioException(
         requestOptions: RequestOptions(path: path),

@@ -8,7 +8,7 @@ import 'package:budget_in/core/core.dart';
 import 'package:budget_in/features/expenses/expenses.dart';
 
 abstract class ExpenseRemoteDataSource {
-  Future<Expenseresponse> create(Expenseparams params);
+  Future<bool> create(Expenseparams params);
   Future<GetExpenseResponse> getExpenses(GetExpensesparams params);
   Future<UpdateExpenseResponse> updateExpense(UpdateExpenseParams params);
 }
@@ -19,13 +19,13 @@ class ExpenseRemoteDataSourceImpl extends ExpenseRemoteDataSource {
   ExpenseRemoteDataSourceImpl({required this.dio});
   final baseUrl = dotenv.env['BASE_URL'];
   @override
-  Future<Expenseresponse> create(Expenseparams params) async {
+  Future<bool> create(Expenseparams params) async {
     final String path = '$baseUrl/api/expenses/create';
     final Response<dynamic> response = await dio.post(path,
         data: params.toMap(),
         options: Options(headers: {BaseUrlConfig.requiredToken: true}));
     if (response.statusCode == 200) {
-      return Expenseresponse.fromJson(response.data);
+      return true;
     } else {
       throw DioException(
         requestOptions: RequestOptions(path: path),

@@ -12,7 +12,7 @@ final class CreateIncomeInitial extends CreateIncomeState {}
 final class CreateIncomeLoading extends CreateIncomeState {}
 
 final class CreateIncomeSuccess extends CreateIncomeState {
-  final IncomeData data;
+  final bool data;
 
   const CreateIncomeSuccess({required this.data});
   @override

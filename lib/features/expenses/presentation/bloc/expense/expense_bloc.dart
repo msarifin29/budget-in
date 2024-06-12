@@ -40,6 +40,6 @@ class ExpenseBloc extends Bloc<ExpenseEvent, ExpenseState> {
         debugPrint(message = l.message);
       }
       return CreateExpenseFailure(message: message);
-    }, (r) => CreateExpenseSuccess(expenseData: r.data)));
+    }, (r) => CreateExpenseSuccess(expenseData: r)));
   }
 }

@@ -36,7 +36,7 @@ class CreateIncomeBloc extends Bloc<CreateIncomeEvent, CreateIncomeState> {
           debugPrint(message = l.message);
         }
         return CreateIncomeFailed(message: message);
-      }, (r) => CreateIncomeSuccess(data: r.data)));
+      }, (r) => CreateIncomeSuccess(data: r)));
     });
   }
 }
