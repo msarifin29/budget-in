@@ -28,6 +28,7 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   flutter_native_splash: ^2.3.10
+  flutter_popup: ^3.3.0
   flutter_secure_storage: ^9.0.0
   flutter_svg: ^2.0.9
   get_it: ^7.6.6
@@ -73,10 +74,10 @@ flutter_launcher_icons:
 
 flutter_native_splash:
   color: "#ffffff"
-  image: assets/images/n_image.png
+  image: assets/images/n.png
   android_12:
     color: "#ffffff"
   web: false
   fullscreen: true
   color_dark: "#000000"
-  image_dark: assets/images/n_image.png
+  image_dark: assets/images/n.png

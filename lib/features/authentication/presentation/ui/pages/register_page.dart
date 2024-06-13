@@ -73,6 +73,8 @@ class _RegisterPageState extends State<RegisterPage> {
                       hint: Strings.inputEmail,
                       controller: emailControl,
                       keyboardType: TextInputType.emailAddress,
+                      isShowPopUp: true,
+                      msg: context.l10n.email_info,
                       icon: const Icon(
                         Icons.email_outlined,
                         color: ColorApp.green,
@@ -94,6 +96,8 @@ class _RegisterPageState extends State<RegisterPage> {
                           title: context.l10n.password,
                           hint: context.l10n.input_password,
                           controller: passwordControl,
+                          isShowPopUp: true,
+                          msg: context.l10n.password_info,
                           icon: IconButton(
                             onPressed: () {
                               isObscureText.value = !isObscureText.value;

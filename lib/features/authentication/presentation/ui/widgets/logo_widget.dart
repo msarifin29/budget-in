@@ -7,10 +7,11 @@ class LogoWidget extends StatelessWidget {
   const LogoWidget({super.key});
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.sizeOf(context);
     return Container(
       width: 120,
       padding: const EdgeInsets.all(10),
-      margin: const EdgeInsets.only(top: 20, bottom: 50),
+      margin: EdgeInsets.only(top: size.height * 0.1, bottom: 50),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(16),
         color: ColorApp.grey,
@@ -22,7 +23,7 @@ class LogoWidget extends StatelessWidget {
             child: Text(
               Strings.budgetIn,
               style: context.textTheme.bodyMedium?.copyWith(
-                color: ColorApp.green,
+                color: Colors.black,
                 fontWeight: FontWeight.bold,
               ),
             ),

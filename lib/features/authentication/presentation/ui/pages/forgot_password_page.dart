@@ -46,9 +46,13 @@ class _ForgotPasswordpageState extends State<ForgotPasswordpage> {
             child: Column(
               children: [
                 const SizedBox(height: 20),
-                const CircleAvatar(
+                CircleAvatar(
                   radius: 50,
-                  child: Icon(
+                  backgroundColor:
+                      Theme.of(context).brightness == Brightness.light
+                          ? ColorApp.grey20
+                          : ColorApp.darkPrimary,
+                  child: const Icon(
                     Icons.mark_email_read_outlined,
                     size: 65,
                     color: ColorApp.green,

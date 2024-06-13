@@ -191,5 +191,11 @@
     "msg_email_exist": "This email address is already in use.\n please choose a different one",
     "expense_type": "Expense Type",
     "income_type": "Income Type",
-    "yesterday": "yesterday"
+    "yesterday": "yesterday",
+    "email_info": "Please use a unique email address that has not been associated with an account before.",
+    "password_info": "Ensure your password is strong and secure[ At least 8 characters long, Contains both uppercase and lowercase letters, Contains numbers, Contains special characters (e.g., !, @, #, $)]",
+    "balance_info": "Make sure the amount you enter matches your actual bank account balance.",
+    "cash_info": "Make sure the amount you enter matches the exact amount of cash you have.",
+    "bank_info": "Please select your bank from the list below. We don't connect directly to your bank account, so your information is secure.",
+    "bank_name": "Bank Name"
 }

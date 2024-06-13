@@ -191,5 +191,11 @@
   "msg_email_exist": "Alamat email ini sudah digunakan.\n Silakan pilih yang lain",
   "expense_type": "Tipe Pengeluaran",
   "income_type": "Tipe Pendapatan",
-  "yesterday": "kemarin"
+  "yesterday": "kemarin",
+  "email_info": "Harap gunakan alamat email unik yang belum pernah dikaitkan dengan akun sebelumnya.",
+  "password_info": "Pastikan kata sandi Anda kuat dan aman [Minimal 8 karakter, Mengandung huruf besar dan huruf kecil, Mengandung angka,Mengandung karakter khusus (misalnya: !, @, #, $)]",
+  "balance_info": "Pastikan jumlah yang Anda masukkan sesuai dengan saldo rekening bank Anda yang sebenarnya.",
+  "cash_info": "Pastikan jumlah yang Anda masukkan sesuai dengan jumlah uang tunai yang Anda miliki sebenarnya.",
+  "bank_info": "Pilih bank Anda dari daftar di bawah. Kami tidak terhubung langsung ke rekening bank Anda, jadi informasi Anda aman.",
+  "bank_name": "Nama Bank"
 }

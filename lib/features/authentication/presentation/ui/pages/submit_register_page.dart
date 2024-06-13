@@ -32,6 +32,7 @@ class _SubmitRegisterPageState extends State<SubmitRegisterPage> {
 
   final balanceControl = TextEditingController();
   final cashControl = TextEditingController();
+  final nameControl = TextEditingController();
   final ssm = sl<SecureStorageManager>();
   final spm = sl<SharedPreferencesManager>();
 
@@ -39,6 +40,7 @@ class _SubmitRegisterPageState extends State<SubmitRegisterPage> {
   void dispose() {
     balanceControl.dispose();
     cashControl.dispose();
+    nameControl.dispose();
     super.dispose();
   }
 
@@ -67,6 +69,20 @@ class _SubmitRegisterPageState extends State<SubmitRegisterPage> {
                 key: globalKey,
                 child: Column(
                   children: [
+                    FormWidget(
+                      title: context.l10n.bank_name,
+                      hint: '',
+                      controller: nameControl,
+                      isShowPopUp: true,
+                      msg: context.l10n.bank_info,
+                      icon: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: SvgPicture.asset(SvgName.bank),
+                      ),
+                      validator: (value) {
+                        return null;
+                      },
+                    ),
                     const SizedBox(height: 20),
                     FormWidget(
                       title: context.l10n.balance,
@@ -81,10 +97,8 @@ class _SubmitRegisterPageState extends State<SubmitRegisterPage> {
                       ),
                       controller: balanceControl,
                       keyboardType: TextInputType.number,
-                      icon: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: SvgPicture.asset(SvgName.bank),
-                      ),
+                      isShowPopUp: true,
+                      msg: context.l10n.balance_info,
                       prefixIcon: Padding(
                         padding: const EdgeInsets.all(8),
                         child: Text(
@@ -121,10 +135,8 @@ class _SubmitRegisterPageState extends State<SubmitRegisterPage> {
                       ),
                       controller: cashControl,
                       keyboardType: TextInputType.number,
-                      icon: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: SvgPicture.asset(SvgName.wallet),
-                      ),
+                      isShowPopUp: true,
+                      msg: context.l10n.cash_info,
                       prefixIcon: Padding(
                         padding: const EdgeInsets.all(8),
                         child: Text(
