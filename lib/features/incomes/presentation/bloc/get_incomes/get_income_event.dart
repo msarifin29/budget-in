@@ -12,6 +12,5 @@ final class InitialIncomeEvent extends GetIncomeEvent {
 
   const InitialIncomeEvent({required this.params});
   @override
-  // TODO: implement props
   List<Object> get props => [params];
 }

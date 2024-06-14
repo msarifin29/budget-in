@@ -70,7 +70,8 @@ class _ExpensePageState extends State<ExpensePage>
         pagingController.itemList = [];
         pagingController.appendPage([], 1);
         pagingController.refresh();
-        selectString.value = context.l10n.cash;
+        selectString.value =
+            context.l10n.empty_filter_expenses('*${context.l10n.cash}*');
       case 3:
         params = const GetExpensesparams();
         params = params.copyWith(expenseType: ConstantType.debit);
@@ -304,22 +305,6 @@ class _ExpensePageState extends State<ExpensePage>
             size: 40,
           ),
         ),
-      ),
-    );
-  }
-}
-
-class ContainerFilterWidget extends StatelessWidget {
-  const ContainerFilterWidget({super.key, required this.child});
-  final Widget child;
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      padding: const EdgeInsets.all(8),
-      child: SingleChildScrollView(
-        scrollDirection: Axis.horizontal,
-        child: child,
       ),
     );
   }

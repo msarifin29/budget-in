@@ -15,7 +15,6 @@ class GetIncomeBloc extends Bloc<GetIncomeEvent, GetIncomeState> {
       final result = await usecase(
         GetIncomeParams(
           page: event.params.page,
-          totalPage: event.params.totalPage,
           typeIncome: event.params.typeIncome,
           categoryId: event.params.categoryId,
         ),

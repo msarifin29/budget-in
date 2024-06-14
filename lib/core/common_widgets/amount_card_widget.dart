@@ -1,4 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:budget_in/features/incomes/incomes.dart';
+import 'package:budget_in/l10n/l10n.dart';
 import 'package:flutter/material.dart';
 
 import 'package:budget_in/core/core.dart';
@@ -6,27 +8,18 @@ import 'package:budget_in/core/core.dart';
 class AmountCardWidget extends StatelessWidget {
   const AmountCardWidget({
     super.key,
-    required this.total,
-    required this.category,
-    required this.type,
-    required this.date,
-    required this.color,
+    required this.data,
     this.onTap,
-    this.plusMin = '',
-    this.colorPlusMinus,
-    this.colorNumber,
   });
-  final String total;
-  final String category;
-  final String type;
-  final String date;
-  final Color color;
   final VoidCallback? onTap;
-  final String plusMin;
-  final Color? colorPlusMinus;
-  final Color? colorNumber;
+  final IncomeData data;
   @override
   Widget build(BuildContext context) {
+    final date = TimeUtil().today(ddMMyyy, DateTime.parse(data.createdAt));
+    final category = data.categoryData ?? const CategoryData();
+    Color titleColor = Theme.of(context).brightness == Brightness.dark
+        ? ColorApp.grey
+        : Colors.black87;
     return Card(
       elevation: 0.5,
       margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 3),
@@ -41,88 +34,83 @@ class AmountCardWidget extends StatelessWidget {
             borderRadius: BorderRadius.circular(15),
             color: Theme.of(context).cardColor,
           ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.start,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  RichText(
-                    text: TextSpan(
-                      text: plusMin,
-                      style: context.textTheme.bodyMedium!.copyWith(
-                          fontWeight: FontWeight.w600,
-                          color: colorNumber ??
-                              (Theme.of(context).brightness == Brightness.light
-                                  ? ColorApp.green
-                                  : Colors.grey)),
-                      children: [
-                        TextSpan(
-                          text: ' Rp. ',
-                          style: context.textTheme.bodyMedium!.copyWith(
-                              color: colorNumber ??
-                                  (Theme.of(context).brightness ==
-                                          Brightness.light
-                                      ? ColorApp.green
-                                      : Colors.grey)),
-                        ),
-                        TextSpan(
-                          text: total,
-                          style: context.textTheme.bodyLarge!.copyWith(
-                              fontWeight: FontWeight.w600,
-                              color: colorNumber ??
-                                  (Theme.of(context).brightness ==
-                                          Brightness.light
-                                      ? ColorApp.green
-                                      : Colors.grey)),
-                        ),
-                      ],
+                  Text(
+                    category.title ?? '',
+                    style: context.textTheme.bodyLarge!.copyWith(
+                      color: titleColor,
+                      fontWeight: FontWeight.w600,
                     ),
                   ),
                   RichText(
                     text: TextSpan(
-                      text: category,
+                      text: '+',
                       style: context.textTheme.bodyMedium!.copyWith(
-                        color: colorPlusMinus ??
-                            (Theme.of(context).brightness == Brightness.light
-                                ? ColorApp.green
-                                : Colors.grey),
+                        fontWeight: FontWeight.w600,
+                        color: ColorApp.green,
                       ),
                       children: [
                         TextSpan(
-                          text: '  $date',
-                          style: context.textTheme.bodySmall!.copyWith(
-                            color: ColorApp.green.withOpacity(0.5),
+                          text: ' Rp',
+                          style: context.textTheme.bodyMedium!.copyWith(
+                            color: titleColor,
+                            fontWeight: FontWeight.w600,
                           ),
+                        ),
+                        TextSpan(
+                          text: Helpers.currency(data.total),
+                          style: context.textTheme.bodyLarge!.copyWith(
+                              fontWeight: FontWeight.w600, color: titleColor),
                         ),
                       ],
                     ),
                   ),
                 ],
               ),
-              Container(
-                height: 25,
-                padding: const EdgeInsets.symmetric(horizontal: 15),
-                alignment: Alignment.center,
-                decoration: BoxDecoration(
-                  color: color,
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                child: Text(
-                  type,
-                  style: context.textTheme.labelSmall!.copyWith(
-                    color: (Theme.of(context).brightness == Brightness.light
-                        ? Colors.white
-                        : Colors.grey),
-                    fontWeight: FontWeight.w600,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    data.typeIncome == ConstantType.cash
+                        ? context.l10n.cash
+                        : context.l10n.non_cash,
+                    style: context.textTheme.bodyMedium!.copyWith(
+                      color: titleColor,
+                      fontWeight: FontWeight.w600,
+                    ),
                   ),
-                ),
+                  Text(
+                    date,
+                    style: context.textTheme.bodySmall!.copyWith(
+                      color: titleColor,
+                    ),
+                  ),
+                ],
               ),
             ],
           ),
         ),
+      ),
+    );
+  }
+}
+
+class ContainerFilterWidget extends StatelessWidget {
+  const ContainerFilterWidget({super.key, required this.child});
+  final Widget child;
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.all(8),
+      child: SingleChildScrollView(
+        scrollDirection: Axis.horizontal,
+        child: child,
       ),
     );
   }

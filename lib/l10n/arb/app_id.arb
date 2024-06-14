@@ -64,6 +64,14 @@
       }
     }
   },
+  "@empty_filter_incomes": {
+    "description": "A message with a parameters",
+    "placeholders": {
+      "filter": {
+        "type": "String"
+      }
+    }
+  },
   "no": "Tidak",
   "yes": "Ya",
   "msg_onboarding": "Membangun kebiasaan finansial yang sehat dan mengendalikan pengeluaran yang tidak perlu",
@@ -206,5 +214,6 @@
   "cash_info": "Pastikan jumlah yang Anda masukkan sesuai dengan jumlah uang tunai yang Anda miliki sebenarnya.",
   "bank_info": "Pilih bank Anda dari daftar di bawah. Kami tidak terhubung langsung ke rekening bank Anda, jadi informasi Anda aman.",
   "bank_name": "Nama Bank",
-  "empty_filter_expenses": "Saat ini tidak ada pengeluaran yang tercatat untuk {filter}"
+  "empty_filter_expenses": "Saat ini tidak ada pengeluaran yang tercatat untuk {filter}",
+  "empty_filter_incomes": "Saat ini tidak ada pendapatan yang tercatat untuk {filter}"
 }

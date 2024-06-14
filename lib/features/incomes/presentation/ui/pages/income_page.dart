@@ -16,21 +16,19 @@ class IncomePage extends StatefulWidget {
 class _IncomePageState extends State<IncomePage>
     with SingleTickerProviderStateMixin {
   final currentpage = ValueNotifier<int>(1);
+  final index = ValueNotifier(0);
+  final category = ValueNotifier(ItemChoice(0, ''));
+  final selectString = ValueNotifier('');
+
   // Controller
-  final PagingController<int, IncomeData> pagingController =
-      PagingController(firstPageKey: 1);
-  late TabController tabController;
+  final pagingController = PagingController<int, IncomeData>(firstPageKey: 1);
   // Other
   int selectIndex = 0;
   final not = DateTime.now();
-  GetIncomeParams params = const GetIncomeParams(page: 1, totalPage: 10);
+  GetIncomeParams params = const GetIncomeParams();
 
   @override
   void initState() {
-    tabController = TabController(length: 3, vsync: this);
-    tabController.addListener(() {
-      setState(() => selectIndex = tabController.index);
-    });
     pagingController.addPageRequestListener((pageKey) {
       currentpage.value = pageKey;
       context.read<GetIncomeBloc>().add(
@@ -45,6 +43,34 @@ class _IncomePageState extends State<IncomePage>
     pagingController.refresh();
   }
 
+  void actions(int id, BuildContext context) {
+    switch (id) {
+      case 1:
+        params = const GetIncomeParams();
+        pagingController.itemList = [];
+        pagingController.appendPage([], 1);
+        pagingController.refresh();
+        selectString.value = context.l10n
+            .empty_filter_incomes('*${context.l10n.empty_income_msg}*');
+      case 2:
+        params = const GetIncomeParams();
+        params = params.copyWith(typeIncome: ConstantType.cash);
+        pagingController.itemList = [];
+        pagingController.appendPage([], 1);
+        pagingController.refresh();
+        selectString.value =
+            context.l10n.empty_filter_incomes('*${context.l10n.cash}*');
+      case 3:
+        params = const GetIncomeParams();
+        params = params.copyWith(typeIncome: ConstantType.debit);
+        pagingController.itemList = [];
+        pagingController.appendPage([], 1);
+        pagingController.refresh();
+        selectString.value =
+            context.l10n.empty_filter_incomes('*${context.l10n.non_cash}*');
+    }
+  }
+
   @override
   void dispose() {
     pagingController.dispose();
@@ -53,6 +79,11 @@ class _IncomePageState extends State<IncomePage>
 
   @override
   Widget build(BuildContext context) {
+    final filters = [
+      ItemChoice(1, context.l10n.all),
+      ItemChoice(2, context.l10n.cash),
+      ItemChoice(3, context.l10n.non_cash),
+    ];
     return RefreshIndicator(
       color: ColorApp.green,
       onRefresh: () {
@@ -64,254 +95,91 @@ class _IncomePageState extends State<IncomePage>
           preferredSize: const Size(double.infinity, kToolbarHeight),
           child: NewAppBarWidget(title: context.l10n.income),
         ),
-        body: Column(
-          children: [
-            TabBar(
-              controller: tabController,
-              labelColor: Colors.grey,
-              tabAlignment: TabAlignment.center,
-              labelStyle: Theme.of(context).textTheme.bodySmall,
-              splashFactory: NoSplash.splashFactory,
-              automaticIndicatorColorAdjustment: false,
-              dividerHeight: 0,
-              onTap: (value) {
-                switch (value) {
-                  case 0:
-                    params = params.copyWith(typeIncome: '');
-                    pagingController.itemList = [];
-                    pagingController.appendPage([], 1);
-                    pagingController.refresh();
-                  case 1:
-                    params = params.copyWith(typeIncome: ConstantType.cash);
-                    pagingController.itemList = [];
-                    pagingController.appendPage([], 1);
-                    pagingController.refresh();
-                  case 2:
-                    params = params.copyWith(typeIncome: ConstantType.debit);
-                    pagingController.itemList = [];
-                    pagingController.appendPage([], 1);
-                    pagingController.refresh();
-                }
-              },
-              tabs: [
-                Tab(
-                  text: context.l10n.all,
-                ),
-                Tab(
-                  text: context.l10n.cash,
-                ),
-                Tab(
-                  text: context.l10n.non_cash,
-                )
-              ],
-            ),
-            const SizedBox(height: 5),
-            Flexible(
-              child: SizedBox(
-                height: MediaQuery.of(context).size.height * 0.9,
-                child: TabBarView(
-                  controller: tabController,
-                  children: [
-                    BlocListener<GetIncomeBloc, GetIncomeState>(
-                      listener: (context, state) {
-                        if (state is GetIncomeSuccess) {
-                          final isLastPage =
-                              currentpage.value == state.data.lastPage;
-                          if (isLastPage) {
-                            pagingController.appendLastPage(state.data.data);
-                          } else {
-                            final nextPageKey =
-                                (pagingController.nextPageKey ?? 1) + 1;
-
-                            pagingController.appendPage(
-                              state.data.data,
-                              nextPageKey,
+        body: SingleChildScrollView(
+          physics: const NeverScrollableScrollPhysics(),
+          child: Column(
+            children: [
+              ContainerFilterWidget(
+                child: ValueListenableBuilder(
+                  valueListenable: index,
+                  builder: (context, n, _) {
+                    return Row(
+                      children: [
+                        ...filters.map(
+                          (e) {
+                            return Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 8),
+                              child: ChoiceChip(
+                                label: Text(e.label),
+                                selected: index.value == e.id,
+                                onSelected: (_) {
+                                  index.value = e.id;
+                                  actions(index.value, context);
+                                },
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(25),
+                                ),
+                              ),
                             );
-                          }
-                        } else if (state is GetIncomeFailure) {
-                          pagingController.error = context.l10n.something_wrong;
-                        }
-                      },
-                      child: SizedBox(
-                        height: MediaQuery.sizeOf(context).height,
-                        child: PagedListView<int, IncomeData>(
-                          pagingController: pagingController,
-                          builderDelegate: PagedChildBuilderDelegate(
-                            itemBuilder: (context, x, index) {
-                              CategoryData cData = x.categoryData ??
-                                  CategoryData(
-                                      categoryId: 1,
-                                      id: 1,
-                                      title: context.l10n.other);
-                              final date = TimeUtil()
-                                  .today(ddMMyyy, DateTime.parse(x.createdAt));
-                              return AmountCardWidget(
-                                plusMin: '+',
-                                total: Helpers.currency(x.total),
-                                category: cData.title,
-                                type: x.typeIncome == ConstantType.cash
-                                    ? context.l10n.cash
-                                    : context.l10n.non_cash,
-                                date: date,
-                                color: x.typeIncome == ConstantType.cash
-                                    ? ColorApp.green
-                                    : ColorApp.blue,
-                              );
-                            },
-                            firstPageProgressIndicatorBuilder: (context) {
-                              return const CircularLoading();
-                            },
-                            firstPageErrorIndicatorBuilder: (context) {
-                              return ErrorImageWidget(
-                                  text: pagingController.error);
-                            },
-                            newPageErrorIndicatorBuilder: (context) {
-                              return ErrorImageWidget(
-                                  text: pagingController.error);
-                            },
-                            noItemsFoundIndicatorBuilder: (context) {
-                              return EmptyWidget(
-                                  text: context.l10n.empty_income_msg);
-                            },
-                          ),
+                          },
                         ),
-                      ),
-                    ),
-                    BlocListener<GetIncomeBloc, GetIncomeState>(
-                      listener: (context, state) {
-                        if (state is GetIncomeSuccess) {
-                          final isLastPage =
-                              currentpage.value == state.data.lastPage;
-                          if (isLastPage) {
-                            pagingController.appendLastPage(state.data.data);
-                          } else {
-                            final nextPageKey =
-                                (pagingController.nextPageKey ?? 1) + 1;
-
-                            pagingController.appendPage(
-                              state.data.data,
-                              nextPageKey,
-                            );
-                          }
-                        } else if (state is GetIncomeFailure) {
-                          pagingController.error = context.l10n.something_wrong;
-                        }
-                      },
-                      child: SizedBox(
-                        height: MediaQuery.sizeOf(context).height,
-                        child: PagedListView<int, IncomeData>(
-                          pagingController: pagingController,
-                          builderDelegate: PagedChildBuilderDelegate(
-                            itemBuilder: (context, x, index) {
-                              CategoryData cData = x.categoryData ??
-                                  CategoryData(
-                                      categoryId: 1,
-                                      id: 1,
-                                      title: context.l10n.other);
-                              final date = TimeUtil()
-                                  .today(ddMMyyy, DateTime.parse(x.createdAt));
-                              return AmountCardWidget(
-                                plusMin: '+',
-                                total: Helpers.currency(x.total),
-                                category: cData.title,
-                                type: x.typeIncome == ConstantType.cash
-                                    ? context.l10n.cash
-                                    : context.l10n.non_cash,
-                                date: date,
-                                color: x.typeIncome == ConstantType.cash
-                                    ? ColorApp.green
-                                    : ColorApp.blue,
-                              );
-                            },
-                            firstPageProgressIndicatorBuilder: (context) {
-                              return const CircularLoading();
-                            },
-                            firstPageErrorIndicatorBuilder: (context) {
-                              return ErrorImageWidget(
-                                  text: pagingController.error);
-                            },
-                            newPageErrorIndicatorBuilder: (context) {
-                              return ErrorImageWidget(
-                                  text: pagingController.error);
-                            },
-                            noItemsFoundIndicatorBuilder: (context) {
-                              return EmptyWidget(
-                                  text: context.l10n.empty_income_msg);
-                            },
-                          ),
-                        ),
-                      ),
-                    ),
-                    BlocListener<GetIncomeBloc, GetIncomeState>(
-                      listener: (context, state) {
-                        if (state is GetIncomeSuccess) {
-                          final isLastPage =
-                              currentpage.value == state.data.lastPage;
-                          if (isLastPage) {
-                            pagingController.appendLastPage(state.data.data);
-                          } else {
-                            final nextPageKey =
-                                (pagingController.nextPageKey ?? 1) + 1;
-
-                            pagingController.appendPage(
-                              state.data.data,
-                              nextPageKey,
-                            );
-                          }
-                        } else if (state is GetIncomeFailure) {
-                          pagingController.error = context.l10n.something_wrong;
-                        }
-                      },
-                      child: SizedBox(
-                        height: MediaQuery.sizeOf(context).height,
-                        child: PagedListView<int, IncomeData>(
-                          pagingController: pagingController,
-                          builderDelegate: PagedChildBuilderDelegate(
-                            itemBuilder: (context, x, index) {
-                              CategoryData cData = x.categoryData ??
-                                  CategoryData(
-                                      categoryId: 1,
-                                      id: 1,
-                                      title: context.l10n.other);
-                              final date = TimeUtil()
-                                  .today(ddMMyyy, DateTime.parse(x.createdAt));
-                              return AmountCardWidget(
-                                plusMin: '+',
-                                total: Helpers.currency(x.total),
-                                category: cData.title,
-                                type: x.typeIncome == ConstantType.cash
-                                    ? context.l10n.cash
-                                    : context.l10n.non_cash,
-                                date: date,
-                                color: x.typeIncome == ConstantType.cash
-                                    ? ColorApp.green
-                                    : ColorApp.blue,
-                              );
-                            },
-                            firstPageProgressIndicatorBuilder: (context) {
-                              return const CircularLoading();
-                            },
-                            firstPageErrorIndicatorBuilder: (context) {
-                              return ErrorImageWidget(
-                                  text: pagingController.error);
-                            },
-                            newPageErrorIndicatorBuilder: (context) {
-                              return ErrorImageWidget(
-                                  text: pagingController.error);
-                            },
-                            noItemsFoundIndicatorBuilder: (context) {
-                              return EmptyWidget(
-                                  text: context.l10n.empty_income_msg);
-                            },
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
+                      ],
+                    );
+                  },
                 ),
               ),
-            ),
-          ],
+              SizedBox(
+                height: MediaQuery.of(context).size.height * 0.8,
+                child: BlocListener<GetIncomeBloc, GetIncomeState>(
+                  listener: (context, state) {
+                    if (state is GetIncomeSuccess) {
+                      final isLastPage =
+                          currentpage.value == state.data.lastPage;
+                      if (isLastPage) {
+                        pagingController.appendLastPage(state.data.data);
+                      } else {
+                        final nextPageKey =
+                            (pagingController.nextPageKey ?? 1) + 1;
+
+                        pagingController.appendPage(
+                          state.data.data,
+                          nextPageKey,
+                        );
+                      }
+                    } else if (state is GetIncomeFailure) {
+                      pagingController.error = context.l10n.something_wrong;
+                    }
+                  },
+                  child: SizedBox(
+                    height: MediaQuery.sizeOf(context).height,
+                    child: PagedListView<int, IncomeData>(
+                      pagingController: pagingController,
+                      builderDelegate: PagedChildBuilderDelegate(
+                        itemBuilder: (context, x, index) {
+                          return AmountCardWidget(
+                            data: x,
+                          );
+                        },
+                        firstPageProgressIndicatorBuilder: (context) {
+                          return const CircularLoading();
+                        },
+                        firstPageErrorIndicatorBuilder: (context) {
+                          return ErrorImageWidget(text: pagingController.error);
+                        },
+                        newPageErrorIndicatorBuilder: (context) {
+                          return ErrorImageWidget(text: pagingController.error);
+                        },
+                        noItemsFoundIndicatorBuilder: (context) {
+                          return EmptyWidget(text: selectString.value);
+                        },
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
         floatingActionButton: FloatingActionButton(
           onPressed: () {

@@ -94,38 +94,34 @@ class CreateIncomeParams extends Equatable {
 class GetIncomeParams extends Equatable {
   final String? typeIncome;
   final int? categoryId;
-  final int page;
-  final int totalPage;
+  final int? page;
   const GetIncomeParams({
     this.typeIncome,
     this.categoryId,
-    required this.page,
-    required this.totalPage,
+    this.page,
   });
 
   GetIncomeParams copyWith({
     String? typeIncome,
     int? categoryId,
     int? page,
-    int? totalPage,
   }) =>
       GetIncomeParams(
         page: page ?? this.page,
-        totalPage: totalPage ?? this.totalPage,
         categoryId: this.categoryId,
         typeIncome: typeIncome ?? this.typeIncome,
       );
 
   Map<String, dynamic> toMap() {
     Map<String, dynamic> data = {
-      "page": page,
-      "total_page": totalPage,
+      "total_page": 10,
     };
     if (typeIncome != null) data["type_income"] = typeIncome;
     if (categoryId != null) data["category_id"] = categoryId;
+    if (page != null) data["page"] = page;
     return data;
   }
 
   @override
-  List<Object?> get props => [];
+  List<Object?> get props => [typeIncome, categoryId, page];
 }

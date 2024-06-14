@@ -94,7 +94,7 @@ class CardCreditWidget extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    categoryData.title,
+                    categoryData.title ?? '',
                     style: context.textTheme.bodySmall!.copyWith(
                       fontWeight: FontWeight.w500,
                       color: creditData.statusCredit == 'active'

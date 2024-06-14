@@ -7,15 +7,11 @@ part 'category_data.g.dart';
 @JsonSerializable(explicitToJson: true)
 class CategoryData extends Equatable {
   @JsonKey(name: "category_id")
-  final int categoryId;
+  final int? categoryId;
   @JsonKey(name: "t_id")
-  final int id;
-  final String title;
-  const CategoryData({
-    required this.categoryId,
-    required this.id,
-    required this.title,
-  });
+  final int? id;
+  final String? title;
+  const CategoryData({this.categoryId, this.id, this.title});
 
   static CategoryData fromJson(Map<String, dynamic> json) =>
       _$CategoryDataFromJson(json);
