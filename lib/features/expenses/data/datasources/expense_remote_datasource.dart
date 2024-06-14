@@ -122,6 +122,7 @@ class GetExpensesparams extends Equatable {
   final String? expenseType;
   final String? status;
   final int? id;
+  final String? createdAt;
   Map<String, dynamic> toMap() {
     Map<String, dynamic> data = {
       'status': 'success',
@@ -130,22 +131,24 @@ class GetExpensesparams extends Equatable {
     if (page != null) data['page'] = page;
     if (expenseType != null) data['expense_type'] = expenseType;
     if (id != null) data['id'] = id;
+    if (createdAt != null) data['created_at'] = createdAt;
     return data;
   }
 
-  GetExpensesparams copyWith({
-    int? page,
-    int? totalPage,
-    String? expenseType,
-    String? status,
-    int? id,
-  }) {
+  GetExpensesparams copyWith(
+      {int? page,
+      int? totalPage,
+      String? expenseType,
+      String? status,
+      int? id,
+      String? createdAt}) {
     return GetExpensesparams(
       page: page ?? this.page,
       totalPage: totalPage ?? this.totalPage,
       status: status ?? this.status,
       expenseType: expenseType ?? this.expenseType,
       id: id ?? this.id,
+      createdAt: createdAt ?? this.createdAt,
     );
   }
 
@@ -155,9 +158,17 @@ class GetExpensesparams extends Equatable {
     this.expenseType,
     this.status,
     this.id,
+    this.createdAt,
   });
   @override
-  List<Object?> get props => throw UnimplementedError();
+  List<Object?> get props => [
+        page,
+        totalPage,
+        expenseType,
+        status,
+        id,
+        createdAt,
+      ];
 }
 
 class UpdateExpenseParams extends Equatable {

@@ -25,6 +25,7 @@ class GetExpensesBloc extends Bloc<GetExpensesEvent, GetExpensesState> {
         expenseType: event.params.expenseType,
         status: event.params.status,
         id: event.params.id,
+        createdAt: event.params.createdAt,
       ),
     );
     emit(result.fold((l) {

@@ -27,9 +27,7 @@ class PrimaryButton extends StatelessWidget {
       child: Text(
         text,
         style: context.textTheme.bodyMedium?.copyWith(
-          color: (Theme.of(context).brightness == Brightness.light
-              ? Colors.white
-              : Colors.grey),
+          color: Colors.white,
           fontWeight: FontWeight.w600,
         ),
       ),
@@ -60,7 +58,7 @@ class PrimaryOutlineButton extends StatelessWidget {
       child: Text(
         text,
         style: context.textTheme.bodyMedium?.copyWith(
-          color: ColorApp.green,
+          color: ColorApp.red,
           fontWeight: FontWeight.w600,
         ),
       ),

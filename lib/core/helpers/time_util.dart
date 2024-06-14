@@ -11,6 +11,8 @@ const dmy = 'dd MMMM yyyy';
 const ddMMyyy = 'dd/MM/yyyy HH:mm';
 // 17/10/1945 20:08
 const yyyy = 'yyyy';
+// 1945-05-14 20:08
+const yyyyMMdd = 'yyyy-MM-dd';
 
 class TimeUtil {
   String today(

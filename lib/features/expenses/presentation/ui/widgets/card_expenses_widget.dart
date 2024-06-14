@@ -1,88 +1,105 @@
-// // ignore_for_file: public_member_api_docs, sort_constructors_first, inference_failure_on_function_invocation, lines_longer_than_80_chars
-// import 'package:budget_in/core/core.dart';
-// import 'package:budget_in/features/expenses/presentation/ui/expenses_ui.dart';
-// import 'package:flutter/material.dart';
+// ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:budget_in/features/onboarding/data/models/monthly_report_detail_response.dart';
+import 'package:budget_in/l10n/l10n.dart';
+import 'package:flutter/material.dart';
 
-// class CardExpensesWidget extends StatelessWidget {
-//   const CardExpensesWidget({super.key});
-//   @override
-//   Widget build(BuildContext context) {
-//     final date = DateTime.now();
-//     return Container(
-//       padding: const EdgeInsets.symmetric(
-//         horizontal: 15,
-//         vertical: 8,
-//       ),
-//       margin: const EdgeInsets.symmetric(horizontal: 35),
-//       decoration: BoxDecoration(
-//         border: Border.all(color: ColorApp.green),
-//         borderRadius: BorderRadius.circular(15),
-//       ),
-//       child: InkWell(
-//         hoverColor: Colors.white,
-//         onTap: () {
-//           showDialog(
-//             context: context,
-//             builder: (context) => DetailExpensesWidget(
-//               type: 'cash',
-//               date: DateTime.now(),
-//               total: 500000,
-//               category: '',
-//               notes: '',
-//             ),
-//           );
-//         },
-//         onLongPress: () {},
-//         child: Column(
-//           crossAxisAlignment: CrossAxisAlignment.start,
-//           children: [
-//             Row(
-//               children: [
-//                 Text(
-//                   TimeUtil().today(monthDay, date),
-//                   style: context.textTheme.bodyMedium
-//                       ?.copyWith(fontWeight: FontWeight.w500),
-//                 ),
-//                 const SizedBox(width: 24),
-//                 Container(
-//                   padding: const EdgeInsets.symmetric(
-//                     horizontal: 20,
-//                     vertical: 4,
-//                   ),
-//                   decoration: BoxDecoration(
-//                     borderRadius: BorderRadius.circular(20),
-//                     color: ColorApp.blue,
-//                   ),
-//                   child: Text(
-//                     'cash',
-//                     style: context.textTheme.bodySmall?.copyWith(
-//                       fontWeight: FontWeight.w500,
-//                       color: Colors.white,
-//                     ),
-//                   ),
-//                 ),
-//               ],
-//             ),
-//             const SizedBox(height: 10),
-//             RichText(
-//               text: TextSpan(
-//                 children: [
-//                   TextSpan(
-//                     text: 'Rp. ',
-//                     style: context.textTheme.bodySmall
-//                         ?.copyWith(fontWeight: FontWeight.w500),
-//                   ),
-//                   TextSpan(
-//                     text: '2.000.000',
-//                     style: context.textTheme.titleSmall
-//                         ?.copyWith(fontWeight: FontWeight.w600),
-//                   ),
-//                 ],
-//               ),
-//             ),
-//           ],
-//         ),
-//       ),
-//     );
-//   }
-// }
+import 'package:budget_in/core/core.dart';
+import 'package:budget_in/features/expenses/expenses.dart';
+
+class CardExpenseWidget extends StatelessWidget {
+  const CardExpenseWidget({
+    super.key,
+    this.onTap,
+    required this.data,
+    this.x = '-',
+  });
+
+  final VoidCallback? onTap;
+  final ExpenseData data;
+  final String x;
+
+  @override
+  Widget build(BuildContext context) {
+    final date = TimeUtil().today(
+        ddMMyyy, DateTime.parse(data.createdAt ?? '2012-12-12T15:54:11Z'));
+    final category = data.tCategory ?? const TCategory();
+    Color titleColor = Theme.of(context).brightness == Brightness.dark
+        ? ColorApp.grey
+        : Colors.black87;
+    return Card(
+      elevation: 0.5,
+      margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 3),
+      child: InkWell(
+        onTap: onTap,
+        borderRadius: BorderRadius.circular(15),
+        child: Container(
+          height: 65,
+          width: double.infinity,
+          padding: const EdgeInsets.symmetric(vertical: 3, horizontal: 20),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(15),
+            color: Theme.of(context).cardColor,
+          ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    category.title ?? '',
+                    style: context.textTheme.bodyLarge!.copyWith(
+                      color: titleColor,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                  RichText(
+                    text: TextSpan(
+                      text: x,
+                      style: context.textTheme.bodyMedium!.copyWith(
+                          fontWeight: FontWeight.w600, color: titleColor),
+                      children: [
+                        TextSpan(
+                          text: ' Rp',
+                          style: context.textTheme.bodyLarge!.copyWith(
+                            color: titleColor,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                        TextSpan(
+                          text: Helpers.currency(data.total),
+                          style: context.textTheme.bodyLarge!.copyWith(
+                              fontWeight: FontWeight.w600, color: titleColor),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    data.expenseType == ConstantType.cash
+                        ? context.l10n.cash
+                        : context.l10n.non_cash,
+                    style: context.textTheme.bodyMedium!.copyWith(
+                      color: titleColor,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                  Text(
+                    date,
+                    style: context.textTheme.bodySmall!.copyWith(
+                      color: titleColor,
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}

@@ -46,9 +46,9 @@ class ErrorImageWidget extends StatelessWidget {
           Text(
             text,
             textAlign: TextAlign.center,
-            style: context.textTheme.bodySmall!.copyWith(
+            style: context.textTheme.bodyLarge!.copyWith(
               color: ColorApp.red,
-              fontWeight: FontWeight.w500,
+              fontWeight: FontWeight.w600,
             ),
           ),
         ],

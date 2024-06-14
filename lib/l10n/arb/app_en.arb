@@ -56,6 +56,14 @@
             }
         }
     },
+    "@empty_filter_expenses": {
+        "description": "A message with a parameters",
+        "placeholders": {
+            "filter": {
+                "type": "String"
+            }
+        }
+    },
     "no": "No",
     "yes": "Yes",
     "msg_onboarding": "Build healthy financial habits and control unncessary expenses",
@@ -197,5 +205,6 @@
     "balance_info": "Make sure the amount you enter matches your actual bank account balance.",
     "cash_info": "Make sure the amount you enter matches the exact amount of cash you have.",
     "bank_info": "Please select your bank from the list below. We don't connect directly to your bank account, so your information is secure.",
-    "bank_name": "Bank Name"
+    "bank_name": "Bank Name",
+    "empty_filter_expenses": "There are currently no expenses recorded for {filter}"
 }
