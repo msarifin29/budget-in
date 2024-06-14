@@ -1,6 +1,6 @@
-export 'datasources/city_local_datasource.dart';
+export 'datasources/bank_local_datasource.dart';
 export 'datasources/occupation_locale_datasource.dart';
-export 'repositories/city_repository.dart';
+export 'repositories/bank_repository.dart';
 export 'repositories/occupation_repository.dart';
 export 'models/login_response.dart';
 export 'models/account_response.dart';

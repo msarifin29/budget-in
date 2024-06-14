@@ -2,6 +2,7 @@ import 'package:budget_in/core/core.dart';
 import 'package:budget_in/features/onboarding/onboarding.dart';
 import 'package:budget_in/l10n/l10n.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 String stringMonth(BuildContext context, int month) {
   switch (month) {
@@ -52,7 +53,12 @@ class MonthlyReportPage extends StatelessWidget {
               itemCount: data.length,
               itemBuilder: (context, i) {
                 final item = data[i];
-
+                String te = NumberFormat.currency(
+                        locale: 'ID', symbol: '', decimalDigits: 0)
+                    .format(item.totalExpense);
+                String ti = NumberFormat.currency(
+                        locale: 'ID', symbol: '', decimalDigits: 0)
+                    .format(item.totalIncome);
                 return item.totalExpense != 0 || item.totalIncome != 0
                     ? InkWell(
                         onTap: () {
@@ -87,11 +93,11 @@ class MonthlyReportPage extends StatelessWidget {
                                     children: [
                                       TextItem(
                                         title: context.l10n.expense,
-                                        total: '${item.totalExpense}',
+                                        total: te,
                                       ),
                                       TextItem(
                                         title: context.l10n.income,
-                                        total: '${item.totalIncome}',
+                                        total: ti,
                                       ),
                                     ],
                                   ),

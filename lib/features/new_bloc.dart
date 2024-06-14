@@ -62,6 +62,7 @@ class NewBloc extends StatelessWidget {
               GetMaxBudgetBloc(usecase: sl<GetMaxBudgetUsecase>()),
         ),
         BlocProvider(create: (context) => sl<PrivacyBloc>()),
+        BlocProvider(create: (context) => sl<BankBloc>()),
       ],
       child: child,
     );

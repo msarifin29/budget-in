@@ -5,20 +5,20 @@ import 'package:budget_in/core/core.dart';
 import 'package:budget_in/features/authentication/data/authentication_data.dart';
 import 'package:dartz/dartz.dart';
 
-abstract class CityRepository {
-  FutureOr<Either<Failure, List<String>>> getCities();
+abstract class BankRepository {
+  FutureOr<Either<Failure, List<BankModel>>> getCities();
 }
 
-class CityRepositoryImpl implements CityRepository {
-  final CityLocaleDataSource localeDataSource;
-  CityRepositoryImpl({
+class BankRepositoryImpl implements BankRepository {
+  final BankLocaleDataSource localeDataSource;
+  BankRepositoryImpl({
     required this.localeDataSource,
   });
 
   @override
-  FutureOr<Either<Failure, List<String>>> getCities() async {
+  FutureOr<Either<Failure, List<BankModel>>> getCities() async {
     try {
-      final cities = await localeDataSource.getCities();
+      final cities = await localeDataSource.getBank();
       return Right(cities);
     } catch (e) {
       return Left(CacheFailure(message: 'Failed parsing city'));

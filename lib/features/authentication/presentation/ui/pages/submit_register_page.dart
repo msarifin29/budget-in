@@ -5,7 +5,7 @@ import 'package:budget_in/injection.dart';
 import 'package:currency_text_input_formatter/currency_text_input_formatter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter_popup/flutter_popup.dart';
 
 import 'package:budget_in/core/core.dart';
 import 'package:budget_in/features/authentication/authentication.dart';
@@ -36,6 +36,13 @@ class _SubmitRegisterPageState extends State<SubmitRegisterPage> {
   final ssm = sl<SecureStorageManager>();
   final spm = sl<SharedPreferencesManager>();
 
+  final bankName = ValueNotifier<BankModel?>(null);
+  @override
+  void initState() {
+    super.initState();
+    context.read<BankBloc>().add(OnInitial());
+  }
+
   @override
   void dispose() {
     balanceControl.dispose();
@@ -55,6 +62,16 @@ class _SubmitRegisterPageState extends State<SubmitRegisterPage> {
     symbol: '',
     decimalDigits: 0,
   );
+  List<DropdownMenuItem<String>> get dropdownItems {
+    List<DropdownMenuItem<String>> menuItems = [
+      const DropdownMenuItem(value: "USA", child: Text("USA")),
+      const DropdownMenuItem(value: "Canada", child: Text("Canada")),
+      const DropdownMenuItem(value: "Brazil", child: Text("Brazil")),
+      const DropdownMenuItem(value: "England", child: Text("England")),
+    ];
+    return menuItems;
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -65,22 +82,40 @@ class _SubmitRegisterPageState extends State<SubmitRegisterPage> {
           child: Column(
             children: [
               const LogoWidget(),
+              const SizedBox(height: 20),
               Form(
                 key: globalKey,
                 child: Column(
                   children: [
-                    FormWidget(
-                      title: context.l10n.bank_name,
-                      hint: '',
-                      controller: nameControl,
-                      isShowPopUp: true,
-                      msg: context.l10n.bank_info,
-                      icon: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: SvgPicture.asset(SvgName.bank),
-                      ),
-                      validator: (value) {
-                        return null;
+                    const InfoBankWidget(),
+                    const SizedBox(height: 10),
+                    BlocBuilder<BankBloc, BankState>(
+                      builder: (context, state) {
+                        return DropdownButtonFormField<BankModel>(
+                          decoration: InputDecoration(
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                          ),
+                          isExpanded: true,
+                          validator: (value) =>
+                              value == null ? "Select a bank" : null,
+                          value: bankName.value,
+                          onChanged: (BankModel? newValue) {
+                            bankName.value = newValue;
+                          },
+                          items: state.bank.map((e) {
+                            return DropdownMenuItem<BankModel>(
+                              value: e,
+                              child: Text(
+                                e.name,
+                                style: context.textTheme.bodyMedium!.copyWith(
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                            );
+                          }).toList(),
+                        );
                       },
                     ),
                     const SizedBox(height: 20),
@@ -228,6 +263,42 @@ class _SubmitRegisterPageState extends State<SubmitRegisterPage> {
           ),
         ),
       ),
+    );
+  }
+}
+
+class InfoBankWidget extends StatelessWidget {
+  const InfoBankWidget({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Text(
+          context.l10n.bank_name,
+          style: context.textTheme.bodyMedium
+              ?.copyWith(fontWeight: FontWeight.w500),
+        ),
+        CustomPopup(
+          barrierColor: Colors.green.withOpacity(0.0),
+          backgroundColor: ColorApp.grey,
+          content: Text(
+            context.l10n.bank_info,
+            style: const TextStyle(
+              color: Colors.black,
+              fontSize: 12,
+            ),
+          ),
+          child: const Icon(
+            Icons.error_outline_outlined,
+            color: ColorApp.green,
+            size: 18,
+          ),
+        ),
+      ],
     );
   }
 }

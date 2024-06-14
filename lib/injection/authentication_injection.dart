@@ -4,8 +4,8 @@ part of '../injection.dart';
 
 FutureOr<void> authenticationInjection() async {
   // DataSource
-  sl.registerLazySingleton<CityLocaleDataSource>(
-    () => CityLocaleDataSourceImpl(),
+  sl.registerLazySingleton<BankLocaleDataSource>(
+    () => BankLocaleDataSourceImpl(),
   );
   sl.registerLazySingleton<OccupationLocaleDataSource>(
     () => OccupationLocaleDataSourceImpl(),
@@ -15,8 +15,8 @@ FutureOr<void> authenticationInjection() async {
   );
 
   // Repository
-  sl.registerLazySingleton<CityRepository>(
-    () => CityRepositoryImpl(
+  sl.registerLazySingleton<BankRepository>(
+    () => BankRepositoryImpl(
       localeDataSource: sl(),
     ),
   );
@@ -30,7 +30,7 @@ FutureOr<void> authenticationInjection() async {
   );
 
   // Usecase
-  sl.registerLazySingleton(() => GetCities(repository: sl()));
+  sl.registerLazySingleton(() => GetBank(repository: sl()));
   sl.registerLazySingleton(() => GetOccupations(repository: sl()));
   sl.registerLazySingleton(() => LoginUsecase(repository: sl()));
   sl.registerLazySingleton(() => RegisterUsecase(repository: sl()));
@@ -42,7 +42,7 @@ FutureOr<void> authenticationInjection() async {
   sl.registerLazySingleton(() => GetPrivacyUsecase(repository: sl()));
 
   // Bloc
-  sl.registerFactory(() => CityBloc(getCities: sl()));
+  sl.registerFactory(() => BankBloc(getBank: sl()));
   sl.registerFactory(() => OccupationBloc(getOccupations: sl()));
   sl.registerFactory(() => RegisterBloc(
         registerUsecase: sl(),

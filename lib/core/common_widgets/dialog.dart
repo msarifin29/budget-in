@@ -59,13 +59,10 @@ Future selectedDialog(
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              PrimaryButton(
+              PrimaryOutlineButton(
                 text: context.l10n.no,
-                onPressed: () {
-                  Navigator.of(context).pop(false);
-                },
+                onPressed: () => Navigator.of(context).pop(false),
                 minSize: const Size(80, 45),
-                backgroundColor: ColorApp.rootBeer,
               ),
               PrimaryButton(
                 onPressed: onContinue,
