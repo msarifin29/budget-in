@@ -50,8 +50,7 @@ class _IncomePageState extends State<IncomePage>
         pagingController.itemList = [];
         pagingController.appendPage([], 1);
         pagingController.refresh();
-        selectString.value = context.l10n
-            .empty_filter_incomes('*${context.l10n.empty_income_msg}*');
+        selectString.value = context.l10n.empty_income_msg;
       case 2:
         params = const GetIncomeParams();
         params = params.copyWith(typeIncome: ConstantType.cash);
@@ -171,7 +170,11 @@ class _IncomePageState extends State<IncomePage>
                           return ErrorImageWidget(text: pagingController.error);
                         },
                         noItemsFoundIndicatorBuilder: (context) {
-                          return EmptyWidget(text: selectString.value);
+                          return EmptyWidget(
+                            text: selectString.value.isEmpty
+                                ? context.l10n.empty_income_msg
+                                : selectString.value,
+                          );
                         },
                       ),
                     ),

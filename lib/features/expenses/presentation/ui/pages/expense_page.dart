@@ -62,8 +62,7 @@ class _ExpensePageState extends State<ExpensePage>
         pagingController.itemList = [];
         pagingController.appendPage([], 1);
         pagingController.refresh();
-        selectString.value = context.l10n
-            .empty_filter_expenses('*${context.l10n.empty_expense_msg}*');
+        selectString.value = context.l10n.empty_expense_msg;
       case 2:
         params = const GetExpensesparams();
         params = params.copyWith(expenseType: ConstantType.cash);
@@ -278,7 +277,11 @@ class _ExpensePageState extends State<ExpensePage>
                           return ErrorImageWidget(text: pagingController.error);
                         },
                         noItemsFoundIndicatorBuilder: (context) {
-                          return EmptyWidget(text: selectString.value);
+                          return EmptyWidget(
+                            text: selectString.value.isEmpty
+                                ? context.l10n.empty_expense_msg
+                                : selectString.value,
+                          );
                         },
                       ),
                     ),
