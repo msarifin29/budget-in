@@ -25,6 +25,7 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
             email: event.email,
             password: event.password,
             username: event.username,
+            accountName: event.accountName,
             balance: event.balance,
             cash: event.cash),
       );

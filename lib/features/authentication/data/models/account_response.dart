@@ -25,6 +25,8 @@ class AccountData extends Equatable {
   @JsonKey(name: "account_id")
   final String accountId;
   final String username;
+  @JsonKey(name: "account_name")
+  final String? accountName;
   final String email;
   final String photo;
   @JsonKey(name: "type_user")
@@ -40,6 +42,7 @@ class AccountData extends Equatable {
     required this.uid,
     required this.accountId,
     required this.username,
+    this.accountName,
     required this.email,
     required this.photo,
     required this.typeUser,
@@ -59,6 +62,7 @@ class AccountData extends Equatable {
         uid,
         accountId,
         username,
+        accountName,
         email,
         photo,
         typeUser,
@@ -72,6 +76,6 @@ class AccountData extends Equatable {
       ];
   @override
   String toString() {
-    return 'AccountData{uid:$uid, accountId:$accountId, username:$username, email:$email, photo:$photo, typeUser:$typeUser, balance:$balance, savings:$savings, cash:$cash, debts:$debts, currency:$currency, createdAt:$createdAt, updateddAt:$updateddAt,}';
+    return 'AccountData{uid:$uid, accountId:$accountId, username:$username, accountName: $accountName, email:$email, photo:$photo, typeUser:$typeUser, balance:$balance, savings:$savings, cash:$cash, debts:$debts, currency:$currency, createdAt:$createdAt, updateddAt:$updateddAt,}';
   }
 }

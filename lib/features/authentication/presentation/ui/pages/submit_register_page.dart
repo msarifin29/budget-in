@@ -62,15 +62,6 @@ class _SubmitRegisterPageState extends State<SubmitRegisterPage> {
     symbol: '',
     decimalDigits: 0,
   );
-  List<DropdownMenuItem<String>> get dropdownItems {
-    List<DropdownMenuItem<String>> menuItems = [
-      const DropdownMenuItem(value: "USA", child: Text("USA")),
-      const DropdownMenuItem(value: "Canada", child: Text("Canada")),
-      const DropdownMenuItem(value: "Brazil", child: Text("Brazil")),
-      const DropdownMenuItem(value: "England", child: Text("England")),
-    ];
-    return menuItems;
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -243,14 +234,18 @@ class _SubmitRegisterPageState extends State<SubmitRegisterPage> {
                     return const CircularLoading();
                   }
                   return PrimaryButton(
-                    text: Strings.submit,
+                    text: context.l10n.submit,
                     onPressed: () {
                       if (globalKey.currentState!.validate()) {
+                        String accountName = (bankName.value ??
+                                const BankModel(name: '', code: ''))
+                            .name;
                         context.read<RegisterBloc>().add(
                               OnUserRegister(
                                   username: widget.username,
                                   email: widget.email,
                                   password: widget.password,
+                                  accountName: accountName,
                                   balance: balanceControl.text.trim(),
                                   cash: cashControl.text.trim()),
                             );

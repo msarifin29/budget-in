@@ -181,17 +181,19 @@ class RegisterParams extends Equatable {
   final String username;
   final String email;
   final String password;
+  final String? accountName;
   final String balance;
   final String cash;
   const RegisterParams({
     required this.email,
     required this.password,
+    this.accountName,
     required this.username,
     required this.balance,
     required this.cash,
   });
   Map<String, dynamic> toMap() {
-    return {
+    Map<String, dynamic> data = {
       "username": username,
       "email": email,
       "password": password,
@@ -199,6 +201,8 @@ class RegisterParams extends Equatable {
       "cash": int.parse(cash.replaceAll(RegExp(r'[^0-9]'), '')),
       "type_user": "personal", //by default type_user is personal
     };
+    if (accountName != null) data['account_name'] = accountName;
+    return data;
   }
 
   @override

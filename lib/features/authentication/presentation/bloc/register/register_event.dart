@@ -11,6 +11,7 @@ final class OnUserRegister extends RegisterEvent {
   final String username;
   final String email;
   final String password;
+  final String? accountName;
   final String balance;
   final String cash;
 
@@ -18,13 +19,15 @@ final class OnUserRegister extends RegisterEvent {
       {required this.username,
       required this.email,
       required this.password,
+      this.accountName,
       required this.balance,
       required this.cash});
   @override
-  List<Object> get props => [username, email, password, balance, cash];
+  List<Object> get props =>
+      [username, email, password, accountName!, balance, cash];
   @override
   String toString() {
-    return 'OnUserRegister{username:$username, email:$email, password:$password, balance:$balance, cash:$cash,}';
+    return 'OnUserRegister{username:$username, email:$email, password:$password, accountName:$accountName, balance:$balance, cash:$cash,}';
   }
 }
 

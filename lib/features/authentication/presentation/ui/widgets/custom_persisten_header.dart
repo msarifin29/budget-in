@@ -68,7 +68,7 @@ class CustomPersistenHeader extends SliverPersistentHeaderDelegate {
                   builder: (context, state) {
                     if (state is AccountLoading) {
                       return ShimmerBox(
-                          width: MediaQuery.of(context).size.width * 0.9,
+                          width: MediaQuery.of(context).size.width * 0.95,
                           height: expandedHeight - 10);
                     } else if (state is AccountFailre) {
                       return CPBox(
@@ -85,7 +85,10 @@ class CustomPersistenHeader extends SliverPersistentHeaderDelegate {
                       final cash = NumberFormat.currency(
                               locale: 'ID', symbol: '', decimalDigits: 0)
                           .format(data.cash);
-
+                      final accountName = data.accountName ?? '';
+                      final bank = accountName.isEmpty
+                          ? context.l10n.balance
+                          : accountName;
                       return CPBox(
                         height: expandedHeight - 10,
                         color: (Theme.of(context).brightness == Brightness.light
@@ -98,7 +101,7 @@ class CustomPersistenHeader extends SliverPersistentHeaderDelegate {
                               children: [
                                 ContentBalanceWidget(
                                   image: SvgName.bank,
-                                  title: context.l10n.balance,
+                                  title: bank,
                                   subtitle: total(balance, state),
                                   isVisible: state,
                                   onPressed: () {
@@ -168,10 +171,10 @@ class CPBox extends StatelessWidget {
       height: height,
       decoration: BoxDecoration(
         color: color ?? Theme.of(context).scaffoldBackgroundColor,
-        borderRadius: BorderRadius.circular(15.0),
+        borderRadius: BorderRadius.circular(15),
       ),
       width: MediaQuery.of(context).size.width * 0.9,
-      padding: const EdgeInsets.all(20.0),
+      padding: const EdgeInsets.all(16),
       alignment: Alignment.center,
       child: child,
     );
@@ -200,24 +203,22 @@ class ContentBalanceWidget extends StatelessWidget {
         SizedBox(
           child: Row(
             children: [
-              SvgPicture.asset(
-                image,
-                height: 40.0,
-                width: 40.0,
-              ),
-              const SizedBox(
-                width: 15.0,
-              ),
+              SvgPicture.asset(image, height: 40, width: 40),
+              const SizedBox(width: 5),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    title,
-                    style: context.textTheme.bodySmall!.copyWith(
-                      fontWeight: FontWeight.w500,
-                      color: (Theme.of(context).brightness == Brightness.light
-                          ? Colors.black
-                          : Colors.grey),
+                  SizedBox(
+                    width: MediaQuery.sizeOf(context).width * 0.57,
+                    child: Text(
+                      title,
+                      overflow: TextOverflow.ellipsis,
+                      style: context.textTheme.bodySmall!.copyWith(
+                        fontWeight: FontWeight.w500,
+                        color: (Theme.of(context).brightness == Brightness.light
+                            ? Colors.black
+                            : Colors.grey),
+                      ),
                     ),
                   ),
                   Text(
