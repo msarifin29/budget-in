@@ -1,5 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 
+import 'package:budget_in/injection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -20,11 +21,16 @@ class CustomPersistenHeader extends SliverPersistentHeaderDelegate {
   @override
   Widget build(
       BuildContext context, double shrinkOffset, bool overlapsContent) {
+    final ssm = sl<SecureStorageManager>();
     String total(String v, bool isVisible) {
       if (isVisible == true) {
         return v;
       }
       return Helpers.replaceString(v);
+    }
+
+    void deleteToken() async {
+      return await ssm.deleteToken();
     }
 
     return BlocProvider(
@@ -64,7 +70,17 @@ class CustomPersistenHeader extends SliverPersistentHeaderDelegate {
                   borderRadius: BorderRadius.circular(15.0),
                 ),
                 elevation: 10,
-                child: BlocBuilder<AccountBloc, AccountState>(
+                child: BlocConsumer<AccountBloc, AccountState>(
+                  listener: (context, state) {
+                    if (state is AccountFailre) {
+                      final statusCode = state.code ?? 0;
+                      if (statusCode == 401) {
+                        Navigator.pushNamedAndRemoveUntil(
+                            context, LoginPage.routeName, (route) => false);
+                        deleteToken();
+                      }
+                    }
+                  },
                   builder: (context, state) {
                     if (state is AccountLoading) {
                       return ShimmerBox(

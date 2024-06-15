@@ -9,11 +9,11 @@ class AuthUserCubit extends Cubit<AuthUserState> {
   AuthUserCubit() : super(AuthUserInitial());
   void tokenIsExist() async {
     final fss = sl<SecureStorageManager>();
-    fss.getToken().then((value) {
-      if (value != null && value.isNotEmpty) {
-        emit(const AuthUserLoaded(isExist: true));
+    await fss.getToken().then((value) {
+      if (value == null || value.isEmpty) {
+        emit(const AuthUserFailure());
       } else {
-        emit(const AuthUserLoaded(isExist: false));
+        emit(const AuthUserLoaded());
       }
     });
   }

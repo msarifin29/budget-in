@@ -45,11 +45,11 @@ class _AppState extends State<App> {
           onGenerateRoute: AppRoute.generateRoute,
           home: BlocBuilder<AuthUserCubit, AuthUserState>(
             builder: (context, state) {
-              if (state is AuthUserLoaded) {
-                if (state.isExist) {
-                  return const MainPage(currentIndex: 0);
-                }
+              if (state is AuthUserFailure) {
                 return const LoginPage();
+              }
+              if (state is AuthUserLoaded) {
+                return const MainPage(currentIndex: 0);
               }
               return const LoginPage();
             },

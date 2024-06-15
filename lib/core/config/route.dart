@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 
 class RouteName {
   // Authentication
+  static const initialPage = '/';
   static const splashPage = 'splash-page';
   static const accountPage = 'account-page';
   static const onboardingPage = 'onboarding-page';

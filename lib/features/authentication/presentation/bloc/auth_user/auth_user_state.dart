@@ -12,7 +12,9 @@ final class AuthUserInitial extends AuthUserState {}
 final class AuthUserLoading extends AuthUserState {}
 
 final class AuthUserLoaded extends AuthUserState {
-  final bool isExist;
+  const AuthUserLoaded();
+}
 
-  const AuthUserLoaded({required this.isExist});
+final class AuthUserFailure extends AuthUserState {
+  const AuthUserFailure();
 }

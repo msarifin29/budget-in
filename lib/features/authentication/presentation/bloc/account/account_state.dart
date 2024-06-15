@@ -25,12 +25,13 @@ final class AccountSuccess extends AccountState {
 
 final class AccountFailre extends AccountState {
   final String message;
-  const AccountFailre({required this.message});
+  final int? code;
+  const AccountFailre({required this.message, this.code});
 
   @override
-  List<Object> get props => [message];
+  List<Object> get props => [message, code!];
   @override
   String toString() {
-    return 'AccountFailre{message:$message}';
+    return 'AccountFailre{message: $message, code: $code}';
   }
 }

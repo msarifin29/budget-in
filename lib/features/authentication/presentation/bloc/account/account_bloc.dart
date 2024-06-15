@@ -20,14 +20,18 @@ class AccountBloc extends Bloc<AccountEvent, AccountState> {
       final result = await accountUsecase(event.uid);
       emit(result.fold((l) {
         var message = '';
+        int? code;
         if (l is ServerFailure) {
           message = l.failure.message ?? '';
         } else if (l is ConnectionFailure) {
           message = 'Connection Faiure';
         } else if (l is ParsingFailure) {
           debugPrint(message = l.message);
+        } else if (l is ErrorResponseFailure) {
+          final error = l.errorResponse;
+          code = error.code;
         }
-        return AccountFailre(message: message);
+        return AccountFailre(message: message, code: code);
       }, (r) {
         if ((dataSource.getString(SharedPreferencesManager.keyAccountId) ?? '')
             .isEmpty) {
