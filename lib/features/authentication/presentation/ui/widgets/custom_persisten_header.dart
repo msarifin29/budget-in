@@ -84,7 +84,7 @@ class CustomPersistenHeader extends SliverPersistentHeaderDelegate {
                   builder: (context, state) {
                     if (state is AccountLoading) {
                       return ShimmerBox(
-                          width: MediaQuery.of(context).size.width * 0.95,
+                          width: MediaQuery.of(context).size.width * 0.9,
                           height: expandedHeight - 10);
                     } else if (state is AccountFailre) {
                       return CPBox(

@@ -25,7 +25,7 @@ class CardExpenseWidget extends StatelessWidget {
     final category = data.tCategory ?? const TCategory();
     Color titleColor = Theme.of(context).brightness == Brightness.dark
         ? ColorApp.grey
-        : Colors.black87;
+        : ColorApp.darkPrimary;
     return Card(
       elevation: 0.5,
       margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 3),
@@ -33,7 +33,6 @@ class CardExpenseWidget extends StatelessWidget {
         onTap: onTap,
         borderRadius: BorderRadius.circular(15),
         child: Container(
-          height: 65,
           width: double.infinity,
           padding: const EdgeInsets.symmetric(vertical: 3, horizontal: 20),
           decoration: BoxDecoration(
@@ -41,7 +40,7 @@ class CardExpenseWidget extends StatelessWidget {
             color: Theme.of(context).cardColor,
           ),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -57,7 +56,7 @@ class CardExpenseWidget extends StatelessWidget {
                     text: TextSpan(
                       text: x,
                       style: context.textTheme.bodyMedium!.copyWith(
-                          fontWeight: FontWeight.w600, color: titleColor),
+                          fontWeight: FontWeight.w600, color: ColorApp.red),
                       children: [
                         TextSpan(
                           text: ' Rp',
@@ -76,24 +75,35 @@ class CardExpenseWidget extends StatelessWidget {
                   ),
                 ],
               ),
+              (data.bankName ?? '').isEmpty
+                  ? const SizedBox.shrink()
+                  : Text(
+                      data.bankName ?? '',
+                      style: context.textTheme.bodyMedium!.copyWith(
+                        color: titleColor,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
-                    data.expenseType == ConstantType.cash
-                        ? context.l10n.cash
-                        : context.l10n.non_cash,
-                    style: context.textTheme.bodyMedium!.copyWith(
-                      color: titleColor,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
                   Text(
                     date,
                     style: context.textTheme.bodySmall!.copyWith(
                       color: titleColor,
                     ),
                   ),
+                  data.expenseType == ConstantType.debit
+                      ? const SizedBox.shrink()
+                      : Text(
+                          data.expenseType == ConstantType.cash
+                              ? context.l10n.cash
+                              : context.l10n.non_cash,
+                          style: context.textTheme.bodyMedium!.copyWith(
+                            color: titleColor,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
                 ],
               ),
             ],
