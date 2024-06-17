@@ -28,6 +28,8 @@ class ExpenseBloc extends Bloc<ExpenseEvent, ExpenseState> {
         accountId: event.accountId,
         notes: event.notes,
         createdAt: event.createdAt,
+        bankName: event.bankName,
+        bankId: event.bankId,
       ),
     );
     emit(result.fold((l) {

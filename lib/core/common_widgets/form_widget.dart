@@ -14,7 +14,7 @@ class FormWidget extends StatelessWidget {
     this.prefixIcon,
     this.validator,
     this.obscureText = false,
-    required this.controller,
+    this.controller,
     this.maxLines = 1,
     this.keyboardType,
     this.hintStyle,
@@ -34,7 +34,7 @@ class FormWidget extends StatelessWidget {
   final Widget? prefixIcon;
   final String? Function(String?)? validator;
   final bool obscureText;
-  final TextEditingController controller;
+  final TextEditingController? controller;
   final int maxLines;
   final TextInputType? keyboardType;
   final TextStyle? hintStyle;

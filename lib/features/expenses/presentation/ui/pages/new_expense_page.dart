@@ -21,16 +21,25 @@ class _NewExpensePageState extends State<NewExpensePage> {
   final category = ValueNotifier(ItemChoice(0, ''));
   final expenseType = ValueNotifier(ItemChoice(0, ''));
   final date = ValueNotifier<DateTime?>(null);
+  final bankName = ValueNotifier<BankModel?>(null);
+  final categoryString = ValueNotifier<String>('');
 
   final totalC = TextEditingController();
   final notesC = TextEditingController();
   final dateC = TextEditingController();
+  final categoryC = TextEditingController();
 
   final CurrencyTextInputFormatter formatter = CurrencyTextInputFormatter(
     locale: 'id',
     symbol: '',
     decimalDigits: 0,
   );
+
+  @override
+  void initState() {
+    super.initState();
+    context.read<BankBloc>().add(OnInitial());
+  }
 
   void showCupertinoDialog(Widget child) {
     showCupertinoModalPopup<void>(
@@ -54,16 +63,20 @@ class _NewExpensePageState extends State<NewExpensePage> {
 
     String? formattedDate =
         DateFormat(desiredFormat).format(date.value ?? DateTime.now());
+    final bank = bankName.value ?? const BankModel(name: '', code: '');
     context.read<ExpenseBloc>().add(
           CreateExpenseEvent(
-              uid: Helpers.getUid(),
-              expenseType: ConstantType.newConstantType(expenseType.value.id),
-              total: totalC.text.trim(),
-              categoryId: category.value.id,
-              category: CategoryExpense.newCategoryExpense(category.value.id),
-              accountId: Helpers.getAccountId(),
-              notes: notesC.text.trim(),
-              createdAt: formattedDate),
+            uid: Helpers.getUid(),
+            expenseType: ConstantType.newConstantType(expenseType.value.id),
+            total: totalC.text.trim(),
+            categoryId: category.value.id,
+            category: CategoryExpense.newCategoryExpense(category.value.id),
+            accountId: Helpers.getAccountId(),
+            notes: notesC.text.trim(),
+            createdAt: formattedDate,
+            bankName: bank.name,
+            bankId: bank.code,
+          ),
         );
   }
 
@@ -119,23 +132,58 @@ class _NewExpensePageState extends State<NewExpensePage> {
         ]);
   }
 
+  void selectCategory(BuildContext context) async {
+    showModalBottomSheet(
+        context: context,
+        builder: (context) {
+          final categoryExpepenses = [
+            ItemChoice(1, context.l10n.other),
+            ItemChoice(2, context.l10n.food_and_beverage),
+            ItemChoice(3, context.l10n.shopping),
+            ItemChoice(4, context.l10n.transport),
+            ItemChoice(5, context.l10n.motorcycle_or_car),
+            ItemChoice(6, context.l10n.traveling),
+            ItemChoice(7, context.l10n.healty),
+            ItemChoice(8, context.l10n.cost_and_bill),
+            ItemChoice(9, context.l10n.education),
+            ItemChoice(10, context.l10n.sport_and_hoby),
+            ItemChoice(11, context.l10n.beauty),
+            ItemChoice(12, context.l10n.work),
+            ItemChoice(13, context.l10n.food_ingredients),
+          ];
+          return Container(
+            padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 16),
+            width: double.infinity,
+            child: ValueListenableBuilder(
+              valueListenable: category,
+              builder: (context, v, _) {
+                return Wrap(
+                  spacing: 8,
+                  children: categoryExpepenses
+                      .map(
+                        (e) => ChoiceChip(
+                          label: Text(e.label),
+                          selected: category.value.id == e.id,
+                          onSelected: (_) {
+                            category.value = e;
+                            categoryC.text = category.value.label;
+                            Navigator.pop(context);
+                          },
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(25),
+                          ),
+                        ),
+                      )
+                      .toList(),
+                );
+              },
+            ),
+          );
+        });
+  }
+
   @override
   Widget build(BuildContext context) {
-    final categoryExpepenses = [
-      ItemChoice(1, context.l10n.other),
-      ItemChoice(2, context.l10n.food_and_beverage),
-      ItemChoice(3, context.l10n.shopping),
-      ItemChoice(4, context.l10n.transport),
-      ItemChoice(5, context.l10n.motorcycle_or_car),
-      ItemChoice(6, context.l10n.traveling),
-      ItemChoice(7, context.l10n.healty),
-      ItemChoice(8, context.l10n.cost_and_bill),
-      ItemChoice(9, context.l10n.education),
-      ItemChoice(10, context.l10n.sport_and_hoby),
-      ItemChoice(11, context.l10n.beauty),
-      ItemChoice(12, context.l10n.work),
-      ItemChoice(13, context.l10n.food_ingredients),
-    ];
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: const Size(double.infinity, kToolbarHeight),
@@ -147,6 +195,104 @@ class _NewExpensePageState extends State<NewExpensePage> {
           key: globalKey,
           child: Column(
             children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    context.l10n.type_x(context.l10n.expense),
+                    style: context.textTheme.bodyMedium!.copyWith(
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                  const SizedBox(height: 8),
+                  ValueListenableBuilder(
+                    valueListenable: expenseType,
+                    builder: (context, v, _) {
+                      return Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Row(
+                            children: [
+                              ItemChoice(1, context.l10n.cash),
+                              ItemChoice(2, context.l10n.non_cash),
+                            ]
+                                .map((e) => Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 8),
+                                      child: ChoiceChip(
+                                        label: Text(e.label),
+                                        selected: expenseType.value.id == e.id,
+                                        onSelected: (_) =>
+                                            expenseType.value = e,
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(25),
+                                        ),
+                                      ),
+                                    ))
+                                .toList(),
+                          ),
+                          const SizedBox(height: 15),
+                          expenseType.value.id == 1
+                              ? const SizedBox.shrink()
+                              : const InfoBankWidget(),
+                          expenseType.value.id == 1
+                              ? const SizedBox.shrink()
+                              : const SizedBox(height: 10),
+                          expenseType.value.id == 1
+                              ? const SizedBox.shrink()
+                              : BlocBuilder<BankBloc, BankState>(
+                                  builder: (context, state) {
+                                    return DropdownButtonFormField<BankModel>(
+                                      decoration: InputDecoration(
+                                        border: OutlineInputBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                        ),
+                                      ),
+                                      isExpanded: true,
+                                      value: bankName.value,
+                                      onChanged: (BankModel? newValue) {
+                                        bankName.value = newValue;
+                                      },
+                                      items: state.bank.map((e) {
+                                        return DropdownMenuItem<BankModel>(
+                                          value: e,
+                                          child: Text(
+                                            e.name,
+                                            style: context.textTheme.bodyMedium!
+                                                .copyWith(
+                                              fontWeight: FontWeight.w600,
+                                            ),
+                                          ),
+                                        );
+                                      }).toList(),
+                                    );
+                                  },
+                                ),
+                        ],
+                      );
+                    },
+                  ),
+                ],
+              ),
+              const SizedBox(height: 15),
+              FormWidget(
+                title: context.l10n.category,
+                hint: '',
+                readOnly: true,
+                controller: categoryC,
+                icon: const Icon(Icons.arrow_drop_down),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return context.l10n
+                        .select_category_first(context.l10n.expense);
+                  }
+                  return null;
+                },
+                onTap: () => selectCategory(context),
+              ),
+              const SizedBox(height: 15),
               FormWidget(
                 title: context.l10n.total,
                 hint: '0',
@@ -226,75 +372,6 @@ class _NewExpensePageState extends State<NewExpensePage> {
                       ),
                     );
                   }),
-              const SizedBox(height: 15),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    context.l10n.type_x(context.l10n.expense),
-                    style: context.textTheme.bodyMedium!.copyWith(
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                  const SizedBox(height: 8),
-                  ValueListenableBuilder(
-                      valueListenable: expenseType,
-                      builder: (context, v, _) {
-                        return Row(
-                          children: [
-                            ItemChoice(1, context.l10n.cash),
-                            ItemChoice(2, context.l10n.non_cash),
-                          ]
-                              .map((e) => Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 8),
-                                    child: ChoiceChip(
-                                      label: Text(e.label),
-                                      selected: expenseType.value.id == e.id,
-                                      onSelected: (_) => expenseType.value = e,
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(25),
-                                      ),
-                                    ),
-                                  ))
-                              .toList(),
-                        );
-                      }),
-                ],
-              ),
-              const SizedBox(height: 15),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    context.l10n.category,
-                    style: context.textTheme.bodyMedium!.copyWith(
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                  const SizedBox(height: 8),
-                  ValueListenableBuilder(
-                    valueListenable: category,
-                    builder: (context, v, _) {
-                      return Wrap(
-                        spacing: 8,
-                        children: categoryExpepenses
-                            .map(
-                              (e) => ChoiceChip(
-                                label: Text(e.label),
-                                selected: category.value.id == e.id,
-                                onSelected: (_) => category.value = e,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(25),
-                                ),
-                              ),
-                            )
-                            .toList(),
-                      );
-                    },
-                  ),
-                ],
-              ),
               const SizedBox(height: 30),
               PrimaryButton(
                 text: context.l10n.submit,
@@ -303,13 +380,6 @@ class _NewExpensePageState extends State<NewExpensePage> {
                     context.scaffoldMessenger.showSnackBar(
                       floatingSnackBar(context,
                           context.l10n.select_type_first(context.l10n.expense)),
-                    );
-                  } else if (category.value.id == 0) {
-                    context.scaffoldMessenger.showSnackBar(
-                      floatingSnackBar(
-                          context,
-                          context.l10n
-                              .select_category_first(context.l10n.expense)),
                     );
                   } else {
                     if (globalKey.currentState!.validate()) {

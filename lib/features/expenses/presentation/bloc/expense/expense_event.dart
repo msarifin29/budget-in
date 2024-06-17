@@ -17,6 +17,8 @@ final class CreateExpenseEvent extends ExpenseEvent {
     required this.accountId,
     this.notes,
     this.createdAt,
+    this.bankName,
+    this.bankId,
   });
   final String uid;
   final String expenseType;
@@ -26,6 +28,8 @@ final class CreateExpenseEvent extends ExpenseEvent {
   final String accountId;
   final String? notes;
   final String? createdAt;
+  final String? bankName;
+  final String? bankId;
   @override
   List<Object> get props => [
         uid,
@@ -36,6 +40,8 @@ final class CreateExpenseEvent extends ExpenseEvent {
         accountId,
         notes!,
         createdAt!,
+        bankName!,
+        bankId!,
       ];
   @override
   String toString() {

@@ -80,6 +80,8 @@ class Expenseparams extends Equatable {
   final String accountId;
   final String? notes;
   final String? createdAt;
+  final String? bankName;
+  final String? bankId;
 
   const Expenseparams({
     required this.uid,
@@ -90,6 +92,8 @@ class Expenseparams extends Equatable {
     required this.accountId,
     this.notes,
     this.createdAt,
+    this.bankName,
+    this.bankId,
   });
 
   Map<String, dynamic> toMap() {
@@ -103,6 +107,8 @@ class Expenseparams extends Equatable {
     if (category != null) data["category"] = category;
     if (notes != null) data["notes"] = notes;
     if (createdAt != null) data["created_at"] = createdAt;
+    if (bankName != null) data["bank_name"] = bankName;
+    if (bankId != null) data["bank_id"] = bankId;
     return data;
   }
 
@@ -113,6 +119,8 @@ class Expenseparams extends Equatable {
         total,
         category,
         accountId,
+        bankName,
+        bankId,
       ];
 }
 
