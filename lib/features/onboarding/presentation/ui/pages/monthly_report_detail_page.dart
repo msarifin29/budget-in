@@ -64,7 +64,7 @@ class _MonthlyReportDetailPageState extends State<MonthlyReportDetailPage> {
                 context.l10n.expense,
                 style: context.textTheme.bodyLarge!.copyWith(
                   fontWeight: FontWeight.w700,
-                  color: ColorApp.red,
+                  color: ColorApp.grey,
                 ),
               ),
             ),
@@ -73,7 +73,7 @@ class _MonthlyReportDetailPageState extends State<MonthlyReportDetailPage> {
                 context.l10n.income,
                 style: context.textTheme.bodyLarge!.copyWith(
                   fontWeight: FontWeight.w700,
-                  color: ColorApp.green,
+                  color: ColorApp.grey,
                 ),
               ),
             ),

@@ -231,6 +231,7 @@ class _EditMonthlyBudgetWidgetState extends State<EditMonthlyBudgetWidget> {
                   );
                 },
               ),
+              const SizedBox(height: 30),
             ],
           ),
         ),
