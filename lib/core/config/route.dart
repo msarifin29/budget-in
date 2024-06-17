@@ -200,6 +200,11 @@ class AppRoute {
           },
         );
 
+      case SplashPage.routeName:
+        return MaterialPageRoute(
+          builder: (context) => const SplashPage(),
+        );
+
       default:
         return MaterialPageRoute(
           builder: (context) => const Scaffold(
