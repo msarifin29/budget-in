@@ -24,6 +24,8 @@ class CreateIncomeBloc extends Bloc<CreateIncomeEvent, CreateIncomeState> {
           total: event.total,
           accountId: event.accountId,
           createdAt: event.createdAt,
+          bankName: event.bankName,
+          bankId: event.bankId,
         ),
       );
       emit(result.fold((l) {

@@ -16,6 +16,8 @@ final class InitialCreateEvent extends CreateIncomeEvent {
     required this.total,
     required this.accountId,
     this.createdAt,
+    this.bankName,
+    this.bankId,
   });
   final String uid;
   final String? categoryIcome;
@@ -24,6 +26,8 @@ final class InitialCreateEvent extends CreateIncomeEvent {
   final String total;
   final String accountId;
   final String? createdAt;
+  final String? bankName;
+  final String? bankId;
   @override
   List<Object> get props => [
         uid,
@@ -32,6 +36,8 @@ final class InitialCreateEvent extends CreateIncomeEvent {
         total,
         accountId,
         createdAt!,
+        bankName!,
+        bankId!
       ];
   @override
   String toString() {

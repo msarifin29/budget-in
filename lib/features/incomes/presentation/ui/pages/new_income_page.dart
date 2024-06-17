@@ -1,4 +1,5 @@
 import 'package:budget_in/core/core.dart';
+import 'package:budget_in/features/authentication/authentication.dart';
 import 'package:budget_in/features/incomes/incomes.dart';
 import 'package:budget_in/l10n/l10n.dart';
 import 'package:currency_text_input_formatter/currency_text_input_formatter.dart';
@@ -20,18 +21,27 @@ class _NewIncomePageState extends State<NewIncomePage> {
   final categorySelected = ValueNotifier(ItemChoice(0, ''));
   final incomeType = ValueNotifier(ItemChoice(0, ''));
   final date = ValueNotifier<DateTime?>(null);
+  final bankName = ValueNotifier<BankModel?>(null);
+  final categoryString = ValueNotifier<String>('');
 
   final dateC = TextEditingController();
   final totalC = TextEditingController();
+  final categoryC = TextEditingController();
 
   final CurrencyTextInputFormatter formatter = CurrencyTextInputFormatter(
     locale: 'id',
     symbol: '+ ',
     decimalDigits: 0,
   );
+  @override
+  void initState() {
+    super.initState();
+    context.read<BankBloc>().add(OnInitial());
+  }
 
   void submitIncome() {
     String desiredFormat = "yyyy-MM-dd'T'HH:mm:ss'Z'";
+    final bank = bankName.value ?? const BankModel(name: '', code: '');
 
     String? formattedDate =
         DateFormat(desiredFormat).format(date.value ?? DateTime.now());
@@ -43,6 +53,8 @@ class _NewIncomePageState extends State<NewIncomePage> {
             total: totalC.text.trim(),
             accountId: Helpers.getAccountId(),
             createdAt: formattedDate,
+            bankName: bank.name,
+            bankId: bank.code,
           ),
         );
   }
@@ -113,8 +125,7 @@ class _NewIncomePageState extends State<NewIncomePage> {
         ]);
   }
 
-  @override
-  Widget build(BuildContext context) {
+  void selectCategory(BuildContext context) async {
     final categoryIncomes = [
       ItemChoice(1, context.l10n.other),
       ItemChoice(2, context.l10n.busines),
@@ -122,6 +133,42 @@ class _NewIncomePageState extends State<NewIncomePage> {
       ItemChoice(4, context.l10n.additional_income),
       ItemChoice(5, context.l10n.loan),
     ];
+    showModalBottomSheet(
+        context: context,
+        builder: (context) {
+          return Container(
+            padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 16),
+            width: double.infinity,
+            child: ValueListenableBuilder(
+              valueListenable: categorySelected,
+              builder: (context, v, _) {
+                return Wrap(
+                  spacing: 8,
+                  children: categoryIncomes
+                      .map(
+                        (e) => ChoiceChip(
+                          label: Text(e.label),
+                          selected: categorySelected.value.id == e.id,
+                          onSelected: (_) {
+                            categorySelected.value = e;
+                            categoryC.text = categorySelected.value.label;
+                            Navigator.pop(context);
+                          },
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(25),
+                          ),
+                        ),
+                      )
+                      .toList(),
+                );
+              },
+            ),
+          );
+        });
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: const Size(double.infinity, kToolbarHeight),
@@ -138,18 +185,99 @@ class _NewIncomePageState extends State<NewIncomePage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Container(
-                    width: double.infinity,
-                    alignment: Alignment.center,
-                    child: Text(
-                      context.l10n.new_income,
-                      style: context.textTheme.bodyMedium!.copyWith(
-                        fontWeight: FontWeight.w600,
-                        color: ColorApp.green,
-                      ),
+                  const SizedBox(height: 15),
+                  Text(
+                    context.l10n.type_x(context.l10n.income),
+                    style: context.textTheme.bodyMedium!.copyWith(
+                      fontWeight: FontWeight.w500,
                     ),
                   ),
-                  const SizedBox(height: 20),
+                  const SizedBox(height: 8),
+                  ValueListenableBuilder(
+                      valueListenable: incomeType,
+                      builder: (context, v, _) {
+                        return Column(
+                          children: [
+                            Row(
+                              children: [
+                                ItemChoice(1, context.l10n.cash),
+                                ItemChoice(2, context.l10n.non_cash),
+                              ]
+                                  .map((e) => Padding(
+                                        padding:
+                                            const EdgeInsets.only(right: 8),
+                                        child: ChoiceChip(
+                                          label: Text(e.label),
+                                          selected: incomeType.value.id == e.id,
+                                          onSelected: (_) =>
+                                              incomeType.value = e,
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(25),
+                                          ),
+                                        ),
+                                      ))
+                                  .toList(),
+                            ),
+                            const SizedBox(height: 15),
+                            incomeType.value.id == 1
+                                ? const SizedBox.shrink()
+                                : const InfoBankWidget(),
+                            incomeType.value.id == 1
+                                ? const SizedBox.shrink()
+                                : const SizedBox(height: 10),
+                            incomeType.value.id == 1
+                                ? const SizedBox.shrink()
+                                : BlocBuilder<BankBloc, BankState>(
+                                    builder: (context, state) {
+                                      return DropdownButtonFormField<BankModel>(
+                                        decoration: InputDecoration(
+                                          border: OutlineInputBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(10),
+                                          ),
+                                        ),
+                                        isExpanded: true,
+                                        value: bankName.value,
+                                        onChanged: (BankModel? newValue) {
+                                          bankName.value = newValue;
+                                        },
+                                        items: state.bank.map((e) {
+                                          return DropdownMenuItem<BankModel>(
+                                            value: e,
+                                            child: Text(
+                                              e.name,
+                                              style: context
+                                                  .textTheme.bodyMedium!
+                                                  .copyWith(
+                                                fontWeight: FontWeight.w600,
+                                              ),
+                                            ),
+                                          );
+                                        }).toList(),
+                                      );
+                                    },
+                                  ),
+                          ],
+                        );
+                      }),
+                  const SizedBox(height: 15),
+                  FormWidget(
+                    title: context.l10n.category,
+                    hint: '',
+                    readOnly: true,
+                    controller: categoryC,
+                    icon: const Icon(Icons.arrow_drop_down),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return context.l10n
+                            .select_category_first(context.l10n.expense);
+                      }
+                      return null;
+                    },
+                    onTap: () => selectCategory(context),
+                  ),
+                  const SizedBox(height: 15),
                   FormWidget(
                     title: context.l10n.total,
                     hint: '0',
@@ -221,65 +349,8 @@ class _NewIncomePageState extends State<NewIncomePage> {
                           ),
                         );
                       }),
-                  const SizedBox(height: 15),
-                  Text(
-                    context.l10n.type_x(context.l10n.income),
-                    style: context.textTheme.bodyMedium!.copyWith(
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
                   const SizedBox(height: 8),
-                  ValueListenableBuilder(
-                      valueListenable: incomeType,
-                      builder: (context, v, _) {
-                        return Row(
-                          children: [
-                            ItemChoice(1, context.l10n.cash),
-                            ItemChoice(2, context.l10n.non_cash),
-                          ]
-                              .map((e) => Padding(
-                                    padding: const EdgeInsets.only(right: 8),
-                                    child: ChoiceChip(
-                                      label: Text(e.label),
-                                      selected: incomeType.value.id == e.id,
-                                      onSelected: (_) => incomeType.value = e,
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(25),
-                                      ),
-                                    ),
-                                  ))
-                              .toList(),
-                        );
-                      }),
-                  const SizedBox(height: 15),
-                  Text(
-                    context.l10n.category,
-                    style: context.textTheme.bodyMedium!.copyWith(
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                  const SizedBox(height: 8),
-                  ValueListenableBuilder(
-                    valueListenable: categorySelected,
-                    builder: (context, v, _) {
-                      return Wrap(
-                        spacing: 8,
-                        children: categoryIncomes
-                            .map(
-                              (e) => ChoiceChip(
-                                label: Text(e.label),
-                                selected: categorySelected.value.id == e.id,
-                                onSelected: (_) => categorySelected.value = e,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(25),
-                                ),
-                              ),
-                            )
-                            .toList(),
-                      );
-                    },
-                  ),
-                  SizedBox(height: MediaQuery.sizeOf(context).height * 0.2),
+                  const SizedBox(height: 30),
                   PrimaryButton(
                     text: context.l10n.submit,
                     onPressed: () {
@@ -289,13 +360,6 @@ class _NewIncomePageState extends State<NewIncomePage> {
                               context,
                               context.l10n
                                   .select_type_first(context.l10n.income)),
-                        );
-                      } else if (categorySelected.value.id == 0) {
-                        context.scaffoldMessenger.showSnackBar(
-                          floatingSnackBar(
-                              context,
-                              context.l10n
-                                  .select_category_first(context.l10n.income)),
                         );
                       } else {
                         if (globalKey.currentState!.validate()) {

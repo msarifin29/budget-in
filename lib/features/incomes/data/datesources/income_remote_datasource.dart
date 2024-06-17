@@ -65,6 +65,8 @@ class CreateIncomeParams extends Equatable {
   final String total;
   final String accountId;
   final String? createdAt;
+  final String? bankName;
+  final String? bankId;
   const CreateIncomeParams({
     required this.uid,
     this.categoryIncome,
@@ -73,6 +75,8 @@ class CreateIncomeParams extends Equatable {
     required this.total,
     required this.accountId,
     this.createdAt,
+    this.bankName,
+    this.bankId,
   });
   Map<String, dynamic> toMap() {
     Map<String, dynamic> data = {
@@ -84,11 +88,23 @@ class CreateIncomeParams extends Equatable {
     };
     if (categoryIncome != null) data["category_income"] = categoryIncome;
     if (createdAt != null) data["created_at"] = createdAt;
+    if (bankName != null) data["bank_name"] = bankName;
+    if (bankId != null) data["bank_id"] = bankId;
     return data;
   }
 
   @override
-  List<Object?> get props => [];
+  List<Object?> get props => [
+        uid,
+        categoryId,
+        typeIncome,
+        total,
+        accountId,
+        categoryIncome,
+        createdAt,
+        bankName,
+        bankId
+      ];
 }
 
 class GetIncomeParams extends Equatable {

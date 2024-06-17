@@ -27,7 +27,6 @@ class AmountCardWidget extends StatelessWidget {
         onTap: onTap,
         borderRadius: BorderRadius.circular(15),
         child: Container(
-          height: 65,
           width: double.infinity,
           padding: const EdgeInsets.symmetric(vertical: 3, horizontal: 20),
           decoration: BoxDecoration(
@@ -36,6 +35,7 @@ class AmountCardWidget extends StatelessWidget {
           ),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -58,38 +58,51 @@ class AmountCardWidget extends StatelessWidget {
                         TextSpan(
                           text: ' Rp',
                           style: context.textTheme.bodyMedium!.copyWith(
-                            color: titleColor,
+                            color: ColorApp.green,
                             fontWeight: FontWeight.w600,
                           ),
                         ),
                         TextSpan(
                           text: Helpers.currency(data.total),
                           style: context.textTheme.bodyLarge!.copyWith(
-                              fontWeight: FontWeight.w600, color: titleColor),
+                            fontWeight: FontWeight.w600,
+                            color: ColorApp.green,
+                          ),
                         ),
                       ],
                     ),
                   ),
                 ],
               ),
+              (data.bankName ?? '').isEmpty
+                  ? const SizedBox.shrink()
+                  : Text(
+                      data.bankName ?? '',
+                      style: context.textTheme.bodyMedium!.copyWith(
+                        color: titleColor,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
-                    data.typeIncome == ConstantType.cash
-                        ? context.l10n.cash
-                        : context.l10n.non_cash,
-                    style: context.textTheme.bodyMedium!.copyWith(
-                      color: titleColor,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
                   Text(
                     date,
                     style: context.textTheme.bodySmall!.copyWith(
                       color: titleColor,
                     ),
                   ),
+                  data.typeIncome == ConstantType.debit
+                      ? const SizedBox.shrink()
+                      : Text(
+                          data.typeIncome == ConstantType.cash
+                              ? context.l10n.cash
+                              : context.l10n.non_cash,
+                          style: context.textTheme.bodyMedium!.copyWith(
+                            color: titleColor,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
                 ],
               ),
             ],

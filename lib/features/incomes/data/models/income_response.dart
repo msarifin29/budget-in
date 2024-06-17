@@ -36,6 +36,8 @@ class IncomeData extends Equatable {
   final String? updatedAt;
   @JsonKey(name: "t_category")
   final CategoryData? categoryData;
+  @JsonKey(name: "bank_name")
+  final String? bankName;
   const IncomeData({
     required this.id,
     this.categoryIncome,
@@ -45,6 +47,7 @@ class IncomeData extends Equatable {
     required this.createdAt,
     this.updatedAt,
     this.categoryData,
+    this.bankName,
   });
   static IncomeData fromJson(Map<String, dynamic> json) =>
       _$IncomeDataFromJson(json);
@@ -59,6 +62,7 @@ class IncomeData extends Equatable {
         createdAt,
         updatedAt,
         categoryData,
+        bankName,
       ];
   @override
   String toString() {
