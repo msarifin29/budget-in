@@ -2,7 +2,6 @@
 
 import 'package:dio/dio.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 import 'package:budget_in/core/core.dart';
@@ -42,7 +41,6 @@ class ExpenseRemoteDataSourceImpl extends ExpenseRemoteDataSource {
       options: Options(headers: {BaseUrlConfig.requiredToken: true}),
       queryParameters: params.toMap(),
     );
-    debugPrint('kambing ${response.data}');
     if (response.statusCode == 200) {
       return GetExpenseResponse.fromJson(response.data);
     } else {

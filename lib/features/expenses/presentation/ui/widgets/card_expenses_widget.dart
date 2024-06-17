@@ -61,14 +61,16 @@ class CardExpenseWidget extends StatelessWidget {
                         TextSpan(
                           text: ' Rp',
                           style: context.textTheme.bodyLarge!.copyWith(
-                            color: titleColor,
+                            color: ColorApp.red.withOpacity(0.7),
                             fontWeight: FontWeight.w600,
                           ),
                         ),
                         TextSpan(
                           text: Helpers.currency(data.total),
                           style: context.textTheme.bodyLarge!.copyWith(
-                              fontWeight: FontWeight.w600, color: titleColor),
+                            fontWeight: FontWeight.w600,
+                            color: ColorApp.red.withOpacity(0.7),
+                          ),
                         ),
                       ],
                     ),
