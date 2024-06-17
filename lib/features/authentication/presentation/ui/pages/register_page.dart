@@ -113,7 +113,7 @@ class _RegisterPageState extends State<RegisterPage> {
                           validator: (value) {
                             if (value == null || value == '') {
                               return context.l10n.empty_password;
-                            } else if (value.length < 6) {
+                            } else if (value.length < 8) {
                               return context.l10n.password_to_short;
                             }
                             return null;

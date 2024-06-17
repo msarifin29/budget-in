@@ -36,7 +36,7 @@ class _SubmitRegisterPageState extends State<SubmitRegisterPage> {
   final ssm = sl<SecureStorageManager>();
   final spm = sl<SharedPreferencesManager>();
 
-  final bankName = ValueNotifier<BankModel?>(null);
+  // final bankName = ValueNotifier<BankModel?>(null);
   @override
   void initState() {
     super.initState();
@@ -78,37 +78,37 @@ class _SubmitRegisterPageState extends State<SubmitRegisterPage> {
                 key: globalKey,
                 child: Column(
                   children: [
-                    const InfoBankWidget(),
-                    const SizedBox(height: 10),
-                    BlocBuilder<BankBloc, BankState>(
-                      builder: (context, state) {
-                        return DropdownButtonFormField<BankModel>(
-                          decoration: InputDecoration(
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                          ),
-                          isExpanded: true,
-                          validator: (value) =>
-                              value == null ? "Select a bank" : null,
-                          value: bankName.value,
-                          onChanged: (BankModel? newValue) {
-                            bankName.value = newValue;
-                          },
-                          items: state.bank.map((e) {
-                            return DropdownMenuItem<BankModel>(
-                              value: e,
-                              child: Text(
-                                e.name,
-                                style: context.textTheme.bodyMedium!.copyWith(
-                                  fontWeight: FontWeight.w600,
-                                ),
-                              ),
-                            );
-                          }).toList(),
-                        );
-                      },
-                    ),
+                    // const InfoBankWidget(),
+                    // const SizedBox(height: 10),
+                    // BlocBuilder<BankBloc, BankState>(
+                    //   builder: (context, state) {
+                    //     return DropdownButtonFormField<BankModel>(
+                    //       decoration: InputDecoration(
+                    //         border: OutlineInputBorder(
+                    //           borderRadius: BorderRadius.circular(10),
+                    //         ),
+                    //       ),
+                    //       isExpanded: true,
+                    //       validator: (value) =>
+                    //           value == null ? "Select a bank" : null,
+                    //       value: bankName.value,
+                    //       onChanged: (BankModel? newValue) {
+                    //         bankName.value = newValue;
+                    //       },
+                    //       items: state.bank.map((e) {
+                    //         return DropdownMenuItem<BankModel>(
+                    //           value: e,
+                    //           child: Text(
+                    //             e.name,
+                    //             style: context.textTheme.bodyMedium!.copyWith(
+                    //               fontWeight: FontWeight.w600,
+                    //             ),
+                    //           ),
+                    //         );
+                    //       }).toList(),
+                    //     );
+                    //   },
+                    // ),
                     const SizedBox(height: 20),
                     FormWidget(
                       title: context.l10n.balance,
@@ -237,15 +237,12 @@ class _SubmitRegisterPageState extends State<SubmitRegisterPage> {
                     text: context.l10n.submit,
                     onPressed: () {
                       if (globalKey.currentState!.validate()) {
-                        String accountName = (bankName.value ??
-                                const BankModel(name: '', code: ''))
-                            .name;
                         context.read<RegisterBloc>().add(
                               OnUserRegister(
                                   username: widget.username,
                                   email: widget.email,
                                   password: widget.password,
-                                  accountName: accountName,
+                                  accountName: widget.username,
                                   balance: balanceControl.text.trim(),
                                   cash: cashControl.text.trim()),
                             );

@@ -1,8 +1,8 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first, unused_field, unnecessary_null_comparison
 import 'dart:io';
 
-import 'package:budget_in/bootstrap.dart';
 import 'package:budget_in/core/core.dart';
+import 'package:budget_in/features/app.dart';
 import 'package:budget_in/features/authentication/authentication.dart';
 import 'package:budget_in/injection.dart';
 import 'package:dio/dio.dart';

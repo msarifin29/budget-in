@@ -95,7 +95,7 @@
     "empty_email": "Email can't be empty",
     "empty_balance": "Minimun balance 100.000",
     "empty_cash": "Minimun cash 50.000",
-    "password_to_short": "The password must be at least 6 characters",
+    "password_to_short": "The password must be at least 8 characters",
     "income": "Income",
     "expense": "Expense",
     "credit": "Credit",
