@@ -3,12 +3,14 @@
 import 'package:budget_in/features/authentication/presentation/bloc/register/register_bloc.dart';
 import 'package:budget_in/injection.dart';
 import 'package:currency_text_input_formatter/currency_text_input_formatter.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:budget_in/core/core.dart';
 import 'package:budget_in/features/authentication/authentication.dart';
 import 'package:budget_in/l10n/l10n.dart';
+import 'package:flutter_html/flutter_html.dart';
 
 class SubmitRegisterPage extends StatefulWidget {
   const SubmitRegisterPage({
@@ -34,6 +36,16 @@ class _SubmitRegisterPageState extends State<SubmitRegisterPage> {
   final nameControl = TextEditingController();
   final ssm = sl<SecureStorageManager>();
   final spm = sl<SharedPreferencesManager>();
+
+  final isChecked = ValueNotifier(false);
+
+  String localeCode = '';
+  @override
+  void initState() {
+    super.initState();
+    localeCode = PlatformDispatcher.instance.locale.languageCode;
+    context.read<PrivacyBloc>().add(InitialPrivacy(localeCode));
+  }
 
   @override
   void dispose() {
@@ -166,7 +178,40 @@ class _SubmitRegisterPageState extends State<SubmitRegisterPage> {
                   ),
                 ],
               ),
-              const SizedBox(height: 100),
+              SizedBox(
+                height: 150,
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    ValueListenableBuilder(
+                        valueListenable: isChecked,
+                        builder: (context, v, _) {
+                          return Checkbox(
+                            checkColor: Colors.white,
+                            value: isChecked.value,
+                            onChanged: (bool? value) {
+                              isChecked.value = !isChecked.value;
+                            },
+                          );
+                        }),
+                    SizedBox(
+                      height: 150,
+                      width: MediaQuery.sizeOf(context).width * 0.75,
+                      child: BlocBuilder<PrivacyBloc, PrivacyState>(
+                        builder: (context, state) {
+                          if (state is PrivacySuccess) {
+                            return SingleChildScrollView(
+                              child: Html(data: state.data),
+                            );
+                          }
+                          return Container();
+                        },
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 40),
               BlocConsumer<RegisterBloc, RegisterState>(
                 listener: (context, state) {
                   debugPrint('register => $state');
@@ -197,6 +242,7 @@ class _SubmitRegisterPageState extends State<SubmitRegisterPage> {
                   return PrimaryButton(
                     text: context.l10n.submit,
                     onPressed: () {
+                      if (!isChecked.value) return;
                       if (globalKey.currentState!.validate()) {
                         context.read<RegisterBloc>().add(
                               OnUserRegister(
