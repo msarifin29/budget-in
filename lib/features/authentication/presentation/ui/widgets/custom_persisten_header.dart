@@ -101,10 +101,7 @@ class CustomPersistenHeader extends SliverPersistentHeaderDelegate {
                       final cash = NumberFormat.currency(
                               locale: 'ID', symbol: '', decimalDigits: 0)
                           .format(data.cash);
-                      final accountName = data.accountName ?? '';
-                      final bank = accountName.isEmpty
-                          ? context.l10n.balance
-                          : accountName;
+
                       return CPBox(
                         height: expandedHeight - 10,
                         color: (Theme.of(context).brightness == Brightness.light
@@ -117,7 +114,7 @@ class CustomPersistenHeader extends SliverPersistentHeaderDelegate {
                               children: [
                                 ContentBalanceWidget(
                                   image: SvgName.bank,
-                                  title: bank,
+                                  title: context.l10n.balance,
                                   subtitle: total(balance, state),
                                   isVisible: state,
                                   onPressed: () {

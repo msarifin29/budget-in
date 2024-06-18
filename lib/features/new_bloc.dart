@@ -7,7 +7,6 @@ import 'package:budget_in/features/onboarding/onboarding.dart';
 import 'package:budget_in/injection.dart';
 
 import 'authentication/authentication.dart';
-import 'authentication/presentation/bloc/privacy/privacy_bloc.dart';
 import 'expenses/expenses.dart';
 import 'incomes/incomes.dart';
 
