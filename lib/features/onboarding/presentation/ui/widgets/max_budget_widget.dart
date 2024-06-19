@@ -14,16 +14,15 @@ class MaxBudgetWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 90,
       width: MediaQuery.sizeOf(context).width,
       decoration: BoxDecoration(
-          color: (Theme.of(context).brightness == Brightness.light
-              ? ColorApp.grey20
-              : ColorApp.night)),
-      padding: const EdgeInsets.symmetric(
-        vertical: 4,
-        horizontal: 15,
+        color: (Theme.of(context).brightness == Brightness.light
+            ? ColorApp.grey20
+            : ColorApp.night),
+        borderRadius: BorderRadius.circular(16),
       ),
+      padding: const EdgeInsets.all(15),
+      margin: const EdgeInsets.symmetric(horizontal: 10),
       child: BlocBuilder<GetMaxBudgetBloc, GetMaxBudgetState>(
         builder: (context, state) {
           if (state is GetMaxBudgetLoading) {
@@ -53,6 +52,7 @@ class MaxBudgetWidget extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(

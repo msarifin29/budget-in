@@ -300,7 +300,7 @@ class _NewExpensePageState extends State<NewExpensePage> {
               const SizedBox(height: 15),
               FormWidget(
                 title: context.l10n.total,
-                hint: '0',
+                hint: '',
                 style: context.textTheme.titleSmall!.copyWith(
                   color: ColorApp.green,
                   fontWeight: FontWeight.w600,
@@ -316,8 +316,9 @@ class _NewExpensePageState extends State<NewExpensePage> {
                   }
                   return null;
                 },
-                prefixIcon: Padding(
-                  padding: const EdgeInsets.all(8),
+                prefixIcon: Container(
+                  width: 8,
+                  alignment: Alignment.center,
                   child: Text(
                     'Rp.',
                     style: context.textTheme.bodyLarge!.copyWith(

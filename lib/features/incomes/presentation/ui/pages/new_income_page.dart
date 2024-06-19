@@ -30,7 +30,7 @@ class _NewIncomePageState extends State<NewIncomePage> {
 
   final CurrencyTextInputFormatter formatter = CurrencyTextInputFormatter(
     locale: 'id',
-    symbol: '+ ',
+    symbol: '',
     decimalDigits: 0,
   );
   @override
@@ -282,8 +282,9 @@ class _NewIncomePageState extends State<NewIncomePage> {
                     title: context.l10n.total,
                     hint: '0',
                     controller: totalC,
-                    prefixIcon: Padding(
-                      padding: const EdgeInsets.all(8),
+                    prefixIcon: Container(
+                      width: 8,
+                      alignment: Alignment.center,
                       child: Text(
                         'Rp.',
                         style: context.textTheme.bodyLarge!.copyWith(

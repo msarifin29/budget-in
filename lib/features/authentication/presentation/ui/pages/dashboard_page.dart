@@ -82,7 +82,8 @@ class _DashboardPageState extends State<DashboardPage> {
                   ),
                   child: Column(
                     children: [
-                      SizedBox(height: MediaQuery.sizeOf(context).height * 0.1),
+                      SizedBox(
+                          height: MediaQuery.sizeOf(context).height * 0.103),
 
                       const MaxBudgetWidget(),
                       const SizedBox(height: 15),

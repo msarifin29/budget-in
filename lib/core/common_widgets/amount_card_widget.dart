@@ -28,7 +28,7 @@ class AmountCardWidget extends StatelessWidget {
         borderRadius: BorderRadius.circular(15),
         child: Container(
           width: double.infinity,
-          padding: const EdgeInsets.symmetric(vertical: 3, horizontal: 20),
+          padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(15),
             color: Theme.of(context).cardColor,
@@ -42,7 +42,7 @@ class AmountCardWidget extends StatelessWidget {
                 children: [
                   Text(
                     category.title ?? '',
-                    style: context.textTheme.bodyLarge!.copyWith(
+                    style: context.textTheme.titleSmall!.copyWith(
                       color: titleColor,
                       fontWeight: FontWeight.w600,
                     ),
@@ -78,8 +78,9 @@ class AmountCardWidget extends StatelessWidget {
                   ? const SizedBox.shrink()
                   : Text(
                       data.bankName ?? '',
-                      style: context.textTheme.bodyMedium!.copyWith(
+                      style: context.textTheme.bodySmall!.copyWith(
                         color: titleColor,
+                        overflow: TextOverflow.ellipsis,
                         fontWeight: FontWeight.w600,
                       ),
                     ),

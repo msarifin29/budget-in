@@ -62,12 +62,12 @@ class CustomPersistenHeader extends SliverPersistentHeaderDelegate {
           ),
           Positioned(
             top: expandedHeight / 2 - shrinkOffset,
-            left: MediaQuery.of(context).size.width / 22,
+            left: MediaQuery.of(context).size.width / 60,
             child: Opacity(
               opacity: (1 - shrinkOffset / expandedHeight),
               child: Card(
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(15.0),
+                  borderRadius: BorderRadius.circular(15),
                 ),
                 elevation: 10,
                 child: BlocConsumer<AccountBloc, AccountState>(
@@ -84,14 +84,12 @@ class CustomPersistenHeader extends SliverPersistentHeaderDelegate {
                   builder: (context, state) {
                     if (state is AccountLoading) {
                       return ShimmerBox(
-                          width: MediaQuery.of(context).size.width * 0.9,
+                          width: MediaQuery.of(context).size.width * 0.95,
                           height: expandedHeight - 10);
                     } else if (state is AccountFailre) {
                       return CPBox(
                         height: expandedHeight - 10,
-                        child: RefreshButton(
-                          onPressed: onPressed,
-                        ),
+                        child: RefreshButton(onPressed: onPressed),
                       );
                     } else if (state is AccountSuccess) {
                       final data = state.accountData;
@@ -186,7 +184,7 @@ class CPBox extends StatelessWidget {
         color: color ?? Theme.of(context).scaffoldBackgroundColor,
         borderRadius: BorderRadius.circular(15),
       ),
-      width: MediaQuery.of(context).size.width * 0.9,
+      width: MediaQuery.of(context).size.width * 0.95,
       padding: const EdgeInsets.all(16),
       alignment: Alignment.center,
       child: child,
