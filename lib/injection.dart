@@ -11,14 +11,12 @@ import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'features/credit/credits.dart';
 import 'features/onboarding/onboarding.dart';
 
 part 'injection/expense_injection.dart';
 part 'injection/authentication_injection.dart';
 part 'injection/onboarding_injection.dart';
 part 'injection/income_injection.dart';
-part 'injection/credit_injection.dart';
 
 final sl = GetIt.instance;
 
@@ -27,7 +25,6 @@ FutureOr<void> initContainer() async {
   expenseInjection();
   onboardingInjection();
   incomeInjection();
-  creditInjection();
 
   sl.registerLazySingleton(() => Connectivity());
 

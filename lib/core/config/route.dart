@@ -1,5 +1,4 @@
 import 'package:budget_in/features/authentication/authentication.dart';
-import 'package:budget_in/features/credit/credits.dart';
 import 'package:budget_in/features/expenses/presentation/ui/expenses_ui.dart';
 import 'package:budget_in/features/expenses/presentation/ui/pages/expense_page.dart';
 import 'package:budget_in/features/incomes/incomes.dart';
@@ -115,12 +114,7 @@ class AppRoute {
             return const IncomePage();
           },
         );
-      case CreditPage.routeName:
-        return MaterialPageRoute(
-          builder: (context) {
-            return const CreditPage();
-          },
-        );
+
       case ForgotPasswordpage.routeName:
         return MaterialPageRoute(
           builder: (context) {
@@ -159,20 +153,6 @@ class AppRoute {
         return MaterialPageRoute(
           builder: (context) {
             return OnboardingPage(isRegister: isRegister);
-          },
-        );
-      case NewCreditPage.routeName:
-        return MaterialPageRoute(
-          builder: (context) {
-            return const NewCreditPage();
-          },
-        );
-      case HistoriesCreditPage.routeName:
-        final arguments = settings.arguments as Map<String, dynamic>;
-        final creditId = arguments[NamedArguments.creditId] as int;
-        return MaterialPageRoute(
-          builder: (context) {
-            return HistoriesCreditPage(creditId: creditId);
           },
         );
 
