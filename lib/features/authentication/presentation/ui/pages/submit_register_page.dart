@@ -10,7 +10,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:budget_in/core/core.dart';
 import 'package:budget_in/features/authentication/authentication.dart';
 import 'package:budget_in/l10n/l10n.dart';
-import 'package:flutter_html/flutter_html.dart';
 
 class SubmitRegisterPage extends StatefulWidget {
   const SubmitRegisterPage({
@@ -178,38 +177,31 @@ class _SubmitRegisterPageState extends State<SubmitRegisterPage> {
                   ),
                 ],
               ),
-              SizedBox(
-                height: 150,
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    ValueListenableBuilder(
-                        valueListenable: isChecked,
-                        builder: (context, v, _) {
-                          return Checkbox(
-                            checkColor: Colors.white,
-                            value: isChecked.value,
-                            onChanged: (bool? value) {
-                              isChecked.value = !isChecked.value;
-                            },
-                          );
-                        }),
-                    SizedBox(
-                      height: 150,
-                      width: MediaQuery.sizeOf(context).width * 0.75,
-                      child: BlocBuilder<PrivacyBloc, PrivacyState>(
-                        builder: (context, state) {
-                          if (state is PrivacySuccess) {
-                            return SingleChildScrollView(
-                              child: Html(data: state.data),
-                            );
-                          }
-                          return Container();
-                        },
-                      ),
-                    ),
-                  ],
-                ),
+              const SizedBox(height: 50),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  ValueListenableBuilder(
+                      valueListenable: isChecked,
+                      builder: (context, v, _) {
+                        return Checkbox(
+                          checkColor: Colors.white,
+                          value: isChecked.value,
+                          onChanged: (bool? value) {
+                            isChecked.value = !isChecked.value;
+                          },
+                        );
+                      }),
+                  TextButton(
+                    onPressed: () {
+                      Navigator.pushNamed(
+                        context,
+                        PrivacyPolicePage.routeName,
+                      );
+                    },
+                    child: Text(context.l10n.privacy_and_policy),
+                  ),
+                ],
               ),
               const SizedBox(height: 40),
               BlocConsumer<RegisterBloc, RegisterState>(

@@ -37,7 +37,7 @@ class _PrivacyPolicePageState extends State<PrivacyPolicePage> {
         child: BlocBuilder<PrivacyBloc, PrivacyState>(
           builder: (context, state) {
             if (state is PrivacyLoading) {
-              return const CircularLoading();
+              return const Center(child: CircularLoading());
             } else if (state is PrivacyFailure) {
               return ErrorImageWidget(text: context.l10n.something_wrong);
             } else if (state is PrivacySuccess) {
