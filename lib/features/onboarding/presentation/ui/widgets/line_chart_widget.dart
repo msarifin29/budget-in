@@ -37,9 +37,13 @@ class LineChartWidgetState extends State<LineChartWidget> {
   Widget build(BuildContext context) {
     return Container(
       height: 270,
-      color: (Theme.of(context).brightness == Brightness.light
-          ? ColorApp.grey20
-          : ColorApp.night),
+      margin: const EdgeInsets.symmetric(horizontal: 12),
+      decoration: BoxDecoration(
+        color: (Theme.of(context).brightness == Brightness.light
+            ? ColorApp.grey20
+            : ColorApp.night),
+        borderRadius: BorderRadius.circular(8),
+      ),
       child: BlocBuilder<GetMonthlyReportBloc, GetMonthlyReportState>(
           builder: (context, state) {
         if (state is GetMonthlyReportLoading) {

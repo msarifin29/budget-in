@@ -86,7 +86,7 @@ class _DashboardPageState extends State<DashboardPage> {
                           height: MediaQuery.sizeOf(context).height * 0.103),
 
                       const MaxBudgetWidget(),
-                      const SizedBox(height: 15),
+                      const SizedBox(height: 12),
                       const LineChartWidget(),
                       const CustomCarouselWidget(),
 

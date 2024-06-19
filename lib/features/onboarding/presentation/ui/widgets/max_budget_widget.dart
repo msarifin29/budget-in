@@ -19,7 +19,7 @@ class MaxBudgetWidget extends StatelessWidget {
         color: (Theme.of(context).brightness == Brightness.light
             ? ColorApp.grey20
             : ColorApp.night),
-        borderRadius: BorderRadius.circular(16),
+        borderRadius: BorderRadius.circular(8),
       ),
       padding: const EdgeInsets.all(15),
       margin: const EdgeInsets.symmetric(horizontal: 10),
