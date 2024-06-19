@@ -94,9 +94,9 @@ class _NewIncomePageState extends State<NewIncomePage> {
                 );
               } else if (state is CreateIncomeFailed) {
                 Navigator.pop(context);
-                context.scaffoldMessenger.showSnackBar(
-                  floatingSnackBar(context,
-                      context.l10n.msg_failed_add_new(context.l10n.income)),
+                simpleBackDialog(
+                  context: context,
+                  message: context.l10n.msg_failed_add_new(context.l10n.income),
                 );
               }
             },
