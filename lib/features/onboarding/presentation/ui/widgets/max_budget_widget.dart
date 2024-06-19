@@ -166,7 +166,6 @@ class _EditMonthlyBudgetWidgetState extends State<EditMonthlyBudgetWidget> {
         child: Form(
           key: globalKey,
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               FormWidget(
                 title: context.l10n.monthly_budget,
@@ -185,15 +184,14 @@ class _EditMonthlyBudgetWidgetState extends State<EditMonthlyBudgetWidget> {
                   return null;
                 },
               ),
+              const SizedBox(height: 20),
               BlocConsumer<UpdateMaxBudgetBloc, UpdateMaxBudgetState>(
                 listener: (context, state) {
                   if (state is UpdateMaxBudgetFailure) {
                     Navigator.pop(context);
-                    context.scaffoldMessenger.showSnackBar(
-                      floatingSnackBar(
-                        context,
-                        context.l10n.something_wrong,
-                      ),
+                    simpleBackDialog(
+                      context: context,
+                      message: context.l10n.try_again_later,
                     );
                   } else if (state is UpdateMaxBudgetSuccess) {
                     Navigator.pop(context);

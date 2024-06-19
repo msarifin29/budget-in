@@ -230,9 +230,10 @@ class _SubmitRegisterPageState extends State<SubmitRegisterPage> {
                       state.data.user.accountId,
                     );
                   } else if (state is RegisterFailure) {
-                    simpleDialog(
-                        context: context,
-                        title: context.l10n.failed_create_account);
+                    simpleBackDialog(
+                      context: context,
+                      message: context.l10n.failed_create_account,
+                    );
                   }
                 },
                 builder: (context, state) {

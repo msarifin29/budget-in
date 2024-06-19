@@ -149,13 +149,15 @@ class _RegisterPageState extends State<RegisterPage> {
                 listener: (context, state) {
                   if (state is ExistingEmailFailure) {
                     if (state.message.contains('email')) {
-                      simpleDialog(
-                          context: context,
-                          title: context.l10n.msg_email_exist);
+                      simpleBackDialog(
+                        context: context,
+                        message: context.l10n.msg_email_exist,
+                      );
                     } else {
-                      simpleDialog(
-                          context: context,
-                          title: context.l10n.try_again_later);
+                      simpleBackDialog(
+                        context: context,
+                        message: context.l10n.try_again_later,
+                      );
                     }
                   } else if (state is ExistingEmailSuccess) {
                     Navigator.pushNamed(

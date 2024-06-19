@@ -168,9 +168,10 @@ class _LoginPageState extends State<LoginPage> {
                       state.data.user.accountId,
                     );
                   } else if (state is LoginFailure) {
-                    simpleDialog(
-                        context: context,
-                        title: context.l10n.invalid_email_or_pwd);
+                    simpleBackDialog(
+                      context: context,
+                      message: context.l10n.invalid_email_or_pwd,
+                    );
                   }
                 },
                 builder: (context, state) {
