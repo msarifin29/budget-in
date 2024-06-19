@@ -96,7 +96,9 @@ class _MainPageState extends State<MainPage> {
                             SvgName.home,
                             width: 25,
                             colorFilter: ColorFilter.mode(
-                              currentIndex == 0 ? ColorApp.green : Colors.grey,
+                              currentIndex == 0
+                                  ? ColorApp.green
+                                  : ColorApp.grey,
                               BlendMode.srcIn,
                             ),
                           ),
@@ -107,9 +109,18 @@ class _MainPageState extends State<MainPage> {
                               fontSize: 10,
                               color: currentIndex == 0
                                   ? ColorApp.green
-                                  : Colors.grey,
+                                  : ColorApp.grey,
                             ),
-                          )
+                          ),
+                          Container(
+                            height: 2,
+                            width: MediaQuery.sizeOf(context).width * 0.08,
+                            decoration: BoxDecoration(
+                              color: currentIndex == 0
+                                  ? ColorApp.green
+                                  : Colors.white,
+                            ),
+                          ),
                         ],
                       ),
                     ),
@@ -129,7 +140,9 @@ class _MainPageState extends State<MainPage> {
                             SvgName.icon,
                             width: 25,
                             colorFilter: ColorFilter.mode(
-                              currentIndex == 1 ? ColorApp.green : Colors.grey,
+                              currentIndex == 1
+                                  ? ColorApp.green
+                                  : ColorApp.grey,
                               BlendMode.srcIn,
                             ),
                           ),
@@ -140,9 +153,18 @@ class _MainPageState extends State<MainPage> {
                               fontSize: 10,
                               color: currentIndex == 1
                                   ? ColorApp.green
-                                  : Colors.grey,
+                                  : ColorApp.grey,
                             ),
-                          )
+                          ),
+                          Container(
+                            height: 2,
+                            width: MediaQuery.sizeOf(context).width * 0.08,
+                            decoration: BoxDecoration(
+                              color: currentIndex == 1
+                                  ? ColorApp.green
+                                  : Colors.white,
+                            ),
+                          ),
                         ],
                       ),
                     ),
@@ -162,7 +184,9 @@ class _MainPageState extends State<MainPage> {
                             SvgName.incomeIcon,
                             width: 25,
                             colorFilter: ColorFilter.mode(
-                              currentIndex == 2 ? ColorApp.green : Colors.grey,
+                              currentIndex == 2
+                                  ? ColorApp.green
+                                  : ColorApp.grey,
                               BlendMode.srcIn,
                             ),
                           ),
@@ -173,45 +197,21 @@ class _MainPageState extends State<MainPage> {
                               fontSize: 10,
                               color: currentIndex == 2
                                   ? ColorApp.green
-                                  : Colors.grey,
+                                  : ColorApp.grey,
                             ),
-                          )
+                          ),
+                          Container(
+                            height: 2,
+                            width: MediaQuery.sizeOf(context).width * 0.08,
+                            decoration: BoxDecoration(
+                              color: currentIndex == 2
+                                  ? ColorApp.green
+                                  : Colors.white,
+                            ),
+                          ),
                         ],
                       ),
                     ),
-                    // MaterialButton(
-                    //   padding: EdgeInsets.zero,
-                    //   enableFeedback: false,
-                    //   minWidth: minWidth,
-                    //   onPressed: () {
-                    //     setState(() {
-                    //       currentIndex = 3;
-                    //     });
-                    //   },
-                    //   child: Column(
-                    //     mainAxisAlignment: MainAxisAlignment.center,
-                    //     children: [
-                    //       SvgPicture.asset(
-                    //         SvgName.creditIcon,
-                    //         width: 25,
-                    //         colorFilter: ColorFilter.mode(
-                    //           currentIndex == 3 ? ColorApp.green : Colors.grey,
-                    //           BlendMode.srcIn,
-                    //         ),
-                    //       ),
-                    //       const SizedBox(height: 3),
-                    //       Text(
-                    //         context.l10n.credit,
-                    //         style: context.textTheme.labelSmall!.copyWith(
-                    //           fontSize: 10,
-                    //           color: currentIndex == 3
-                    //               ? ColorApp.green
-                    //               : Colors.grey,
-                    //         ),
-                    //       )
-                    //     ],
-                    //   ),
-                    // ),
                     MaterialButton(
                       padding: EdgeInsets.zero,
                       enableFeedback: false,
@@ -228,7 +228,9 @@ class _MainPageState extends State<MainPage> {
                             SvgName.person,
                             width: 25,
                             colorFilter: ColorFilter.mode(
-                              currentIndex == 3 ? ColorApp.green : Colors.grey,
+                              currentIndex == 3
+                                  ? ColorApp.green
+                                  : ColorApp.grey,
                               BlendMode.srcIn,
                             ),
                           ),
@@ -239,9 +241,18 @@ class _MainPageState extends State<MainPage> {
                               fontSize: 10,
                               color: currentIndex == 3
                                   ? ColorApp.green
-                                  : Colors.grey,
+                                  : ColorApp.grey,
                             ),
-                          )
+                          ),
+                          Container(
+                            height: 2,
+                            width: MediaQuery.sizeOf(context).width * 0.08,
+                            decoration: BoxDecoration(
+                              color: currentIndex == 3
+                                  ? ColorApp.green
+                                  : Colors.white,
+                            ),
+                          ),
                         ],
                       ),
                     ),
