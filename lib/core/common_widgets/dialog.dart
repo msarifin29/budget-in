@@ -22,6 +22,41 @@ Future<T?> simpleDialog<T>(
   );
 }
 
+Future<T?> simpleBackDialog<T>(
+    {required BuildContext context, required String message}) {
+  return showDialog(
+    context: context,
+    builder: (context) {
+      return AlertDialog(
+        title: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(
+              message,
+              textAlign: TextAlign.center,
+              style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                    color: Colors.grey,
+                    fontWeight: FontWeight.w500,
+                  ),
+            ),
+            const SizedBox(height: 20),
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: ColorApp.green,
+              ),
+              onPressed: () => Navigator.pop(context),
+              child: Text(
+                context.l10n.back,
+                style: const TextStyle(color: Colors.white),
+              ),
+            ),
+          ],
+        ),
+      );
+    },
+  );
+}
+
 Future selectedDialog(
   BuildContext context, {
   required Function()? onContinue,

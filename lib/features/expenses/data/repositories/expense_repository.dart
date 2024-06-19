@@ -1,4 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'dart:collection';
+
 import 'package:budget_in/core/core.dart';
 import 'package:budget_in/features/expenses/expenses.dart';
 import 'package:dartz/dartz.dart';
@@ -46,6 +48,12 @@ class ExpenseRepositoryImpl extends ExpenseRepository {
         if (errorResponseData is Map &&
             errorResponseData.containsKey('error')) {
           errorData = errorResponseData['error'];
+        } else if (errorResponseData is Map) {
+          final response = error.response;
+          final LinkedHashMap data = response?.data;
+          final errorResponse = ErrorResponse.fromMap(data);
+
+          return Left(ErrorResponseFailure(errorResponse: errorResponse));
         }
         return Left(
           ServerFailure(

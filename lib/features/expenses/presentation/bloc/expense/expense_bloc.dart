@@ -40,6 +40,9 @@ class ExpenseBloc extends Bloc<ExpenseEvent, ExpenseState> {
         message = 'Connection Faiure';
       } else if (l is ParsingFailure) {
         debugPrint(message = l.message);
+      } else if (l is ErrorResponseFailure) {
+        final error = l.errorResponse;
+        message = error.message ?? '';
       }
       return CreateExpenseFailure(message: message);
     }, (r) => CreateExpenseSuccess(expenseData: r)));

@@ -101,10 +101,15 @@ class _NewExpensePageState extends State<NewExpensePage> {
                     );
               } else if (state is CreateExpenseFailure) {
                 Navigator.pop(context);
-                context.scaffoldMessenger.showSnackBar(
-                  floatingSnackBar(context,
-                      context.l10n.msg_failed_add_new(context.l10n.expense)),
-                );
+                if (state.message.contains('invalid input')) {
+                  simpleBackDialog(
+                      context: context, message: context.l10n.ex_balance_error);
+                } else {
+                  simpleBackDialog(
+                      context: context,
+                      message: context.l10n
+                          .msg_failed_add_new(context.l10n.expense));
+                }
               }
             },
             builder: (context, state) {

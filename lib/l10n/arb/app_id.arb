@@ -216,5 +216,7 @@
   "bank_name": "Nama Bank",
   "empty_filter_expenses": "Saat ini tidak ada pengeluaran yang tercatat untuk {filter}",
   "empty_filter_incomes": "Saat ini tidak ada pendapatan yang tercatat untuk {filter}",
-  "no_connection": "Saat ini Anda sedang offline. Harap terhubung ke internet dan coba lagi"
+  "no_connection": "Saat ini Anda sedang offline. Harap terhubung ke internet dan coba lagi",
+  "ex_balance_error": "Saldo Tidak Mencukupi. Anda tidak memiliki cukup saldo untuk membuat pengeluaran ini",
+  "back": "Kembali"
 }
