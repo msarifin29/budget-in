@@ -97,23 +97,22 @@ class MaxBudgetWidget extends StatelessWidget {
                     ),
                   ],
                 ),
-                IconButton(
-                  onPressed: () {
-                    showModalBottomSheet(
-                      context: context,
-                      shape: const RoundedRectangleBorder(
-                          borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(20),
-                        topRight: Radius.circular(20),
-                      )),
-                      builder: (context) {
-                        return EditMonthlyBudgetWidget(
-                          maxBudget: max,
-                        );
-                      },
-                    );
-                  },
-                  icon: const Icon(Icons.edit_square, color: ColorApp.blue),
+                CircleAvatar(
+                  backgroundColor: ColorApp.grey,
+                  child: IconButton(
+                    onPressed: () {
+                      showDialog(
+                        context: context,
+                        builder: (context) {
+                          return Dialog(
+                            child: EditMonthlyBudgetWidget(maxBudget: max),
+                          );
+                        },
+                      );
+                    },
+                    icon:
+                        const Icon(Icons.edit_outlined, color: ColorApp.night),
+                  ),
                 ),
               ],
             );
@@ -166,6 +165,7 @@ class _EditMonthlyBudgetWidgetState extends State<EditMonthlyBudgetWidget> {
         child: Form(
           key: globalKey,
           child: Column(
+            mainAxisSize: MainAxisSize.min,
             children: [
               FormWidget(
                 title: context.l10n.monthly_budget,
@@ -229,7 +229,6 @@ class _EditMonthlyBudgetWidgetState extends State<EditMonthlyBudgetWidget> {
                   );
                 },
               ),
-              const SizedBox(height: 30),
             ],
           ),
         ),
