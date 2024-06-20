@@ -8,6 +8,7 @@ import 'package:budget_in/core/core.dart';
 import 'package:budget_in/features/expenses/expenses.dart';
 import 'package:budget_in/l10n/l10n.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class DetailExpensesWidget extends StatelessWidget {
   const DetailExpensesWidget({super.key, required this.data});
@@ -16,6 +17,7 @@ class DetailExpensesWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final width = MediaQuery.sizeOf(context).width;
     final category = data.tCategory ?? const TCategory();
     final date = TimeUtil().today(
         ddMMyyy, DateTime.parse(data.createdAt ?? '2012-12-12T15:54:11Z'));
@@ -23,19 +25,80 @@ class DetailExpensesWidget extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
       child: Column(
         mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const SizedBox(height: 20),
-          const BudgetInImage(),
-          const SizedBox(height: 20),
-          InfoWidget(
-              k: context.l10n.type_x(context.l10n.expense),
-              v: ': ${data.expenseType == ConstantType.cash ? context.l10n.cash : context.l10n.non_cash}'),
-          InfoWidget(k: context.l10n.date, v: ': $date'),
-          InfoWidget(
-              k: context.l10n.total,
-              v: ': - Rp. ${Helpers.currency(data.total)}'),
-          InfoWidget(k: context.l10n.category, v: ': ${category.title ?? ''}'),
-          InfoWidget(k: context.l10n.notes, v: ': ${data.notes}'),
+          Text(
+            '-Rp${Helpers.currency(data.total)}',
+            style: GoogleFonts.archivoBlack(
+              textStyle: context.textTheme.displaySmall!.copyWith(
+                fontWeight: FontWeight.bold,
+                color: ColorApp.red.withOpacity(0.8),
+              ),
+            ),
+          ),
+          const SizedBox(height: 10),
+          Text(
+            context.l10n.category,
+            style: GoogleFonts.publicSans(
+              textStyle: context.textTheme.bodyMedium!,
+              color: Colors.black45,
+            ),
+          ),
+          Text(
+            category.title ?? '',
+            style: GoogleFonts.publicSans(
+              textStyle: context.textTheme.titleMedium!,
+            ),
+          ),
+          const SizedBox(height: 10),
+          Text(
+            data.expenseType == ConstantType.cash ? context.l10n.type : 'Bank',
+            style: GoogleFonts.publicSans(
+              textStyle: context.textTheme.bodyMedium!,
+              color: Colors.black45,
+            ),
+          ),
+          Text(
+            data.expenseType == ConstantType.cash
+                ? context.l10n.cash
+                : data.bankName ?? '',
+            style: GoogleFonts.publicSans(
+              textStyle: context.textTheme.bodyMedium!,
+            ),
+          ),
+          const SizedBox(height: 10),
+          Text(
+            context.l10n.date,
+            style: GoogleFonts.publicSans(
+              textStyle: context.textTheme.bodyMedium!,
+              color: Colors.black45,
+            ),
+          ),
+          Text(
+            date,
+            style: GoogleFonts.publicSans(
+              textStyle: context.textTheme.bodyMedium!,
+            ),
+          ),
+          const SizedBox(height: 10),
+          data.notes.isEmpty
+              ? const SizedBox()
+              : Text(
+                  context.l10n.notes,
+                  style: GoogleFonts.publicSans(
+                    textStyle: context.textTheme.bodyMedium!,
+                    color: Colors.black45,
+                  ),
+                ),
+          data.notes.isEmpty
+              ? const SizedBox()
+              : Text(
+                  data.notes,
+                  style: GoogleFonts.publicSans(
+                    textStyle: context.textTheme.bodyMedium!,
+                  ),
+                ),
           const SizedBox(height: 30),
           BlocConsumer<UpdateExpenseBloc, UpdateExpenseState>(
             listener: (context, state) {
@@ -54,20 +117,23 @@ class DetailExpensesWidget extends StatelessWidget {
               if (state is UpdateExpenseLoading) {
                 return const CircularLoading();
               }
-              return PrimaryButton(
-                text: context.l10n.cancel_expense,
-                minSize: const Size(double.infinity, 45),
-                onPressed: () {
-                  context.read<UpdateExpenseBloc>().add(
-                        CancelExpense(
-                          id: data.id,
-                          expenseType: data.expenseType == ConstantType.cash
-                              ? ConstantType.cash
-                              : ConstantType.debit,
-                          accountId: Helpers.getAccountId(),
-                        ),
-                      );
-                },
+              return Align(
+                alignment: Alignment.center,
+                child: PrimaryButton(
+                  text: context.l10n.cancel_expense,
+                  minSize: Size(width * 0.2, 45),
+                  onPressed: () {
+                    context.read<UpdateExpenseBloc>().add(
+                          CancelExpense(
+                            id: data.id,
+                            expenseType: data.expenseType == ConstantType.cash
+                                ? ConstantType.cash
+                                : ConstantType.debit,
+                            accountId: Helpers.getAccountId(),
+                          ),
+                        );
+                  },
+                ),
               );
             },
           ),

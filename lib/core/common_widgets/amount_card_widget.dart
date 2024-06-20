@@ -4,6 +4,7 @@ import 'package:budget_in/l10n/l10n.dart';
 import 'package:flutter/material.dart';
 
 import 'package:budget_in/core/core.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class AmountCardWidget extends StatelessWidget {
   const AmountCardWidget({
@@ -47,29 +48,13 @@ class AmountCardWidget extends StatelessWidget {
                       fontWeight: FontWeight.w600,
                     ),
                   ),
-                  RichText(
-                    text: TextSpan(
-                      text: '+',
-                      style: context.textTheme.bodyMedium!.copyWith(
-                        fontWeight: FontWeight.w600,
+                  Text(
+                    '+Rp${Helpers.currency(data.total)}',
+                    style: GoogleFonts.archivoBlack(
+                      textStyle: context.textTheme.titleSmall!.copyWith(
+                        fontWeight: FontWeight.bold,
                         color: ColorApp.green,
                       ),
-                      children: [
-                        TextSpan(
-                          text: ' Rp',
-                          style: context.textTheme.bodyMedium!.copyWith(
-                            color: ColorApp.green,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                        TextSpan(
-                          text: Helpers.currency(data.total),
-                          style: context.textTheme.bodyLarge!.copyWith(
-                            fontWeight: FontWeight.w600,
-                            color: ColorApp.green,
-                          ),
-                        ),
-                      ],
                     ),
                   ),
                 ],

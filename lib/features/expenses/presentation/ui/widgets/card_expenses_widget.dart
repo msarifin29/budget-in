@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 
 import 'package:budget_in/core/core.dart';
 import 'package:budget_in/features/expenses/expenses.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class CardExpenseWidget extends StatelessWidget {
   const CardExpenseWidget({
@@ -52,39 +53,28 @@ class CardExpenseWidget extends StatelessWidget {
                       fontWeight: FontWeight.w600,
                     ),
                   ),
-                  RichText(
-                    text: TextSpan(
-                      text: x,
-                      style: context.textTheme.bodyMedium!.copyWith(
-                          fontWeight: FontWeight.w600, color: ColorApp.red),
-                      children: [
-                        TextSpan(
-                          text: ' Rp',
-                          style: context.textTheme.bodyLarge!.copyWith(
-                            color: ColorApp.red.withOpacity(0.7),
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                        TextSpan(
-                          text: Helpers.currency(data.total),
-                          style: context.textTheme.bodyLarge!.copyWith(
-                            fontWeight: FontWeight.w600,
-                            color: ColorApp.red.withOpacity(0.7),
-                          ),
-                        ),
-                      ],
+                  Text(
+                    '-Rp${Helpers.currency(data.total)}',
+                    style: GoogleFonts.archivoBlack(
+                      textStyle: context.textTheme.titleSmall!.copyWith(
+                        fontWeight: FontWeight.bold,
+                        color: ColorApp.red.withOpacity(0.8),
+                      ),
                     ),
                   ),
                 ],
               ),
               (data.bankName ?? '').isEmpty
                   ? const SizedBox.shrink()
-                  : Text(
-                      data.bankName ?? '',
-                      style: context.textTheme.bodySmall!.copyWith(
-                        color: titleColor,
-                        overflow: TextOverflow.ellipsis,
-                        fontWeight: FontWeight.w600,
+                  : SizedBox(
+                      width: MediaQuery.sizeOf(context).width * 0.65,
+                      child: Text(
+                        data.bankName ?? '',
+                        style: context.textTheme.bodySmall!.copyWith(
+                          color: titleColor,
+                          overflow: TextOverflow.ellipsis,
+                          fontWeight: FontWeight.w600,
+                        ),
                       ),
                     ),
               Row(

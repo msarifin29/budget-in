@@ -218,5 +218,6 @@
     "empty_filter_incomes": "There are currently no incomes recorded for {filter}",
     "no_connection": "You are currently offline. Please connect to the internet and try again",
     "ex_balance_error": "Insufficient Funds. You don't have enough balance to create this expense",
-    "back": "Back"
+    "back": "Back",
+    "type": "Type"
 }
