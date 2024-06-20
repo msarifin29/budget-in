@@ -112,15 +112,6 @@ class _MainPageState extends State<MainPage> {
                                   : ColorApp.grey,
                             ),
                           ),
-                          Container(
-                            height: 2,
-                            width: MediaQuery.sizeOf(context).width * 0.08,
-                            decoration: BoxDecoration(
-                              color: currentIndex == 0
-                                  ? ColorApp.green
-                                  : Colors.white,
-                            ),
-                          ),
                         ],
                       ),
                     ),
@@ -154,15 +145,6 @@ class _MainPageState extends State<MainPage> {
                               color: currentIndex == 1
                                   ? ColorApp.green
                                   : ColorApp.grey,
-                            ),
-                          ),
-                          Container(
-                            height: 2,
-                            width: MediaQuery.sizeOf(context).width * 0.08,
-                            decoration: BoxDecoration(
-                              color: currentIndex == 1
-                                  ? ColorApp.green
-                                  : Colors.white,
                             ),
                           ),
                         ],
@@ -200,15 +182,6 @@ class _MainPageState extends State<MainPage> {
                                   : ColorApp.grey,
                             ),
                           ),
-                          Container(
-                            height: 2,
-                            width: MediaQuery.sizeOf(context).width * 0.08,
-                            decoration: BoxDecoration(
-                              color: currentIndex == 2
-                                  ? ColorApp.green
-                                  : Colors.white,
-                            ),
-                          ),
                         ],
                       ),
                     ),
@@ -242,15 +215,6 @@ class _MainPageState extends State<MainPage> {
                               color: currentIndex == 3
                                   ? ColorApp.green
                                   : ColorApp.grey,
-                            ),
-                          ),
-                          Container(
-                            height: 2,
-                            width: MediaQuery.sizeOf(context).width * 0.08,
-                            decoration: BoxDecoration(
-                              color: currentIndex == 3
-                                  ? ColorApp.green
-                                  : Colors.white,
                             ),
                           ),
                         ],
