@@ -21,6 +21,8 @@ class LineChartWidgetState extends State<LineChartWidget> {
     return degree * math.pi / 180;
   }
 
+  double? doubleMax;
+
   void getMonthlyEvent() {
     context.read<GetMonthlyReportBloc>().add(
           MonthlyReportInitialEvent(uid: Helpers.getUid()),
@@ -57,12 +59,19 @@ class LineChartWidgetState extends State<LineChartWidget> {
           rawBarGroups = List.generate(
             report.length,
             (i) {
-              double patern = double.parse('1000000');
-              double y1 = report[i].totalExpense.toDouble() / patern;
-              double y2 = report[i].totalIncome.toDouble() / patern;
+              double y1 = report[i].totalExpense.toDouble();
+              double y2 = report[i].totalIncome.toDouble();
               return makeGroupData(i, y1, y2);
             },
           );
+          double highestValue = report[0].totalIncome.toDouble();
+          for (final value in report) {
+            if (value.totalIncome > highestValue) {
+              highestValue = value.totalIncome.toDouble();
+            }
+          }
+          doubleMax = highestValue;
+
           showingBarGroups = rawBarGroups;
 
           return Padding(
@@ -106,11 +115,26 @@ class LineChartWidgetState extends State<LineChartWidget> {
                 Expanded(
                   child: BarChart(
                     BarChartData(
-                      maxY: 5,
+                      maxY: doubleMax,
                       barTouchData: BarTouchData(
                         touchTooltipData: BarTouchTooltipData(
                           tooltipBgColor: Colors.grey,
-                          getTooltipItem: (a, b, c, d) => null,
+                          getTooltipItem: (a, b, c, d) {
+                            return BarTooltipItem(
+                              Helpers.currency(c.toY),
+                              TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: c.color,
+                                fontSize: 18,
+                                shadows: const [
+                                  Shadow(
+                                    color: Colors.black26,
+                                    blurRadius: 12,
+                                  )
+                                ],
+                              ),
+                            );
+                          },
                         ),
                       ),
                       titlesData: FlTitlesData(
@@ -129,7 +153,7 @@ class LineChartWidgetState extends State<LineChartWidget> {
                         ),
                         leftTitles: AxisTitles(
                           sideTitles: SideTitles(
-                            showTitles: true,
+                            showTitles: false,
                             reservedSize: 40,
                             interval: 1,
                             getTitlesWidget: leftTitles,
@@ -218,16 +242,8 @@ class LineChartWidgetState extends State<LineChartWidget> {
       barsSpace: 4,
       x: x,
       barRods: [
-        BarChartRodData(
-          toY: y1 > 5 ? 5.0 : y1,
-          color: ColorApp.red,
-          width: 3,
-        ),
-        BarChartRodData(
-          toY: y2 > 5 ? 5.0 : y2,
-          color: ColorApp.blue,
-          width: 3,
-        ),
+        BarChartRodData(toY: y1, color: ColorApp.red, width: 5),
+        BarChartRodData(toY: y2, color: ColorApp.blue, width: 5),
       ],
     );
   }
