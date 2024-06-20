@@ -254,9 +254,11 @@ class DescMonthlyReportWidget extends StatelessWidget {
     super.key,
     required this.text,
     required this.color,
+    this.style,
   });
   final String text;
   final Color color;
+  final TextStyle? style;
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -265,11 +267,12 @@ class DescMonthlyReportWidget extends StatelessWidget {
         const SizedBox(width: 10),
         Text(
           text,
-          style: context.textTheme.bodySmall!.copyWith(
-            color: color,
-            fontWeight: FontWeight.w400,
-            fontSize: 10,
-          ),
+          style: style ??
+              context.textTheme.bodySmall!.copyWith(
+                color: color,
+                fontWeight: FontWeight.w400,
+                fontSize: 10,
+              ),
         ),
       ],
     );
