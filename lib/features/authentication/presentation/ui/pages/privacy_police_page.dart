@@ -20,11 +20,13 @@ class _PrivacyPolicePageState extends State<PrivacyPolicePage> {
   void initState() {
     super.initState();
     localeCode = PlatformDispatcher.instance.locale.languageCode;
-    context.read<PrivacyBloc>().add(InitialPrivacy(localeCode));
+    String locale = localeCode == 'en' ? 'en' : 'in';
+    context.read<PrivacyBloc>().add(InitialPrivacy(locale));
   }
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.sizeOf(context);
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: const Size(double.infinity, kToolbarHeight),
@@ -37,9 +39,17 @@ class _PrivacyPolicePageState extends State<PrivacyPolicePage> {
         child: BlocBuilder<PrivacyBloc, PrivacyState>(
           builder: (context, state) {
             if (state is PrivacyLoading) {
-              return const Center(child: CircularLoading());
+              return Container(
+                height: size.height,
+                alignment: Alignment.center,
+                child: const CircularLoading(),
+              );
             } else if (state is PrivacyFailure) {
-              return ErrorImageWidget(text: context.l10n.something_wrong);
+              return Container(
+                height: size.height,
+                alignment: Alignment.center,
+                child: ErrorImageWidget(text: context.l10n.something_wrong),
+              );
             } else if (state is PrivacySuccess) {
               return Padding(
                 padding: const EdgeInsets.all(10),
