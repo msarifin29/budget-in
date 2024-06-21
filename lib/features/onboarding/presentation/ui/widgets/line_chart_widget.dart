@@ -242,8 +242,8 @@ class LineChartWidgetState extends State<LineChartWidget> {
       barsSpace: 4,
       x: x,
       barRods: [
-        BarChartRodData(toY: y1, color: ColorApp.red, width: 5),
-        BarChartRodData(toY: y2, color: ColorApp.blue, width: 5),
+        BarChartRodData(toY: y1, color: ColorApp.red, width: 7),
+        BarChartRodData(toY: y2, color: ColorApp.blue, width: 7),
       ],
     );
   }
