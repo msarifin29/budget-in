@@ -58,6 +58,10 @@ class _MonthlyReportDetailPageState extends State<MonthlyReportDetailPage> {
               fontWeight: FontWeight.w600,
             ),
           ),
+          leading: IconButton(
+            onPressed: () => Navigator.pop(context),
+            icon: const Icon(Icons.arrow_back, color: Colors.white),
+          ),
           bottom: TabBar(tabs: [
             Tab(
               child: Text(
