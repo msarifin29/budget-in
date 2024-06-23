@@ -51,3 +51,16 @@ class MonthlyReportDetailUsecase
     return repository.monthlyReportDetail(params);
   }
 }
+
+class MonthlyReportCategoryUsecase
+    implements
+        UseCase<MonthlyReportCategoryResponse, MonthlyReportDetailParam> {
+  final OnboardingRepository repository;
+  MonthlyReportCategoryUsecase({required this.repository});
+
+  @override
+  FutureOr<Either<Failure, MonthlyReportCategoryResponse>> call(
+      MonthlyReportDetailParam params) async {
+    return repository.monthlyReportCategory(params);
+  }
+}

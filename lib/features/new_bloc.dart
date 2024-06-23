@@ -50,6 +50,7 @@ class NewBloc extends StatelessWidget {
         ),
         BlocProvider(create: (context) => sl<PrivacyBloc>()),
         BlocProvider(create: (context) => sl<BankBloc>()),
+        BlocProvider(create: (context) => sl<MonthlyReportCategoryBloc>()),
       ],
       child: child,
     );

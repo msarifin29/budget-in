@@ -13,6 +13,8 @@ abstract class OnboardingRemoteDatasource {
   Future<UpdateBudgetResponse> updateMaxBudget(UpdateMaxBudgetparam param);
   Future<MonthlyReportDetailResponse> monthlyReportDetail(
       MonthlyReportDetailParam param);
+  Future<MonthlyReportCategoryResponse> monthlyReportCategory(
+      MonthlyReportDetailParam param);
 }
 
 class OnboardingRemoteDatasourceImpl extends OnboardingRemoteDatasource {
@@ -97,6 +99,26 @@ class OnboardingRemoteDatasourceImpl extends OnboardingRemoteDatasource {
     );
     if (response.statusCode == 200) {
       return MonthlyReportDetailResponse.fromJson(response.data);
+    } else {
+      throw DioException(
+        requestOptions: RequestOptions(path: path),
+      );
+    }
+  }
+
+  @override
+  Future<MonthlyReportCategoryResponse> monthlyReportCategory(
+      MonthlyReportDetailParam param) async {
+    final String path = '$baseUrl/api/user/monthly-report/category';
+    final Response<dynamic> response = await dio.get(
+      path,
+      options: Options(
+        headers: {BaseUrlConfig.requiredToken: true},
+      ),
+      queryParameters: param.toMap(),
+    );
+    if (response.statusCode == 200) {
+      return MonthlyReportCategoryResponse.fromJson(response.data);
     } else {
       throw DioException(
         requestOptions: RequestOptions(path: path),

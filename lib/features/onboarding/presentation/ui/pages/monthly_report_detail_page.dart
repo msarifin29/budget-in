@@ -1,14 +1,12 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import 'package:budget_in/core/core.dart';
 import 'package:budget_in/features/onboarding/onboarding.dart';
 import 'package:budget_in/injection.dart';
 import 'package:budget_in/l10n/l10n.dart';
-import 'package:data_table_2/data_table_2.dart';
-import 'package:flutter/material.dart';
-
-import 'package:budget_in/core/core.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:intl/intl.dart';
 
 class MonthlyReportDetailPage extends StatefulWidget {
   static const routeName = RouteName.monthlyReportDetailPage;
@@ -26,7 +24,7 @@ class MonthlyReportDetailPage extends StatefulWidget {
 }
 
 class _MonthlyReportDetailPageState extends State<MonthlyReportDetailPage> {
-  final monthlyReportBloc = sl<MonthlyReportDetailBloc>();
+  final monthlyReportBloc = sl<MonthlyReportCategoryBloc>();
   String stringMonth() {
     String m = widget.month.toString();
     if (m.length == 1) {
@@ -38,7 +36,7 @@ class _MonthlyReportDetailPageState extends State<MonthlyReportDetailPage> {
 
   @override
   void initState() {
-    monthlyReportBloc.add(InitialReportDetailEvent(month: stringMonth()));
+    monthlyReportBloc.add(InitialCategory(month: stringMonth()));
     super.initState();
   }
 
@@ -83,228 +81,23 @@ class _MonthlyReportDetailPageState extends State<MonthlyReportDetailPage> {
             ),
           ]),
         ),
-        body: BlocBuilder<MonthlyReportDetailBloc, MonthlyReportDetailState>(
+        body:
+            BlocBuilder<MonthlyReportCategoryBloc, MonthlyReportCategoryState>(
           builder: (context, state) {
-            if (state is MonthlyReportDetailLoading) {
+            if (state is MonthlyReportCategoryLoading) {
               return const CircularLoading();
-            } else if (state is MonthlyReportDetailFailure) {
+            } else if (state is MonthlyReportCategoryFailure) {
               return ErrorImageWidget(
                 text: context.l10n.something_wrong,
               );
-            } else if (state is MonthlyReportDetailSuccess) {
+            } else if (state is MonthlyReportCategorySuccess) {
+              final data = state.data;
               return TabBarView(
                 children: [
-                  Container(
-                    padding: const EdgeInsets.all(16),
-                    child: DataTable2(
-                      columnSpacing: 12,
-                      horizontalMargin: 12,
-                      minWidth: 600,
-                      columns: [
-                        DataColumn2(
-                          label: TextColumn(
-                            text: context.l10n.date,
-                          ),
-                          size: ColumnSize.S,
-                        ),
-                        DataColumn2(
-                          label: TextColumn(text: context.l10n.expense_type),
-                        ),
-                        const DataColumn2(
-                          label: TextColumn(text: 'Total'),
-                        ),
-                        DataColumn2(
-                          label: TextColumn(text: context.l10n.category),
-                          size: ColumnSize.L,
-                        ),
-                        DataColumn2(
-                          label: TextColumn(text: context.l10n.desc),
-                        ),
-                      ],
-                      rows: List<DataRow>.generate(state.data.expenses.length,
-                          (i) {
-                        final item = state.data.expenses[i];
-                        final category = item.tCategory;
-                        String t = NumberFormat.currency(
-                                locale: 'ID', symbol: '', decimalDigits: 0)
-                            .format(item.total);
-                        final date = TimeUtil()
-                            .today('d MMM', DateTime.parse(item.createdAt));
-                        return DataRow(cells: [
-                          DataCell(Text(date)),
-                          DataCell(Text(item.expenseType)),
-                          DataCell(Text('Rp $t')),
-                          DataCell(Text(category.title ?? '')),
-                          DataCell(Text(item.notes))
-                        ]);
-                      }),
-                    ),
-                  ),
-                  Container(
-                    padding: const EdgeInsets.all(16),
-                    child: DataTable2(
-                      columnSpacing: 12,
-                      horizontalMargin: 12,
-                      minWidth: 600,
-                      columns: [
-                        DataColumn2(
-                          label: TextColumn(
-                            text: context.l10n.date,
-                          ),
-                          size: ColumnSize.S,
-                        ),
-                        DataColumn2(
-                          label: TextColumn(text: context.l10n.income_type),
-                        ),
-                        const DataColumn2(
-                          label: TextColumn(text: 'Total'),
-                        ),
-                        DataColumn2(
-                          label: TextColumn(text: context.l10n.category),
-                          size: ColumnSize.S,
-                        ),
-                      ],
-                      rows: List<DataRow>.generate(state.data.incomes.length,
-                          (i) {
-                        final item = state.data.incomes[i];
-                        final category = item.tCategory;
-                        String t = NumberFormat.currency(
-                                locale: 'ID', symbol: '', decimalDigits: 0)
-                            .format(item.total);
-                        final date = TimeUtil()
-                            .today('d MMM', DateTime.parse(item.createdAt));
-                        return DataRow(cells: [
-                          DataCell(Text(date)),
-                          DataCell(Text(item.typeIncome)),
-                          DataCell(Text('Rp $t')),
-                          DataCell(Text(category.title ?? '')),
-                        ]);
-                      }),
-                    ),
-                  ),
+                  ChartExpenseWidget(expenses: data.expenses),
+                  ChartIncomeWidget(incomes: data.incomes),
                 ],
               );
-              // return SingleChildScrollView(
-              //   child: SizedBox(
-              //     height: MediaQuery.sizeOf(context).height,
-              //     child: Column(
-              //       children: [
-              //         Text(
-              //           context.l10n.expense,
-              //           style: context.textTheme.bodyLarge!.copyWith(
-              //             fontWeight: FontWeight.w700,
-              //             color: ColorApp.red,
-              //           ),
-              //         ),
-              //         Expanded(
-              //           child: Container(
-              //             padding: const EdgeInsets.all(16),
-              //             child: DataTable2(
-              //               columnSpacing: 12,
-              //               horizontalMargin: 12,
-              //               minWidth: 600,
-              //               columns: [
-              //                 DataColumn2(
-              //                   label: TextColumn(
-              //                     text: context.l10n.date,
-              //                   ),
-              //                   size: ColumnSize.S,
-              //                 ),
-              //                 DataColumn2(
-              //                   label:
-              //                       TextColumn(text: context.l10n.expense_type),
-              //                 ),
-              //                 const DataColumn2(
-              //                   label: TextColumn(text: 'Total'),
-              //                 ),
-              //                 DataColumn2(
-              //                   label: TextColumn(text: context.l10n.category),
-              //                   size: ColumnSize.L,
-              //                 ),
-              //                 DataColumn2(
-              //                   label: TextColumn(text: context.l10n.desc),
-              //                 ),
-              //               ],
-              //               rows: List<DataRow>.generate(
-              //                   state.data.expenses.length, (i) {
-              //                 final item = state.data.expenses[i];
-              //                 final category = item.tCategory;
-              //                 String t = NumberFormat.currency(
-              //                         locale: 'ID',
-              //                         symbol: '',
-              //                         decimalDigits: 0)
-              //                     .format(item.total);
-              //                 final date = TimeUtil().today(
-              //                     'd MMM', DateTime.parse(item.createdAt));
-              //                 return DataRow(cells: [
-              //                   DataCell(Text(date)),
-              //                   DataCell(Text(item.expenseType)),
-              //                   DataCell(Text('Rp $t')),
-              //                   DataCell(Text(category.title ?? '')),
-              //                   DataCell(Text(item.notes))
-              //                 ]);
-              //               }),
-              //             ),
-              //           ),
-              //         ),
-              //         Text(
-              //           context.l10n.income,
-              //           style: context.textTheme.bodyLarge!.copyWith(
-              //             fontWeight: FontWeight.w700,
-              //             color: ColorApp.green,
-              //           ),
-              //         ),
-              //         Expanded(
-              //           child: Container(
-              //             padding: const EdgeInsets.all(16),
-              //             child: DataTable2(
-              //               columnSpacing: 12,
-              //               horizontalMargin: 12,
-              //               minWidth: 600,
-              //               columns: [
-              //                 DataColumn2(
-              //                   label: TextColumn(
-              //                     text: context.l10n.date,
-              //                   ),
-              //                   size: ColumnSize.S,
-              //                 ),
-              //                 DataColumn2(
-              //                   label:
-              //                       TextColumn(text: context.l10n.income_type),
-              //                 ),
-              //                 const DataColumn2(
-              //                   label: TextColumn(text: 'Total'),
-              //                 ),
-              //                 DataColumn2(
-              //                   label: TextColumn(text: context.l10n.category),
-              //                   size: ColumnSize.S,
-              //                 ),
-              //               ],
-              //               rows: List<DataRow>.generate(
-              //                   state.data.incomes.length, (i) {
-              //                 final item = state.data.incomes[i];
-              //                 final category = item.tCategory;
-              //                 String t = NumberFormat.currency(
-              //                         locale: 'ID',
-              //                         symbol: '',
-              //                         decimalDigits: 0)
-              //                     .format(item.total);
-              //                 final date = TimeUtil().today(
-              //                     'd MMM', DateTime.parse(item.createdAt));
-              //                 return DataRow(cells: [
-              //                   DataCell(Text(date)),
-              //                   DataCell(Text(item.typeIncome)),
-              //                   DataCell(Text('Rp $t')),
-              //                   DataCell(Text(category.title ?? '')),
-              //                 ]);
-              //               }),
-              //             ),
-              //           ),
-              //         ),
-              //       ],
-              //     ),
-              //   ),
-              // );
             }
             return Container();
           },

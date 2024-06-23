@@ -192,6 +192,7 @@ class MonthlyReportPage extends StatelessWidget {
                                                   title: context.l10n.expense,
                                                   total: te,
                                                 ),
+                                                const Divider(),
                                                 TextItem(
                                                   title: context.l10n.total,
                                                   total: stringTotal(
