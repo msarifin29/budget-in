@@ -42,7 +42,9 @@ class DetailExpensesWidget extends StatelessWidget {
             context.l10n.category,
             style: GoogleFonts.publicSans(
               textStyle: context.textTheme.bodyMedium!,
-              color: Colors.black45,
+              color: (Theme.of(context).brightness == Brightness.light
+                  ? Colors.black45
+                  : ColorApp.grey20),
             ),
           ),
           Text(
@@ -56,7 +58,9 @@ class DetailExpensesWidget extends StatelessWidget {
             data.expenseType == ConstantType.cash ? context.l10n.type : 'Bank',
             style: GoogleFonts.publicSans(
               textStyle: context.textTheme.bodyMedium!,
-              color: Colors.black45,
+              color: (Theme.of(context).brightness == Brightness.light
+                  ? Colors.black45
+                  : ColorApp.grey20),
             ),
           ),
           Text(
@@ -72,7 +76,9 @@ class DetailExpensesWidget extends StatelessWidget {
             context.l10n.date,
             style: GoogleFonts.publicSans(
               textStyle: context.textTheme.bodyMedium!,
-              color: Colors.black45,
+              color: (Theme.of(context).brightness == Brightness.light
+                  ? Colors.black45
+                  : ColorApp.grey20),
             ),
           ),
           Text(
@@ -88,7 +94,9 @@ class DetailExpensesWidget extends StatelessWidget {
                   context.l10n.notes,
                   style: GoogleFonts.publicSans(
                     textStyle: context.textTheme.bodyMedium!,
-                    color: Colors.black45,
+                    color: (Theme.of(context).brightness == Brightness.light
+                        ? Colors.black45
+                        : ColorApp.grey20),
                   ),
                 ),
           data.notes.isEmpty
