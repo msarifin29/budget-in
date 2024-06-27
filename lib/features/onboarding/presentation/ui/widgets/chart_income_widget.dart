@@ -59,13 +59,7 @@ class ChartIncomeWidget extends StatelessWidget {
                   padding:
                       const EdgeInsets.symmetric(vertical: 3, horizontal: 5),
                   child: Text(
-                    NumberFormat.currency(
-                      locale: 'ID',
-                      symbol: '',
-                      decimalDigits: 0,
-                    ).format(
-                      incomes[i].total,
-                    ),
+                    incomes[i].title,
                     style: GoogleFonts.publicSans(
                       textStyle: context.textTheme.labelSmall!,
                       fontWeight: FontWeight.w500,
@@ -74,7 +68,7 @@ class ChartIncomeWidget extends StatelessWidget {
                 ),
               ),
             ),
-            badgePositionPercentageOffset: .85,
+            badgePositionPercentageOffset: 1.0,
           );
         },
       );
