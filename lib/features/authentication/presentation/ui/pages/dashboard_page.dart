@@ -33,14 +33,27 @@ class _DashboardPageState extends State<DashboardPage> {
     context.read<AccountBloc>().add(OnInitialAccount(uid: uid));
   }
 
-  void getAllData() {
-    getAccount();
+  void initialDashboard() {
+    context.read<MonthlyReportDashboardBloc>().add(
+          InitialDashboard(
+            month: TimeUtil().today(yyyyMM, DateTime.now()),
+          ),
+        );
+  }
+
+  void maxBudget() {
     context.read<GetMaxBudgetBloc>().add(
           InitialData(
             accountId: Helpers.getAccountId(),
             uid: uid,
           ),
         );
+  }
+
+  void getAllData() {
+    getAccount();
+    maxBudget();
+    initialDashboard();
   }
 
   @override
@@ -87,8 +100,10 @@ class _DashboardPageState extends State<DashboardPage> {
 
                       const MaxBudgetWidget(),
                       const SizedBox(height: 12),
-                      const LineChartWidget(),
-                      const CustomCarouselWidget(),
+                      ChartDashboardWidget(
+                        callBack: () => initialDashboard(),
+                      ),
+                      // const CustomCarouselWidget(),
 
                       // Text(
                       //   'Sponsors',

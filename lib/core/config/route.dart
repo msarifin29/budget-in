@@ -157,11 +157,11 @@ class AppRoute {
         );
 
       case MonthlyReportPage.routeName:
-        final arguments = settings.arguments as Map<String, dynamic>;
-        final data = arguments[NamedArguments.data] as List<MonthlyReportData>;
+        // final arguments = settings.arguments as Map<String, dynamic>;
+        // final data = arguments[NamedArguments.data] as List<MonthlyReportData>;
         return MaterialPageRoute(
           builder: (context) {
-            return MonthlyReportPage(data: data);
+            return const MonthlyReportPage();
           },
         );
       case MonthlyReportDetailPage.routeName:

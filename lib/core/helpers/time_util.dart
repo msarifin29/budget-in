@@ -9,10 +9,12 @@ const monthYear = 'MMMM yyyy';
 const dmy = 'dd MMMM yyyy';
 // 17/10/1945 20:08
 const ddMMyyy = 'dd/MM/yyyy HH:mm';
-// 17/10/1945 20:08
+// 1945
 const yyyy = 'yyyy';
-// 1945-05-14 20:08
+// 1945-05-14
 const yyyyMMdd = 'yyyy-MM-dd';
+// 1945-05
+const yyyyMM = 'yyyy-MM';
 
 class TimeUtil {
   String today(

@@ -219,5 +219,6 @@
   "no_connection": "Saat ini Anda sedang offline. Harap terhubung ke internet dan coba lagi",
   "ex_balance_error": "Saldo Tidak Mencukupi. Anda tidak memiliki cukup saldo untuk membuat pengeluaran ini",
   "back": "Kembali",
-  "type": "Tipe"
+  "type": "Tipe",
+  "more": "Lebih banyak..."
 }

@@ -20,4 +20,5 @@ FutureOr<void> onboardingInjection() async {
   sl.registerLazySingleton(() => GetMonthlyReportBloc(usecase: sl()));
   sl.registerLazySingleton(() => MonthlyReportDetailBloc(usecase: sl()));
   sl.registerLazySingleton(() => MonthlyReportCategoryBloc(usecase: sl()));
+  sl.registerLazySingleton(() => MonthlyReportDashboardBloc(usecase: sl()));
 }

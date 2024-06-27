@@ -92,7 +92,6 @@ class ChartExpenseWidget extends StatelessWidget {
           ),
         ),
         Container(
-          height: size.height * 0.5,
           width: double.infinity,
           padding: const EdgeInsets.symmetric(horizontal: 20),
           child: Column(children: [

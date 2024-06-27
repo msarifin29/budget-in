@@ -5,6 +5,7 @@ import 'package:budget_in/features/authentication/authentication.dart';
 import 'package:budget_in/features/expenses/presentation/ui/expenses_ui.dart';
 import 'package:budget_in/features/expenses/presentation/ui/pages/expense_page.dart';
 import 'package:budget_in/features/incomes/incomes.dart';
+import 'package:budget_in/features/onboarding/onboarding.dart';
 import 'package:budget_in/features/onboarding/presentation/bloc/get_max_budget/get_max_budget_bloc.dart';
 import 'package:budget_in/injection.dart';
 import 'package:budget_in/l10n/l10n.dart';
@@ -46,6 +47,15 @@ class _MainPageState extends State<MainPage> {
             uid: uid,
           ),
         );
+    initialDashboard();
+  }
+
+  void initialDashboard() {
+    context.read<MonthlyReportDashboardBloc>().add(
+          InitialDashboard(
+            month: TimeUtil().today(yyyyMM, DateTime.now()),
+          ),
+        );
   }
 
   void selectedTab(int index) {
@@ -58,7 +68,6 @@ class _MainPageState extends State<MainPage> {
     const DashboardPage(),
     const ExpensePage(),
     const IncomePage(),
-    // const CreditPage(),
     const AccountPage(),
   ];
   @override
