@@ -57,7 +57,7 @@ class CardExpenseWidget extends StatelessWidget {
                     '-Rp${Helpers.currency(data.total)}',
                     style: GoogleFonts.archivoBlack(
                       textStyle: context.textTheme.titleSmall!.copyWith(
-                        fontWeight: FontWeight.bold,
+                        fontWeight: FontWeight.w600,
                         color: ColorApp.red.withOpacity(0.8),
                       ),
                     ),

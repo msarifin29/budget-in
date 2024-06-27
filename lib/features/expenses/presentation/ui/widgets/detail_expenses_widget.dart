@@ -32,7 +32,7 @@ class DetailExpensesWidget extends StatelessWidget {
             '-Rp${Helpers.currency(data.total)}',
             style: GoogleFonts.archivoBlack(
               textStyle: context.textTheme.displaySmall!.copyWith(
-                fontWeight: FontWeight.bold,
+                fontWeight: FontWeight.w600,
                 color: ColorApp.red.withOpacity(0.8),
               ),
             ),
