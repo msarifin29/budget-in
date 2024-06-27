@@ -5,21 +5,42 @@ import 'package:budget_in/l10n/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 
-class AccountPage extends StatelessWidget {
+class AccountPage extends StatefulWidget {
   static const routeName = RouteName.accountPage;
   const AccountPage({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    final spm = sl<SharedPreferencesManager>();
-    final fss = sl<SecureStorageManager>();
-    Future<void> clearLocalData() async {
-      await fss.deleteToken();
-      await spm.clearKey(SharedPreferencesManager.keyUid);
-      await spm.clearKey(SharedPreferencesManager.keyAccountId);
-    }
+  State<AccountPage> createState() => _AccountPageState();
+}
 
+class _AccountPageState extends State<AccountPage> {
+  final curentVersion = ValueNotifier<String>('');
+
+  final spm = sl<SharedPreferencesManager>();
+  final fss = sl<SecureStorageManager>();
+
+  Future<void> clearLocalData() async {
+    await fss.deleteToken();
+    await spm.clearKey(SharedPreferencesManager.keyUid);
+    await spm.clearKey(SharedPreferencesManager.keyAccountId);
+  }
+
+  Future<void> getVersionPlatform() async {
+    await PackageInfo.fromPlatform().then((platform) {
+      curentVersion.value = platform.version;
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getVersionPlatform();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     Future<T?> dialogDeleteAccount<T>() {
       return showDialog(
           context: context,
@@ -160,20 +181,36 @@ class AccountPage extends StatelessWidget {
       ),
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 20),
-        child: PrimaryButton(
-          text: context.l10n.sigout,
-          onPressed: () {
-            selectedDialog(
-              context,
-              onContinue: () {
-                clearLocalData().then((_) => Navigator.pushNamedAndRemoveUntil(
-                    context, RouteName.loginPage, (route) => false));
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Container(
+              padding: const EdgeInsets.only(top: 30.0, bottom: 20.0),
+              child: ValueListenableBuilder(
+                  valueListenable: curentVersion,
+                  builder: (context, v, _) {
+                    return Text(
+                      'Version ${curentVersion.value}',
+                    );
+                  }),
+            ),
+            PrimaryButton(
+              text: context.l10n.sigout,
+              onPressed: () {
+                selectedDialog(
+                  context,
+                  onContinue: () {
+                    clearLocalData().then((_) =>
+                        Navigator.pushNamedAndRemoveUntil(
+                            context, RouteName.loginPage, (route) => false));
+                  },
+                  title: context.l10n.confirm_sign_out,
+                  image: SvgName.signout,
+                  color: ColorApp.green,
+                );
               },
-              title: context.l10n.confirm_sign_out,
-              image: SvgName.signout,
-              color: ColorApp.green,
-            );
-          },
+            ),
+          ],
         ),
       ),
     );

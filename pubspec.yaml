@@ -37,6 +37,7 @@ dependencies:
   intl: ^0.18.0
   json_annotation: ^4.8.1
   lottie: ^3.0.0
+  package_info_plus: ^5.0.1
   shared_preferences: ^2.2.2
   shimmer: ^3.0.0
 
