@@ -10,6 +10,17 @@ class ChartDashboardWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    bool expenseIsEmpty(List<CategoryValue> expenses) {
+      double newTotal = 0.0;
+      for (final t in expenses) {
+        newTotal += t.total;
+      }
+      if (newTotal <= 0) {
+        return true;
+      }
+      return false;
+    }
+
     final size = MediaQuery.sizeOf(context);
     return Card(
       margin: const EdgeInsets.symmetric(horizontal: 12),
@@ -37,13 +48,19 @@ class ChartDashboardWidget extends StatelessWidget {
               });
             } else if (state is MonthlyReportDashboardSuccess) {
               final expenses = state.data.expenses;
+              if (expenseIsEmpty(expenses)) {
+                return Padding(
+                  padding: const EdgeInsets.all(8),
+                  child: EmptyWidget(text: context.l10n.empty_expense_msg),
+                );
+              }
               return Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   ChartExpenseWidget(expenses: expenses),
                   Padding(
                     padding: EdgeInsets.symmetric(
-                      horizontal: size.width * 0.2,
+                      horizontal: size.width * 0.3,
                       vertical: 24,
                     ),
                     child: PrimaryOutlineButton(
