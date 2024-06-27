@@ -103,6 +103,7 @@ class MaxBudgetWidget extends StatelessWidget {
                     onPressed: () {
                       showDialog(
                         context: context,
+                        barrierDismissible: false,
                         builder: (context) {
                           return Dialog(
                             child: EditMonthlyBudgetWidget(maxBudget: max),
@@ -212,20 +213,36 @@ class _EditMonthlyBudgetWidgetState extends State<EditMonthlyBudgetWidget> {
                   if (state is UpdateMaxBudgetLoading) {
                     return const CircularLoading();
                   }
-                  return PrimaryButton(
-                    text: context.l10n.submit,
-                    onPressed: () {
-                      if (globalKey.currentState!.validate()) {
-                        if (textControl.text.trim() == widget.maxBudget) return;
-                        context.read<UpdateMaxBudgetBloc>().add(
-                              OnUpdated(
-                                param: UpdateMaxBudgetparam(
-                                  maxBudget: textControl.text.trim(),
-                                ),
-                              ),
-                            );
-                      }
-                    },
+                  return Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      PrimaryOutlineButton(
+                        text: context.l10n.back,
+                        minSize: const Size(75, 45),
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                      ),
+                      PrimaryButton(
+                        text: context.l10n.submit,
+                        minSize: const Size(75, 45),
+                        onPressed: () {
+                          if (globalKey.currentState!.validate()) {
+                            if (textControl.text.trim() == widget.maxBudget) {
+                              return;
+                            } else {
+                              context.read<UpdateMaxBudgetBloc>().add(
+                                    OnUpdated(
+                                      param: UpdateMaxBudgetparam(
+                                        maxBudget: textControl.text.trim(),
+                                      ),
+                                    ),
+                                  );
+                            }
+                          }
+                        },
+                      ),
+                    ],
                   );
                 },
               ),
