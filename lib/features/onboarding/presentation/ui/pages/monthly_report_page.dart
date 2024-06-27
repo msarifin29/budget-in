@@ -167,9 +167,21 @@ class _MonthlyReportPageState extends State<MonthlyReportPage> {
                                       );
                                     },
                                     child: Card(
-                                      margin: const EdgeInsets.all(5),
-                                      child: Padding(
+                                      elevation: 8,
+                                      margin: const EdgeInsets.symmetric(
+                                        horizontal: 12,
+                                      ),
+                                      child: Container(
                                         padding: const EdgeInsets.all(8),
+                                        decoration: BoxDecoration(
+                                          color:
+                                              (Theme.of(context).brightness ==
+                                                      Brightness.light
+                                                  ? Colors.white
+                                                  : ColorApp.night),
+                                          borderRadius:
+                                              BorderRadius.circular(8),
+                                        ),
                                         child: Column(
                                           crossAxisAlignment:
                                               CrossAxisAlignment.start,

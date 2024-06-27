@@ -13,9 +13,16 @@ class ChartDashboardWidget extends StatelessWidget {
     final size = MediaQuery.sizeOf(context);
     return Card(
       margin: const EdgeInsets.symmetric(horizontal: 12),
+      elevation: 10,
       child: Container(
         width: double.infinity,
         padding: const EdgeInsets.all(8),
+        decoration: BoxDecoration(
+          color: (Theme.of(context).brightness == Brightness.light
+              ? Colors.white
+              : ColorApp.night),
+          borderRadius: BorderRadius.circular(12),
+        ),
         child: BlocBuilder<MonthlyReportDashboardBloc,
             MonthlyReportDashboardState>(
           builder: (context, state) {

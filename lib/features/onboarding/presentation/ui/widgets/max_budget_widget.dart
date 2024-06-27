@@ -13,113 +13,116 @@ class MaxBudgetWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: MediaQuery.sizeOf(context).width,
-      decoration: BoxDecoration(
-        color: (Theme.of(context).brightness == Brightness.light
-            ? ColorApp.grey20
-            : ColorApp.night),
-        borderRadius: BorderRadius.circular(8),
-      ),
-      padding: const EdgeInsets.all(15),
-      margin: const EdgeInsets.symmetric(horizontal: 10),
-      child: BlocBuilder<GetMaxBudgetBloc, GetMaxBudgetState>(
-        builder: (context, state) {
-          if (state is GetMaxBudgetLoading) {
-            return const CircularLoading();
-          } else if (state is GetMaxBudgetFailure) {
-            return RefreshButton(
-              onPressed: () {
-                context.read<GetMaxBudgetBloc>().add(
-                      InitialData(
-                        accountId: Helpers.getAccountId(),
-                        uid: Helpers.getUid(),
-                      ),
-                    );
-              },
-            );
-          } else if (state is GetMaxBudgetSuccess) {
-            final data = state.response.data;
-            String max = NumberFormat.currency(
-                    locale: 'ID', symbol: '', decimalDigits: 0)
-                .format(data.maxBudget);
-
-            final value = data.maxBudget - data.totalExpense;
-            String v = NumberFormat.currency(
-                    locale: 'ID', symbol: '', decimalDigits: 0)
-                .format(value < 0 ? 0 : value);
-            return Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      context.l10n.monthly_budget,
-                      textAlign: TextAlign.center,
-                      style: context.textTheme.bodySmall!.copyWith(
-                          fontWeight: FontWeight.w700,
-                          color:
-                              (Theme.of(context).primaryColor == ColorApp.green
-                                  ? Colors.black
-                                  : Colors.grey)),
-                    ),
-                    Text(
-                      'Rp. $max',
-                      style: context.textTheme.bodyLarge!.copyWith(
-                          fontWeight: FontWeight.w700, color: ColorApp.green),
-                    ),
-                    Row(
-                      children: [
-                        Text(
-                          context.l10n.remaining_budget,
-                          textAlign: TextAlign.center,
-                          style: context.textTheme.labelSmall!.copyWith(
-                              fontWeight: FontWeight.w400,
-                              color: (Theme.of(context).primaryColor ==
-                                      ColorApp.green
-                                  ? Colors.black
-                                  : Colors.grey)),
+    return Card(
+      margin: const EdgeInsets.symmetric(horizontal: 12),
+      elevation: 8,
+      child: Container(
+        width: MediaQuery.sizeOf(context).width,
+        decoration: BoxDecoration(
+          color: (Theme.of(context).brightness == Brightness.light
+              ? Colors.white
+              : ColorApp.night),
+          borderRadius: BorderRadius.circular(8),
+        ),
+        padding: const EdgeInsets.all(12),
+        child: BlocBuilder<GetMaxBudgetBloc, GetMaxBudgetState>(
+          builder: (context, state) {
+            if (state is GetMaxBudgetLoading) {
+              return const CircularLoading();
+            } else if (state is GetMaxBudgetFailure) {
+              return RefreshButton(
+                onPressed: () {
+                  context.read<GetMaxBudgetBloc>().add(
+                        InitialData(
+                          accountId: Helpers.getAccountId(),
+                          uid: Helpers.getUid(),
                         ),
-                        const SizedBox(width: 10),
-                        Text(
-                          'Rp. $v',
-                          style: context.textTheme.bodySmall!.copyWith(
-                            fontWeight: FontWeight.w700,
-                            fontSize: 10,
-                            color: data.totalExpense > data.maxBudget
-                                ? ColorApp.red
-                                : ColorApp.green,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-                CircleAvatar(
-                  backgroundColor: ColorApp.grey,
-                  child: IconButton(
-                    onPressed: () {
-                      showDialog(
-                        context: context,
-                        barrierDismissible: false,
-                        builder: (context) {
-                          return Dialog(
-                            child: EditMonthlyBudgetWidget(maxBudget: max),
-                          );
-                        },
                       );
-                    },
-                    icon:
-                        const Icon(Icons.edit_outlined, color: ColorApp.night),
+                },
+              );
+            } else if (state is GetMaxBudgetSuccess) {
+              final data = state.response.data;
+              String max = NumberFormat.currency(
+                      locale: 'ID', symbol: '', decimalDigits: 0)
+                  .format(data.maxBudget);
+
+              final value = data.maxBudget - data.totalExpense;
+              String v = NumberFormat.currency(
+                      locale: 'ID', symbol: '', decimalDigits: 0)
+                  .format(value < 0 ? 0 : value);
+              return Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        context.l10n.monthly_budget,
+                        textAlign: TextAlign.center,
+                        style: context.textTheme.bodySmall!.copyWith(
+                            fontWeight: FontWeight.w700,
+                            color: (Theme.of(context).primaryColor ==
+                                    ColorApp.green
+                                ? Colors.black
+                                : Colors.grey)),
+                      ),
+                      Text(
+                        'Rp. $max',
+                        style: context.textTheme.bodyLarge!.copyWith(
+                            fontWeight: FontWeight.w700, color: ColorApp.green),
+                      ),
+                      Row(
+                        children: [
+                          Text(
+                            context.l10n.remaining_budget,
+                            textAlign: TextAlign.center,
+                            style: context.textTheme.labelSmall!.copyWith(
+                                fontWeight: FontWeight.w400,
+                                color: (Theme.of(context).primaryColor ==
+                                        ColorApp.green
+                                    ? Colors.black
+                                    : Colors.grey)),
+                          ),
+                          const SizedBox(width: 10),
+                          Text(
+                            'Rp. $v',
+                            style: context.textTheme.bodySmall!.copyWith(
+                              fontWeight: FontWeight.w700,
+                              fontSize: 10,
+                              color: data.totalExpense > data.maxBudget
+                                  ? ColorApp.red
+                                  : ColorApp.green,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
                   ),
-                ),
-              ],
-            );
-          }
-          return const SizedBox();
-        },
+                  CircleAvatar(
+                    backgroundColor: ColorApp.grey,
+                    child: IconButton(
+                      onPressed: () {
+                        showDialog(
+                          context: context,
+                          barrierDismissible: false,
+                          builder: (context) {
+                            return Dialog(
+                              child: EditMonthlyBudgetWidget(maxBudget: max),
+                            );
+                          },
+                        );
+                      },
+                      icon: const Icon(Icons.edit_outlined,
+                          color: ColorApp.night),
+                    ),
+                  ),
+                ],
+              );
+            }
+            return const SizedBox();
+          },
+        ),
       ),
     );
   }
