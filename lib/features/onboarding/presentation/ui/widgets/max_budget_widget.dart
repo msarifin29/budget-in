@@ -49,7 +49,7 @@ class MaxBudgetWidget extends StatelessWidget {
               final value = data.maxBudget - data.totalExpense;
               String v = NumberFormat.currency(
                       locale: 'ID', symbol: '', decimalDigits: 0)
-                  .format(value < 0 ? 0 : value);
+                  .format(value);
               return Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -89,10 +89,8 @@ class MaxBudgetWidget extends StatelessWidget {
                             'Rp. $v',
                             style: context.textTheme.bodySmall!.copyWith(
                               fontWeight: FontWeight.w700,
-                              fontSize: 10,
-                              color: data.totalExpense > data.maxBudget
-                                  ? ColorApp.red
-                                  : ColorApp.green,
+                              fontSize: 12,
+                              color: value <= 0 ? ColorApp.red : ColorApp.green,
                             ),
                           ),
                         ],

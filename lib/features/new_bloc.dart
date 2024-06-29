@@ -16,42 +16,23 @@ class NewBloc extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider(
-          lazy: false,
-          create: (context) =>
-              AccountBloc(accountUsecase: sl<AccountUsecase>()),
-        ),
-        BlocProvider(
-          lazy: false,
-          create: (context) =>
-              ExpenseBloc(createExpenseUsecase: sl<CreateExpenseUsecase>()),
-        ),
-        BlocProvider(
-          lazy: false,
-          create: (context) =>
-              GetExpensesBloc(getExpensesUsecase: sl<GetExpensesUsecase>()),
-        ),
+        // Onboarding
+        BlocProvider(create: (context) => sl<AccountBloc>()),
         BlocProvider(create: (context) => sl<GetMonthlyReportBloc>()),
         BlocProvider(create: (context) => sl<MonthlyReportDetailBloc>()),
-        BlocProvider(
-          create: (context) =>
-              UpdateExpenseBloc(usecase: sl<UpdateExpensesUsecase>()),
-        ),
-        BlocProvider(
-          create: (context) =>
-              CreateIncomeBloc(usecase: sl<CreateIncomeUsecase>()),
-        ),
-        BlocProvider(
-          create: (context) => GetIncomeBloc(usecase: sl<GetIncomesUsecase>()),
-        ),
-        BlocProvider(
-          create: (context) =>
-              GetMaxBudgetBloc(usecase: sl<GetMaxBudgetUsecase>()),
-        ),
-        BlocProvider(create: (context) => sl<PrivacyBloc>()),
-        BlocProvider(create: (context) => sl<BankBloc>()),
+        BlocProvider(create: (context) => sl<GetMaxBudgetBloc>()),
         BlocProvider(create: (context) => sl<MonthlyReportCategoryBloc>()),
         BlocProvider(create: (context) => sl<MonthlyReportDashboardBloc>()),
+        // Expenses
+        BlocProvider(create: (context) => sl<ExpenseBloc>()),
+        BlocProvider(create: (context) => sl<GetExpensesBloc>()),
+        BlocProvider(create: (context) => sl<UpdateExpenseBloc>()),
+        // Incomes
+        BlocProvider(create: (context) => sl<CreateIncomeBloc>()),
+        BlocProvider(create: (context) => sl<GetIncomeBloc>()),
+        // Account
+        BlocProvider(create: (context) => sl<PrivacyBloc>()),
+        BlocProvider(create: (context) => sl<BankBloc>()),
       ],
       child: child,
     );
