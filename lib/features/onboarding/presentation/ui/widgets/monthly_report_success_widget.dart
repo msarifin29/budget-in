@@ -87,6 +87,7 @@ class MonthlyReportSuccessWidget extends StatelessWidget {
                               elevation: 8,
                               margin: const EdgeInsets.symmetric(
                                 horizontal: 12,
+                                vertical: 4,
                               ),
                               child: Container(
                                 padding: const EdgeInsets.all(8),

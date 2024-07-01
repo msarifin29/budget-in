@@ -57,6 +57,15 @@ class ChartDashboardWidget extends StatelessWidget {
               return Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
+                  Text(
+                    TimeUtil().today(monthYear, DateTime.now()),
+                    style: context.textTheme.bodySmall!.copyWith(
+                      fontWeight: FontWeight.w700,
+                      color: (Theme.of(context).brightness == Brightness.light
+                          ? Colors.black
+                          : Colors.grey),
+                    ),
+                  ),
                   ChartExpenseWidget(expenses: expenses),
                   Padding(
                     padding: EdgeInsets.symmetric(
