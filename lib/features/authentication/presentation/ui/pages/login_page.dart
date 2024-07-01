@@ -1,6 +1,4 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first, lines_longer_than_80_chars
-import 'dart:developer';
-
 import 'package:budget_in/core/core.dart';
 import 'package:budget_in/features/authentication/authentication.dart';
 import 'package:budget_in/injection.dart';
@@ -63,7 +61,7 @@ class _LoginPageState extends State<LoginPage> {
                       padding: const EdgeInsets.symmetric(horizontal: 24),
                       child: FormWidget(
                         title: 'Email',
-                        hint: Strings.inputEmail,
+                        hint: 'user@mail.com',
                         controller: emailControl,
                         keyboardType: TextInputType.emailAddress,
                         icon: const Icon(
@@ -175,7 +173,6 @@ class _LoginPageState extends State<LoginPage> {
                   }
                 },
                 builder: (context, state) {
-                  log('state => $state');
                   if (state is LoginLoading) {
                     return const CircularLoading();
                   }
