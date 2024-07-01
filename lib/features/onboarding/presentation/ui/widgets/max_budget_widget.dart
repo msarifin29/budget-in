@@ -6,13 +6,13 @@ import 'package:budget_in/l10n/l10n.dart';
 import 'package:currency_text_input_formatter/currency_text_input_formatter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:intl/intl.dart';
 
 class MaxBudgetWidget extends StatelessWidget {
   const MaxBudgetWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final maxBudgetBloc = context.read<GetMaxBudgetBloc>();
     return Card(
       margin: const EdgeInsets.symmetric(horizontal: 12),
       elevation: 8,
@@ -32,24 +32,20 @@ class MaxBudgetWidget extends StatelessWidget {
             } else if (state is GetMaxBudgetFailure) {
               return RefreshButton(
                 onPressed: () {
-                  context.read<GetMaxBudgetBloc>().add(
-                        InitialData(
-                          accountId: Helpers.getAccountId(),
-                          uid: Helpers.getUid(),
-                        ),
-                      );
+                  maxBudgetBloc.add(
+                    InitialData(
+                      accountId: Helpers.getAccountId(),
+                      uid: Helpers.getUid(),
+                    ),
+                  );
                 },
               );
             } else if (state is GetMaxBudgetSuccess) {
               final data = state.response.data;
-              String max = NumberFormat.currency(
-                      locale: 'ID', symbol: '', decimalDigits: 0)
-                  .format(data.maxBudget);
+              String max = Helpers.currency(data.maxBudget);
 
               final value = data.maxBudget - data.totalExpense;
-              String v = NumberFormat.currency(
-                      locale: 'ID', symbol: '', decimalDigits: 0)
-                  .format(value);
+              String v = Helpers.currency(value);
               return Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [

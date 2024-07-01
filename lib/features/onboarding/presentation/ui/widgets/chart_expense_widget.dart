@@ -4,7 +4,6 @@ import 'package:budget_in/l10n/l10n.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:intl/intl.dart';
 
 class ChartExpenseWidget extends StatelessWidget {
   final List<CategoryValue> expenses;
@@ -81,9 +80,7 @@ class ChartExpenseWidget extends StatelessWidget {
           width: double.infinity,
           child: PieChart(
             PieChartData(
-              pieTouchData: PieTouchData(
-                touchCallback: (FlTouchEvent event, pieTouchResponse) {},
-              ),
+              pieTouchData: PieTouchData(touchCallback: (e, ptr) {}),
               borderData: FlBorderData(show: false),
               sectionsSpace: 0,
               centerSpaceRadius: 0,
@@ -96,11 +93,7 @@ class ChartExpenseWidget extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 20),
           child: Column(children: [
             ...expenses.map((i) {
-              String total = NumberFormat.currency(
-                locale: 'ID',
-                symbol: '',
-                decimalDigits: 0,
-              ).format(i.total);
+              String total = Helpers.currency(i.total);
               return TextItem(
                 title: i.title,
                 total: total,
@@ -109,13 +102,7 @@ class ChartExpenseWidget extends StatelessWidget {
             const Divider(),
             TextItem(
               title: context.l10n.total,
-              total: NumberFormat.currency(
-                locale: 'ID',
-                symbol: '',
-                decimalDigits: 0,
-              ).format(
-                total(),
-              ),
+              total: Helpers.currency(total()),
             )
           ]),
         ),

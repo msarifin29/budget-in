@@ -7,6 +7,8 @@ export 'presentation/ui/widgets/max_budget_widget.dart';
 export 'presentation/ui/widgets/chart_income_widget.dart';
 export 'presentation/ui/widgets/chart_expense_widget.dart';
 export 'presentation/ui/widgets/chart_dahboard_widget.dart';
+export 'presentation/ui/widgets/monthly_report_success_widget.dart';
+export 'presentation/ui/widgets/description_widget.dart';
 export 'data/models/monthly_report.dart';
 export 'data/models/max_budget_response.dart';
 export 'data/models/update_budget_response.dart';
