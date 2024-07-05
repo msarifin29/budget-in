@@ -132,6 +132,7 @@ class CustomPersistenHeader extends SliverPersistentHeaderDelegate {
                                   title: context.l10n.cash,
                                   subtitle: total(cash, state),
                                   isVisible: state,
+                                  isEnable: false,
                                 ),
                               ],
                             );
@@ -199,12 +200,14 @@ class ContentBalanceWidget extends StatelessWidget {
     required this.title,
     required this.subtitle,
     required this.isVisible,
+    this.isEnable = true,
     this.onPressed,
   });
   final String image;
   final String title;
   final String subtitle;
   final bool isVisible;
+  final bool isEnable;
   final VoidCallback? onPressed;
   @override
   Widget build(BuildContext context) {
@@ -246,15 +249,17 @@ class ContentBalanceWidget extends StatelessWidget {
             ],
           ),
         ),
-        IconButton(
-          onPressed: onPressed,
-          icon: Icon(
-            isVisible == true
-                ? Icons.visibility_outlined
-                : Icons.visibility_off_outlined,
-            color: ColorApp.green,
-          ),
-        )
+        isEnable
+            ? IconButton(
+                onPressed: onPressed,
+                icon: Icon(
+                  isVisible == true
+                      ? Icons.visibility_outlined
+                      : Icons.visibility_off_outlined,
+                  color: ColorApp.green,
+                ),
+              )
+            : const SizedBox.shrink(),
       ],
     );
   }
