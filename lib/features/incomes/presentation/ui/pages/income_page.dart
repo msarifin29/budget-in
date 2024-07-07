@@ -185,12 +185,15 @@ class _IncomePageState extends State<IncomePage>
           ),
         ),
         floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            Navigator.pushNamed(context, NewIncomePage.routeName).then((_) {
+          onPressed: () async {
+            final isUpdated =
+                await Navigator.pushNamed(context, NewIncomePage.routeName)
+                    as bool?;
+            if (isUpdated ?? false) {
               pagingController.itemList = [];
               pagingController.appendPage([], 1);
               pagingController.refresh();
-            });
+            }
           },
           tooltip: context.l10n.new_expense,
           backgroundColor: Theme.of(context).cardColor,

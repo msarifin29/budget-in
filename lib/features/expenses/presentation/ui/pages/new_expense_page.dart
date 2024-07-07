@@ -89,7 +89,7 @@ class _NewExpensePageState extends State<NewExpensePage> {
             listener: (context, state) {
               if (state is CreateExpenseSuccess) {
                 Navigator.pop(context);
-                Navigator.pop(context);
+                Navigator.pop(context, true);
                 context.scaffoldMessenger.showSnackBar(
                   floatingSnackBar(
                     context,

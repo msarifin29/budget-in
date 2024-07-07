@@ -220,5 +220,6 @@
     "ex_balance_error": "Insufficient Funds. You don't have enough balance to create this expense",
     "back": "Back",
     "type": "Type",
-    "more": "More..."
+    "more": "More...",
+    "cash_withdrawal": "Cash Withdrawal"
 }

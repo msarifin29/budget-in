@@ -220,5 +220,6 @@
   "ex_balance_error": "Saldo Tidak Mencukupi. Anda tidak memiliki cukup saldo untuk membuat pengeluaran ini",
   "back": "Kembali",
   "type": "Tipe",
-  "more": "Lebih banyak..."
+  "more": "Lebih banyak...",
+  "cash_withdrawal": "Tarik Tunai"
 }
