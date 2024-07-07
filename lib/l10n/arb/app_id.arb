@@ -221,5 +221,7 @@
   "back": "Kembali",
   "type": "Tipe",
   "more": "Lebih banyak...",
-  "cash_withdrawal": "Tarik Tunai"
+  "cash_withdrawal": "Tarik Tunai",
+  "withdraw_success": "Saldo Tunai Anda berhasil ditambahkan",
+  "withdraw_failed": "Gagal menambahkan saldo Tunai. Pastikan saldo debit Anda cukup untuk penarikan tunai"
 }

@@ -221,5 +221,7 @@
     "back": "Back",
     "type": "Type",
     "more": "More...",
-    "cash_withdrawal": "Cash Withdrawal"
+    "cash_withdrawal": "Cash Withdrawal",
+    "withdraw_success": "Your cash balance has been successfully added",
+    "withdraw_failed": "Failed to add cash balance. Please ensure your debit has sufficient funds for cash withdrawals."
 }

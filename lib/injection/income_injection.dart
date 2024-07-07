@@ -11,7 +11,9 @@ FutureOr<void> incomeInjection() async {
 
   sl.registerLazySingleton(() => CreateIncomeUsecase(repository: sl()));
   sl.registerLazySingleton(() => GetIncomesUsecase(repository: sl()));
+  sl.registerLazySingleton(() => CashWithdrawalUsecase(repository: sl()));
 
   sl.registerLazySingleton(() => CreateIncomeBloc(usecase: sl()));
   sl.registerLazySingleton(() => GetIncomeBloc(usecase: sl()));
+  sl.registerLazySingleton(() => CashWithdrawalBloc(usecase: sl()));
 }

@@ -10,6 +10,7 @@ import 'package:budget_in/features/incomes/incomes.dart';
 abstract class IncomeRemoteDatasource {
   Future<bool> create(CreateIncomeParams params);
   Future<GetIncomeResponse> getIncomes(GetIncomeParams params);
+  Future<bool> cashWithdrawal(CashWithdrawalParam params);
 }
 
 class IncomeRemoteDatasourceImpl extends IncomeRemoteDatasource {
@@ -49,6 +50,27 @@ class IncomeRemoteDatasourceImpl extends IncomeRemoteDatasource {
     );
     if (response.statusCode == 200) {
       return GetIncomeResponse.fromJson(response.data);
+    } else {
+      throw DioException(
+        requestOptions: RequestOptions(path: path),
+      );
+    }
+  }
+
+  @override
+  Future<bool> cashWithdrawal(CashWithdrawalParam params) async {
+    final String path = '$baseUrl/api/incomes/cash-withdrawal';
+    final Response<dynamic> response = await dio.put(
+      path,
+      options: Options(headers: {
+        BaseUrlConfig.requiredToken: true,
+      }, extra: {
+        BaseUrlConfig.requiredAccountId: true,
+      }),
+      data: params.toMap(),
+    );
+    if (response.statusCode == 200) {
+      return true;
     } else {
       throw DioException(
         requestOptions: RequestOptions(path: path),
@@ -140,4 +162,20 @@ class GetIncomeParams extends Equatable {
 
   @override
   List<Object?> get props => [typeIncome, categoryId, page];
+}
+
+class CashWithdrawalParam extends Equatable {
+  final String total;
+  const CashWithdrawalParam({
+    required this.total,
+  });
+
+  Map<String, dynamic> toMap() {
+    return {
+      "total": int.parse(total.replaceAll(RegExp(r'[^0-9]'), '')),
+    };
+  }
+
+  @override
+  List<Object?> get props => [total];
 }

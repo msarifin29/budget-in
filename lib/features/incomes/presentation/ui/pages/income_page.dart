@@ -1,8 +1,10 @@
 import 'package:budget_in/core/core.dart';
 import 'package:budget_in/features/incomes/incomes.dart';
 import 'package:budget_in/l10n/l10n.dart';
+import 'package:currency_text_input_formatter/currency_text_input_formatter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 
 class IncomePage extends StatefulWidget {
@@ -156,9 +158,7 @@ class _IncomePageState extends State<IncomePage>
                       pagingController: pagingController,
                       builderDelegate: PagedChildBuilderDelegate(
                         itemBuilder: (context, x, index) {
-                          return AmountCardWidget(
-                            data: x,
-                          );
+                          return AmountCardWidget(data: x);
                         },
                         firstPageProgressIndicatorBuilder: (context) {
                           return const CircularLoading();
@@ -186,14 +186,72 @@ class _IncomePageState extends State<IncomePage>
         ),
         floatingActionButton: FloatingActionButton(
           onPressed: () async {
-            final isUpdated =
-                await Navigator.pushNamed(context, NewIncomePage.routeName)
-                    as bool?;
-            if (isUpdated ?? false) {
-              pagingController.itemList = [];
-              pagingController.appendPage([], 1);
-              pagingController.refresh();
-            }
+            showModalBottomSheet(
+              context: context,
+              builder: (context) {
+                return Container(
+                  padding: const EdgeInsets.symmetric(vertical: 20),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      ListTile(
+                        leading: SvgPicture.asset(
+                          SvgName.incomeIcon,
+                          width: 25,
+                          colorFilter: const ColorFilter.mode(
+                            ColorApp.green,
+                            BlendMode.srcIn,
+                          ),
+                        ),
+                        title: Text(
+                          context.l10n.new_income,
+                          style: context.textTheme.bodyMedium!.copyWith(
+                            color: ColorApp.green,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                        onTap: () async {
+                          Navigator.pop(context);
+                          final isUpdated = await Navigator.pushNamed(
+                              context, NewIncomePage.routeName) as bool?;
+                          if (isUpdated ?? false) {
+                            pagingController.itemList = [];
+                            pagingController.appendPage([], 1);
+                            pagingController.refresh();
+                          }
+                        },
+                      ),
+                      ListTile(
+                        leading: SvgPicture.asset(
+                          SvgName.bank,
+                          width: 25,
+                          colorFilter: const ColorFilter.mode(
+                            ColorApp.green,
+                            BlendMode.srcIn,
+                          ),
+                        ),
+                        title: Text(
+                          context.l10n.cash_withdrawal,
+                          style: context.textTheme.bodyMedium!.copyWith(
+                            color: ColorApp.green,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                        onTap: () async {
+                          Navigator.pop(context);
+                          await showDialog(
+                            context: context,
+                            builder: (context) {
+                              return const CashWithdrawalWidget();
+                            },
+                          );
+                        },
+                      ),
+                    ],
+                  ),
+                );
+              },
+            );
           },
           tooltip: context.l10n.new_expense,
           backgroundColor: Theme.of(context).cardColor,
@@ -201,6 +259,114 @@ class _IncomePageState extends State<IncomePage>
             Icons.add_circle_outline,
             color: ColorApp.green,
             size: 40,
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class CashWithdrawalWidget extends StatefulWidget {
+  const CashWithdrawalWidget({super.key});
+
+  @override
+  State<CashWithdrawalWidget> createState() => _CashWithdrawalWidgetState();
+}
+
+class _CashWithdrawalWidgetState extends State<CashWithdrawalWidget> {
+  final textControl = TextEditingController();
+  final globalKey = GlobalKey<FormState>();
+
+  @override
+  void dispose() {
+    textControl.dispose();
+    super.dispose();
+  }
+
+  final formatter = CurrencyTextInputFormatter(
+    locale: 'id',
+    symbol: '',
+    decimalDigits: 0,
+  );
+  @override
+  Widget build(BuildContext context) {
+    return Dialog(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 30),
+        child: Form(
+          key: globalKey,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              FormWidget(
+                title: context.l10n.total,
+                hint: '0',
+                controller: textControl,
+                keyboardType: TextInputType.number,
+                inputFormatters: [formatter],
+                style: context.textTheme.titleSmall!.copyWith(
+                  color: ColorApp.green,
+                  fontWeight: FontWeight.w600,
+                ),
+                validator: (value) {
+                  if (value == null ||
+                      value.isEmpty ||
+                      double.parse(value.replaceAll(RegExp(r'[^0-9]'), '')) <
+                          50000) {
+                    return context.l10n.empty_cash;
+                  }
+                  return null;
+                },
+              ),
+              const SizedBox(height: 20),
+              BlocConsumer<CashWithdrawalBloc, CashWithdrawalState>(
+                listener: (context, state) {
+                  if (state is CashWithdrawalFailure) {
+                    Navigator.pop(context);
+                    simpleBackDialog(
+                      context: context,
+                      message: context.l10n.withdraw_failed,
+                    );
+                  } else if (state is CashWithdrawalSuccess) {
+                    Navigator.pop(context);
+                    simpleBackDialog(
+                      context: context,
+                      message: context.l10n.withdraw_success,
+                    );
+                  }
+                },
+                builder: (context, state) {
+                  if (state is CashWithdrawalLoading) {
+                    return const CircularLoading();
+                  }
+                  return Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      PrimaryOutlineButton(
+                        text: context.l10n.back,
+                        minSize: const Size(75, 45),
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                      ),
+                      PrimaryButton(
+                        text: context.l10n.submit,
+                        minSize: const Size(75, 45),
+                        onPressed: () {
+                          if (globalKey.currentState!.validate()) {
+                            context.read<CashWithdrawalBloc>().add(
+                                  Withdraw(
+                                    total: textControl.text.trim(),
+                                  ),
+                                );
+                          }
+                        },
+                      ),
+                    ],
+                  );
+                },
+              ),
+            ],
           ),
         ),
       ),

@@ -2,6 +2,7 @@ export 'presentation/ui/pages/income_page.dart';
 export 'presentation/ui/pages/new_income_page.dart';
 export 'presentation/bloc/create_income/create_income_bloc.dart';
 export 'presentation/bloc/get_incomes/get_income_bloc.dart';
+export 'presentation/bloc/cash_withdrawal/cash_withdrawal_bloc.dart';
 export 'data/datesources/income_remote_datasource.dart';
 export 'data/models/income_response.dart';
 export 'data/models/get_income_response.dart';

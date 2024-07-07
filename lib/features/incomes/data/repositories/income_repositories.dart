@@ -8,6 +8,7 @@ import 'package:dio/dio.dart';
 abstract class IncomeRepository {
   Future<Either<Failure, bool>> create(CreateIncomeParams params);
   Future<Either<Failure, GetIncomeResponse>> getIncomes(GetIncomeParams params);
+  Future<Either<Failure, bool>> cashWithdrawal(CashWithdrawalParam params);
 }
 
 class IncomeRepositoryImpl extends IncomeRepository {
@@ -68,6 +69,50 @@ class IncomeRepositoryImpl extends IncomeRepository {
       try {
         final GetIncomeResponse response =
             await remoteDataSource.getIncomes(params);
+        return Right(response);
+      } on DioException catch (error) {
+        if (error.response == null) {
+          return Left(
+            ServerFailure(
+              DataApiFailure(message: error.message),
+            ),
+          );
+        }
+        final errorResponseData = error.response?.data;
+        dynamic errorData;
+        String errorMessage = Helpers.getErrorMessageFromEndpoint(
+          errorResponseData,
+          error.message ?? '',
+          error.response?.statusCode ?? 400,
+        );
+        if (errorResponseData is Map &&
+            errorResponseData.containsKey('error')) {
+          errorData = errorResponseData['error'];
+        }
+        return Left(
+          ServerFailure(
+            DataApiFailure(
+              message: errorMessage,
+              code: error.response?.statusCode,
+              status: errorData,
+            ),
+          ),
+        );
+      } on TypeError catch (error) {
+        return Left(ParsingFailure(error.toString()));
+      }
+    } else {
+      return Left(ConnectionFailure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, bool>> cashWithdrawal(
+      CashWithdrawalParam params) async {
+    bool isConnected = await networkInfo.isConnected;
+    if (isConnected) {
+      try {
+        final bool response = await remoteDataSource.cashWithdrawal(params);
         return Right(response);
       } on DioException catch (error) {
         if (error.response == null) {

@@ -30,6 +30,7 @@ class NewBloc extends StatelessWidget {
         // Incomes
         BlocProvider(create: (context) => sl<CreateIncomeBloc>()),
         BlocProvider(create: (context) => sl<GetIncomeBloc>()),
+        BlocProvider(create: (context) => sl<CashWithdrawalBloc>()),
         // Account
         BlocProvider(create: (context) => sl<PrivacyBloc>()),
         BlocProvider(create: (context) => sl<BankBloc>()),

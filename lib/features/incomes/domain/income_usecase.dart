@@ -28,3 +28,14 @@ class GetIncomesUsecase implements UseCase<GetIncomeResponse, GetIncomeParams> {
     return await repository.getIncomes(params);
   }
 }
+
+class CashWithdrawalUsecase implements UseCase<bool, CashWithdrawalParam> {
+  final IncomeRepository repository;
+  CashWithdrawalUsecase({
+    required this.repository,
+  });
+  @override
+  FutureOr<Either<Failure, bool>> call(params) async {
+    return await repository.cashWithdrawal(params);
+  }
+}
